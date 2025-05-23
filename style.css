@@ -98,7 +98,8 @@ body {
 }
 
 html {
-    scroll-behavior: smooth;
+    /* Removed scroll-behavior: smooth to prevent auto-scrolling issues on mobile */
+    /* Smooth scrolling is now controlled by JavaScript */
 }
 
 /* ===== APPLE TYPOGRAPHY SCALE ===== */

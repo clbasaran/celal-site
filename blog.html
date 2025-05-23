@@ -80,6 +80,9 @@
     <script>
         // Apple-style blog page animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Force scroll to top on page load to prevent auto-scrolling issues
+            window.scrollTo(0, 0);
+            
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -115,6 +118,14 @@
                     this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
                 });
             });
+        });
+
+        // Additional safety measure to prevent unwanted scrolling
+        window.addEventListener('load', function() {
+            // Force scroll to top again after everything is loaded
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100);
         });
     </script>
 </body>
