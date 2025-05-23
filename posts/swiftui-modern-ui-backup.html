@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <title>SwiftUI ile Modern Arayüz Tasarımı — Celal Başaran</title>
+    <meta name="description" content="SwiftUI'nin gücünü kullanarak modern ve kullanıcı dostu arayüzler tasarlamanın püf noktalarını keşfedin.">
+    <meta name="keywords" content="SwiftUI, iOS Development, UI Design, Animation, State Management">
+    <meta name="author" content="Celal Başaran">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://celalbasaran.com/posts/swiftui-modern-ui.html" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="SwiftUI ile Modern Arayüz Tasarımı">
+    <meta property="og:description" content="SwiftUI'nin gücünü kullanarak modern ve kullanıcı dostu arayüzler tasarlamanın püf noktları.">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
+    <meta property="og:url" content="https://celalbasaran.com/posts/swiftui-modern-ui.html">
+    <meta property="og:type" content="article">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../cb.png">
+    <link rel="apple-touch-icon" href="../cb.png">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="blog-post-page">
+        <div class="container">
+            <!-- Navigation -->
+            <nav class="post-nav">
+                <a href="../blog.html" class="back-link">← Blog'a Geri Dön</a>
+            </nav>
+            
+            <!-- Post Header -->
+            <header class="post-header">
+                <div class="post-date">23 Mayıs 2025</div>
+                <h1 class="post-title">SwiftUI ile Modern Arayüz Tasarımı</h1>
+                <p class="post-subtitle">SwiftUI'nin gücünü kullanarak modern ve kullanıcı dostu arayüzler tasarlamanın püf noktalarını keşfedelim</p>
+            </header>
+            
+            <!-- Post Content -->
+            <article class="post-content">
+                <h2>Giriş</h2>
+                <p>SwiftUI, Apple'ın modern uygulama geliştirme yaklaşımını temsil eden devrim niteliğinde bir framework. Declarative syntax ile arayüz tasarımında yeni bir dönem başlatan SwiftUI, geliştiricilere hem hız hem de esneklik sunuyor.</p>
+                
+                <p>Bu yazıda, SwiftUI ile modern arayüz tasarımının temel prensiplerini, best practice'leri ve gerçek dünya örneklerini inceleyeceğiz.</p>
+                
+                <h2>Modern Arayüz Tasarımının Temelleri</h2>
+                <p>Modern iOS arayüz tasarımının başlıca karakteristikleri:</p>
+                
+                <ul>
+                    <li><strong>Minimalizm:</strong> Gereksiz elementleri kaldırarak odağı içeriğe yönlendirmek</li>
+                    <li><strong>Tutarlılık:</strong> Apple'ın Human Interface Guidelines'ına uygun tasarım</li>
+                    <li><strong>Accessibility:</strong> Tüm kullanıcılar için erişilebilir deneyim</li>
+                    <li><strong>Responsive Design:</strong> Farklı ekran boyutlarına uyum</li>
+                </ul>
+                
+                <h2>SwiftUI'de State Management</h2>
+                <p>SwiftUI'nin en güçlü yanlarından biri, state management'ın basitliği. <code>@State</code>, <code>@Binding</code>, ve <code>@ObservableObject</code> gibi property wrapper'lar ile veri akışını kontrol etmek oldukça kolay:</p>
+                
+                <pre><code>struct ContentView: View {
+    @State private var isShowingDetail = false
+    
+    var body: some View {
+        VStack {
+            Text("Ana Ekran")
+                .font(.title)
+            
+            Button("Detayları Göster") {
+                isShowingDetail.toggle()
+            }
+            .sheet(isPresented: $isShowingDetail) {
+                DetailView()
+            }
+        }
+    }
+}</code></pre>
+                
+                <h2>Animation ve Transitions</h2>
+                <p>SwiftUI ile animasyon eklemek son derece basit. <code>.animation()</code> modifier'ı ile smooth geçişler oluşturabilirsiniz:</p>
+                
+                <pre><code>@State private var isExpanded = false
+
+var body: some View {
+    VStack {
+        RoundedRectangle(cornerRadius: 12)
+            .fill(Color.blue)
+            .frame(
+                width: isExpanded ? 200 : 100,
+                height: isExpanded ? 200 : 100
+            )
+            .animation(.spring(), value: isExpanded)
+        
+        Button("Büyüt/Küçült") {
+            isExpanded.toggle()
+        }
+    }
+}</code></pre>
+                
+                <h2>Layout System</h2>
+                <p>SwiftUI'nin flexible layout sistemi, <code>VStack</code>, <code>HStack</code>, ve <code>ZStack</code> container'ları ile başlar. Daha karmaşık layoutlar için <code>LazyVGrid</code> ve <code>LazyHGrid</code> kullanabilirsiniz.</p>
+                
+                <h2>Sonuç</h2>
+                <p>SwiftUI ile modern arayüz tasarımı, doğru yaklaşım ve best practice'lerle oldukça keyifli bir süreç haline geliyor. Framework'ün declarative yapısı, kod okunabilirliğini artırırken, geliştirme sürecini de hızlandırıyor.</p>
+                
+                <p>Bu konuda daha derinlemesine bilgi almak istiyorsanız, Apple'ın resmi SwiftUI tutorials'ını ve WWDC session'larını takip etmenizi öneririm.</p>
+            </article>
+            
+            <!-- Post Footer -->
+            <footer class="post-footer">
+                <div class="author-info">
+                    <img src="../cb.png" alt="Celal Başaran" class="author-avatar">
+                    <div class="author-details">
+                        <h4>Celal Başaran</h4>
+                        <p>iOS Developer & Swift Enthusiast</p>
+                    </div>
+                </div>
+                
+                <nav class="post-navigation">
+                    <a href="../blog.html" class="nav-link">← Tüm Yazılar</a>
+                    <a href="#" class="nav-link">Sonraki Yazı →</a>
+                </nav>
+            </footer>
+        </div>
+    </div>
+</body>
+</html> 

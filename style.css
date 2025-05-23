@@ -1250,4 +1250,410 @@ html {
         flex-direction: column;
         text-align: center;
     }
+}
+
+/* ========================
+   🎨 INTERACTIVE UX ANIMATIONS & EFFECTS
+   Advanced animations for enhanced user experience
+   ======================== */
+
+/* ===== SMOOTH TRANSITIONS & PERFORMANCE ===== */
+*, *::before, *::after {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Optimize performance for animations */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    .animate-on-scroll {
+        will-change: transform, opacity;
+    }
+}
+
+/* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.scale-in {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ===== STAGGERED ANIMATIONS ===== */
+.stagger-delay-1 { transition-delay: 0.1s; }
+.stagger-delay-2 { transition-delay: 0.2s; }
+.stagger-delay-3 { transition-delay: 0.3s; }
+.stagger-delay-4 { transition-delay: 0.4s; }
+.stagger-delay-5 { transition-delay: 0.5s; }
+.stagger-delay-6 { transition-delay: 0.6s; }
+
+/* ===== ENHANCED PROJECT CARDS ===== */
+.project-card {
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 
+        0 25px 50px rgba(0, 122, 255, 0.2),
+        0 0 50px rgba(0, 122, 255, 0.1);
+}
+
+.project-card:hover::before {
+    background: linear-gradient(135deg, 
+        rgba(0, 122, 255, 0.1) 0%, 
+        rgba(88, 86, 214, 0.1) 100%);
+}
+
+.project-icon {
+    font-size: 3rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card:hover .project-icon {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 8px 16px rgba(0, 122, 255, 0.3));
+}
+
+/* ===== ENHANCED BLOG CARDS ===== */
+.blog-card {
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 20px 40px rgba(0, 122, 255, 0.15),
+        0 0 40px rgba(0, 122, 255, 0.08);
+}
+
+.blog-icon {
+    font-size: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.blog-card:hover .blog-icon {
+    transform: scale(1.15) rotate(-3deg);
+    filter: drop-shadow(0 6px 12px rgba(0, 122, 255, 0.25));
+}
+
+.blog-title {
+    transition: color 0.3s ease;
+}
+
+.blog-card:hover .blog-title {
+    color: var(--primary);
+}
+
+.blog-link {
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.blog-card:hover .blog-link::before {
+    width: 100%;
+}
+
+/* ===== ENHANCED SKILL BADGES ===== */
+.skill-badge {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.skill-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent);
+    transition: left 0.6s ease;
+}
+
+.skill-badge:hover::before {
+    left: 100%;
+}
+
+.skill-badge:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 122, 255, 0.2);
+}
+
+/* ===== ENHANCED BUTTONS ===== */
+.cta-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    transition: all 0.6s ease;
+    transform: translate(-50%, -50%);
+}
+
+.cta-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cta-button:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+/* ===== ENHANCED TIMELINE ===== */
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.timeline-dot {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.timeline-item:hover .timeline-dot {
+    transform: scale(1.3);
+    background: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 122, 255, 0.5);
+}
+
+/* ===== NAVBAR SCROLL EFFECT ===== */
+.navbar-scrolled {
+    background: rgba(28, 28, 30, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ===== PARALLAX EFFECT FOR HERO ===== */
+.hero-parallax {
+    transition: transform 0.1s linear;
+}
+
+/* ===== ENHANCED CONTACT FORM ===== */
+.form-group input:focus,
+.form-group textarea:focus {
+    transform: scale(1.02);
+    box-shadow: 
+        0 0 0 3px rgba(0, 122, 255, 0.1),
+        0 8px 25px rgba(0, 122, 255, 0.15);
+}
+
+.submit-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.submit-button:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* ===== FLOATING ELEMENTS ENHANCED ===== */
+.floating-element {
+    transition: all 0.3s ease;
+}
+
+.floating-element:hover {
+    transform: scale(1.2);
+    opacity: 0.2;
+}
+
+/* ===== SECTION REVEAL ANIMATIONS ===== */
+.section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== GRADIENT ANIMATION ===== */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+    background: linear-gradient(-45deg, var(--primary), var(--secondary), var(--primary), var(--accent));
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+}
+
+/* ===== PULSE ANIMATION ===== */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse-on-hover:hover {
+    animation: pulse 1s ease infinite;
+}
+
+/* ===== TYPING ANIMATION ===== */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--primary); }
+}
+
+.typing-effect {
+    overflow: hidden;
+    border-right: 2px solid var(--primary);
+    white-space: nowrap;
+    animation: 
+        typing 3.5s steps(40, end),
+        blink 0.5s step-end infinite;
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 768px) {
+    /* Reduce animation intensity on mobile */
+    .project-card:hover,
+    .blog-card:hover {
+        transform: translateY(-4px);
+    }
+    
+    .skill-badge:hover {
+        transform: translateY(-1px) scale(1.02);
+    }
+    
+    /* Faster animations on mobile */
+    *, *::before, *::after {
+        transition-duration: 0.2s;
+    }
+    
+    .fade-in,
+    .slide-in-left,
+    .slide-in-right,
+    .scale-in {
+        transition-duration: 0.5s;
+    }
+}
+
+/* ===== PERFORMANCE OPTIMIZATION ===== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Force GPU acceleration for smooth animations */
+.project-card,
+.blog-card,
+.skill-badge,
+.cta-button,
+.timeline-item {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* ===== ENHANCED SHADOWS ===== */
+.enhanced-shadow {
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.enhanced-shadow:hover {
+    box-shadow: 
+        0 20px 25px rgba(0, 0, 0, 0.15),
+        0 10px 10px rgba(0, 0, 0, 0.1);
 } 
