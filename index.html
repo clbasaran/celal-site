@@ -3,934 +3,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
+    <meta name="color-scheme" content="light">
     
-    <title>Celal Başaran — Swift Visionary</title>
-    <meta name="description" content="Next-generation iOS & Swift developer creating revolutionary digital experiences. Portfolio of Celal Başaran.">
-    <meta name="keywords" content="Swift Developer, iOS Developer, macOS Developer, SwiftUI, UIKit, Mobile Innovation, Celal Başaran">
+    <title>Celal Başaran — iOS Developer</title>
+    <meta name="description" content="iOS ve macOS geliştirici. Swift, SwiftUI ve modern Apple teknolojileri ile innovative uygulamalar geliştiriyorum.">
     <meta name="author" content="Celal Başaran">
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://celalbasaran.com" />
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Celal Başaran — Swift Visionary">
-    <meta property="og:description" content="Next-generation iOS & Swift developer creating revolutionary digital experiences.">
-    <meta property="og:image" content="https://celalbasaran.com/cb.png">
-    <meta property="og:url" content="https://celalbasaran.com">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Celal Başaran — iOS Developer">
+    <meta property="og:description" content="iOS ve macOS geliştirici. Swift, SwiftUI ile innovative uygulamalar.">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Celal Başaran Portfolio">
-    <meta property="og:locale" content="tr_TR">
+    <meta property="og:url" content="https://celalbasaran.com">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
     
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Celal Başaran — Swift Visionary">
-    <meta name="twitter:description" content="Next-generation iOS & Swift developer creating revolutionary digital experiences.">
-    <meta name="twitter:image" content="https://celalbasaran.com/cb.png">
-    <meta name="twitter:site" content="@celalbasaran">
-    <meta name="twitter:creator" content="@celalbasaran">
-    
-    <!-- Apple Meta Tags -->
-    <meta name="theme-color" content="#667eea">
+    <!-- Apple specific -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Celal Başaran">
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Favicon and Icons -->
+    <!-- Icons -->
     <link rel="icon" type="image/png" href="cb.png">
     <link rel="apple-touch-icon" href="cb.png">
     
-    <!-- Preload Critical Resources -->
+    <!-- Preload critical resources -->
     <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="cb.png" as="image">
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="customCursor"></div>
-    
-    <!-- Scroll Progress Indicator -->
-    <div class="scroll-progress" id="scrollProgress"></div>
-    
-    <!-- Revolutionary Navigation Bar -->
-    <nav class="navbar" id="navbar" role="navigation" aria-label="Ana navigasyon">
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Ana navigasyon">
         <div class="container">
             <div class="navbar-content">
-                <a href="#home" class="navbar-brand interactive-element" aria-label="Ana sayfa">
-                    Celal Başaran
-                </a>
-                <div class="navbar-links">
-                    <a href="#about" class="navbar-link interactive-element">Vizyon</a>
-                    <a href="#skills" class="navbar-link interactive-element">Uzmanlık</a>
-                    <a href="#projects" class="navbar-link interactive-element">İnnovasyon</a>
-                    <a href="#blog" class="navbar-link interactive-element">İçgörüler</a>
-                    <a href="#contact" class="navbar-link interactive-element">Bağlantı</a>
-                </div>
+                <a href="#home" class="navbar-brand">Celal Başaran</a>
+                <ul class="navbar-nav">
+                    <li><a href="#about" class="navbar-link">Hakkımda</a></li>
+                    <li><a href="#projects" class="navbar-link">Projeler</a></li>
+                    <li><a href="#blog" class="navbar-link">Blog</a></li>
+                    <li><a href="#contact" class="navbar-link">İletişim</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section Revolution -->
-    <section id="home" class="hero" role="banner">
-        <div class="particles" id="particles"></div>
-        <div class="container">
-            <div class="hero-container">
-                <h1 class="hero-title">
-                    Geleceği <br>
-                    Kodluyorum
-                </h1>
-                <p class="hero-subtitle">
-                    iOS & macOS Evreninde Dijital Devrim
-                </p>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <h1 class="hero-title">iOS Developer</h1>
+                <p class="hero-subtitle">Swift ile gelecek nesil uygulamalar geliştiriyorum</p>
                 <p class="hero-description">
-                    Modern Apple ekosisteminde sınırları zorlayan, kullanıcı deneyimini yeniden tanımlayan ve teknoloji ile sanatı harmanlayan yenilikçi çözümler üretiyorum.
+                    Modern Apple teknolojileri kullanarak kullanıcı odaklı, 
+                    performanslı ve güvenilir iOS ve macOS uygulamaları tasarlıyorum.
                 </p>
-                <div class="hero-cta">
-                    <a href="#projects" class="btn btn-primary interactive-element">
-                        <span>İnnovasyona Yolculuk</span>
-                        <span aria-hidden="true">✨</span>
-                    </a>
-                    <a href="#about" class="btn btn-secondary interactive-element">
-                        <span>Vizyonumu Keşfet</span>
-                        <span aria-hidden="true">🚀</span>
-                    </a>
+                <div style="display: flex; gap: var(--spacing-16); justify-content: center; flex-wrap: wrap; margin-top: var(--spacing-48);">
+                    <a href="#projects" class="btn btn-primary btn-large">Projelerimi İncele</a>
+                    <a href="#contact" class="btn btn-secondary btn-large">İletişime Geç</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Vision & About Section -->
-    <section id="about" class="section section-alt" role="main">
-        <div class="container">
-            <header class="section-header">
-                <h2 class="section-title fade-in">Vizyoner Yaklaşım</h2>
-                <p class="section-subtitle fade-in">
-                    Teknoloji ve yaratıcılığın buluştuğu noktada, geleceğin dijital deneyimlerini tasarlıyorum
-                </p>
-            </header>
-            
-            <div class="about-grid">
-                <div class="slide-in-left">
-                    <div class="avatar-container interactive-element">
-                        <div class="avatar-ring">
-                            <div class="avatar-inner">
-                                <img src="cb.png" alt="Celal Başaran - Swift Vizyoneri" class="avatar-image" />
-                            </div>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="grid grid-2" style="align-items: center;">
+                    <div>
+                        <img src="cb.png" alt="Celal Başaran" style="width: 100%; max-width: 400px; height: auto; border-radius: var(--radius-24); box-shadow: var(--shadow-xl);">
+                    </div>
+                    <div>
+                        <h2 class="text-headline mb-24">Merhaba, ben Celal</h2>
+                        <div class="text-body mb-24" style="color: var(--color-tertiary);">
+                            Muğla Sıtkı Koçman Üniversitesi'nde öğrenim gören, 
+                            iOS ve macOS geliştirme alanında uzmanlaşan bir geliştiriciyim.
                         </div>
+                        <div class="text-body mb-24" style="color: var(--color-tertiary);">
+                            Swift, SwiftUI ve modern Apple framework'leri kullanarak 
+                            kullanıcı deneyimini ön planda tutan innovative çözümler üretiyorum.
+                        </div>
+                        <div class="text-body mb-32" style="color: var(--color-tertiary);">
+                            Firebase, Core Data ve Cloud technolojileri ile backend 
+                            entegrasyonları gerçekleştiriyor, performanslı ve scalable uygulamalar geliştiriyorum.
+                        </div>
+                        <a href="#contact" class="btn btn-primary">Birlikte Çalışalım</a>
                     </div>
                 </div>
-                
-                <div class="about-content slide-in-right">
-                    <p class="about-text fade-in stagger-1">
-                        Merhabalar, ben Celal. Muğla Sıtkı Koçman Üniversitesi'nde öğrenim görmekte olan bir teknoloji vizyoneriyim.
-                    </p>
-                    <p class="about-text fade-in stagger-2">
-                        Sadece kod yazmakla kalmıyor, dijital deneyimlerin her aşamasında devrimci bir yaklaşım sergiliyorum. Fikir üretiminden mimari tasarıma, pixel mükemmelliğinden lansma stratejilerine kadar her detayda mükemmeliyetçi bir duruş sergiliyorum.
-                    </p>
-                    <p class="about-text fade-in stagger-3">
-                        iOS ve macOS ekosisteminde native uygulamalar geliştirirken, Swift ve SwiftUI'nin gücünü kullanarak gelecek nesil kullanıcı arayüzleri yaratıyorum. Arka planda akıllı veri mimarileri ve gerçek zamanlı bulut servisleriyle entegre sistemler kuruyorum.
-                    </p>
-                    <p class="about-text fade-in stagger-4">
-                        Kullanıcı deneyimi tasarımında Apple'ın Human Interface Guidelines'ını temel alarak, sezgisel animasyonlar, akıllı mikroetkileşimler ve performans optimizasyonu ile her dokunuşun bir hikaye anlatmasını sağlıyorum.
-                    </p>
-                    <p class="about-text fade-in stagger-5">
-                        Yazılım geliştirmenin ötesinde, görsel sanatlar alanında da uzmanım. Final Cut Pro, Adobe Creative Suite ve Luminar gibi profesyonel araçlarla sinematik videolar, etkileyici fotoğraf kompozisyonları ve post-prodüksiyon süreçlerinde sanatsal dokularla teknolojiyi harmanlıyorum.
-                    </p>
-                    <p class="about-text fade-in stagger-6">
-                        <strong>Misyonum:</strong> Her proje bir sanat eseri olmalı. Teknik mükemmellik, estetik zarafet ve kullanıcı odaklı tasarım bir araya geldiğinde ortaya çıkan sihirli deneyimler yaratmak için buradayım.
-                    </p>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Revolutionary Skills Section -->
-    <section id="skills" class="section" role="main">
-        <div class="container">
-            <header class="section-header">
-                <h2 class="section-title fade-in">Teknik Uzmanlık</h2>
-                <p class="section-subtitle fade-in">
-                    Cutting-edge teknolojiler ve yaratıcı araçlarla gelecek nesil deneyimler inşa ediyorum
-                </p>
-            </header>
-            
-            <div class="grid grid-auto">
-                <article class="skill-card interactive-element slide-in-left stagger-1">
-                    <div class="skill-icon" aria-hidden="true">⚡</div>
-                    <h3 class="skill-title">Core Programming</h3>
-                    <div class="skill-badges" role="list">
-                        <span class="skill-badge expert interactive-element" role="listitem">Swift 6</span>
-                        <span class="skill-badge expert interactive-element" role="listitem">Swift Concurrency</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">Objective-C</span>
-                        <span class="skill-badge intermediate interactive-element" role="listitem">Python</span>
-                        <span class="skill-badge intermediate interactive-element" role="listitem">TypeScript</span>
-                    </div>
-                </article>
-
-                <article class="skill-card interactive-element scale-in stagger-2">
-                    <div class="skill-icon" aria-hidden="true">🚀</div>
-                    <h3 class="skill-title">Apple Ecosystem</h3>
-                    <div class="skill-badges" role="list">
-                        <span class="skill-badge expert interactive-element" role="listitem">SwiftUI</span>
-                        <span class="skill-badge expert interactive-element" role="listitem">UIKit</span>
-                        <span class="skill-badge expert interactive-element" role="listitem">Combine</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">Core Animation</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">CloudKit</span>
-                        <span class="skill-badge expert interactive-element" role="listitem">Core Data</span>
-                    </div>
-                </article>
-
-                <article class="skill-card interactive-element slide-in-right stagger-3">
-                    <div class="skill-icon" aria-hidden="true">🏗️</div>
-                    <h3 class="skill-title">Modern Architecture</h3>
-                    <div class="skill-badges" role="list">
-                        <span class="skill-badge expert interactive-element" role="listitem">MVVM</span>
-                        <span class="skill-badge expert interactive-element" role="listitem">Clean Architecture</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">Coordinator Pattern</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">TCA</span>
-                        <span class="skill-badge intermediate interactive-element" role="listitem">VIPER</span>
-                    </div>
-                </article>
-
-                <article class="skill-card interactive-element slide-in-left stagger-4">
-                    <div class="skill-icon" aria-hidden="true">☁️</div>
-                    <h3 class="skill-title">Cloud & Backend</h3>
-                    <div class="skill-badges" role="list">
-                        <span class="skill-badge expert interactive-element" role="listitem">Firebase Suite</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">GraphQL</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">REST APIs</span>
-                        <span class="skill-badge intermediate interactive-element" role="listitem">AWS Services</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">WebSocket</span>
-                    </div>
-                </article>
-
-                <article class="skill-card interactive-element scale-in stagger-5">
-                    <div class="skill-icon" aria-hidden="true">🎨</div>
-                    <h3 class="skill-title">Visual Creation</h3>
-                    <div class="skill-badges" role="list">
-                        <span class="skill-badge expert interactive-element" role="listitem">Final Cut Pro</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">Adobe Creative Suite</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">Color Grading</span>
-                        <span class="skill-badge expert interactive-element" role="listitem">Motion Graphics</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">UI/UX Design</span>
-                    </div>
-                </article>
-
-                <article class="skill-card interactive-element slide-in-right stagger-6">
-                    <div class="skill-icon" aria-hidden="true">⚙️</div>
-                    <h3 class="skill-title">DevOps & Tools</h3>
-                    <div class="skill-badges" role="list">
-                        <span class="skill-badge advanced interactive-element" role="listitem">Xcode</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">Git</span>
-                        <span class="skill-badge intermediate interactive-element" role="listitem">FastLane</span>
-                        <span class="skill-badge intermediate interactive-element" role="listitem">TestFlight</span>
-                        <span class="skill-badge advanced interactive-element" role="listitem">CI/CD</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Innovation Projects Section -->
-    <section id="projects" class="section section-alt" role="main">
-        <div class="container">
-            <header class="section-header">
-                <h2 class="section-title fade-in">İnovasyon Laboratuvarı</h2>
-                <p class="section-subtitle fade-in">
-                    Gelecek nesil teknolojilerle yaratılan devrimci iOS ve macOS deneyimleri
-                </p>
-            </header>
-            
-            <div class="grid grid-auto">
-                <article class="project-card interactive-element slide-in-left stagger-1">
-                    <div class="project-hero">
-                        <div class="project-icon" aria-hidden="true">📊</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Sinyalci — AI Trading Oracle</h3>
-                        <p class="project-description">
-                            Binance piyasalarında yapay zeka destekli teknik analiz yapan devrimci iOS uygulaması. RSI, MACD, Stochastic gibi 20+ indikatörü gerçek zamanlı analiz ederek akıllı yatırım sinyalleri üretir. Machine learning algoritmaları ile piyasa trendlerini öngörür.
-                        </p>
-                        
-                        <div class="tech-stack" role="list" aria-label="Kullanılan teknolojiler">
-                            <span class="tech-tag interactive-element" role="listitem">SwiftUI</span>
-                            <span class="tech-tag interactive-element" role="listitem">Firebase ML</span>
-                            <span class="tech-tag interactive-element" role="listitem">Combine</span>
-                            <span class="tech-tag interactive-element" role="listitem">Swift Concurrency</span>
-                            <span class="tech-tag interactive-element" role="listitem">Core ML</span>
-                            <span class="tech-tag interactive-element" role="listitem">Charts</span>
-                        </div>
-                        
-                        <div class="project-status">
-                            <span class="status-badge status-in-progress">🧠 AI Development</span>
-                        </div>
-                        
-                        <div class="project-links">
-                            <a href="https://github.com/clbasaran/sinyalci" class="project-link interactive-element" target="_blank" rel="noopener noreferrer">
-                                Keşfet
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card interactive-element scale-in stagger-2">
-                    <div class="project-hero">
-                        <div class="project-icon" aria-hidden="true">🧹</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">CleanithX — System Virtuoso</h3>
-                        <p class="project-description">
-                            CleanMyMac'i geride bırakan next-generation macOS sistem optimizasyon aracı. Quantum-level RAM yönetimi, AI-powered başlangıç optimizasyonu ve gelişmiş disk analizi ile Mac performansını maksimuma çıkarır. SwiftUI ile tasarlanmış liquid interface.
-                        </p>
-                        
-                        <div class="tech-stack" role="list" aria-label="Kullanılan teknolojiler">
-                            <span class="tech-tag interactive-element" role="listitem">Swift 6</span>
-                            <span class="tech-tag interactive-element" role="listitem">SwiftUI</span>
-                            <span class="tech-tag interactive-element" role="listitem">AppKit</span>
-                            <span class="tech-tag interactive-element" role="listitem">System Services</span>
-                            <span class="tech-tag interactive-element" role="listitem">Core Animation</span>
-                            <span class="tech-tag interactive-element" role="listitem">Metal</span>
-                        </div>
-                        
-                        <div class="project-status">
-                            <span class="status-badge status-in-progress">⚡ Performance Mode</span>
-                        </div>
-                        
-                        <div class="project-links">
-                            <a href="https://github.com/clbasaran/cleanithx" class="project-link interactive-element" target="_blank" rel="noopener noreferrer">
-                                Deneyimle
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card interactive-element slide-in-right stagger-3">
-                    <div class="project-hero">
-                        <div class="project-icon" aria-hidden="true">💬</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">CelalBasaran — Digital Universe</h3>
-                        <p class="project-description">
-                            Firebase'in gücüyle desteklenen kişisel iOS evrenimin dijital uzantısı. Real-time mesajlaşma, kullanıcı etkileşim analitiği ve dinamik admin dashboard'u ile interaktif bir deneyim sunuyor. Apple'ın tasarım prensipleriyle minimize edilmiş arayüz.
-                        </p>
-                        
-                        <div class="tech-stack" role="list" aria-label="Kullanılan teknolojiler">
-                            <span class="tech-tag interactive-element" role="listitem">SwiftUI</span>
-                            <span class="tech-tag interactive-element" role="listitem">Firebase Suite</span>
-                            <span class="tech-tag interactive-element" role="listitem">Firestore</span>
-                            <span class="tech-tag interactive-element" role="listitem">Cloud Functions</span>
-                            <span class="tech-tag interactive-element" role="listitem">Push Notifications</span>
-                            <span class="tech-tag interactive-element" role="listitem">Analytics</span>
-                        </div>
-                        
-                        <div class="project-status">
-                            <span class="status-badge status-in-progress">🌟 Digital Evolution</span>
-                        </div>
-                        
-                        <div class="project-links">
-                            <a href="https://github.com/clbasaran/celalbasaran-app" class="project-link interactive-element" target="_blank" rel="noopener noreferrer">
-                                Evrenimde Gezin
-                            </a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Insights Blog Section -->
-    <section id="blog" class="section" role="main">
-        <div class="container">
-            <header class="section-header">
-                <h2 class="section-title fade-in">💡 Dijital İçgörüler</h2>
-                <p class="section-subtitle fade-in">
-                    iOS ecosystem, Swift innovations ve teknoloji geleceği üzerine deep-dive analizler
-                </p>
-            </header>
-            
-            <div class="grid grid-auto">
-                <article class="blog-card interactive-element slide-in-left stagger-1">
-                    <div class="blog-icon" aria-hidden="true">📱</div>
-                    <h3 class="blog-title">SwiftUI ile Quantum UI Tasarımı</h3>
-                    <p class="blog-description">
-                        SwiftUI'nin sınırlarını zorlayarak next-level kullanıcı arayüzleri inşa etme sanatı. Advanced animations, liquid layouts ve reactive state management ile gelecek nesil mobile deneyimler yaratma rehberi.
+        <!-- Skills Section -->
+        <section class="section" style="background-color: var(--color-gray-50);">
+            <div class="container">
+                <div class="text-center mb-64">
+                    <h2 class="text-headline mb-24">Teknoloji Stack</h2>
+                    <p class="text-body-large" style="color: var(--color-tertiary); max-width: 600px; margin: 0 auto;">
+                        Modern Apple ekosisteminde development için kullandığım araçlar ve teknolojiler
                     </p>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-23">23 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/swiftui-modern-ui.html" class="blog-link interactive-element" aria-label="SwiftUI Quantum UI yazısını oku">
-                        Deep Dive →
-                    </a>
-                </article>
-
-                <article class="blog-card interactive-element scale-in stagger-2">
-                    <div class="blog-icon" aria-hidden="true">🍏</div>
-                    <h3 class="blog-title">iOS 18 Revolution: Developer's Goldmine</h3>
-                    <p class="blog-description">
-                        Apple'ın iOS 18 ile getirdiği game-changing features ve bunların developer ecosystem'inde yaratacağı devrim. Enhanced widgets, App Intents 2.0 ve AI integration derinlemesine analizi.
-                    </p>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-15">15 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/ios18-yenilikler.html" class="blog-link interactive-element" aria-label="iOS 18 Revolution yazısını oku">
-                        Keşfet →
-                    </a>
-                </article>
-
-                <article class="blog-card interactive-element slide-in-right stagger-3">
-                    <div class="blog-icon" aria-hidden="true">🔥</div>
-                    <h3 class="blog-title">Firebase + iOS: Real-time Magic</h3>
-                    <p class="blog-description">
-                        Firebase'in full potential'ını kullanarak iOS uygulamalarında real-time data synchronization, advanced analytics ve serverless architecture kurma master class'ı. Combine ile reactive programming patterns.
-                    </p>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-08">8 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/firebase-realtime.html" class="blog-link interactive-element" aria-label="Firebase Real-time Magic yazısını oku">
-                        Master Class →
-                    </a>
-                </article>
-
-                <article class="blog-card interactive-element fade-in stagger-4">
-                    <div class="blog-icon" aria-hidden="true">💻</div>
-                    <h3 class="blog-title">macOS Development: The Ultimate Journey</h3>
-                    <p class="blog-description">
-                        iOS developer'ların macOS evrenine geçiş rehberi. AppKit vs SwiftUI battleground'u, platform-specific optimizations ve desktop-class app architecture patterns. Pro tips included.
-                    </p>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-01">1 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/macos-rehberi.html" class="blog-link interactive-element" aria-label="macOS Ultimate Journey yazısını oku">
-                        Journey Begin →
-                    </a>
-                </article>
-            </div>
-            
-            <div class="text-center" style="margin-top: var(--space-5xl);">
-                <a href="blog.html" class="btn btn-secondary interactive-element">
-                    <span>🧠 Tüm İçgörüleri Keşfet</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Professional Journey Timeline -->
-    <section id="experience" class="section section-alt" role="main">
-        <div class="container">
-            <header class="section-header">
-                <h2 class="section-title fade-in">Profesyonel Evrim</h2>
-                <p class="section-subtitle fade-in">
-                    Sürekli öğrenme ve inovasyon yolculuğumda atılan adımlar
-                </p>
-            </header>
-            
-            <div class="contact-grid">
-                <div class="slide-in-left">
-                    <h3 style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--accent-blue); margin-bottom: var(--space-2xl);">
-                        🚀 Career Evolution
-                    </h3>
-                    <div class="timeline">
-                        <div class="timeline-item fade-in stagger-1">
-                            <div class="timeline-dot"></div>
-                            <h4 class="timeline-title">Senior iOS Developer</h4>
-                            <div class="timeline-company">Freelance Innovation Lab • 2022 - Present</div>
-                            <p class="timeline-description">
-                                Cutting-edge iOS ve macOS uygulamaları geliştiriyorum. SwiftUI, Firebase, machine learning entegrasyonları ile next-generation user experiences yaratıyorum. Startup'lardan enterprise çözümlerine kadar geniş yelpazede projeler yönetiyorum.
-                            </p>
-                        </div>
-                        
-                        <div class="timeline-item fade-in stagger-2">
-                            <div class="timeline-dot"></div>
-                            <h4 class="timeline-title">Tech Visionary & Product Architect</h4>
-                            <div class="timeline-company">Independent Innovation • 2021 - Present</div>
-                            <p class="timeline-description">
-                                Kendi vizyonumla revolutionary projeler hayata geçiriyorum. CleanithX, Sinyalci ve CelalBasaran app gibi innovative solutions'lar geliştirerek teknoloji dünyasında iz bırakıyorum. Open source contributions ve community building.
-                            </p>
-                        </div>
-                    </div>
                 </div>
                 
-                <div class="scale-in stagger-1">
-                    <h3 style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--accent-purple); margin-bottom: var(--space-2xl);">
-                        🎓 Knowledge Foundation
-                    </h3>
-                    <div class="contact-item interactive-element">
-                        <div class="contact-icon" aria-hidden="true">🏛️</div>
-                        <div class="contact-text">
-                            <span class="contact-label">Akademik Foundation</span>
-                            <div class="contact-value">
-                                <div style="font-weight: var(--font-bold); margin-bottom: var(--space-sm);">
-                                    Kamu Yönetimi Lisans
-                                </div>
-                                <div style="color: var(--text-secondary); font-size: var(--text-sm);">
-                                    Muğla Sıtkı Koçman Üniversitesi • 2020 - Devam
-                                </div>
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">Core Development</div>
+                            <h3 class="card-title">iOS & macOS</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Swift 6, SwiftUI, UIKit, Combine framework'leri ile native 
+                                iOS ve macOS uygulamaları geliştiriyorum.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div style="display: flex; gap: var(--spacing-8); flex-wrap: wrap;">
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-blue); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Swift</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-blue); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">SwiftUI</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-blue); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">UIKit</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="contact-item interactive-element">
-                        <div class="contact-icon" aria-hidden="true">🏆</div>
-                        <div class="contact-text">
-                            <span class="contact-label">Technical Certifications</span>
-                            <div class="contact-value">
-                                <div style="font-weight: var(--font-bold); margin-bottom: var(--space-sm);">
-                                    iOS Development Mastery
-                                </div>
-                                <div style="color: var(--text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-md);">
-                                    Apple Developer Academy • 2023
-                                </div>
-                                <div style="font-weight: var(--font-bold); margin-bottom: var(--space-sm);">
-                                    Firebase Expert Certification
-                                </div>
-                                <div style="color: var(--text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-md);">
-                                    Google Cloud • 2022
-                                </div>
-                                <div style="font-weight: var(--font-bold); margin-bottom: var(--space-sm);">
-                                    SwiftUI Ninja Certificate
-                                </div>
-                                <div style="color: var(--text-secondary); font-size: var(--text-sm);">
-                                    Advanced iOS Academy • 2023
-                                </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">Backend & Cloud</div>
+                            <h3 class="card-title">Data & Services</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Firebase, Core Data, REST API'lar ile backend entegrasyonları 
+                                ve real-time data synchronization.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div style="display: flex; gap: var(--spacing-8); flex-wrap: wrap;">
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-600); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Firebase</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-600); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Core Data</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-600); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">REST API</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">Design & Tools</div>
+                            <h3 class="card-title">Development</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Xcode, Git, Apple HIG principles ve modern development 
+                                workflow'leri ile professional development.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div style="display: flex; gap: var(--spacing-8); flex-wrap: wrap;">
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-400); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Xcode</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-400); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Git</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-400); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">HIG</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Connection Hub -->
-    <section id="contact" class="section" role="main">
-        <div class="container">
-            <header class="section-header">
-                <h2 class="section-title fade-in">Dijital Bağlantı</h2>
-                <p class="section-subtitle fade-in">
-                    Revolutionary projects için collaboration yapmaya hazır mısınız?
-                </p>
-            </header>
-            
-            <div class="contact-grid">
-                <div class="slide-in-left">
-                    <h3>Next-Level iOS & macOS Partnerships</h3>
-                    <p>
-                        Cutting-edge iOS ve macOS development projelerinizde experienced innovation partner arıyorsanız, birlikte extraordinary dijital deneyimler yaratmaya var mısınız? Modern Swift ecosystem ile future-proof solutions üretelim.
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="text-center mb-64">
+                    <h2 class="text-headline mb-24">Projeler</h2>
+                    <p class="text-body-large" style="color: var(--color-tertiary); max-width: 600px; margin: 0 auto;">
+                        Swift ve modern Apple teknolojileri ile geliştirdiğim uygulamalar
                     </p>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-item interactive-element fade-in stagger-1">
-                            <div class="contact-icon" aria-hidden="true">📧</div>
-                            <div class="contact-text">
-                                <span class="contact-label">Direct Email</span>
-                                <a href="mailto:celal@celalbasaran.com" class="contact-value interactive-element">
-                                    celal@celalbasaran.com
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item interactive-element fade-in stagger-2">
-                            <div class="contact-icon" aria-hidden="true">💼</div>
-                            <div class="contact-text">
-                                <span class="contact-label">Professional Network</span>
-                                <a href="https://linkedin.com/in/celalbasaran" class="contact-value interactive-element" target="_blank" rel="noopener noreferrer">
-                                    linkedin.com/in/celalbasaran
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item interactive-element fade-in stagger-3">
-                            <div class="contact-icon" aria-hidden="true">🐙</div>
-                            <div class="contact-text">
-                                <span class="contact-label">Code Repository</span>
-                                <a href="https://github.com/celalbasaran" class="contact-value interactive-element" target="_blank" rel="noopener noreferrer">
-                                    github.com/celalbasaran
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item interactive-element fade-in stagger-4">
-                            <div class="contact-icon" aria-hidden="true">🐦</div>
-                            <div class="contact-text">
-                                <span class="contact-label">Tech Insights</span>
-                                <a href="https://twitter.com/celalbasaran" class="contact-value interactive-element" target="_blank" rel="noopener noreferrer">
-                                    @celalbasaran
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
-                <form class="form slide-in-right" id="contactForm">
-                    <div class="form-group">
-                        <label for="name" class="form-label">İsim & Soyisim</label>
-                        <input type="text" id="name" name="name" class="form-input interactive-element" placeholder="Adınız ve soyadınız" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" id="email" name="email" class="form-input interactive-element" placeholder="your@email.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="project" class="form-label">Project Vision</label>
-                        <input type="text" id="project" name="project" class="form-input interactive-element" placeholder="Hangi innovative projeyi hayata geçirelim?" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message" class="form-label">Detailed Brief</label>
-                        <textarea id="message" name="message" rows="6" class="form-textarea interactive-element" placeholder="Projenizin detaylarını, hedeflerinizi ve hayalinizdeki çözümü anlatın..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary interactive-element" style="width: 100%;">
-                        <span>Collaboration Başlat</span>
-                        <span aria-hidden="true">🚀</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
+                <div class="grid grid-auto">
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">iOS App</div>
+                            <h3 class="card-title">Sinyalci</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Binance piyasalarında AI destekli teknik analiz yapan iOS uygulaması. 
+                                Real-time data processing ve machine learning algoritmaları.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://github.com/clbasaran/sinyalci" class="btn btn-secondary btn-small" target="_blank" rel="noopener">
+                                GitHub'da İncele
+                            </a>
+                        </div>
+                    </article>
 
-    <!-- Revolutionary Footer -->
-    <footer class="footer" role="contentinfo">
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">macOS App</div>
+                            <h3 class="card-title">CleanithX</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                macOS sistem optimizasyon aracı. Memory management, 
+                                disk cleanup ve performance monitoring features.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://github.com/clbasaran/cleanithx" class="btn btn-secondary btn-small" target="_blank" rel="noopener">
+                                GitHub'da İncele
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">iOS App</div>
+                            <h3 class="card-title">CelalBasaran App</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Firebase powered personal iOS app. Real-time messaging, 
+                                analytics dashboard ve interactive user experience.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://github.com/clbasaran/celalbasaran-app" class="btn btn-secondary btn-small" target="_blank" rel="noopener">
+                                GitHub'da İncele
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="section" style="background-color: var(--color-gray-50);">
+            <div class="container">
+                <div class="text-center mb-64">
+                    <h2 class="text-headline mb-24">Blog</h2>
+                    <p class="text-body-large" style="color: var(--color-tertiary); max-width: 600px; margin: 0 auto;">
+                        iOS development, Swift ve teknoloji üzerine yazılarım
+                    </p>
+                </div>
+                
+                <div class="grid grid-auto">
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">23 Mayıs 2025</div>
+                            <h3 class="card-title">SwiftUI ile Modern UI Tasarımı</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                SwiftUI'nin gelişmiş özelliklerini kullanarak modern ve 
+                                etkileşimli kullanıcı arayüzleri nasıl tasarlanır?
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="posts/swiftui-modern-ui.html" class="btn btn-secondary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">15 Mayıs 2025</div>
+                            <h3 class="card-title">iOS 18 Yenilikleri</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Apple'ın iOS 18 ile getirdiği developer-focused yenilikler 
+                                ve bu özelliklerin uygulamalarımıza etkisi.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="posts/ios18-yenilikler.html" class="btn btn-secondary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">8 Mayıs 2025</div>
+                            <h3 class="card-title">Firebase iOS Entegrasyonu</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                iOS uygulamalarında Firebase kullanarak real-time data 
+                                synchronization ve backend services implementation.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="posts/firebase-realtime.html" class="btn btn-secondary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="text-center mt-48">
+                    <a href="blog.html" class="btn btn-primary">Tüm Yazıları Görüntüle</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="text-center mb-64">
+                    <h2 class="text-headline mb-24">İletişim</h2>
+                    <p class="text-body-large" style="color: var(--color-tertiary); max-width: 600px; margin: 0 auto;">
+                        Bir proje için benimle çalışmak veya iOS development hakkında konuşmak ister misiniz?
+                    </p>
+                </div>
+                
+                <div class="grid grid-2" style="align-items: start;">
+                    <div>
+                        <h3 class="text-title-small mb-32">Benimle İletişime Geçin</h3>
+                        <div style="display: flex; flex-direction: column; gap: var(--spacing-24);">
+                            <div class="card" style="padding: var(--spacing-24);">
+                                <div style="display: flex; align-items: center; gap: var(--spacing-16);">
+                                    <div style="width: 48px; height: 48px; background-color: var(--color-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-20);">
+                                        ✉️
+                                    </div>
+                                    <div>
+                                        <div class="text-body-small" style="color: var(--color-gray-600); margin-bottom: var(--spacing-4);">Email</div>
+                                        <a href="mailto:celal@celalbasaran.com" style="color: var(--color-blue); text-decoration: none; font-weight: 500;">
+                                            celal@celalbasaran.com
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="padding: var(--spacing-24);">
+                                <div style="display: flex; align-items: center; gap: var(--spacing-16);">
+                                    <div style="width: 48px; height: 48px; background-color: var(--color-gray-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-20);">
+                                        💼
+                                    </div>
+                                    <div>
+                                        <div class="text-body-small" style="color: var(--color-gray-600); margin-bottom: var(--spacing-4);">LinkedIn</div>
+                                        <a href="https://linkedin.com/in/celalbasaran" target="_blank" rel="noopener" style="color: var(--color-blue); text-decoration: none; font-weight: 500;">
+                                            linkedin.com/in/celalbasaran
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card" style="padding: var(--spacing-24);">
+                                <div style="display: flex; align-items: center; gap: var(--spacing-16);">
+                                    <div style="width: 48px; height: 48px; background-color: var(--color-gray-800); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-20);">
+                                        🐙
+                                    </div>
+                                    <div>
+                                        <div class="text-body-small" style="color: var(--color-gray-600); margin-bottom: var(--spacing-4);">GitHub</div>
+                                        <a href="https://github.com/celalbasaran" target="_blank" rel="noopener" style="color: var(--color-blue); text-decoration: none; font-weight: 500;">
+                                            github.com/celalbasaran
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <form style="background: white; padding: var(--spacing-40); border-radius: var(--radius-16); border: 1px solid var(--color-gray-200);" action="mailto:celal@celalbasaran.com" method="post" enctype="text/plain">
+                            <div style="margin-bottom: var(--spacing-24);">
+                                <label for="name" style="display: block; margin-bottom: var(--spacing-8); font-weight: 500; color: var(--color-secondary);">
+                                    İsim
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    required
+                                    style="width: 100%; padding: var(--spacing-16); border: 1px solid var(--color-gray-300); border-radius: var(--radius-8); font-size: var(--font-size-17); transition: border-color var(--transition-standard);"
+                                    placeholder="Adınız ve soyadınız"
+                                >
+                            </div>
+                            
+                            <div style="margin-bottom: var(--spacing-24);">
+                                <label for="email" style="display: block; margin-bottom: var(--spacing-8); font-weight: 500; color: var(--color-secondary);">
+                                    Email
+                                </label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required
+                                    style="width: 100%; padding: var(--spacing-16); border: 1px solid var(--color-gray-300); border-radius: var(--radius-8); font-size: var(--font-size-17); transition: border-color var(--transition-standard);"
+                                    placeholder="your@email.com"
+                                >
+                            </div>
+                            
+                            <div style="margin-bottom: var(--spacing-32);">
+                                <label for="message" style="display: block; margin-bottom: var(--spacing-8); font-weight: 500; color: var(--color-secondary);">
+                                    Mesaj
+                                </label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    rows="5" 
+                                    required
+                                    style="width: 100%; padding: var(--spacing-16); border: 1px solid var(--color-gray-300); border-radius: var(--radius-8); font-size: var(--font-size-17); transition: border-color var(--transition-standard); resize: vertical;"
+                                    placeholder="Projeniz hakkında detayları paylaşın..."
+                                ></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                Mesaj Gönder
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-gray-900); color: var(--color-white); padding: var(--spacing-48) 0;">
         <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    &copy; 2024 Celal Başaran. Crafted with innovation and passion.
+            <div class="text-center">
+                <p style="margin-bottom: var(--spacing-8); color: var(--color-gray-400);">
+                    © 2024 Celal Başaran. Tüm hakları saklıdır.
                 </p>
-                <p class="footer-text">
-                    Built with Swift <span class="footer-heart" aria-label="love">❤️</span> and Revolutionary Vision
+                <p style="color: var(--color-gray-500); font-size: var(--font-size-14);">
+                    Swift ile ❤️ ile geliştirilmiştir.
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Revolutionary JavaScript -->
+    <!-- Minimal JavaScript for smooth interactions -->
     <script>
-        // Next-generation Apple-quality interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            // Anti-scroll hijacking protection
-            window.scrollTo(0, 0);
-            
-            // Custom cursor system
-            const cursor = document.getElementById('customCursor');
-            const interactiveElements = document.querySelectorAll('.interactive-element, a, button, input, textarea');
-            
-            // Cursor tracking
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-            
-            // Cursor hover states
-            interactiveElements.forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    cursor.classList.add('cursor-hover');
-                });
-                element.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('cursor-hover');
-                });
-            });
-            
-            // Scroll progress indicator
-            const scrollProgress = document.getElementById('scrollProgress');
-            window.addEventListener('scroll', () => {
-                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                scrollProgress.style.width = Math.min(scrolled, 100) + '%';
-            });
-            
-            // Particle system
-            const particlesContainer = document.getElementById('particles');
-            function createParticle() {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
-                particlesContainer.appendChild(particle);
-                
-                setTimeout(() => {
-                    particle.remove();
-                }, 12000);
-            }
-            
-            // Create particles periodically
-            setInterval(createParticle, 800);
-            
-            // Advanced intersection observer
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        
-                        // Staggered children animations
-                        const children = entry.target.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
-                        children.forEach((child, index) => {
-                            setTimeout(() => {
-                                child.classList.add('visible');
-                            }, index * 150);
-                        });
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all animated elements
-            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in, .about-text');
-            animatedElements.forEach(element => observer.observe(element));
-
-            // Revolutionary navbar behavior
-            const navbar = document.getElementById('navbar');
-            let lastScrollY = window.scrollY;
-            
-            window.addEventListener('scroll', () => {
-                const currentScrollY = window.scrollY;
-                
-                if (currentScrollY > 100) {
-                    navbar.classList.add('visible');
-                } else {
-                    navbar.classList.remove('visible');
-                }
-                
-                lastScrollY = currentScrollY;
-            });
-
-            // Quantum smooth scrolling
-            let navigationEnabled = false;
-            setTimeout(() => {
-                navigationEnabled = true;
-            }, 1500);
-            
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    if (!navigationEnabled) return;
-                    
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Revolutionary 3D card effects
-            const cards = document.querySelectorAll('.card, .project-card, .blog-card, .skill-card, .contact-item');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 15;
-                    const rotateY = (centerX - x) / 15;
-                    
-                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-                });
-                
-                card.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 20;
-                    const rotateY = (centerX - x) / 20;
-                    
-                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-                });
-            });
-
-            // Advanced button ripple effects
-            const buttons = document.querySelectorAll('.btn, .tech-tag, .skill-badge');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    ripple.classList.add('ripple');
-                    
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 700);
-                });
-            });
-
-            // Enhanced form interactions
-            const formInputs = document.querySelectorAll('.form-input, .form-textarea');
-            formInputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.classList.add('focused');
-                    this.style.transform = 'translateY(-2px)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    if (!this.value) {
-                        this.parentElement.classList.remove('focused');
-                    }
-                    this.style.transform = 'translateY(0)';
-                });
-                
-                if (input.value) {
-                    input.parentElement.classList.add('focused');
-                }
-            });
-
-            // Revolutionary contact form handling
-            const contactForm = document.getElementById('contactForm');
-            contactForm.addEventListener('submit', function(e) {
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                // Create mailto link with form data
-                const formData = new FormData(this);
-                const name = formData.get('name');
-                const email = formData.get('email');
-                const project = formData.get('project');
-                const message = formData.get('message');
-                
-                const subject = `🚀 Innovation Partnership: ${project}`;
-                const body = `Merhaba Celal,
-
-${name} olarak sizinle contact kurmak istiyorum.
-
-📧 Email: ${email}
-🎯 Proje Vizyonu: ${project}
-
-💡 Detaylı Brief:
-${message}
-
-En kısa sürede dönüş bekliyorum.
-
-Best regards,
-${name}`;
-                
-                const mailtoLink = `mailto:celal@celalbasaran.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                window.location.href = mailtoLink;
-                
-                // Success feedback
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalContent = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<span>🎉 Email Client Açılıyor...</span>';
-                submitBtn.style.background = 'var(--quaternary-gradient)';
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalContent;
-                    submitBtn.style.background = '';
-                }, 3000);
-            });
-
-            // Performance optimizations
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            const timelineObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.3 });
-
-            timelineItems.forEach(item => timelineObserver.observe(item));
-
-            // Easter egg: konami code
-            let konamiCode = [];
-            const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-            
-            document.addEventListener('keydown', (e) => {
-                konamiCode.push(e.code);
-                if (konamiCode.length > konamiSequence.length) {
-                    konamiCode.shift();
-                }
-                
-                if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-                    // Secret animation
-                    document.body.style.animation = 'rainbow 2s infinite';
-                    setTimeout(() => {
-                        document.body.style.animation = '';
-                    }, 10000);
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
 
-        // Emergency scroll reset
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 200);
+        // Form input focus states
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = 'var(--color-blue)';
+                this.style.boxShadow = '0 0 0 3px rgba(10, 132, 255, 0.1)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = 'var(--color-gray-300)';
+                this.style.boxShadow = 'none';
+            });
         });
 
-        // Dynamic styles injection
-        const dynamicStyles = document.createElement('style');
-        dynamicStyles.textContent = `
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.4);
-                transform: scale(0);
-                animation: ripple-animation 0.7s ease-out;
-                pointer-events: none;
-            }
-            
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
+        // Simple fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
-            }
-            
-            .form-group.focused .form-label {
-                transform: translateY(-4px) scale(0.9);
-                color: var(--accent-blue);
-            }
-            
-            .form-label {
-                transition: all var(--transition-normal);
-                transform-origin: left top;
-            }
-            
-            @keyframes rainbow {
-                0% { filter: hue-rotate(0deg); }
-                100% { filter: hue-rotate(360deg); }
-            }
-            
-            /* Performance enhancements */
-            .hero::before {
-                will-change: transform;
-            }
-            
-            .avatar-ring {
-                will-change: transform;
-            }
-            
-            .project-icon {
-                will-change: transform;
+            });
+        }, observerOptions);
+
+        // Observe sections for fade-in effect
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(section);
+        });
+
+        // Add visible class styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
         `;
-        document.head.appendChild(dynamicStyles);
+        document.head.appendChild(style);
     </script>
 </body>
 </html> 

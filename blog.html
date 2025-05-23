@@ -3,500 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow">
+    <meta name="color-scheme" content="light">
     
-    <title>İçgörüler — Celal Başaran</title>
-    <meta name="description" content="iOS development, Swift innovations ve teknoloji geleceği üzerine deep-dive analizler. Celal Başaran'ın dijital içgörüleri.">
-    <meta name="keywords" content="Swift Developer, iOS Developer, Blog, Teknoloji, Programming, SwiftUI, Innovation">
+    <title>Blog — Celal Başaran</title>
+    <meta name="description" content="iOS development, Swift ve teknoloji üzerine yazılarım. Modern Apple teknolojileri hakkında derinlemesine analizler.">
     <meta name="author" content="Celal Başaran">
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://celalbasaran.com/blog.html" />
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="İçgörüler — Celal Başaran">
-    <meta property="og:description" content="iOS development, Swift innovations ve teknoloji geleceği üzerine deep-dive analizler.">
-    <meta property="og:image" content="https://celalbasaran.com/cb.png">
-    <meta property="og:url" content="https://celalbasaran.com/blog.html">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog — Celal Başaran">
+    <meta property="og:description" content="iOS development, Swift ve teknoloji üzerine yazılarım.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/blog.html">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
     
-    <!-- Apple Meta Tags -->
-    <meta name="theme-color" content="#667eea">
+    <!-- Apple specific -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Celal Başaran Blog">
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Favicon -->
+    <!-- Icons -->
     <link rel="icon" type="image/png" href="cb.png">
     <link rel="apple-touch-icon" href="cb.png">
     
-    <!-- Preload Critical Resources -->
+    <!-- Preload critical resources -->
     <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="cb.png" as="image">
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="customCursor"></div>
-    
-    <!-- Scroll Progress Indicator -->
-    <div class="scroll-progress" id="scrollProgress"></div>
-    
-    <!-- Blog Header Hero -->
-    <section class="hero" style="min-height: 60vh;" role="banner">
-        <div class="particles" id="particles"></div>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Blog navigasyonu">
         <div class="container">
-            <div class="hero-container">
-                <!-- Navigation -->
-                <nav class="slide-in-left" role="navigation" aria-label="Blog navigasyonu" style="margin-bottom: var(--space-5xl); text-align: left;">
-                    <a href="index.html" class="btn btn-secondary interactive-element" aria-label="Ana sayfaya geri dön">
-                        <span aria-hidden="true">←</span>
-                        <span>Ana Evrene Dön</span>
-                    </a>
-                </nav>
-                
-                <h1 class="hero-title" style="font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));">
-                    💡 Dijital İçgörüler
-                </h1>
-                <p class="hero-subtitle" style="font-size: clamp(var(--text-lg), 3vw, var(--text-2xl));">
-                    iOS Ecosystem & Swift Innovation Deep Dives
-                </p>
-                <p class="hero-description">
-                    Teknoloji evreninin derinliklerinde keşfettiğim bilgileri, iOS geliştirme deneyimlerimi ve gelecek vizyonlarımı paylaştığım dijital düşünce laboratuvarım.
-                </p>
+            <div class="navbar-content">
+                <a href="index.html" class="navbar-brand">← Celal Başaran</a>
+                <ul class="navbar-nav">
+                    <li><a href="index.html#about" class="navbar-link">Hakkımda</a></li>
+                    <li><a href="index.html#projects" class="navbar-link">Projeler</a></li>
+                    <li><a href="blog.html" class="navbar-link" style="color: var(--color-blue);">Blog</a></li>
+                    <li><a href="index.html#contact" class="navbar-link">İletişim</a></li>
+                </ul>
             </div>
         </div>
-    </section>
-    
-    <!-- Revolutionary Blog Grid -->
-    <section class="section" role="main">
-        <div class="container">
-            <div class="grid grid-auto">
-                <article class="blog-card interactive-element slide-in-left stagger-1">
-                    <div class="blog-icon" aria-hidden="true">📱</div>
-                    <h2 class="blog-title">SwiftUI ile Quantum UI Tasarımı</h2>
-                    <p class="blog-description">
-                        SwiftUI'nin sınırlarını zorlayarak next-level kullanıcı arayüzleri inşa etme sanatı. Advanced animations, liquid layouts ve reactive state management ile gelecek nesil mobile deneyimler yaratma master class'ı. Apple'ın design principles'larını modern development patterns ile harmanlama rehberi.
-                    </p>
-                    <div class="tech-stack" style="margin-bottom: var(--space-lg);">
-                        <span class="tech-tag interactive-element">SwiftUI</span>
-                        <span class="tech-tag interactive-element">Combine</span>
-                        <span class="tech-tag interactive-element">Core Animation</span>
-                        <span class="tech-tag interactive-element">Design Patterns</span>
-                    </div>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-23">23 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/swiftui-modern-ui.html" class="blog-link interactive-element" aria-label="SwiftUI Quantum UI yazısını oku">
-                        Deep Dive →
-                    </a>
-                </article>
-                
-                <article class="blog-card interactive-element scale-in stagger-2">
-                    <div class="blog-icon" aria-hidden="true">🍏</div>
-                    <h2 class="blog-title">iOS 18 Revolution: Developer's Goldmine</h2>
-                    <p class="blog-description">
-                        Apple'ın iOS 18 ile getirdiği game-changing features ve bunların developer ecosystem'inde yaratacağı devrim. Enhanced widgets, App Intents 2.0, AI integration ve yeni framework'ler derinlemesine analizi. Developer productivity'yi maksimuma çıkaran yeni araçlar ve methodologies.
-                    </p>
-                    <div class="tech-stack" style="margin-bottom: var(--space-lg);">
-                        <span class="tech-tag interactive-element">iOS 18</span>
-                        <span class="tech-tag interactive-element">App Intents</span>
-                        <span class="tech-tag interactive-element">WidgetKit</span>
-                        <span class="tech-tag interactive-element">AI Integration</span>
-                    </div>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-15">15 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/ios18-yenilikler.html" class="blog-link interactive-element" aria-label="iOS 18 Revolution yazısını oku">
-                        Revolution Keşfet →
-                    </a>
-                </article>
-                
-                <article class="blog-card interactive-element slide-in-right stagger-3">
-                    <div class="blog-icon" aria-hidden="true">🔥</div>
-                    <h2 class="blog-title">Firebase + iOS: Real-time Magic</h2>
-                    <p class="blog-description">
-                        Firebase'in full potential'ını kullanarak iOS uygulamalarında real-time data synchronization, advanced analytics ve serverless architecture kurma master class'ı. Firestore, Cloud Functions ve Combine framework ile reactive programming patterns. Enterprise-level scalability secrets.
-                    </p>
-                    <div class="tech-stack" style="margin-bottom: var(--space-lg);">
-                        <span class="tech-tag interactive-element">Firebase</span>
-                        <span class="tech-tag interactive-element">Firestore</span>
-                        <span class="tech-tag interactive-element">Cloud Functions</span>
-                        <span class="tech-tag interactive-element">Real-time</span>
-                    </div>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-08">8 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/firebase-realtime.html" class="blog-link interactive-element" aria-label="Firebase Real-time Magic yazısını oku">
-                        Magic Discover →
-                    </a>
-                </article>
-                
-                <article class="blog-card interactive-element fade-in stagger-4">
-                    <div class="blog-icon" aria-hidden="true">💻</div>
-                    <h2 class="blog-title">macOS Development: The Ultimate Journey</h2>
-                    <p class="blog-description">
-                        iOS developer'ların macOS evrenine geçiş rehberi. AppKit vs SwiftUI battleground'u, platform-specific optimizations ve desktop-class app architecture patterns. Pro tips, performance secrets ve Apple'ın macOS için özel yaklaşımları. Cross-platform development mastery.
-                    </p>
-                    <div class="tech-stack" style="margin-bottom: var(--space-lg);">
-                        <span class="tech-tag interactive-element">macOS</span>
-                        <span class="tech-tag interactive-element">AppKit</span>
-                        <span class="tech-tag interactive-element">Cross-platform</span>
-                        <span class="tech-tag interactive-element">Architecture</span>
-                    </div>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-05-01">1 Mayıs 2025</time>
-                    </div>
-                    <a href="posts/macos-rehberi.html" class="blog-link interactive-element" aria-label="macOS Ultimate Journey yazısını oku">
-                        Journey Begin →
-                    </a>
-                </article>
-                
-                <!-- Featured Upcoming Article -->
-                <article class="blog-card interactive-element slide-in-left stagger-5" style="border: 2px solid var(--accent-blue); background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));">
-                    <div class="blog-icon" aria-hidden="true">🤖</div>
-                    <h2 class="blog-title" style="color: var(--accent-blue);">AI-Powered iOS Development: The Future is Now</h2>
-                    <p class="blog-description">
-                        Core ML, CreateML ve Apple'ın yeni AI framework'leri ile iOS uygulamalarına yapay zeka entegre etme complete guide'ı. Machine learning model optimization, on-device processing ve privacy-first AI development yaklaşımları.
-                    </p>
-                    <div class="tech-stack" style="margin-bottom: var(--space-lg);">
-                        <span class="tech-tag interactive-element" style="background: var(--primary-gradient); color: var(--text-primary);">Core ML</span>
-                        <span class="tech-tag interactive-element" style="background: var(--secondary-gradient); color: var(--text-primary);">CreateML</span>
-                        <span class="tech-tag interactive-element" style="background: var(--tertiary-gradient); color: var(--bg-primary);">AI Integration</span>
-                        <span class="tech-tag interactive-element" style="background: var(--quaternary-gradient); color: var(--bg-primary);">Privacy-First</span>
-                    </div>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-06-01" style="color: var(--accent-blue);">Yakında • Haziran 2025</time>
-                    </div>
-                    <div class="blog-link" style="color: var(--accent-blue); pointer-events: none;">
-                        🚀 AI Revolution Coming Soon...
-                    </div>
-                </article>
-                
-                <!-- Interactive Learning Series -->
-                <article class="blog-card interactive-element scale-in stagger-6" style="background: linear-gradient(135deg, rgba(52, 199, 89, 0.1), rgba(58, 245, 215, 0.1));">
-                    <div class="blog-icon" aria-hidden="true">🎓</div>
-                    <h2 class="blog-title" style="color: var(--accent-green);">Swift Mastery Series: Advanced Patterns</h2>
-                    <p class="blog-description">
-                        Swift dilinin derinliklerini keşfeden comprehensive eğitim serisi. Protocol-oriented programming, generic systems, memory management, concurrency patterns ve performance optimization techniques. Pro developer seviyesine çıkmanın sırları.
-                    </p>
-                    <div class="tech-stack" style="margin-bottom: var(--space-lg);">
-                        <span class="tech-tag interactive-element" style="background: var(--accent-green); color: var(--bg-primary);">Swift Advanced</span>
-                        <span class="tech-tag interactive-element" style="background: var(--accent-green); color: var(--bg-primary);">Protocols</span>
-                        <span class="tech-tag interactive-element" style="background: var(--accent-green); color: var(--bg-primary);">Generics</span>
-                        <span class="tech-tag interactive-element" style="background: var(--accent-green); color: var(--bg-primary);">Performance</span>
-                    </div>
-                    <div class="blog-meta">
-                        <time class="blog-date" datetime="2025-06-15" style="color: var(--accent-green);">Series Launch • 15 Haziran 2025</time>
-                    </div>
-                    <div class="blog-link" style="color: var(--accent-green); pointer-events: none;">
-                        📚 Mastery Series Preparing...
-                    </div>
-                </article>
-            </div>
+    </nav>
 
-            <!-- Newsletter & Community Section -->
-            <section class="text-center fade-in" style="margin-top: var(--space-6xl); padding: var(--space-5xl); background: var(--surface-glass); backdrop-filter: blur(40px); border-radius: var(--radius-2xl); border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden;">
-                <!-- Animated background gradient -->
-                <div style="position: absolute; inset: 0; background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05), rgba(79, 172, 254, 0.05)); animation: gradient-shift 8s ease-in-out infinite;"></div>
-                
-                <div style="position: relative; z-index: 2;">
-                    <h3 style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--text-primary); margin-bottom: var(--space-lg);">
-                        🧠 Innovation Community'ye Katıl
-                    </h3>
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-2xl); max-width: 600px; margin-left: auto; margin-right: auto; font-size: var(--text-lg); line-height: 1.7;">
-                        iOS development'in cutting-edge world'ünde en son insights, exclusive tutorials ve revolutionary techniques'leri ilk öğrenenlerin arasında olmak ister misin? Digital innovation journey'mde benimle ol!
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" style="padding: var(--spacing-96) 0 var(--spacing-64) 0;">
+            <div class="container">
+                <h1 class="hero-title" style="font-size: clamp(var(--font-size-48), 6vw, var(--font-size-64));">
+                    Blog
+                </h1>
+                <p class="hero-subtitle" style="font-size: clamp(var(--font-size-20), 3vw, var(--font-size-24));">
+                    iOS Development & Swift İçgörüleri
+                </p>
+                <p class="hero-description">
+                    Modern Apple teknolojileri, iOS development best practices ve 
+                    Swift ecosystem'i hakkında yazılarım.
+                </p>
+            </div>
+        </section>
+
+        <!-- Blog Posts -->
+        <section class="section">
+            <div class="container">
+                <div class="grid grid-auto">
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">23 Mayıs 2025</div>
+                            <h2 class="card-title">SwiftUI ile Modern UI Tasarımı</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                SwiftUI'nin gelişmiş özelliklerini kullanarak modern, etkileşimli ve 
+                                performanslı kullanıcı arayüzleri nasıl tasarlanır? Bu yazıda 
+                                advanced SwiftUI patterns, custom modifiers ve state management 
+                                best practices'ini ele alıyoruz.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div style="display: flex; gap: var(--spacing-8); flex-wrap: wrap; margin-bottom: var(--spacing-16);">
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-blue); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">SwiftUI</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-blue); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">UI Design</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-blue); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Best Practices</span>
+                            </div>
+                            <a href="posts/swiftui-modern-ui.html" class="btn btn-primary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">15 Mayıs 2025</div>
+                            <h2 class="card-title">iOS 18 Developer Yenilikleri</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Apple'ın iOS 18 ile getirdiği developer-focused yenilikler ve 
+                                bu özelliklerin mevcut uygulamalarımıza nasıl entegre edilebileceği. 
+                                Enhanced widgets, App Intents 2.0, yeni framework'ler ve 
+                                development workflow iyileştirmeleri.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div style="display: flex; gap: var(--spacing-8); flex-wrap: wrap; margin-bottom: var(--spacing-16);">
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-600); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">iOS 18</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-600); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">App Intents</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-600); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">WidgetKit</span>
+                            </div>
+                            <a href="posts/ios18-yenilikler.html" class="btn btn-primary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">8 Mayıs 2025</div>
+                            <h2 class="card-title">Firebase iOS Entegrasyonu</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                iOS uygulamalarında Firebase kullanarak real-time data synchronization, 
+                                cloud storage ve backend services'lerin nasıl implement edildiği. 
+                                Firestore, Authentication, Cloud Functions ve performans optimizasyonu 
+                                teknikleri detaylı bir şekilde inceleniyor.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div style="display: flex; gap: var(--spacing-8); flex-wrap: wrap; margin-bottom: var(--spacing-16);">
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-400); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Firebase</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-400); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Firestore</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-400); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Backend</span>
+                            </div>
+                            <a href="posts/firebase-realtime.html" class="btn btn-primary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">1 Mayıs 2025</div>
+                            <h2 class="card-title">macOS Development Rehberi</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                iOS developer'ların macOS ecosystem'ine geçiş rehberi. AppKit vs SwiftUI 
+                                karşılaştırması, platform-specific optimizations, desktop-class 
+                                app architecture patterns ve cross-platform development stratejileri 
+                                professional perspektifle ele alınıyor.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div style="display: flex; gap: var(--spacing-8); flex-wrap: wrap; margin-bottom: var(--spacing-16);">
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-500); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">macOS</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-500); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">AppKit</span>
+                                <span style="padding: var(--spacing-4) var(--spacing-8); background-color: var(--color-gray-500); color: white; border-radius: var(--radius-8); font-size: var(--font-size-12); font-weight: 500;">Cross-platform</span>
+                            </div>
+                            <a href="posts/macos-rehberi.html" class="btn btn-primary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="section" style="background-color: var(--color-gray-50);">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="text-title mb-24">İçerik Takip</h2>
+                    <p class="text-body" style="color: var(--color-tertiary); max-width: 520px; margin: 0 auto var(--spacing-32);">
+                        iOS development, Swift ve Apple teknolojileri hakkında 
+                        yeni yazılarımı takip etmek için bağlantıda kalın.
                     </p>
                     
-                    <!-- Social Links Grid -->
-                    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); margin-bottom: var(--space-2xl);">
-                        <a href="https://github.com/celalbasaran" class="contact-item interactive-element" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                            <div class="contact-icon" aria-hidden="true">🐙</div>
-                            <div class="contact-text">
-                                <span class="contact-label">Code Repository</span>
-                                <div class="contact-value">GitHub'da Takip Et</div>
-                            </div>
+                    <div style="display: flex; gap: var(--spacing-16); justify-content: center; flex-wrap: wrap;">
+                        <a href="mailto:celal@celalbasaran.com?subject=Blog%20Takip&body=Merhaba%20Celal,%0A%0ABlog%20yazılarınızı%20takip%20etmek%20istiyorum." class="btn btn-primary">
+                            Email ile Bildirim
                         </a>
-                        
-                        <a href="https://twitter.com/celalbasaran" class="contact-item interactive-element" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                            <div class="contact-icon" aria-hidden="true">🐦</div>
-                            <div class="contact-text">
-                                <span class="contact-label">Tech Insights</span>
-                                <div class="contact-value">Twitter'da Bağlan</div>
-                            </div>
-                        </a>
-                        
-                        <a href="https://linkedin.com/in/celalbasaran" class="contact-item interactive-element" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                            <div class="contact-icon" aria-hidden="true">💼</div>
-                            <div class="contact-text">
-                                <span class="contact-label">Professional Network</span>
-                                <div class="contact-value">LinkedIn Connect</div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div>
-                        <a href="index.html#contact" class="btn btn-primary interactive-element" style="margin-right: var(--space-md);">
-                            <span>📧 Direkt İletişime Geç</span>
-                        </a>
-                        <a href="mailto:celal@celalbasaran.com?subject=Blog%20Subscription&body=Merhaba%20Celal,%0A%0ABlog%20yazılarınızı%20takip%20etmek%20istiyorum." class="btn btn-secondary interactive-element">
-                            <span>📬 Email Updates</span>
+                        <a href="https://github.com/celalbasaran" target="_blank" rel="noopener" class="btn btn-secondary">
+                            GitHub'da Takip Et
                         </a>
                     </div>
                 </div>
-            </section>
-        </div>
-    </section>
+            </div>
+        </section>
+    </main>
 
-    <!-- Revolutionary Footer -->
-    <footer class="footer" role="contentinfo">
+    <!-- Footer -->
+    <footer style="background-color: var(--color-gray-900); color: var(--color-white); padding: var(--spacing-48) 0;">
         <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    &copy; 2024 Celal Başaran. Crafted with innovation and passion.
+            <div class="text-center">
+                <p style="margin-bottom: var(--spacing-8); color: var(--color-gray-400);">
+                    © 2024 Celal Başaran. Tüm hakları saklıdır.
                 </p>
-                <p class="footer-text">
-                    Built with Swift <span class="footer-heart" aria-label="love">❤️</span> and Revolutionary Vision
+                <p style="color: var(--color-gray-500); font-size: var(--font-size-14);">
+                    Swift ile ❤️ ile geliştirilmiştir.
                 </p>
             </div>
         </div>
     </footer>
 
-    <!-- Revolutionary JavaScript -->
+    <!-- Minimal JavaScript for smooth interactions -->
     <script>
-        // Next-generation blog page interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            // Anti-scroll hijacking protection
-            window.scrollTo(0, 0);
-            
-            // Custom cursor system
-            const cursor = document.getElementById('customCursor');
-            const interactiveElements = document.querySelectorAll('.interactive-element, a, button');
-            
-            // Cursor tracking
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
-            
-            // Cursor hover states
-            interactiveElements.forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    cursor.classList.add('cursor-hover');
-                });
-                element.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('cursor-hover');
-                });
-            });
-            
-            // Scroll progress indicator
-            const scrollProgress = document.getElementById('scrollProgress');
-            window.addEventListener('scroll', () => {
-                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                scrollProgress.style.width = Math.min(scrolled, 100) + '%';
-            });
-            
-            // Particle system
-            const particlesContainer = document.getElementById('particles');
-            function createParticle() {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
-                particlesContainer.appendChild(particle);
-                
-                setTimeout(() => {
-                    particle.remove();
-                }, 12000);
-            }
-            
-            // Create particles periodically
-            setInterval(createParticle, 1200);
-
-            // Advanced intersection observer
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all animated elements
-            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
-            animatedElements.forEach(element => observer.observe(element));
-
-            // Revolutionary 3D card effects
-            const cards = document.querySelectorAll('.blog-card, .contact-item');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 15;
-                    const rotateY = (centerX - x) / 15;
-                    
-                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-                });
-                
-                card.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 20;
-                    const rotateY = (centerX - x) / 20;
-                    
-                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-                });
-            });
-
-            // Advanced button ripple effects
-            const buttons = document.querySelectorAll('.btn, .tech-tag');
-            buttons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    const ripple = document.createElement('span');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.width = ripple.style.height = size + 'px';
-                    ripple.style.left = x + 'px';
-                    ripple.style.top = y + 'px';
-                    ripple.classList.add('ripple');
-                    
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 700);
-                });
-            });
-
-            // Smooth scrolling behavior
-            window.addEventListener('beforeunload', function() {
-                window.scrollTo(0, 0);
-            });
-            
-            // Reading progress for articles
-            const blogCards = document.querySelectorAll('.blog-card');
-            blogCards.forEach((card, index) => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.boxShadow = 'var(--shadow-massive)';
-                    this.style.borderColor = 'var(--accent-blue)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.boxShadow = '';
-                    this.style.borderColor = '';
-                });
-            });
-            
-            // Enhanced tech tag interactions
-            const techTags = document.querySelectorAll('.tech-tag');
-            techTags.forEach(tag => {
-                tag.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-4px) scale(1.05)';
-                    this.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.2)';
-                });
-                
-                tag.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                });
-            });
-
-            // Dynamic background animation
-            const animatedBackground = document.querySelector('[style*="gradient-shift"]');
-            if (animatedBackground) {
-                let hue = 0;
-                setInterval(() => {
-                    hue = (hue + 1) % 360;
-                    animatedBackground.style.filter = `hue-rotate(${hue}deg)`;
-                }, 100);
-            }
         });
 
-        // Emergency scroll reset
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 200);
+        // Simple fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for fade-in effect
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(section);
         });
 
-        // Dynamic styles injection
-        const dynamicStyles = document.createElement('style');
-        dynamicStyles.textContent = `
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.4);
-                transform: scale(0);
-                animation: ripple-animation 0.7s ease-out;
-                pointer-events: none;
-            }
-            
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-            
-            /* Enhanced blog card animations */
-            .blog-card {
-                transition: all var(--transition-normal);
-            }
-            
-            .blog-card:nth-child(even) {
-                animation-delay: 0.1s;
-            }
-            
-            .blog-card:nth-child(odd) {
-                animation-delay: 0.2s;
-            }
-            
-            /* Smooth gradient animation */
-            @keyframes gradient-shift {
-                0%, 100% { 
-                    background-position: 0% 50%; 
-                    transform: scale(1);
-                }
-                50% { 
-                    background-position: 100% 50%; 
-                    transform: scale(1.02);
-                }
-            }
-            
-            /* Performance optimizations */
-            .blog-card,
-            .contact-item,
-            .btn {
-                will-change: transform;
-                backface-visibility: hidden;
+        // Add visible class styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
         `;
-        document.head.appendChild(dynamicStyles);
+        document.head.appendChild(style);
     </script>
 </body>
 </html> 
