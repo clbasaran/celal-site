@@ -48,8 +48,9 @@ html {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--glass-border);
     transition: all 0.3s ease;
 }
@@ -65,13 +66,7 @@ html {
 }
 
 .nav-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    flex-shrink: 0;
 }
 
 .nav-logo .logo-image {
@@ -87,6 +82,53 @@ html {
 
 .nav-logo .logo-image:hover {
     transform: scale(1.1);
+}
+
+.nav-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.site-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.nav-toggle:hover .hamburger-line {
+    background: var(--primary);
+}
+
+.nav-toggle:active {
+    transform: scale(0.95);
 }
 
 .nav-menu {
@@ -865,6 +907,19 @@ html {
     
     .nav-container {
         padding: 0 1rem;
+        height: 56px;
+    }
+    
+    .nav-logo .logo-image {
+        height: 32px;
+    }
+    
+    .nav-title {
+        display: block;
+    }
+    
+    .nav-toggle {
+        display: flex;
     }
     
     .nav-menu {
