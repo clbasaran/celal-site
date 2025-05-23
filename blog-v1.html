@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <title>Blog — Celal Başaran</title>
+    <meta name="description" content="iOS development, Swift programming ve teknoloji üzerine yazılar. Celal Başaran'ın blog yazıları.">
+    <meta name="keywords" content="Swift Developer, iOS Developer, Blog, Teknoloji, Programming, SwiftUI">
+    <meta name="author" content="Celal Başaran">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://celalbasaran.com/blog.html" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Blog — Celal Başaran">
+    <meta property="og:description" content="iOS development, Swift programming ve teknoloji üzerine yazılar.">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
+    <meta property="og:url" content="https://celalbasaran.com/blog.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0A84FF">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="cb.png">
+    <link rel="apple-touch-icon" href="cb.png">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="blog-page">
+        <div class="container">
+            <!-- Navigation -->
+            <nav class="blog-nav">
+                <a href="index.html" class="back-link fade-in">← Ana Sayfa</a>
+            </nav>
+            
+            <!-- Blog Header -->
+            <header class="blog-header">
+                <h1 class="blog-title scale-in">📚 Blog</h1>
+                <p class="blog-subtitle slide-in-left">iOS geliştirme, Swift programlama ve teknoloji üzerine yazılarım</p>
+            </header>
+            
+            <!-- Blog Posts Grid -->
+            <div class="blog-posts-grid">
+                <article class="blog-post-card card slide-in-left stagger-delay-1">
+                    <div class="post-date">23 Mayıs 2025</div>
+                    <h2 class="post-title">SwiftUI ile Modern Arayüz Tasarımı</h2>
+                    <p class="post-excerpt">SwiftUI'nin gücünü kullanarak modern ve kullanıcı dostu arayüzler tasarlamanın püf noktalarını keşfedelim. Animation, Layout ve State Management konularında derinlemesine inceleme.</p>
+                    <a href="posts/swiftui-modern-ui.html" class="read-more-link">Devamını oku →</a>
+                </article>
+                
+                <article class="blog-post-card card scale-in stagger-delay-2">
+                    <div class="post-date">15 Mayıs 2025</div>
+                    <h2 class="post-title">iOS 18'de Yenilikler ve Geliştirici Etkisi</h2>
+                    <p class="post-excerpt">Apple'ın iOS 18 ile sunduğu yeni özellikler ve bunların iOS geliştiricileri üzerindeki etkilerini detaylı olarak inceliyoruz. Widget'lar, App Intents ve daha fazlası.</p>
+                    <a href="posts/ios18-yenilikler.html" class="read-more-link">Devamını oku →</a>
+                </article>
+                
+                <article class="blog-post-card card slide-in-right stagger-delay-3">
+                    <div class="post-date">8 Mayıs 2025</div>
+                    <h2 class="post-title">Firebase ile iOS Uygulamalarında Real-time Veri</h2>
+                    <p class="post-excerpt">Firebase Firestore kullanarak iOS uygulamalarınızda gerçek zamanlı veri senkronizasyonu nasıl yapılır? Combine framework ile entegrasyon örnekleri.</p>
+                    <a href="posts/firebase-realtime.html" class="read-more-link">Devamını oku →</a>
+                </article>
+                
+                <article class="blog-post-card card fade-in stagger-delay-4">
+                    <div class="post-date">1 Mayıs 2025</div>
+                    <h2 class="post-title">macOS Uygulaması Geliştirme: Başlangıç Rehberi</h2>
+                    <p class="post-excerpt">iOS geliştiricileri için macOS dünyasına adım atma rehberi. AppKit vs SwiftUI karşılaştırması ve platform farkları üzerine detaylı inceleme.</p>
+                    <a href="posts/macos-rehberi.html" class="read-more-link">Devamını oku →</a>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Apple-style blog page animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Force scroll to top on page load to prevent auto-scrolling issues
+            window.scrollTo(0, 0);
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
+            animatedElements.forEach(element => observer.observe(element));
+
+            // Enhanced card interactions with 3D transform
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+        });
+
+        // Additional safety measure to prevent unwanted scrolling
+        window.addEventListener('load', function() {
+            // Force scroll to top again after everything is loaded
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100);
+        });
+    </script>
+</body>
+</html> 

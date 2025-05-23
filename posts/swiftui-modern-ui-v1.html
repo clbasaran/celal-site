@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <title>SwiftUI ile Modern Arayüz Tasarımı — Celal Başaran</title>
+    <meta name="description" content="SwiftUI'nin gücünü kullanarak modern ve kullanıcı dostu arayüzler tasarlamanın püf noktlarını keşfedin.">
+    <meta name="keywords" content="SwiftUI, iOS Development, UI Design, Animation, State Management">
+    <meta name="author" content="Celal Başaran">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://celalbasaran.com/posts/swiftui-modern-ui.html" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="SwiftUI ile Modern Arayüz Tasarımı">
+    <meta property="og:description" content="SwiftUI'nin gücünü kullanarak modern ve kullanıcı dostu arayüzler tasarlamanın püf noktları.">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
+    <meta property="og:url" content="https://celalbasaran.com/posts/swiftui-modern-ui.html">
+    <meta property="og:type" content="article">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0A84FF">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../cb.png">
+    <link rel="apple-touch-icon" href="../cb.png">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        /* Apple UI Blog Post Styling */
+        .blog-post-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 32px 16px;
+            min-height: 100vh;
+        }
+        
+        .post-navigation {
+            margin-bottom: 40px;
+        }
+        
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-small);
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+        }
+        
+        .back-link:hover {
+            background: var(--fill-secondary);
+            transform: translateX(-4px);
+        }
+        
+        .post-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--separator-opaque);
+        }
+        
+        .post-meta {
+            color: #888;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .post-title {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+        }
+        
+        .post-subtitle {
+            font-size: 20px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .post-content {
+            line-height: 1.75;
+        }
+        
+        .post-content h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        
+        .post-content h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 32px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .post-content p {
+            font-size: 18px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        
+        .post-content ul, .post-content ol {
+            margin: 24px 0;
+            padding-left: 24px;
+        }
+        
+        .post-content li {
+            font-size: 18px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .post-content a {
+            color: var(--primary);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: all var(--transition-fast);
+        }
+        
+        .post-content a:hover {
+            color: var(--primary-hover);
+            text-decoration-thickness: 2px;
+        }
+        
+        .post-content code {
+            background: var(--surface-secondary);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .post-content pre {
+            background: var(--surface-elevated);
+            border: 1px solid var(--separator-opaque);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .post-content pre code {
+            background: none;
+            color: var(--text-primary);
+            padding: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre;
+        }
+        
+        .post-footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--separator-opaque);
+        }
+        
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding: 20px;
+            background: var(--surface-primary);
+            border-radius: var(--radius-large);
+            border: 1px solid var(--separator-opaque);
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin: 0;
+        }
+        
+        .post-navigation-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        
+        .nav-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            border: 1px solid var(--separator-opaque);
+            border-radius: var(--radius-medium);
+            transition: all var(--transition-standard);
+            flex: 1;
+            text-align: center;
+        }
+        
+        .nav-link:hover {
+            background: var(--fill-secondary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .blog-post-container {
+                padding: 24px 16px;
+            }
+            
+            .post-title {
+                font-size: 32px;
+            }
+            
+            .post-subtitle {
+                font-size: 18px;
+            }
+            
+            .post-content h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+            
+            .post-content h3 {
+                font-size: 20px;
+                margin-top: 24px;
+            }
+            
+            .post-content p,
+            .post-content li {
+                font-size: 16px;
+            }
+            
+            .author-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .post-navigation-footer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-post-container">
+        <!-- Navigation -->
+        <nav class="post-navigation fade-in-up">
+            <a href="../blog.html" class="back-link">← Blog'a Geri Dön</a>
+        </nav>
+        
+        <!-- Post Header -->
+        <header class="post-header fade-in-up">
+            <div class="post-meta">23 Mayıs 2025 • Celal Başaran</div>
+            <h1 class="post-title">SwiftUI ile Modern Arayüz Tasarımı</h1>
+            <p class="post-subtitle">SwiftUI'nin gücünü kullanarak modern ve kullanıcı dostu arayüzler tasarlamanın püf noktalarını keşfedelim</p>
+        </header>
+        
+        <!-- Post Content -->
+        <article class="post-content">
+            <div class="fade-in-up">
+                <h2>Giriş</h2>
+                <p>SwiftUI, Apple'ın modern uygulama geliştirme yaklaşımını temsil eden devrim niteliğinde bir framework. Declarative syntax ile arayüz tasarımında yeni bir dönem başlatan SwiftUI, geliştiricilere hem hız hem de esneklik sunuyor.</p>
+                
+                <p>Bu yazıda, SwiftUI ile modern arayüz tasarımının temel prensiplerini, best practice'leri ve gerçek dünya örneklerini inceleyeceğiz.</p>
+            </div>
+            
+            <div class="fade-in-up">
+                <h2>Modern Arayüz Tasarımının Temelleri</h2>
+                <p>Modern iOS arayüz tasarımının başlıca karakteristikleri:</p>
+                
+                <ul>
+                    <li><strong>Minimalizm:</strong> Gereksiz elementleri kaldırarak odağı içeriğe yönlendirmek</li>
+                    <li><strong>Tutarlılık:</strong> Apple'ın Human Interface Guidelines'ına uygun tasarım</li>
+                    <li><strong>Accessibility:</strong> Tüm kullanıcılar için erişilebilir deneyim</li>
+                    <li><strong>Responsive Design:</strong> Farklı ekran boyutlarına uyum</li>
+                </ul>
+            </div>
+            
+            <div class="fade-in-up">
+                <h2>SwiftUI'de State Management</h2>
+                <p>SwiftUI'nin en güçlü yanlarından biri, state management'ın basitliği. <code>@State</code>, <code>@Binding</code>, ve <code>@ObservableObject</code> gibi property wrapper'lar ile veri akışını kontrol etmek oldukça kolay:</p>
+                
+                <pre><code>struct ContentView: View {
+    @State private var isShowingDetail = false
+    
+    var body: some View {
+        VStack {
+            Text("Ana Ekran")
+                .font(.title)
+            
+            Button("Detayları Göster") {
+                isShowingDetail.toggle()
+            }
+            .sheet(isPresented: $isShowingDetail) {
+                DetailView()
+            }
+        }
+    }
+}</code></pre>
+            </div>
+            
+            <div class="fade-in-up">
+                <h2>Animation ve Transitions</h2>
+                <p>SwiftUI ile animasyon eklemek son derece basit. <code>.animation()</code> modifier'ı ile smooth geçişler oluşturabilirsiniz:</p>
+                
+                <pre><code>@State private var isExpanded = false
+
+var body: some View {
+    VStack {
+        RoundedRectangle(cornerRadius: 12)
+            .fill(Color.blue)
+            .frame(
+                width: isExpanded ? 200 : 100,
+                height: isExpanded ? 200 : 100
+            )
+            .animation(.spring(), value: isExpanded)
+        
+        Button("Büyüt/Küçült") {
+            isExpanded.toggle()
+        }
+    }
+}</code></pre>
+            </div>
+            
+            <div class="fade-in-up">
+                <h2>Layout System</h2>
+                <p>SwiftUI'nin flexible layout sistemi, <code>VStack</code>, <code>HStack</code>, ve <code>ZStack</code> container'ları ile başlar. Daha karmaşık layoutlar için <code>LazyVGrid</code> ve <code>LazyHGrid</code> kullanabilirsiniz.</p>
+            </div>
+            
+            <div class="fade-in-up">
+                <h2>Sonuç</h2>
+                <p>SwiftUI ile modern arayüz tasarımı, doğru yaklaşım ve best practice'lerle oldukça keyifli bir süreç haline geliyor. Framework'ün declarative yapısı, kod okunabilirliğini artırırken, geliştirme sürecini de hızlandırıyor.</p>
+                
+                <p>Bu konuda daha derinlemesine bilgi almak istiyorsanız, <a href="https://developer.apple.com/tutorials/swiftui" target="_blank">Apple'ın resmi SwiftUI tutorials'ını</a> ve WWDC session'larını takip etmenizi öneririm.</p>
+            </div>
+        </article>
+        
+        <!-- Post Footer -->
+        <footer class="post-footer fade-in-up">
+            <div class="author-section">
+                <img src="../cb.png" alt="Celal Başaran" class="author-avatar">
+                <div class="author-info">
+                    <h4>Celal Başaran</h4>
+                    <p>iOS Developer & Swift Enthusiast</p>
+                </div>
+            </div>
+            
+            <nav class="post-navigation-footer">
+                <a href="../blog.html" class="nav-link">← Tüm Yazılar</a>
+                <a href="ios18-yenilikler.html" class="nav-link">Sonraki Yazı →</a>
+            </nav>
+        </footer>
+    </div>
+
+    <script>
+        // Apple-style scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach((element, index) => {
+                element.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html> 
