@@ -1,258 +1,374 @@
-/*
+/**
  * ============================================================================
- * CELAL BAŞARAN - ULTRA-ADVANCED PORTFOLIO
- * Main Application JavaScript - AI-Powered Interactive Portfolio
- * ============================================================================
- * Features:
- * - Advanced Loading Screen with Progress Tracking
- * - Smooth Navigation with 3D Transforms
- * - Theme Management System
- * - Language Switching
- * - Advanced Search Functionality
- * - Voice Commands Integration
- * - AI Assistant Integration
- * - Performance Monitoring
- * - Analytics Integration
+ * ULTRA-ADVANCED PORTFOLIO APPLICATION v3.0.0
+ * Apple-optimized with performance enhancements
  * ============================================================================
  */
 
-// Advanced Application Class
 class PortfolioApp {
     constructor() {
-        this.version = "3.0.0";
         this.theme = localStorage.getItem('theme') || 'dark';
         this.language = localStorage.getItem('language') || 'tr';
         this.isLoading = true;
-        this.loadingProgress = 0;
+        this.scrollPosition = 0;
+        this.lastScrollTime = 0;
+        this.scrollDirection = 'down';
         this.modules = new Map();
         
-        // Performance monitoring
+        // Performance tracking
         this.performanceMetrics = {
-            startTime: performance.now(),
-            loadTime: 0,
-            interactionTime: 0,
-            renderTime: 0
+            loadStart: performance.now(),
+            domReady: null,
+            loadComplete: null,
+            firstPaint: null,
+            firstContentfulPaint: null
         };
         
         this.init();
     }
-    
+
+    /**
+     * Initialize application
+     */
     async init() {
-        console.log(`🚀 Portfolio v${this.version} initializing...`);
-        
         try {
-            // Start loading process
-            await this.showLoadingScreen();
+            // Record DOM ready time
+            this.performanceMetrics.domReady = performance.now();
+            
+            // Show loading screen
+            this.showLoadingScreen();
             
             // Initialize core systems
             await this.initializeCore();
             
-            // Load modules
-            await this.loadModules();
-            
-            // Initialize UI components
-            await this.initializeUI();
+            // Wait for AnimationManager to be ready
+            await this.waitForAnimationManager();
             
             // Setup event listeners
             this.setupEventListeners();
             
-            // Apply theme and language
+            // Apply initial settings
             this.applyTheme();
             this.applyLanguage();
+            
+            // Initialize modules
+            await this.initializeModules();
             
             // Hide loading screen
             await this.hideLoadingScreen();
             
-            // Initialize animations
-            this.initializeAnimations();
+            // Record load complete time
+            this.performanceMetrics.loadComplete = performance.now();
             
-            // Track performance
-            this.trackPerformance();
-            
-            console.log('✅ Portfolio initialized successfully!');
+            console.log('🚀 Portfolio App v3.0.0 initialized successfully');
+            console.log('📊 Performance metrics:', this.performanceMetrics);
             
         } catch (error) {
-            console.error('❌ Error initializing portfolio:', error);
-            this.handleError(error);
+            console.error('❌ Failed to initialize app:', error);
+            this.handleInitError(error);
         }
     }
-    
-    async showLoadingScreen() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (!loadingScreen) return;
-        
-        loadingScreen.style.display = 'flex';
-        
-        // Simulate loading progress
-        const steps = [
-            { name: 'Loading Core...', duration: 300 },
-            { name: 'Initializing 3D Engine...', duration: 500 },
-            { name: 'Loading AI Assistant...', duration: 400 },
-            { name: 'Setting up Voice Commands...', duration: 350 },
-            { name: 'Preparing Animations...', duration: 300 },
-            { name: 'Finalizing...', duration: 200 }
-        ];
-        
-        for (const [index, step] of steps.entries()) {
-            await this.updateLoadingProgress(step.name, (index + 1) / steps.length * 100);
-            await this.delay(step.duration);
-        }
+
+    /**
+     * Wait for AnimationManager to be ready
+     */
+    async waitForAnimationManager() {
+        return new Promise((resolve) => {
+            if (window.animationManager) {
+                resolve();
+            } else {
+                const checkInterval = setInterval(() => {
+                    if (window.animationManager) {
+                        clearInterval(checkInterval);
+                        resolve();
+                    }
+                }, 50);
+                
+                // Timeout after 5 seconds
+                setTimeout(() => {
+                    clearInterval(checkInterval);
+                    console.warn('⚠️ AnimationManager not found, continuing without it');
+                    resolve();
+                }, 5000);
+            }
+        });
     }
-    
-    async updateLoadingProgress(text, progress) {
-        const progressBar = document.querySelector('.loading-progress-bar');
-        const loadingText = document.querySelector('.loading-text');
-        
-        if (progressBar) {
-            progressBar.style.width = `${progress}%`;
-        }
-        
-        if (loadingText) {
-            loadingText.textContent = text;
-        }
-        
-        this.loadingProgress = progress;
-    }
-    
-    async hideLoadingScreen() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (!loadingScreen) return;
-        
-        await this.delay(500); // Wait a bit for visual effect
-        
-        loadingScreen.classList.add('fade-out');
-        
-        await this.delay(1000); // Wait for fade animation
-        
-        loadingScreen.style.display = 'none';
-        this.isLoading = false;
-    }
-    
+
+    /**
+     * Initialize core systems
+     */
     async initializeCore() {
-        // Initialize theme system
+        // Apply initial theme immediately to prevent flash
         document.documentElement.setAttribute('data-theme', this.theme);
         
-        // Initialize viewport handling
-        this.setupViewport();
+        // Setup critical CSS variables
+        this.setupCSSVariables();
         
-        // Initialize scroll behavior
-        this.setupScrollBehavior();
+        // Initialize performance observer
+        this.initializePerformanceObserver();
         
-        // Initialize intersection observer for animations
-        this.setupIntersectionObserver();
+        // Setup error handling
+        this.setupErrorHandling();
     }
-    
-    async loadModules() {
-        const modules = [
-            { name: '3d-engine', path: './modules/3d-engine.js' },
-            { name: 'ai-assistant', path: './modules/ai-assistant.js' },
-            { name: 'voice-commands', path: './modules/voice-commands.js' },
-            { name: 'analytics', path: './modules/analytics.js' },
-            { name: 'performance-monitor', path: './modules/performance-monitor.js' }
-        ];
+
+    /**
+     * Setup CSS custom properties
+     */
+    setupCSSVariables() {
+        const root = document.documentElement;
         
-        for (const module of modules) {
-            try {
-                const imported = await import(module.path);
-                this.modules.set(module.name, imported.default || imported);
-                console.log(`📦 Module loaded: ${module.name}`);
-            } catch (error) {
-                console.warn(`⚠️ Failed to load module ${module.name}:`, error);
-            }
+        // Dynamic viewport units for mobile
+        const vh = window.innerHeight * 0.01;
+        root.style.setProperty('--vh', `${vh}px`);
+        
+        // Device pixel ratio
+        root.style.setProperty('--pixel-ratio', window.devicePixelRatio);
+        
+        // Color scheme
+        root.style.setProperty('--color-scheme', this.theme);
+        
+        // Performance mode
+        if (window.animationManager) {
+            root.style.setProperty('--performance-mode', window.animationManager.performanceMode);
         }
     }
-    
-    async initializeUI() {
-        // Initialize navigation
-        this.initializeNavigation();
-        
-        // Initialize theme toggle
-        this.initializeThemeToggle();
-        
-        // Initialize language selector
-        this.initializeLanguageSelector();
-        
-        // Initialize search
-        this.initializeSearch();
-        
-        // Initialize mobile navigation
-        this.initializeMobileNavigation();
-        
-        // Initialize typewriter effect
-        this.initializeTypewriter();
-        
-        // Initialize statistics counter
-        this.initializeStatsCounter();
-        
-        // Initialize AI assistant
-        this.initializeAIAssistant();
-    }
-    
-    initializeNavigation() {
-        const navbar = document.getElementById('navbar');
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        // Handle scroll-based navbar styling
-        let lastScrollY = window.scrollY;
-        
-        window.addEventListener('scroll', () => {
-            const currentScrollY = window.scrollY;
-            
-            if (navbar) {
-                if (currentScrollY > 100) {
-                    navbar.style.backdropFilter = 'blur(30px)';
-                    navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-                } else {
-                    navbar.style.backdropFilter = 'blur(20px)';
-                    navbar.style.backgroundColor = 'rgba(28, 28, 30, 0.8)';
-                }
-                
-                // Hide/show navbar on scroll
-                if (currentScrollY > lastScrollY && currentScrollY > 200) {
-                    navbar.style.transform = 'translateY(-100%)';
-                } else {
-                    navbar.style.transform = 'translateY(0)';
-                }
-            }
-            
-            lastScrollY = currentScrollY;
-        });
-        
-        // Handle active link highlighting
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all links
-                navLinks.forEach(l => l.classList.remove('active'));
-                
-                // Add active class to clicked link
-                link.classList.add('active');
-                
-                // Smooth scroll to target
-                const targetId = link.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    this.smoothScrollTo(targetElement);
-                }
+
+    /**
+     * Initialize performance observer
+     */
+    initializePerformanceObserver() {
+        if ('PerformanceObserver' in window) {
+            // Observe paint timings
+            const paintObserver = new PerformanceObserver((list) => {
+                list.getEntries().forEach(entry => {
+                    if (entry.name === 'first-paint') {
+                        this.performanceMetrics.firstPaint = entry.startTime;
+                    } else if (entry.name === 'first-contentful-paint') {
+                        this.performanceMetrics.firstContentfulPaint = entry.startTime;
+                    }
+                });
             });
+            
+            paintObserver.observe({ entryTypes: ['paint'] });
+        }
+    }
+
+    /**
+     * Setup error handling
+     */
+    setupErrorHandling() {
+        window.addEventListener('error', (event) => {
+            console.error('💥 JavaScript Error:', event.error);
         });
         
-        // Handle section-based active link
-        this.updateActiveNavLink();
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('💥 Unhandled Promise Rejection:', event.reason);
+        });
     }
-    
-    initializeThemeToggle() {
+
+    /**
+     * Show loading screen
+     */
+    showLoadingScreen() {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.style.display = 'flex';
+        }
+    }
+
+    /**
+     * Hide loading screen with smooth animation
+     */
+    async hideLoadingScreen() {
+        return new Promise((resolve) => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                loadingScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    loadingScreen.remove();
+                    resolve();
+                }, 500);
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    /**
+     * Setup event listeners
+     */
+    setupEventListeners() {
+        // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
-        
         if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                this.toggleTheme();
+            themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
+
+        // Language toggle
+        const langToggle = document.getElementById('langToggle');
+        if (langToggle) {
+            langToggle.addEventListener('click', () => this.toggleLanguageDropdown());
+        }
+
+        // Language options
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = option.dataset.lang;
+                this.setLanguage(lang);
+            });
+        });
+
+        // Search functionality
+        const searchToggle = document.getElementById('searchToggle');
+        const searchOverlay = document.getElementById('searchOverlay');
+        const searchClose = document.getElementById('searchClose');
+        
+        if (searchToggle && searchOverlay) {
+            searchToggle.addEventListener('click', () => this.toggleSearch());
+            searchClose?.addEventListener('click', () => this.toggleSearch());
+            
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+                    this.toggleSearch();
+                }
             });
         }
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        if (mobileToggle && mobileNav) {
+            mobileToggle.addEventListener('click', () => this.toggleMobileMenu());
+        }
+
+        // Smooth scrolling for navigation links
+        this.setupSmoothScrolling();
+
+        // Window events
+        window.addEventListener('resize', this.debounce(() => this.handleResize(), 250));
+        window.addEventListener('scroll', this.throttle(() => this.handleScroll(), 16));
+        
+        // Visibility change
+        document.addEventListener('visibilitychange', () => this.handleVisibilityChange());
     }
-    
+
+    /**
+     * Setup smooth scrolling
+     */
+    setupSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+    /**
+     * Handle window resize
+     */
+    handleResize() {
+        // Update CSS variables
+        this.setupCSSVariables();
+        
+        // Update animation manager
+        if (window.animationManager) {
+            window.animationManager.handleResize();
+        }
+        
+        // Dispatch custom event
+        window.dispatchEvent(new CustomEvent('app:resize', {
+            detail: {
+                width: window.innerWidth,
+                height: window.innerHeight,
+                devicePixelRatio: window.devicePixelRatio
+            }
+        }));
+    }
+
+    /**
+     * Handle scroll events
+     */
+    handleScroll() {
+        const currentScroll = window.pageYOffset;
+        const currentTime = performance.now();
+        
+        // Determine scroll direction
+        if (currentScroll > this.scrollPosition) {
+            this.scrollDirection = 'down';
+        } else if (currentScroll < this.scrollPosition) {
+            this.scrollDirection = 'up';
+        }
+        
+        this.scrollPosition = currentScroll;
+        this.lastScrollTime = currentTime;
+        
+        // Update navbar
+        this.updateNavbar();
+        
+        // Dispatch custom event
+        window.dispatchEvent(new CustomEvent('app:scroll', {
+            detail: {
+                position: currentScroll,
+                direction: this.scrollDirection,
+                speed: Math.abs(currentScroll - this.scrollPosition) / (currentTime - this.lastScrollTime)
+            }
+        }));
+    }
+
+    /**
+     * Update navbar based on scroll
+     */
+    updateNavbar() {
+        const navbar = document.getElementById('navbar');
+        if (!navbar) return;
+        
+        if (this.scrollPosition > 100) {
+            navbar.classList.add('scrolled');
+            if (this.scrollDirection === 'down' && this.scrollPosition > 300) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+        } else {
+            navbar.classList.remove('scrolled', 'hidden');
+        }
+    }
+
+    /**
+     * Handle visibility change
+     */
+    handleVisibilityChange() {
+        if (document.hidden) {
+            // Pause animations and heavy operations
+            if (window.animationManager) {
+                window.animationManager.pauseAnimations();
+            }
+        } else {
+            // Resume animations
+            if (window.animationManager) {
+                window.animationManager.resumeAnimations();
+            }
+        }
+    }
+
+    /**
+     * Toggle theme
+     */
     toggleTheme() {
         const themes = ['dark', 'light'];
         const currentIndex = themes.indexOf(this.theme);
@@ -262,559 +378,176 @@ class PortfolioApp {
         this.applyTheme();
         localStorage.setItem('theme', this.theme);
         
-        // Animate theme transition
+        // Smooth theme transition
         document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-        
         setTimeout(() => {
             document.body.style.transition = '';
         }, 300);
+        
+        // Update CSS variables
+        this.setupCSSVariables();
+        
+        // Dispatch theme change event
+        window.dispatchEvent(new CustomEvent('app:themeChange', {
+            detail: { theme: this.theme }
+        }));
     }
-    
+
+    /**
+     * Apply theme
+     */
     applyTheme() {
         document.documentElement.setAttribute('data-theme', this.theme);
         
-        // Update theme icon
-        const themeIcon = document.querySelector('.theme-icon');
-        if (themeIcon) {
-            const sunIcon = themeIcon.querySelector('.sun-icon');
-            const moonIcon = themeIcon.querySelector('.moon-icon');
-            
-            if (this.theme === 'light') {
-                sunIcon?.style.setProperty('opacity', '0');
-                sunIcon?.style.setProperty('transform', 'rotate(180deg)');
-                moonIcon?.style.setProperty('opacity', '1');
-                moonIcon?.style.setProperty('transform', 'rotate(0deg)');
-            } else {
-                sunIcon?.style.setProperty('opacity', '1');
-                sunIcon?.style.setProperty('transform', 'rotate(0deg)');
-                moonIcon?.style.setProperty('opacity', '0');
-                moonIcon?.style.setProperty('transform', 'rotate(180deg)');
-            }
-        }
-        
-        // Update meta theme-color
-        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        if (metaThemeColor) {
-            metaThemeColor.setAttribute('content', this.theme === 'dark' ? '#000000' : '#ffffff');
+        // Update theme toggle icon
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.setAttribute('aria-label', 
+                this.theme === 'dark' ? 'Açık temaya geç' : 'Koyu temaya geç'
+            );
         }
     }
-    
-    initializeLanguageSelector() {
-        const langToggle = document.getElementById('langToggle');
-        const langDropdown = document.getElementById('langDropdown');
-        const langOptions = document.querySelectorAll('.lang-option');
-        
-        if (langToggle && langDropdown) {
-            langToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const selector = langToggle.closest('.language-selector');
-                selector.classList.toggle('open');
-            });
-            
-            // Close dropdown when clicking outside
-            document.addEventListener('click', () => {
-                const selector = langToggle.closest('.language-selector');
-                selector?.classList.remove('open');
-            });
+
+    /**
+     * Toggle language dropdown
+     */
+    toggleLanguageDropdown() {
+        const langSelector = document.querySelector('.language-selector');
+        if (langSelector) {
+            langSelector.classList.toggle('open');
         }
-        
-        langOptions.forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.preventDefault();
-                const lang = option.getAttribute('data-lang');
-                this.changeLanguage(lang);
-            });
-        });
     }
-    
-    changeLanguage(lang) {
+
+    /**
+     * Set language
+     */
+    setLanguage(lang) {
         this.language = lang;
         localStorage.setItem('language', lang);
         this.applyLanguage();
         
-        // Update UI
-        const langText = document.querySelector('.lang-text');
-        const langOptions = document.querySelectorAll('.lang-option');
-        
-        if (langText) {
-            langText.textContent = lang.toUpperCase();
-        }
-        
-        langOptions.forEach(option => {
-            option.classList.remove('active');
-            if (option.getAttribute('data-lang') === lang) {
-                option.classList.add('active');
-            }
-        });
-        
         // Close dropdown
-        const selector = document.querySelector('.language-selector');
-        selector?.classList.remove('open');
+        const langSelector = document.querySelector('.language-selector');
+        if (langSelector) {
+            langSelector.classList.remove('open');
+        }
     }
-    
+
+    /**
+     * Apply language
+     */
     applyLanguage() {
-        // This would typically load translations
-        console.log(`Language set to: ${this.language}`);
-        
-        // Update document language
         document.documentElement.setAttribute('lang', this.language);
-    }
-    
-    initializeSearch() {
-        const searchToggle = document.getElementById('searchToggle');
-        const searchOverlay = document.getElementById('searchOverlay');
-        const searchClose = document.getElementById('searchClose');
-        const searchInput = document.getElementById('searchInput');
         
-        if (searchToggle && searchOverlay) {
-            searchToggle.addEventListener('click', () => {
-                this.openSearch();
-            });
+        // Update language toggle
+        const langText = document.querySelector('.lang-text');
+        if (langText) {
+            langText.textContent = this.language.toUpperCase();
         }
         
-        if (searchClose) {
-            searchClose.addEventListener('click', () => {
-                this.closeSearch();
-            });
-        }
-        
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                this.handleSearch(e.target.value);
-            });
-            
-            searchInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    this.closeSearch();
-                }
-            });
-        }
-        
-        // Close search with ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && searchOverlay?.classList.contains('active')) {
-                this.closeSearch();
-            }
+        // Update active language option
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.classList.toggle('active', option.dataset.lang === this.language);
         });
     }
-    
-    openSearch() {
+
+    /**
+     * Toggle search overlay
+     */
+    toggleSearch() {
         const searchOverlay = document.getElementById('searchOverlay');
         const searchInput = document.getElementById('searchInput');
         
         if (searchOverlay) {
-            searchOverlay.classList.add('active');
-            setTimeout(() => {
-                searchInput?.focus();
-            }, 100);
+            const isActive = searchOverlay.classList.toggle('active');
+            
+            if (isActive && searchInput) {
+                setTimeout(() => searchInput.focus(), 100);
+            }
         }
     }
-    
-    closeSearch() {
-        const searchOverlay = document.getElementById('searchOverlay');
-        
-        if (searchOverlay) {
-            searchOverlay.classList.remove('active');
-        }
-    }
-    
-    handleSearch(query) {
-        if (query.length < 2) return;
-        
-        // This would implement actual search functionality
-        console.log(`Searching for: ${query}`);
-        
-        // Mock search results
-        const results = [
-            { type: 'project', title: 'AI-Powered iOS App', url: '#projects' },
-            { type: 'skill', title: 'SwiftUI Development', url: '#skills' },
-            { type: 'blog', title: 'Machine Learning Guide', url: '#blog' }
-        ].filter(item => 
-            item.title.toLowerCase().includes(query.toLowerCase())
-        );
-        
-        this.displaySearchResults(results);
-    }
-    
-    displaySearchResults(results) {
-        const searchResults = document.getElementById('searchResults');
-        
-        if (!searchResults) return;
-        
-        if (results.length === 0) {
-            searchResults.innerHTML = '<div class="no-results">No results found</div>';
-            return;
-        }
-        
-        const html = results.map(result => `
-            <div class="search-result-item">
-                <div class="result-type">${result.type}</div>
-                <div class="result-title">${result.title}</div>
-            </div>
-        `).join('');
-        
-        searchResults.innerHTML = html;
-    }
-    
-    initializeMobileNavigation() {
+
+    /**
+     * Toggle mobile menu
+     */
+    toggleMobileMenu() {
         const mobileToggle = document.getElementById('mobileToggle');
         const mobileNav = document.getElementById('mobileNav');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         
         if (mobileToggle && mobileNav) {
-            mobileToggle.addEventListener('click', () => {
-                mobileToggle.classList.toggle('active');
-                mobileNav.classList.toggle('active');
-                
-                // Prevent body scroll when menu is open
-                if (mobileNav.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
-            });
+            const isActive = mobileToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active', isActive);
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isActive ? 'hidden' : '';
         }
-        
-        // Close mobile nav when clicking on a link
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileToggle?.classList.remove('active');
-                mobileNav?.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
     }
-    
-    initializeTypewriter() {
-        const typewriterElement = document.getElementById('typewriter');
-        
-        if (!typewriterElement) return;
-        
-        const texts = [
-            'Senior iOS Architect',
-            'AI Developer',
-            'Full-Stack Engineer',
-            'Innovation Leader',
-            'Tech Visionary'
+
+    /**
+     * Initialize modules
+     */
+    async initializeModules() {
+        const moduleConfigs = [
+            { name: 'ai-assistant', required: false },
+            { name: '3d-engine', required: false },
+            { name: 'voice-commands', required: false },
+            { name: 'apple-devices', required: true },
+            { name: 'performance-monitor', required: false },
+            { name: 'analytics', required: false }
         ];
-        
-        let currentTextIndex = 0;
-        let currentCharIndex = 0;
-        let isDeleting = false;
-        
-        const typeSpeed = 100;
-        const deleteSpeed = 50;
-        const pauseDuration = 2000;
-        
-        const type = () => {
-            const currentText = texts[currentTextIndex];
-            
-            if (isDeleting) {
-                typewriterElement.textContent = currentText.substring(0, currentCharIndex - 1);
-                currentCharIndex--;
-            } else {
-                typewriterElement.textContent = currentText.substring(0, currentCharIndex + 1);
-                currentCharIndex++;
-            }
-            
-            let timeoutDuration = isDeleting ? deleteSpeed : typeSpeed;
-            
-            if (!isDeleting && currentCharIndex === currentText.length) {
-                timeoutDuration = pauseDuration;
-                isDeleting = true;
-            } else if (isDeleting && currentCharIndex === 0) {
-                isDeleting = false;
-                currentTextIndex = (currentTextIndex + 1) % texts.length;
-            }
-            
-            setTimeout(type, timeoutDuration);
-        };
-        
-        // Start typing effect
-        setTimeout(type, 1000);
-    }
-    
-    initializeStatsCounter() {
-        const statNumbers = document.querySelectorAll('.stat-number');
-        
-        statNumbers.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-target'));
-            const duration = 2000; // 2 seconds
-            const increment = target / (duration / 16); // 60fps
-            let current = 0;
-            
-            const updateCounter = () => {
-                if (current < target) {
-                    current += increment;
-                    stat.textContent = Math.floor(current);
-                    requestAnimationFrame(updateCounter);
+
+        for (const config of moduleConfigs) {
+            try {
+                await this.loadModule(config.name, config.required);
+            } catch (error) {
+                if (config.required) {
+                    console.error(`❌ Failed to load required module: ${config.name}`, error);
                 } else {
-                    stat.textContent = target;
-                }
-            };
-            
-            // Start animation when element is visible
-            this.observeElement(stat, () => {
-                updateCounter();
-            });
-        });
-    }
-    
-    initializeAIAssistant() {
-        const aiToggle = document.getElementById('aiToggle');
-        const aiClose = document.getElementById('aiClose');
-        const aiAssistant = document.getElementById('aiAssistant');
-        
-        if (aiToggle && aiAssistant) {
-            aiToggle.addEventListener('click', () => {
-                aiAssistant.classList.toggle('open');
-            });
-        }
-        
-        if (aiClose && aiAssistant) {
-            aiClose.addEventListener('click', () => {
-                aiAssistant.classList.remove('open');
-            });
-        }
-    }
-    
-    setupEventListeners() {
-        // Smooth scroll for anchor links
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('a[href^="#"]');
-            if (link) {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    this.smoothScrollTo(targetElement);
+                    console.warn(`⚠️ Failed to load optional module: ${config.name}`, error);
                 }
             }
-        });
-        
-        // Handle window resize
-        window.addEventListener('resize', this.debounce(() => {
-            this.handleResize();
-        }, 100));
-        
-        // Handle scroll events
-        window.addEventListener('scroll', this.throttle(() => {
-            this.handleScroll();
-        }, 16)); // 60fps
-        
-        // Handle keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            this.handleKeyboardShortcuts(e);
-        });
-    }
-    
-    setupViewport() {
-        // Handle mobile viewport units
-        const setViewportHeight = () => {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        };
-        
-        setViewportHeight();
-        window.addEventListener('resize', setViewportHeight);
-    }
-    
-    setupScrollBehavior() {
-        // Add smooth scrolling polyfill for older browsers
-        if (!CSS.supports('scroll-behavior', 'smooth')) {
-            const smoothScrollPolyfill = document.createElement('script');
-            smoothScrollPolyfill.src = 'https://polyfill.io/v3/polyfill.min.js?features=smoothscroll';
-            document.head.appendChild(smoothScrollPolyfill);
         }
     }
-    
-    setupIntersectionObserver() {
-        this.intersectionObserver = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                        
-                        // Trigger any callbacks
-                        const callback = entry.target._animationCallback;
-                        if (callback) {
-                            callback();
-                            entry.target._animationCallback = null;
-                        }
-                    }
-                });
-            },
-            {
-                threshold: 0.1,
-                rootMargin: '50px'
+
+    /**
+     * Load a module
+     */
+    async loadModule(name, required = false) {
+        try {
+            const module = await import(`./modules/${name}.js`);
+            this.modules.set(name, module);
+            console.log(`✅ Module loaded: ${name}`);
+        } catch (error) {
+            if (required) {
+                throw error;
             }
-        );
-        
-        // Observe elements with animation attributes
-        document.querySelectorAll('[data-aos]').forEach(el => {
-            this.intersectionObserver.observe(el);
-        });
-    }
-    
-    observeElement(element, callback) {
-        element._animationCallback = callback;
-        this.intersectionObserver.observe(element);
-    }
-    
-    initializeAnimations() {
-        // Add CSS classes for animations
-        document.querySelectorAll('[data-aos]').forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            el.style.transitionDelay = `${index * 0.1}s`;
-        });
-        
-        // Initialize parallax effects
-        this.initializeParallax();
-        
-        // Initialize scroll-triggered animations
-        this.initializeScrollAnimations();
-    }
-    
-    initializeParallax() {
-        const parallaxElements = document.querySelectorAll('.floating-element');
-        
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            
-            parallaxElements.forEach((el, index) => {
-                const speed = 0.5 + (index * 0.1);
-                const yPos = -(scrollY * speed);
-                el.style.transform = `translateY(${yPos}px)`;
-            });
-        });
-    }
-    
-    initializeScrollAnimations() {
-        // Update active navigation link based on scroll position
-        this.updateActiveNavLink();
-    }
-    
-    updateActiveNavLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (window.scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    }
-    
-    smoothScrollTo(element, offset = 100) {
-        const targetPosition = element.offsetTop - offset;
-        
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-    }
-    
-    handleResize() {
-        // Update viewport dimensions
-        this.setupViewport();
-        
-        // Trigger resize event for modules
-        this.modules.forEach(module => {
-            if (module.handleResize) {
-                module.handleResize();
-            }
-        });
-    }
-    
-    handleScroll() {
-        // Update scroll progress
-        const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-        document.documentElement.style.setProperty('--scroll-progress', scrollProgress);
-        
-        // Trigger scroll event for modules
-        this.modules.forEach(module => {
-            if (module.handleScroll) {
-                module.handleScroll(window.scrollY);
-            }
-        });
-    }
-    
-    handleKeyboardShortcuts(e) {
-        // Ctrl/Cmd + K for search
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-            e.preventDefault();
-            this.openSearch();
-        }
-        
-        // Ctrl/Cmd + D for theme toggle
-        if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
-            e.preventDefault();
-            this.toggleTheme();
-        }
-        
-        // Escape to close overlays
-        if (e.key === 'Escape') {
-            this.closeSearch();
-            const aiAssistant = document.getElementById('aiAssistant');
-            aiAssistant?.classList.remove('open');
+            console.warn(`⚠️ Optional module not available: ${name}`);
         }
     }
-    
-    trackPerformance() {
-        this.performanceMetrics.loadTime = performance.now() - this.performanceMetrics.startTime;
-        
-        // Track Web Vitals
-        if ('web-vitals' in window) {
-            // This would integrate with web-vitals library
+
+    /**
+     * Handle initialization error
+     */
+    handleInitError(error) {
+        // Hide loading screen
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.style.display = 'none';
         }
         
-        // Log performance metrics
-        console.log('📊 Performance Metrics:', this.performanceMetrics);
-    }
-    
-    handleError(error) {
-        console.error('Application Error:', error);
-        
-        // Show user-friendly error message
-        const errorMessage = document.createElement('div');
-        errorMessage.className = 'error-notification';
-        errorMessage.innerHTML = `
-            <div class="error-content">
-                <h3>Something went wrong</h3>
-                <p>We're working to fix this issue. Please refresh the page.</p>
-                <button onclick="window.location.reload()">Refresh Page</button>
+        // Show error message
+        document.body.innerHTML = `
+            <div class="error-screen">
+                <h1>Uygulama Yüklenemedi</h1>
+                <p>Bir hata oluştu. Lütfen sayfayı yenileyin.</p>
+                <button onclick="location.reload()">Sayfayı Yenile</button>
             </div>
         `;
-        
-        document.body.appendChild(errorMessage);
-        
-        setTimeout(() => {
-            errorMessage.remove();
-        }, 10000);
     }
-    
-    // Utility methods
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    
+
+    /**
+     * Utility: Debounce function
+     */
     debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -826,10 +559,13 @@ class PortfolioApp {
             timeout = setTimeout(later, wait);
         };
     }
-    
+
+    /**
+     * Utility: Throttle function
+     */
     throttle(func, limit) {
         let inThrottle;
-        return function(...args) {
+        return function executedFunction(...args) {
             if (!inThrottle) {
                 func.apply(this, args);
                 inThrottle = true;
@@ -837,12 +573,62 @@ class PortfolioApp {
             }
         };
     }
+
+    /**
+     * Get module by name
+     */
+    getModule(name) {
+        return this.modules.get(name);
+    }
+
+    /**
+     * Get performance metrics
+     */
+    getPerformanceMetrics() {
+        return { ...this.performanceMetrics };
+    }
+
+    /**
+     * Debug mode
+     */
+    enableDebugMode() {
+        window.DEBUG = true;
+        document.body.dataset.debug = 'true';
+        
+        if (window.animationManager) {
+            window.animationManager.enableDebugMode();
+        }
+        
+        console.log('🐛 Debug mode enabled');
+        console.log('📊 Current metrics:', this.getPerformanceMetrics());
+        console.log('🎬 Animation stats:', window.animationManager?.getStats());
+    }
+
+    /**
+     * Disable debug mode
+     */
+    disableDebugMode() {
+        window.DEBUG = false;
+        document.body.dataset.debug = 'false';
+        
+        if (window.animationManager) {
+            window.animationManager.disableDebugMode();
+        }
+        
+        console.log('🐛 Debug mode disabled');
+    }
 }
 
-// Initialize application when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    window.portfolioApp = new PortfolioApp();
-});
+// Initialize app when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.app = new PortfolioApp();
+    });
+} else {
+    window.app = new PortfolioApp();
+}
 
-// Export for module usage
-export default PortfolioApp; 
+// Export for global access
+window.PortfolioApp = PortfolioApp;
+
+console.log('🚀 Portfolio App v3.0.0 loaded'); 
