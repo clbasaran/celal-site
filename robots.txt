@@ -1,0 +1,323 @@
+# ============================================================================
+# CELAL BAŞARAN - PORTFOLIO ROBOTS.TXT
+# Advanced SEO Configuration for Search Engine Crawlers
+# ============================================================================
+
+# Main User-Agent Rules
+User-agent: *
+Allow: /
+
+# Allow all major search engine bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Disallow admin and sensitive areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Disallow search and filter URLs to avoid duplicate content
+Disallow: /*?search=*
+Disallow: /*?filter=*
+Disallow: /*?sort=*
+Disallow: /*?page=*
+
+# Allow specific assets and resources
+Allow: /assets/
+Allow: /manifest.json
+Allow: /sw.js
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+Allow: /*.ico
+Allow: /*.woff
+Allow: /*.woff2
+Allow: /*.ttf
+Allow: /*.eot
+
+# Special rules for AI assistants and chatbots
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OpenAI-Searchbot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Archive bots
+User-agent: ia_archiver
+Allow: /
+
+User-agent: Wayback
+Allow: /
+
+# Social media crawlers
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: SkypeUriPreview
+Allow: /
+
+User-agent: SlackBot
+Allow: /
+
+User-agent: DiscordBot
+Allow: /
+
+# Development and testing bots (allow with limitations)
+User-agent: SiteAuditBot
+Allow: /
+Crawl-delay: 10
+
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Allow: /
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Allow: /
+Crawl-delay: 10
+
+User-agent: DotBot
+Allow: /
+Crawl-delay: 10
+
+# Disallow aggressive scrapers and bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot-SA
+Disallow: /
+
+User-agent: AhrefsBot
+Crawl-delay: 86400
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: YandexImages
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# Sitemap locations
+Sitemap: https://celalbasaran.dev/sitemap.xml
+Sitemap: https://www.celalbasaran.dev/sitemap.xml
+
+# Alternative sitemaps for different content types
+Sitemap: https://celalbasaran.dev/sitemap-projects.xml
+Sitemap: https://celalbasaran.dev/sitemap-pages.xml
+Sitemap: https://celalbasaran.dev/sitemap-images.xml
+
+# Host preference (canonical domain)
+Host: https://celalbasaran.dev
+
+# Crawl delay for all bots (1 second default)
+Crawl-delay: 1
+
+# ============================================================================
+# ADDITIONAL SEO DIRECTIVES
+# ============================================================================
+
+# Clean URLs preference - redirect parameters to clean URLs
+# This helps avoid duplicate content issues
+
+# Special handling for PWA and SPA routes
+Allow: /#*
+
+# Allow deep linking for single page application
+Allow: /*#home
+Allow: /*#about  
+Allow: /*#projects
+Allow: /*#contact
+Allow: /*#skills
+Allow: /*#experience
+Allow: /*#blog
+
+# API endpoints (if applicable)
+Allow: /api/public/*
+Disallow: /api/private/*
+Disallow: /api/admin/*
+
+# Multilingual support
+Allow: /tr/
+Allow: /en/
+Allow: /de/
+
+# Mobile-specific content
+Allow: /m/
+Allow: /mobile/
+
+# AMP pages (if implemented)
+Allow: /amp/
+
+# RSS feeds
+Allow: /feed.xml
+Allow: /rss.xml
+Allow: /atom.xml
+
+# ============================================================================
+# PERFORMANCE AND BANDWIDTH CONSIDERATIONS
+# ============================================================================
+
+# Request rate limiting for heavy crawlers
+User-agent: *
+Request-rate: 1/10s
+
+# Crawl time preferences (avoid peak hours)
+# Visit-time: 0200-0600
+
+# ============================================================================
+# SECURITY CONSIDERATIONS
+# ============================================================================
+
+# Disallow potential security scanner paths
+Disallow: /admin
+Disallow: /wp-admin
+Disallow: /wp-login
+Disallow: /login
+Disallow: /signin
+Disallow: /dashboard
+Disallow: /panel
+Disallow: /config
+Disallow: /.env
+Disallow: /db
+Disallow: /database
+Disallow: /backup
+Disallow: /backups
+
+# Disallow common scanner patterns
+Disallow: /phpmyadmin
+Disallow: /sql
+Disallow: /mysql
+Disallow: /ftp
+Disallow: /ssh
+Disallow: /cpanel
+Disallow: /cgi-bin
+
+# ============================================================================
+# CONTENT MANAGEMENT
+# ============================================================================
+
+# Allow search engines to index important pages
+Allow: /portfolio
+Allow: /resume
+Allow: /cv
+Allow: /projects/
+Allow: /work/
+Allow: /case-studies/
+Allow: /about/
+Allow: /contact/
+Allow: /blog/
+
+# Disallow temporary or test content
+Disallow: /test/
+Disallow: /dev/
+Disallow: /staging/
+Disallow: /beta/
+Disallow: /preview/
+Disallow: /draft/
+
+# ============================================================================
+# TECHNICAL SEO
+# ============================================================================
+
+# Preferred crawling schedule
+# Most search engines will respect crawl-delay and visit-time directives
+
+# Language and region targeting handled via HTML lang attributes
+# and meta tags, not robots.txt
+
+# Schema.org structured data is embedded in HTML pages
+# for better search engine understanding
+
+# ============================================================================
+# MONITORING AND ANALYTICS
+# ============================================================================
+
+# Search engines can access analytics tracking
+Allow: /analytics
+Allow: /tracking
+Allow: /metrics
+
+# Allow access to performance monitoring
+Allow: /monitoring
+Allow: /health
+Allow: /status
+
+# ============================================================================
+# SOCIAL MEDIA OPTIMIZATION
+# ============================================================================
+
+# Allow social media preview generators
+Allow: /og-image/
+Allow: /twitter-image/
+Allow: /social-preview/
+
+# Allow social sharing endpoints
+Allow: /share/
+
+# ============================================================================
+# END OF ROBOTS.TXT
+# ============================================================================
+
+# Last updated: 2025-05-23
+# Portfolio version: 3.0.0
+# Contact: Celal Başaran - Senior iOS Developer & AI Enthusiast
+# Website: https://celalbasaran.dev
+# Email: celal@celalbasaran.dev
+
+# This robots.txt file is optimized for maximum search engine visibility
+# while protecting sensitive areas and managing crawler resources efficiently. 
