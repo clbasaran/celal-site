@@ -20,30 +20,290 @@
     <meta property="og:url" content="https://celalbasaran.com/posts/ios18-yenilikler.html">
     <meta property="og:type" content="article">
     
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0A84FF">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../cb.png">
     <link rel="apple-touch-icon" href="../cb.png">
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        /* Apple UI Blog Post Styling */
+        .blog-post-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 32px 16px;
+            min-height: 100vh;
+        }
+        
+        .post-navigation {
+            margin-bottom: 40px;
+        }
+        
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-small);
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+        }
+        
+        .back-link:hover {
+            background: var(--fill-secondary);
+            transform: translateX(-4px);
+        }
+        
+        .post-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--separator-opaque);
+        }
+        
+        .post-meta {
+            color: #888;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .post-title {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+        }
+        
+        .post-subtitle {
+            font-size: 20px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .post-content {
+            line-height: 1.75;
+        }
+        
+        .post-content h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        
+        .post-content h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 32px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .post-content p {
+            font-size: 18px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        
+        .post-content ul, .post-content ol {
+            margin: 24px 0;
+            padding-left: 24px;
+        }
+        
+        .post-content li {
+            font-size: 18px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .post-content a {
+            color: var(--primary);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: all var(--transition-fast);
+        }
+        
+        .post-content a:hover {
+            color: var(--primary-hover);
+            text-decoration-thickness: 2px;
+        }
+        
+        .post-content code {
+            background: var(--surface-secondary);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .post-content pre {
+            background: var(--surface-elevated);
+            border: 1px solid var(--separator-opaque);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .post-content pre code {
+            background: none;
+            color: var(--text-primary);
+            padding: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre;
+        }
+        
+        .post-footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid var(--separator-opaque);
+        }
+        
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding: 20px;
+            background: var(--surface-primary);
+            border-radius: var(--radius-large);
+            border: 1px solid var(--separator-opaque);
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin: 0;
+        }
+        
+        .post-navigation-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        
+        .nav-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            border: 1px solid var(--separator-opaque);
+            border-radius: var(--radius-medium);
+            transition: all var(--transition-standard);
+            flex: 1;
+            text-align: center;
+        }
+        
+        .nav-link:hover {
+            background: var(--fill-secondary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .blog-post-container {
+                padding: 24px 16px;
+            }
+            
+            .post-title {
+                font-size: 32px;
+            }
+            
+            .post-subtitle {
+                font-size: 18px;
+            }
+            
+            .post-content h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+            
+            .post-content h3 {
+                font-size: 20px;
+                margin-top: 24px;
+            }
+            
+            .post-content p,
+            .post-content li {
+                font-size: 16px;
+            }
+            
+            .author-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .post-navigation-footer {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="blog-post-page">
-        <div class="container">
-            <!-- Navigation -->
-            <nav class="post-nav">
-                <a href="../blog.html" class="back-link">← Blog'a Geri Dön</a>
-            </nav>
-            
-            <!-- Post Header -->
-            <header class="post-header">
-                <div class="post-date">15 Mayıs 2025</div>
-                <h1 class="post-title">iOS 18'de Yenilikler ve Geliştirici Ekosistemi Üzerindeki Etkileri</h1>
-                <p class="post-subtitle">Apple'ın iOS 18 ile sunduğu yeni özellikler ve bunların iOS geliştiricileri üzerindeki etkilerini detaylı olarak inceliyoruz. Widget'lar, App Intents ve daha fazlası.</p>
-            </header>
-            
-            <!-- Post Content -->
-            <article class="post-content">
+    <div class="blog-post-container">
+        <!-- Navigation -->
+        <nav class="post-navigation fade-in-up">
+            <a href="../blog.html" class="back-link">← Blog'a Geri Dön</a>
+        </nav>
+        
+        <!-- Post Header -->
+        <header class="post-header fade-in-up">
+            <div class="post-meta">15 Mayıs 2025 • Celal Başaran</div>
+            <h1 class="post-title">iOS 18'de Yenilikler ve Geliştirici Ekosistemi Üzerindeki Etkileri</h1>
+            <p class="post-subtitle">Apple'ın iOS 18 ile sunduğu yeni özellikler ve bunların iOS geliştiricileri üzerindeki etkilerini detaylı olarak inceliyoruz. Widget'lar, App Intents ve daha fazlası.</p>
+        </header>
+        
+        <!-- Post Content -->
+        <article class="post-content">
+            <div class="fade-in-up">
                 <h2>🍏 iOS 18 Neler Getirdi?</h2>
                 <p>Apple'ın iOS 18 ile sunduğu yeni özellikler, geliştiriciler için de büyük yenilikler barındırıyor. SwiftUI, CoreML, App Intents gibi framework'ler genişlerken, platform daha güçlü ve esnek hale geliyor.</p>
                 
@@ -55,7 +315,9 @@
                     <li><strong>Gizlilik API'leri:</strong> Şeffaf izin yönetimi ve kullanıcı kontrolü</li>
                     <li><strong>CoreML iyileştirmeleri:</strong> Anlık model güncellemeleri ve optimize edilmiş performans</li>
                 </ul>
+            </div>
 
+            <div class="fade-in-up">
                 <h2>🚀 SwiftUI'da Yenilikler</h2>
                 <p>SwiftUI 5.0 ile birlikte performans ve esneklik açısından büyük ilerlemeler kaydedildi. Özellikle animasyonlar ve layout sistemi ciddi iyileştirmeler aldı:</p>
                 
@@ -78,24 +340,12 @@ struct ModernScrollView: View {
         }
         .scrollBounceBehavior(.basedOnSize)
     }
-}
-
-struct ContentView: View {
-    @Bindable var userModel: UserModel
-    
-    var body: some View {
-        VStack {
-            TextField("Ad", text: $userModel.name)
-            TextField("E-posta", text: $userModel.email)
-        }
-        .onChange(of: userModel.name) { oldValue, newValue in
-            validateInput(newValue)
-        }
-    }
 }</code></pre>
 
                 <p>Yeni <code>@Bindable</code> wrapper'ı ile state yönetimi çok daha sade hale geldi. Artık Observable protocol'ü kullanan modelleri doğrudan binding olarak kullanabiliyoruz.</p>
+            </div>
 
+            <div class="fade-in-up">
                 <h2>🔐 Gizlilik API'leri ve Şeffaflık</h2>
                 <p>iOS 18'de gizlilik konusunda yapılan en önemli geliştirmelerden biri <code>PermissionStatusMonitor</code> ve <code>SensitiveContentAPI</code>. Bu API'lar sayesinde uygulamalar kullanıcılara çok daha şeffaf bir deneyim sunabiliyor:</p>
                 
@@ -114,12 +364,6 @@ class PrivacyManager: ObservableObject {
             .receive(on: DispatchQueue.main)
             .assign(to: \.cameraPermission, on: self)
             .store(in: &cancellables)
-        
-        PermissionStatusMonitor(for: .microphone)
-            .statusPublisher
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.microphonePermission, on: self)
-            .store(in: &cancellables)
     }
     
     func requestCameraAccess() async -> Bool {
@@ -127,28 +371,9 @@ class PrivacyManager: ObservableObject {
         return status == .authorized
     }
 }</code></pre>
+            </div>
 
-                <p>Yeni <code>SensitiveContentAPI</code> ile de hassas içerik tespiti ve filtreleme işlemleri yerel olarak cihazda yapılabiliyor:</p>
-                
-                <pre><code>import SensitiveContentAnalysis
-
-class ContentAnalyzer {
-    func analyzeSensitivity(of image: UIImage) async -> SensitivityAnalysis {
-        let analyzer = SensitiveContentAnalyzer()
-        
-        return await analyzer.analyze(image) { analysis in
-            switch analysis.sensitivity {
-            case .none:
-                return .safe
-            case .moderate:
-                return .requiresWarning
-            case .high:
-                return .blocked
-            }
-        }
-    }
-}</code></pre>
-
+            <div class="fade-in-up">
                 <h2>🧠 CoreML ve Model Güncellemeleri</h2>
                 <p>iOS 18'de CoreML'nin en önemli yeniliği, modellerin uygulama çalışırken güncellenmesi. Bu özellikle personalizasyon ve adaptif öğrenme gerektiren uygulamalar için devrim niteliğinde:</p>
                 
@@ -174,13 +399,10 @@ class AdaptiveMLManager: ObservableObject {
             }
         }
     }
-    
-    private func evaluateModelAccuracy(_ model: MLModel) async -> Double {
-        // Model doğruluğunu test verileri ile değerlendir
-        return 0.95 // Örnek değer
-    }
 }</code></pre>
+            </div>
 
+            <div class="fade-in-up">
                 <h2>🎯 App Intents 2.0 ve Siri Entegrasyonu</h2>
                 <p>App Intents framework'ü büyük bir güncelleme aldı. Artık daha karmaşık workflow'lar oluşturabiliyor ve Siri ile daha doğal etkileşimler kurabiliyoruz:</p>
                 
@@ -198,146 +420,110 @@ struct CreateNoteIntent: AppIntent {
     
     func perform() async throws -> some IntentResult {
         let note = Note(content: content, category: category)
-        await NoteManager.shared.save(note)
+        try await NoteManager.shared.save(note)
         
-        return .result(
-            dialog: "Not başarıyla oluşturuldu: \(content.prefix(30))..."
-        )
-    }
-}
-
-// Shortcuts uygulamasında da otomatik olarak görünür
-struct NoteShortcuts: AppShortcutsProvider {
-    static var appShortcuts: [AppShortcut] {
-        AppShortcut(
-            intent: CreateNoteIntent(),
-            phrases: [
-                "Not oluştur \(.applicationName) ile",
-                "\(.applicationName)'da not yaz"
-            ]
-        )
+        return .result(dialog: "Not başarıyla oluşturuldu!")
     }
 }</code></pre>
+            </div>
 
-                <h2>🎨 Widget Sistemi ve Interactive Widgets</h2>
-                <p>iOS 18'de widget'lar artık daha etkileşimli hale geldi. Kullanıcılar widget üzerinden doğrudan işlem yapabilir ve uygulamayı açmadan çeşitli aksiyonlar gerçekleştirebilir:</p>
+            <div class="fade-in-up">
+                <h2>📱 Interactive Widgets</h2>
+                <p>iOS 18 ile widget'lar artık daha interaktif. Kullanıcılar artık ana ekrandan çıkmadan widget'lar üzerinde işlem yapabiliyor:</p>
                 
                 <pre><code>import WidgetKit
 import SwiftUI
 
 struct InteractiveCounterWidget: Widget {
-    let kind: String = "InteractiveCounter"
+    let kind = "InteractiveCounter"
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: CounterProvider()) { entry in
             CounterWidgetView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("Sayaç")
-        .description("Etkileşimli sayaç widget'ı")
+        .description("Dokunarak sayıyı artırın")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
 
 struct CounterWidgetView: View {
-    var entry: CounterEntry
+    let entry: CounterEntry
     
     var body: some View {
-        VStack(spacing: 8) {
-            Text("Sayaç")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
+        VStack {
             Text("\(entry.count)")
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
-            HStack(spacing: 12) {
-                Button(intent: DecrementIntent()) {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.title2)
-                }
-                
-                Button(intent: IncrementIntent()) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.title2)
-                }
+            Button(intent: IncrementCounterIntent()) {
+                Text("Artır")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
             }
         }
-        .padding()
     }
 }</code></pre>
+            </div>
 
-                <h2>🔧 Geliştirici Deneyimi İyileştirmeleri</h2>
-                <p>iOS 18 sadece son kullanıcılar için değil, geliştiriciler için de önemli iyileştirmeler getirdi:</p>
+            <div class="fade-in-up">
+                <h2>💡 Sonuç ve Öneriler</h2>
+                <p>iOS 18'in getirdiği yenilikler, geliştiricilere hem daha güçlü araçlar sunuyor hem de kullanıcı deneyimini iyileştirme fırsatları yaratıyor. Özellikle gizlilik, personalizasyon ve etkileşim konularında önemli adımlar atılmış.</p>
                 
+                <p><strong>Geliştiriciler için öneriler:</strong></p>
                 <ul>
-                    <li><strong>Xcode 15.3 entegrasyonu:</strong> Daha hızlı build süreleri ve gelişmiş debugging</li>
-                    <li><strong>Swift 6 hazırlığı:</strong> Concurrency güvenliği ve performans optimizasyonları</li>
-                    <li><strong>TestFlight iyileştirmeleri:</strong> Daha detaylı crash raporları ve kullanıcı feedback'i</li>
-                    <li><strong>App Store Connect API'leri:</strong> Otomatik uygulama yönetimi ve analitik</li>
+                    <li>SwiftUI 5.0'ın yeni özelliklerini mevcut projelerinize entegre edin</li>
+                    <li>Gizlilik API'lerini kullanarak kullanıcı güvenini artırın</li>
+                    <li>Interactive widget'lar ile uygulama erişilebilirliğini geliştirin</li>
+                    <li>App Intents ile Siri entegrasyonu kurarak kullanılabilirliği artırın</li>
+                    <li>CoreML'nin yeni adaptive özelliklerini personalizasyon için değerlendirin</li>
                 </ul>
-
-                <h2>💡 Geliştirici Tavsiyeleri</h2>
-                <p>iOS 18 geçişi için önemli öneriler:</p>
                 
-                <ul>
-                    <li><strong>SwiftUI 5 geçişini planlayın:</strong> Deprecated API'ları tespit edin ve güncelleyin</li>
-                    <li><strong>Gizlilik kontrollerini güncelle:</strong> Yeni permission API'lerini entegre edin</li>
-                    <li><strong>App Intents ekleyin:</strong> Siri desteği kullanıcı deneyimini büyük ölçüde artırıyor</li>
-                    <li><strong>Widget'ları interactive hale getirin:</strong> Kullanıcı etkileşimini artırmak için büyük fırsat</li>
-                    <li><strong>CoreML modellerini optimize edin:</strong> Yeni adaptive learning özelliklerini değerlendirin</li>
-                    <li><strong>Accessibility features test edin:</strong> iOS 18'in gelişmiş erişilebilirlik özelliklerini destekleyin</li>
-                </ul>
-
-                <h2>📊 Performans ve Optimizasyon</h2>
-                <p>iOS 18'de önemli performans iyileştirmeleri yapıldı:</p>
-                
-                <pre><code>// Yeni async/await pattern'leri ile performans optimizasyonu
-class DataManager {
-    @MainActor
-    func loadCriticalData() async {
-        async let userProfile = fetchUserProfile()
-        async let userSettings = fetchUserSettings()
-        async let recentActivity = fetchRecentActivity()
+                <p>Bu yenilikler hakkında daha detaylı bilgi almak için <a href="https://developer.apple.com/ios/whats-new/" target="_blank">Apple'ın resmi dokümantasyonunu</a> incelemenizi öneririm.</p>
+            </div>
+        </article>
         
-        let (profile, settings, activity) = await (userProfile, userSettings, recentActivity)
-        
-        // Ana thread'de UI güncellemesi
-        updateUI(profile: profile, settings: settings, activity: activity)
-    }
-    
-    private func updateUI(profile: UserProfile, settings: UserSettings, activity: [Activity]) {
-        // UI güncellemeleri
-    }
-}</code></pre>
-
-                <h2>🧾 Sonuç</h2>
-                <p>iOS 18, sadece kullanıcılar için değil, geliştiriciler için de daha sade, hızlı ve güçlü bir platform sunuyor. SwiftUI'daki iyileştirmeler, yeni gizlilik API'leri, geliştirilmiş App Intents desteği ve interactive widget'lar sayesinde daha zengin kullanıcı deneyimleri oluşturmak mümkün.</p>
-                
-                <p>Özellikle App Intents ve widget sistemindeki yenilikler, uygulamaların sistem genelinde daha entegre bir deneyim sunmasını sağlıyor. CoreML'deki adaptive learning özellikleri de personalizasyon açısından büyük fırsatlar sunuyor.</p>
-                
-                <p>iOS 18 geçişini planlayan geliştiriciler için en önemli tavsiye, yeni özellikleri aşamalı olarak entegre etmek ve özellikle gizlilik API'leri konusunda kullanıcı deneyimini ön planda tutmak. Bu yaklaşımla hem teknik hem de kullanıcı memnuniyeti açısından başarılı bir geçiş yapılabilir.</p>
-                
-                <p>Bir sonraki yazımda iOS 18'de performance monitoring ve advanced debugging tekniklerini detaylı olarak inceleyeceğim. Takipte kalın! 🚀</p>
-            </article>
-            
-            <!-- Post Footer -->
-            <footer class="post-footer">
+        <!-- Post Footer -->
+        <footer class="post-footer fade-in-up">
+            <div class="author-section">
+                <img src="../cb.png" alt="Celal Başaran" class="author-avatar">
                 <div class="author-info">
-                    <img src="../cb.png" alt="Celal Başaran" class="author-avatar">
-                    <div class="author-details">
-                        <h4>Celal Başaran</h4>
-                        <p>iOS & macOS Developer</p>
-                    </div>
+                    <h4>Celal Başaran</h4>
+                    <p>iOS Developer & Swift Enthusiast</p>
                 </div>
-                
-                <nav class="post-navigation">
-                    <a href="../blog.html" class="nav-link">← Tüm Yazılar</a>
-                    <a href="swiftui-modern-ui.html" class="nav-link">Sonraki Yazı →</a>
-                </nav>
-            </footer>
-        </div>
+            </div>
+            
+            <nav class="post-navigation-footer">
+                <a href="swiftui-modern-ui.html" class="nav-link">← Önceki Yazı</a>
+                <a href="firebase-realtime.html" class="nav-link">Sonraki Yazı →</a>
+            </nav>
+        </footer>
     </div>
+
+    <script>
+        // Apple-style scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.fade-in-up');
+            animatedElements.forEach((element, index) => {
+                element.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(element);
+            });
+        });
+    </script>
 </body>
 </html> 
