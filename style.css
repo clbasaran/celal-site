@@ -61,7 +61,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 85px;
+    height: 100px;
 }
 
 .nav-logo {
@@ -75,7 +75,7 @@ html {
 }
 
 .nav-logo .logo-image {
-    height: 80px;
+    height: 100px;
     width: auto;
     transition: all 0.3s ease;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
