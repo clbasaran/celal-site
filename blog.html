@@ -7,14 +7,14 @@
     <meta name="keywords" content="iOS Blog, Swift Tutorial, SwiftUI Guide, Firebase iOS, Mobile Development">
     <meta name="author" content="Celal Başaran">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://celalbasaran.github.io/blog.html">
     <meta property="og:title" content="Blog - Celal Başaran">
     <meta property="og:description" content="iOS Development, Swift ve Modern Teknolojiler üzerine professional blog yazıları">
     <meta property="og:image" content="https://celalbasaran.github.io/cb.png">
 
-    <!-- Twitter -->
+    <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://celalbasaran.github.io/blog.html">
     <meta property="twitter:title" content="Blog - Celal Başaran">
@@ -23,59 +23,67 @@
 
     <title>Blog - Celal Başaran | iOS Development & Modern Tech</title>
     
-    <!-- Favicon -->
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Celal Blog">
+    
+    <!-- Favicon & Icons -->
     <link rel="icon" type="image/png" href="icon_1024x1024@1x.png">
     <link rel="apple-touch-icon" href="icon_1024x1024@1x.png">
     
-    <!-- Stylesheet -->
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     
     <!-- Theme Color -->
-    <meta name="theme-color" content="#0a0a0a">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    <!-- ===== MODERN NAVIGATION ===== -->
+    <!-- ===== NAVIGATION ===== -->
     <nav class="navbar" id="navbar">
-        <div class="navbar-content">
-            <a href="index.html" class="navbar-brand">
-                Celal
-            </a>
-            
-            <ul class="navbar-nav">
-                <li><a href="index.html" class="navbar-link">Ana Sayfa</a></li>
-                <li><a href="index.html#about" class="navbar-link">Hakkımda</a></li>
-                <li><a href="index.html#skills" class="navbar-link">Yetenekler</a></li>
-                <li><a href="index.html#projects" class="navbar-link">Projeler</a></li>
-                <li><a href="blog.html" class="navbar-link active">Blog</a></li>
-                <li><a href="index.html#contact" class="navbar-link">İletişim</a></li>
-            </ul>
-            
-            <button class="btn btn-primary" onclick="window.open('mailto:celalbasaran@icloud.com')">
-                Hire Me
-            </button>
+        <div class="container">
+            <div class="navbar-container">
+                <a href="index.html" class="navbar-brand">
+                    Celal
+                </a>
+                
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="navbar-link">Ana Sayfa</a></li>
+                    <li><a href="index.html#about" class="navbar-link">Hakkımda</a></li>
+                    <li><a href="index.html#skills" class="navbar-link">Yetenekler</a></li>
+                    <li><a href="index.html#projects" class="navbar-link">Projeler</a></li>
+                    <li><a href="blog.html" class="navbar-link active">Blog</a></li>
+                    <li><a href="index.html#contact" class="navbar-link">İletişim</a></li>
+                </ul>
+                
+                <a href="mailto:celalbasaran@icloud.com" class="navbar-cta">
+                    Hire Me
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- ===== BLOG HERO SECTION ===== -->
-    <section class="hero" style="min-height: 60vh;">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                Blog
-            </h1>
-            
-            <p class="hero-subtitle">
-                iOS development, Swift, SwiftUI ve modern teknolojiler üzerine 
-                professional insights, tutorials ve best practices.
-            </p>
-            
-            <div class="hero-actions">
-                <a href="#latest-posts" class="btn btn-primary btn-lg">
-                    📚 Son Yazılar
-                </a>
-                <a href="#categories" class="btn btn-secondary btn-lg">
-                    🏷️ Kategoriler
-                </a>
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" style="min-height: 60vh; padding: var(--space-20) 0;">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="display">
+                    Blog
+                </h1>
+                
+                <p class="hero-subtitle">
+                    iOS development, Swift, SwiftUI ve modern teknolojiler üzerine 
+                    professional insights, tutorials ve best practices
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="#latest-posts" class="btn btn-primary btn-lg">
+                        Son Yazılar
+                    </a>
+                    <a href="#categories" class="btn btn-secondary btn-lg">
+                        Kategoriler
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -84,40 +92,38 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Öne Çıkan Yazı</h2>
+                <h2 class="headline">Öne Çıkan Yazı</h2>
                 <p class="section-subtitle">En son ve en popüler development content'i</p>
             </div>
             
-            <article class="card" style="max-width: 800px; margin: 0 auto;">
-                <div style="height: 300px; background: var(--accent-gradient); border-radius: var(--border-radius-lg); margin-bottom: var(--space-6); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+            <article class="card fade-in" style="max-width: 800px; margin: 0 auto;">
+                <div style="height: 200px; background: linear-gradient(135deg, var(--apple-blue), #5856d6); border-radius: var(--radius-xl); margin-bottom: var(--space-6); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
                     📱
                 </div>
                 
-                <div class="project-tech" style="margin-bottom: var(--space-4);">
-                    <span class="tech-tag">SwiftUI</span>
-                    <span class="tech-tag">iOS 17</span>
-                    <span class="tech-tag">Advanced</span>
-                    <span class="tech-tag">Tutorial</span>
+                <div class="card-header">
+                    <div class="card-subtitle">Tutorial • SwiftUI • iOS 17</div>
+                    <h2 class="headline-large" style="margin-bottom: var(--space-4);">
+                        SwiftUI Modern UI Geliştirme: Professional Patterns
+                    </h2>
                 </div>
                 
-                <h2 style="font-size: 2rem; margin-bottom: var(--space-4);">
-                    SwiftUI Modern UI Geliştirme: Professional Patterns
-                </h2>
+                <div class="card-content">
+                    <p class="body-large" style="margin-bottom: var(--space-6);">
+                        SwiftUI'da modern, performant ve maintainable UI components oluşturma teknikleri. 
+                        State management, custom modifiers, advanced animations ve iOS 17'nin son features'ları 
+                        ile professional development patterns.
+                    </p>
+                </div>
                 
-                <p style="font-size: 1.125rem; line-height: 1.7; margin-bottom: var(--space-6);">
-                    SwiftUI'da modern, performant ve maintainable UI components oluşturma teknikleri. 
-                    State management, custom modifiers, advanced animations ve iOS 17'nin son features'ları 
-                    ile professional development patterns.
-                </p>
-                
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center gap-4">
-                        <span style="color: var(--text-tertiary); font-size: 0.875rem;">25 Aralık 2024</span>
-                        <span style="color: var(--text-tertiary); font-size: 0.875rem;">•</span>
-                        <span style="color: var(--text-tertiary); font-size: 0.875rem;">8 dakika okuma</span>
+                <div class="card-footer">
+                    <div style="display: flex; align-items: center; gap: var(--space-4);">
+                        <span class="caption">25 Aralık 2024</span>
+                        <span class="caption">•</span>
+                        <span class="caption">8 dakika okuma</span>
                     </div>
                     <a href="posts/swiftui-modern-ui.html" class="btn btn-primary">
-                        Makaleyi Oku →
+                        Makaleyi Oku
                     </a>
                 </div>
             </article>
@@ -128,41 +134,57 @@
     <section id="categories" class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Blog Kategorileri</h2>
+                <h2 class="headline">Blog Kategorileri</h2>
                 <p class="section-subtitle">İlgi alanınıza göre content'leri keşfedin</p>
             </div>
             
             <div class="grid grid-4">
-                <div class="skill-category" style="cursor: pointer;" onclick="filterPosts('ios')">
-                    <h3>📱 iOS Development</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-                        Swift, SwiftUI, UIKit ve iOS ecosystem
-                    </p>
-                    <span style="color: var(--accent-primary); font-size: 0.875rem;">4 yazı</span>
+                <div class="card fade-in" style="cursor: pointer;" onclick="filterPosts('ios')">
+                    <div class="card-header">
+                        <div class="card-subtitle">4 yazı</div>
+                        <h3 class="title">📱 iOS Development</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Swift, SwiftUI, UIKit ve iOS ecosystem
+                        </p>
+                    </div>
                 </div>
                 
-                <div class="skill-category" style="cursor: pointer;" onclick="filterPosts('web')">
-                    <h3>🌐 Web Development</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-                        React, Next.js, modern web technologies
-                    </p>
-                    <span style="color: var(--accent-primary); font-size: 0.875rem;">2 yazı</span>
+                <div class="card fade-in" style="cursor: pointer;" onclick="filterPosts('web')">
+                    <div class="card-header">
+                        <div class="card-subtitle">2 yazı</div>
+                        <h3 class="title">🌐 Web Development</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            React, Next.js, modern web technologies
+                        </p>
+                    </div>
                 </div>
                 
-                <div class="skill-category" style="cursor: pointer;" onclick="filterPosts('backend')">
-                    <h3>⚡ Backend & Cloud</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-                        Firebase, AWS, API development
-                    </p>
-                    <span style="color: var(--accent-primary); font-size: 0.875rem;">3 yazı</span>
+                <div class="card fade-in" style="cursor: pointer;" onclick="filterPosts('backend')">
+                    <div class="card-header">
+                        <div class="card-subtitle">3 yazı</div>
+                        <h3 class="title">⚡ Backend & Cloud</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Firebase, AWS, API development
+                        </p>
+                    </div>
                 </div>
                 
-                <div class="skill-category" style="cursor: pointer;" onclick="filterPosts('tools')">
-                    <h3>🛠️ Tools & Tips</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-                        Development tools, productivity, best practices
-                    </p>
-                    <span style="color: var(--accent-primary); font-size: 0.875rem;">2 yazı</span>
+                <div class="card fade-in" style="cursor: pointer;" onclick="filterPosts('tools')">
+                    <div class="card-header">
+                        <div class="card-subtitle">2 yazı</div>
+                        <h3 class="title">🛠️ Tools & Tips</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">
+                            Development tools, productivity, best practices
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,7 +194,7 @@
     <section id="latest-posts" class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Tüm Yazılar</h2>
+                <h2 class="headline">Tüm Yazılar</h2>
                 <p class="section-subtitle">En son development insights ve tutorials</p>
             </div>
             
@@ -197,152 +219,128 @@
             
             <div class="grid grid-3" id="posts-container">
                 <!-- SwiftUI Modern UI -->
-                <article class="card post-card" data-category="ios">
+                <article class="card post-card fade-in" data-category="ios">
                     <div class="card-header">
-                        <div class="project-tech">
-                            <span class="tech-tag">SwiftUI</span>
-                            <span class="tech-tag">iOS 17</span>
-                            <span class="tech-tag">Advanced</span>
-                        </div>
-                        <h3 class="card-title">SwiftUI Modern UI Geliştirme</h3>
+                        <div class="card-subtitle">Tutorial • SwiftUI • iOS 17</div>
+                        <h3 class="title">SwiftUI Modern UI Geliştirme</h3>
                     </div>
                     <div class="card-content">
                         <p class="card-description">
                             SwiftUI'da modern, performant ve maintainable UI components oluşturma teknikleri. 
                             State management patterns ve advanced animations.
                         </p>
-                        <div style="color: var(--text-tertiary); font-size: 0.875rem; margin-top: var(--space-4);">
-                            <span>25 Aralık 2024</span> • <span>8 dakika okuma</span>
+                        <div style="margin-top: var(--space-4);">
+                            <span class="caption">25 Aralık 2024 • 8 dakika okuma</span>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span style="color: var(--accent-primary); font-size: 0.875rem;">Popüler</span>
-                        <a href="posts/swiftui-modern-ui.html" class="btn btn-ghost">Oku →</a>
+                        <span style="background: var(--apple-blue-light); color: var(--apple-blue-dark); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: var(--weight-medium);">Popüler</span>
+                        <a href="posts/swiftui-modern-ui.html" class="btn btn-ghost btn-sm">Oku →</a>
                     </div>
                 </article>
                 
                 <!-- iOS 18 Yenilikleri -->
-                <article class="card post-card" data-category="ios">
+                <article class="card post-card fade-in" data-category="ios">
                     <div class="card-header">
-                        <div class="project-tech">
-                            <span class="tech-tag">iOS 18</span>
-                            <span class="tech-tag">Apple Intelligence</span>
-                            <span class="tech-tag">WWDC</span>
-                        </div>
-                        <h3 class="card-title">iOS 18 Yenilikleri & Apple Intelligence</h3>
+                        <div class="card-subtitle">Analysis • iOS 18 • Apple Intelligence</div>
+                        <h3 class="title">iOS 18 Yenilikleri & Apple Intelligence</h3>
                     </div>
                     <div class="card-content">
                         <p class="card-description">
                             iOS 18'in getirdiği yenilikler, Apple Intelligence integration ve 
                             developer experience iyileştirmeleri üzerine detaylı analiz.
                         </p>
-                        <div style="color: var(--text-tertiary); font-size: 0.875rem; margin-top: var(--space-4);">
-                            <span>20 Aralık 2024</span> • <span>12 dakika okuma</span>
+                        <div style="margin-top: var(--space-4);">
+                            <span class="caption">20 Aralık 2024 • 12 dakika okuma</span>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span style="color: var(--success); font-size: 0.875rem;">Yeni</span>
-                        <a href="posts/ios18-yenilikler.html" class="btn btn-ghost">Oku →</a>
+                        <span style="background: rgba(16, 185, 129, 0.15); color: rgb(16, 185, 129); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: var(--weight-medium);">Yeni</span>
+                        <a href="posts/ios18-yenilikler.html" class="btn btn-ghost btn-sm">Oku →</a>
                     </div>
                 </article>
                 
                 <!-- Firebase iOS -->
-                <article class="card post-card" data-category="backend">
+                <article class="card post-card fade-in" data-category="backend">
                     <div class="card-header">
-                        <div class="project-tech">
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Real-time</span>
-                            <span class="tech-tag">Backend</span>
-                        </div>
-                        <h3 class="card-title">Firebase iOS Entegrasyonu Guide</h3>
+                        <div class="card-subtitle">Guide • Firebase • Real-time</div>
+                        <h3 class="title">Firebase iOS Entegrasyonu Guide</h3>
                     </div>
                     <div class="card-content">
                         <p class="card-description">
                             Firebase services'lerinin iOS uygulamalarına entegrasyonu, 
                             best practices ve performance optimization stratejileri.
                         </p>
-                        <div style="color: var(--text-tertiary); font-size: 0.875rem; margin-top: var(--space-4);">
-                            <span>15 Aralık 2024</span> • <span>15 dakika okuma</span>
+                        <div style="margin-top: var(--space-4);">
+                            <span class="caption">15 Aralık 2024 • 15 dakika okuma</span>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span style="color: var(--warning); font-size: 0.875rem;">Tutorial</span>
-                        <a href="posts/firebase-realtime.html" class="btn btn-ghost">Oku →</a>
+                        <span style="background: rgba(245, 158, 11, 0.15); color: rgb(245, 158, 11); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: var(--weight-medium);">Tutorial</span>
+                        <a href="posts/firebase-realtime.html" class="btn btn-ghost btn-sm">Oku →</a>
                     </div>
                 </article>
                 
                 <!-- Modern React Patterns -->
-                <article class="card post-card" data-category="web">
+                <article class="card post-card fade-in" data-category="web">
                     <div class="card-header">
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">TypeScript</span>
-                        </div>
-                        <h3 class="card-title">Modern React Patterns & Best Practices</h3>
+                        <div class="card-subtitle">Guide • React • Next.js</div>
+                        <h3 class="title">Modern React Patterns & Best Practices</h3>
                     </div>
                     <div class="card-content">
                         <p class="card-description">
                             React 18+ ile modern web development patterns, performance optimization 
                             ve scalable architecture design principles.
                         </p>
-                        <div style="color: var(--text-tertiary); font-size: 0.875rem; margin-top: var(--space-4);">
-                            <span>10 Aralık 2024</span> • <span>10 dakika okuma</span>
+                        <div style="margin-top: var(--space-4);">
+                            <span class="caption">10 Aralık 2024 • 10 dakika okuma</span>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span style="color: var(--accent-primary); font-size: 0.875rem;">Web</span>
-                        <a href="#" class="btn btn-ghost">Yakında →</a>
+                        <span style="background: var(--surface-tertiary); color: var(--text-secondary); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: var(--weight-medium);">Web</span>
+                        <a href="#" class="btn btn-ghost btn-sm">Yakında →</a>
                     </div>
                 </article>
                 
                 <!-- Core Data Advanced -->
-                <article class="card post-card" data-category="ios">
+                <article class="card post-card fade-in" data-category="ios">
                     <div class="card-header">
-                        <div class="project-tech">
-                            <span class="tech-tag">Core Data</span>
-                            <span class="tech-tag">CloudKit</span>
-                            <span class="tech-tag">iOS</span>
-                        </div>
-                        <h3 class="card-title">Core Data & CloudKit Sync Mastery</h3>
+                        <div class="card-subtitle">Advanced • Core Data • CloudKit</div>
+                        <h3 class="title">Core Data & CloudKit Sync Mastery</h3>
                     </div>
                     <div class="card-content">
                         <p class="card-description">
                             Advanced Core Data patterns, CloudKit synchronization ve 
                             offline-first app architecture strategies.
                         </p>
-                        <div style="color: var(--text-tertiary); font-size: 0.875rem; margin-top: var(--space-4);">
-                            <span>5 Aralık 2024</span> • <span>18 dakika okuma</span>
+                        <div style="margin-top: var(--space-4);">
+                            <span class="caption">5 Aralık 2024 • 18 dakika okuma</span>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span style="color: var(--error); font-size: 0.875rem;">Advanced</span>
-                        <a href="#" class="btn btn-ghost">Yakında →</a>
+                        <span style="background: rgba(239, 68, 68, 0.15); color: rgb(239, 68, 68); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: var(--weight-medium);">Advanced</span>
+                        <a href="#" class="btn btn-ghost btn-sm">Yakında →</a>
                     </div>
                 </article>
                 
                 <!-- Developer Productivity -->
-                <article class="card post-card" data-category="tools">
+                <article class="card post-card fade-in" data-category="tools">
                     <div class="card-header">
-                        <div class="project-tech">
-                            <span class="tech-tag">Xcode</span>
-                            <span class="tech-tag">Tools</span>
-                            <span class="tech-tag">Productivity</span>
-                        </div>
-                        <h3 class="card-title">iOS Developer Productivity Hacks</h3>
+                        <div class="card-subtitle">Tips • Xcode • Productivity</div>
+                        <h3 class="title">iOS Developer Productivity Hacks</h3>
                     </div>
                     <div class="card-content">
                         <p class="card-description">
                             Xcode shortcuts, debugging techniques, development workflow 
                             optimization ve professional developer tools.
                         </p>
-                        <div style="color: var(--text-tertiary); font-size: 0.875rem; margin-top: var(--space-4);">
-                            <span>1 Aralık 2024</span> • <span>6 dakika okuma</span>
+                        <div style="margin-top: var(--space-4);">
+                            <span class="caption">1 Aralık 2024 • 6 dakika okuma</span>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span style="color: var(--accent-secondary); font-size: 0.875rem;">Tips</span>
-                        <a href="#" class="btn btn-ghost">Yakında →</a>
+                        <span style="background: rgba(6, 182, 212, 0.15); color: rgb(6, 182, 212); padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: var(--weight-medium);">Tips</span>
+                        <a href="#" class="btn btn-ghost btn-sm">Yakında →</a>
                     </div>
                 </article>
             </div>
@@ -350,90 +348,95 @@
     </section>
 
     <!-- ===== NEWSLETTER SUBSCRIPTION ===== -->
-    <section class="section" style="background: var(--secondary-bg);">
+    <section class="section" style="background: var(--surface-secondary);">
         <div class="container">
             <div class="container-narrow">
-                <div class="card" style="text-align: center; padding: var(--space-12);">
-                    <h2 style="margin-bottom: var(--space-6);">📧 Newsletter Takip</h2>
-                    <p style="font-size: 1.125rem; margin-bottom: var(--space-8); color: var(--text-secondary);">
-                        iOS development, modern teknolojiler ve industry insights hakkında 
-                        en yeni yazıları email'inize gönderebilelim.
-                    </p>
-                    
-                    <form style="display: flex; gap: var(--space-3); max-width: 400px; margin: 0 auto; flex-wrap: wrap;">
-                        <input 
-                            type="email" 
-                            placeholder="Email adresiniz" 
-                            class="form-input" 
-                            style="flex: 1; min-width: 250px;"
-                            required
-                        >
-                        <button type="submit" class="btn btn-primary">
-                            Abone Ol
-                        </button>
-                    </form>
-                    
-                    <p style="font-size: 0.875rem; color: var(--text-tertiary); margin-top: var(--space-4);">
-                        Spam göndermiyoruz. İstediğiniz zaman abonelikten çıkabilirsiniz.
-                    </p>
+                <div class="card fade-in" style="text-align: center; padding: var(--space-12);">
+                    <div class="card-header">
+                        <h2 class="headline" style="margin-bottom: var(--space-6);">📧 Newsletter Takip</h2>
+                    </div>
+                    <div class="card-content">
+                        <p class="body-large" style="margin-bottom: var(--space-8);">
+                            iOS development, modern teknolojiler ve industry insights hakkında 
+                            en yeni yazıları email'inize gönderebilelim.
+                        </p>
+                        
+                        <form style="display: flex; gap: var(--space-3); max-width: 400px; margin: 0 auto; flex-wrap: wrap;">
+                            <input 
+                                type="email" 
+                                placeholder="Email adresiniz" 
+                                required
+                                style="flex: 1; min-width: 250px; padding: var(--space-3); border: 1px solid var(--border-primary); border-radius: var(--radius-lg); font-family: var(--font-system); font-size: 1rem; background: var(--surface-primary);"
+                            >
+                            <button type="submit" class="btn btn-primary">
+                                Abone Ol
+                            </button>
+                        </form>
+                        
+                        <p class="caption" style="margin-top: var(--space-4);">
+                            Spam göndermiyoruz. İstediğiniz zaman abonelikten çıkabilirsiniz.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== MODERN FOOTER ===== -->
-    <footer class="footer">
+    <!-- ===== FOOTER ===== -->
+    <footer style="background: var(--surface-secondary); border-top: 1px solid var(--border-primary); padding: var(--space-16) 0 var(--space-8); margin-top: var(--space-24);">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Celal Başaran</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+            <div class="grid grid-4">
+                <div>
+                    <h3 class="title" style="margin-bottom: var(--space-4);">Celal Başaran</h3>
+                    <p class="body" style="margin-bottom: var(--space-4);">
                         Senior iOS Developer & Modern Tech Architect. 
                         iOS development ve modern technologies blog.
                     </p>
                     <div style="display: flex; gap: var(--space-3);">
-                        <a href="mailto:celalbasaran@icloud.com" class="btn btn-ghost">Email</a>
-                        <a href="https://github.com/celalbasaran" class="btn btn-ghost" target="_blank">GitHub</a>
+                        <a href="mailto:celalbasaran@icloud.com" class="btn btn-ghost btn-sm">Email</a>
+                        <a href="https://github.com/celalbasaran" class="btn btn-ghost btn-sm" target="_blank">GitHub</a>
                     </div>
                 </div>
                 
-                <div class="footer-section">
-                    <h3>Blog Kategorileri</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" onclick="filterPosts('ios')">iOS Development</a></li>
-                        <li><a href="#" onclick="filterPosts('web')">Web Development</a></li>
-                        <li><a href="#" onclick="filterPosts('backend')">Backend & Cloud</a></li>
-                        <li><a href="#" onclick="filterPosts('tools')">Tools & Tips</a></li>
+                <div>
+                    <h3 class="title" style="margin-bottom: var(--space-4);">Blog Kategorileri</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: var(--space-2);"><a href="#" onclick="filterPosts('ios')" class="body" style="color: var(--text-secondary); text-decoration: none;">iOS Development</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="#" onclick="filterPosts('web')" class="body" style="color: var(--text-secondary); text-decoration: none;">Web Development</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="#" onclick="filterPosts('backend')" class="body" style="color: var(--text-secondary); text-decoration: none;">Backend & Cloud</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="#" onclick="filterPosts('tools')" class="body" style="color: var(--text-secondary); text-decoration: none;">Tools & Tips</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h3>Popular Posts</h3>
-                    <ul class="footer-links">
-                        <li><a href="posts/swiftui-modern-ui.html">SwiftUI Modern UI</a></li>
-                        <li><a href="posts/ios18-yenilikler.html">iOS 18 Features</a></li>
-                        <li><a href="posts/firebase-realtime.html">Firebase Integration</a></li>
+                <div>
+                    <h3 class="title" style="margin-bottom: var(--space-4);">Popular Posts</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: var(--space-2);"><a href="posts/swiftui-modern-ui.html" class="body" style="color: var(--text-secondary); text-decoration: none;">SwiftUI Modern UI</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="posts/ios18-yenilikler.html" class="body" style="color: var(--text-secondary); text-decoration: none;">iOS 18 Features</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="posts/firebase-realtime.html" class="body" style="color: var(--text-secondary); text-decoration: none;">Firebase Integration</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h3>Bağlantılar</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Ana Sayfa</a></li>
-                        <li><a href="index.html#about">Hakkımda</a></li>
-                        <li><a href="index.html#projects">Projeler</a></li>
-                        <li><a href="index.html#contact">İletişim</a></li>
+                <div>
+                    <h3 class="title" style="margin-bottom: var(--space-4);">Bağlantılar</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: var(--space-2);"><a href="index.html" class="body" style="color: var(--text-secondary); text-decoration: none;">Ana Sayfa</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="index.html#about" class="body" style="color: var(--text-secondary); text-decoration: none;">Hakkımda</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="index.html#projects" class="body" style="color: var(--text-secondary); text-decoration: none;">Projeler</a></li>
+                        <li style="margin-bottom: var(--space-2);"><a href="index.html#contact" class="body" style="color: var(--text-secondary); text-decoration: none;">İletişim</a></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>© 2024 Celal Başaran Blog. Modern web technologies ile geliştirilmiştir. Built with ❤️ in Turkey.</p>
+            <div style="text-align: center; padding-top: var(--space-8); border-top: 1px solid var(--border-primary); margin-top: var(--space-8);">
+                <p class="caption">
+                    © 2024 Celal Başaran Blog. Apple Design Language ile tasarlandı. Built with ❤️ in Turkey.
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- ===== ADVANCED JAVASCRIPT ===== -->
+    <!-- ===== JAVASCRIPT ===== -->
     <script>
         // Modern filter system
         function filterPosts(category) {
@@ -472,24 +475,18 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        // Observe all animated elements
+        // Initialize animations on load
         document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.card, .skill-category');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-                observer.observe(el);
-            });
+            const animatedElements = document.querySelectorAll('.fade-in');
+            animatedElements.forEach(el => observer.observe(el));
         });
 
-        // Advanced navbar scroll effect
+        // Navbar scroll effect
         let lastScrollY = 0;
         const navbar = document.getElementById('navbar');
 
@@ -497,10 +494,10 @@
             const scrollY = window.scrollY;
             
             if (scrollY > 100) {
-                navbar.style.background = 'rgba(31, 31, 31, 0.95)';
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
                 navbar.style.backdropFilter = 'saturate(180%) blur(20px)';
             } else {
-                navbar.style.background = 'rgba(31, 31, 31, 0.8)';
+                navbar.style.background = 'rgba(255, 255, 255, 0.8)';
             }
             
             if (scrollY > lastScrollY && scrollY > 200) {
@@ -534,15 +531,15 @@
             
             // Simulate subscription success
             this.innerHTML = `
-                <div style="text-align: center; color: var(--success);">
-                    <h4>🎉 Teşekkürler!</h4>
-                    <p>Email adresiniz başarıyla kayıt edildi.</p>
+                <div style="text-align: center; color: var(--apple-blue);">
+                    <h4 class="title">🎉 Teşekkürler!</h4>
+                    <p class="body">Email adresiniz başarıyla kayıt edildi.</p>
                 </div>
             `;
         });
 
         // Category click animations
-        document.querySelectorAll('.skill-category').forEach(category => {
+        document.querySelectorAll('.card[onclick]').forEach(category => {
             category.addEventListener('click', function() {
                 this.style.transform = 'scale(0.95)';
                 setTimeout(() => {
@@ -552,28 +549,23 @@
         });
 
         // Performance optimization
-        const criticalResources = [
-            'style.css',
-            'icon_1024x1024@1x.png'
-        ];
-
-        criticalResources.forEach(resource => {
-            const link = document.createElement('link');
-            link.rel = 'preload';
-            link.href = resource;
-            link.as = resource.endsWith('.css') ? 'style' : 'image';
-            document.head.appendChild(link);
-        });
-
-        // Search functionality (future enhancement)
-        function initializeSearch() {
-            // Advanced search implementation will go here
-            console.log('Search functionality ready for implementation');
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(() => console.log('SW registered'))
+                    .catch(() => console.log('SW registration failed'));
+            });
         }
 
-        // Initialize on load
-        window.addEventListener('load', () => {
-            initializeSearch();
+        // Accessibility enhancements
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
         });
     </script>
 </body>
