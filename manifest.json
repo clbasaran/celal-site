@@ -1,0 +1,132 @@
+{
+    "name": "Celal Başaran - iOS Developer & Technology Visionary",
+    "short_name": "Celal Başaran",
+    "description": "Revolutionary iOS applications, advanced SwiftUI implementations ve cutting-edge mobile solutions ile technology future'ı şekillendiren developer portfolio'su.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "tr",
+    "dir": "ltr",
+    "categories": ["developer", "technology", "portfolio", "ios", "mobile"],
+    "icons": [
+        {
+            "src": "cb.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "cb.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "cb.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "cb.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "cb.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "cb.png",
+            "sizes": "48x48",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "İçgörüler Hub",
+            "short_name": "Blog",
+            "description": "Revolutionary technology insights ve advanced development techniques",
+            "url": "/blog.html",
+            "icons": [
+                {
+                    "src": "cb.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "SwiftUI Master Class",
+            "short_name": "SwiftUI",
+            "description": "Next-level SwiftUI techniques ve quantum UI patterns",
+            "url": "/posts/swiftui-modern-ui.html",
+            "icons": [
+                {
+                    "src": "cb.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "iOS 18 Revolution",
+            "short_name": "iOS 18",
+            "description": "Apple'ın iOS 18 ile getirdiği game-changing features",
+            "url": "/posts/ios18-yenilikler.html",
+            "icons": [
+                {
+                    "src": "cb.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        },
+        {
+            "name": "Firebase Real-time Magic",
+            "short_name": "Firebase",
+            "description": "Advanced Firebase integration ve serverless architecture",
+            "url": "/posts/firebase-realtime.html",
+            "icons": [
+                {
+                    "src": "cb.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "cb.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Revolutionary iOS Developer Portfolio - Desktop Experience"
+        },
+        {
+            "src": "cb.png",
+            "sizes": "750x1334",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Revolutionary iOS Developer Portfolio - Mobile Experience"
+        }
+    ],
+    "related_applications": [
+        {
+            "platform": "webapp",
+            "url": "https://celalbasaran.com/"
+        }
+    ],
+    "prefer_related_applications": false,
+    "edge_side_panel": {
+        "preferred_width": 400
+    }
+} 

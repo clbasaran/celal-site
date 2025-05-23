@@ -5,591 +5,698 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     
-    <title>Firebase ile iOS Uygulamalarında Real-time Veri — Celal Başaran</title>
-    <meta name="description" content="Firebase Firestore kullanarak iOS uygulamalarınızda gerçek zamanlı veri senkronizasyonu nasıl yapılır? Combine framework ile entegrasyon örnekleri.">
-    <meta name="keywords" content="Firebase, iOS Development, Real-time Data, Firestore, SwiftUI, Authentication">
+    <title>Firebase + iOS: Real-time Magic — Celal Başaran</title>
+    <meta name="description" content="Firebase'in full potential'ını kullanarak iOS uygulamalarında real-time data synchronization, advanced analytics ve serverless architecture kurma master class'ı.">
+    <meta name="keywords" content="Firebase, iOS, Real-time, Firestore, Cloud Functions, iOS Development, Backend">
     <meta name="author" content="Celal Başaran">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://celalbasaran.com/posts/firebase-realtime.html" />
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Firebase ile iOS Uygulamalarında Real-time Veri">
-    <meta property="og:description" content="Firebase Firestore kullanarak iOS uygulamalarınızda gerçek zamanlı veri senkronizasyonu.">
+    <meta property="og:title" content="Firebase + iOS: Real-time Magic — Celal Başaran">
+    <meta property="og:description" content="Firebase'in full potential'ını kullanarak iOS uygulamalarında real-time data synchronization kurma master class'ı.">
     <meta property="og:image" content="https://celalbasaran.com/cb.png">
     <meta property="og:url" content="https://celalbasaran.com/posts/firebase-realtime.html">
     <meta property="og:type" content="article">
     
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#0A84FF">
+    <!-- Article Meta -->
+    <meta property="article:author" content="Celal Başaran">
+    <meta property="article:published_time" content="2025-05-08T10:00:00Z">
+    <meta property="article:section" content="iOS Development">
+    <meta property="article:tag" content="Firebase">
+    <meta property="article:tag" content="iOS">
+    <meta property="article:tag" content="Real-time">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../cb.png">
     <link rel="apple-touch-icon" href="../cb.png">
     
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="../style.css" as="style">
+    <link rel="preload" href="../cb.png" as="image">
+    
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../style.css">
     
-    <style>
-        /* Apple UI Blog Post Styling */
-        .blog-post-container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 32px 16px;
-            min-height: 100vh;
-        }
-        
-        .post-navigation {
-            margin-bottom: 40px;
-        }
-        
-        .back-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: var(--radius-small);
-            transition: all var(--transition-fast);
-            display: inline-flex;
-            align-items: center;
-            font-size: 16px;
-        }
-        
-        .back-link:hover {
-            background: var(--fill-secondary);
-            transform: translateX(-4px);
-        }
-        
-        .post-header {
-            text-align: center;
-            margin-bottom: 48px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--separator-opaque);
-        }
-        
-        .post-meta {
-            color: #888;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .post-title {
-            font-size: 40px;
-            font-weight: 700;
-            line-height: 1.1;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
-        }
-        
-        .post-subtitle {
-            font-size: 20px;
-            line-height: 1.5;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .post-content {
-            line-height: 1.75;
-        }
-        
-        .post-content h2 {
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 48px;
-            margin-bottom: 16px;
-            line-height: 1.3;
-        }
-        
-        .post-content h3 {
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 32px;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        
-        .post-content p {
-            font-size: 18px;
-            line-height: 1.75;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-        }
-        
-        .post-content ul, .post-content ol {
-            margin: 24px 0;
-            padding-left: 24px;
-        }
-        
-        .post-content li {
-            font-size: 18px;
-            line-height: 1.75;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-        
-        .post-content a {
-            color: var(--primary);
-            text-decoration: underline;
-            text-underline-offset: 2px;
-            transition: all var(--transition-fast);
-        }
-        
-        .post-content a:hover {
-            color: var(--primary-hover);
-            text-decoration-thickness: 2px;
-        }
-        
-        .post-content code {
-            background: var(--surface-secondary);
-            color: var(--primary);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        
-        .post-content pre {
-            background: var(--surface-elevated);
-            border: 1px solid var(--separator-opaque);
-            border-radius: 12px;
-            padding: 24px;
-            margin: 32px 0;
-            overflow-x: auto;
-            position: relative;
-        }
-        
-        .post-content pre code {
-            background: none;
-            color: var(--text-primary);
-            padding: 0;
-            font-size: 14px;
-            line-height: 1.6;
-            white-space: pre;
-        }
-        
-        .comparison-table {
-            background: var(--surface-elevated);
-            border: 1px solid var(--separator-opaque);
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 32px 0;
-        }
-        
-        .comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .comparison-table th {
-            background: var(--primary);
-            color: white;
-            padding: 16px;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .comparison-table td {
-            padding: 16px;
-            border-bottom: 1px solid var(--separator-opaque);
-        }
-        
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .post-footer {
-            margin-top: 64px;
-            padding-top: 32px;
-            border-top: 1px solid var(--separator-opaque);
-        }
-        
-        .author-section {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 32px;
-            padding: 20px;
-            background: var(--surface-primary);
-            border-radius: var(--radius-large);
-            border: 1px solid var(--separator-opaque);
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        
-        .author-info p {
-            font-size: 14px;
-            color: var(--text-tertiary);
-            margin: 0;
-        }
-        
-        .post-navigation-footer {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-        }
-        
-        .nav-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 12px 20px;
-            border: 1px solid var(--separator-opaque);
-            border-radius: var(--radius-medium);
-            transition: all var(--transition-standard);
-            flex: 1;
-            text-align: center;
-        }
-        
-        .nav-link:hover {
-            background: var(--fill-secondary);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(32px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .blog-post-container {
-                padding: 24px 16px;
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Firebase + iOS: Real-time Magic",
+        "description": "Firebase'in full potential'ını kullanarak iOS uygulamalarında real-time data synchronization kurma master class'ı.",
+        "image": "https://celalbasaran.com/cb.png",
+        "author": {
+            "@type": "Person",
+            "name": "Celal Başaran",
+            "url": "https://celalbasaran.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Celal Başaran",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://celalbasaran.com/cb.png"
             }
-            
-            .post-title {
-                font-size: 32px;
-            }
-            
-            .post-subtitle {
-                font-size: 18px;
-            }
-            
-            .post-content h2 {
-                font-size: 24px;
-                margin-top: 32px;
-            }
-            
-            .post-content h3 {
-                font-size: 20px;
-                margin-top: 24px;
-            }
-            
-            .post-content p,
-            .post-content li {
-                font-size: 16px;
-            }
-            
-            .author-section {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .post-navigation-footer {
-                flex-direction: column;
-            }
-            
-            .comparison-table {
-                font-size: 14px;
-            }
-            
-            .comparison-table th,
-            .comparison-table td {
-                padding: 12px;
-            }
+        },
+        "datePublished": "2025-05-08T10:00:00Z",
+        "dateModified": "2025-05-08T10:00:00Z",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://celalbasaran.com/posts/firebase-realtime.html"
         }
-    </style>
+    }
+    </script>
 </head>
+
 <body>
-    <div class="blog-post-container">
-        <!-- Navigation -->
-        <nav class="post-navigation fade-in-up">
-            <a href="../blog.html" class="back-link">← Blog'a Geri Dön</a>
-        </nav>
-        
-        <!-- Post Header -->
-        <header class="post-header fade-in-up">
-            <div class="post-meta">8 Mayıs 2025 • Celal Başaran</div>
-            <h1 class="post-title">Firebase ile iOS Uygulamalarında Real-time Veri</h1>
-            <p class="post-subtitle">Firebase Firestore kullanarak iOS uygulamalarınızda gerçek zamanlı veri senkronizasyonu nasıl yapılır? Combine framework ile entegrasyon örnekleri.</p>
-        </header>
-        
-        <!-- Post Content -->
-        <article class="post-content">
-            <div class="fade-in-up">
-                <h2>🔥 Firebase Neden Bu Kadar Popüler?</h2>
-                <p>Firebase, Google'ın geliştirdiği backend-as-a-service (BaaS) platformu olarak, iOS geliştiricilerin hayatını büyük ölçüde kolaylaştırıyor. Özellikle real-time uygulamalar geliştirmek istediğinizde Firebase'in sunduğu avantajlar:</p>
-                
-                <ul>
-                    <li><strong>Gerçek zamanlı veri senkronizasyonu:</strong> Firestore ile veriler anlık olarak tüm cihazlarda senkronize olur</li>
-                    <li><strong>Otomatik offline cache:</strong> İnternet bağlantısı olmadığında bile uygulama çalışmaya devam eder</li>
-                    <li><strong>Kolay authentication yönetimi:</strong> Email, Google, Apple ID gibi çoklu giriş seçenekleri</li>
-                    <li><strong>SwiftUI ile tam uyum:</strong> Reactive programming paradigması ile mükemmel entegrasyon</li>
-                </ul>
-            </div>
-
-            <div class="fade-in-up">
-                <h2>📡 Firestore ile Gerçek Zamanlı Veri</h2>
-                <p>Firestore'un en güçlü özelliklerinden biri <code>addSnapshotListener</code> metodudur. Bu metod sayesinde veritabanındaki değişiklikleri gerçek zamanlı olarak takip edebilirsiniz:</p>
-                
-                <pre><code>import FirebaseFirestore
-
-class MessageService: ObservableObject {
-    @Published var messages: [Message] = []
-    private var db = Firestore.firestore()
-    private var listener: ListenerRegistration?
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
     
-    func startListening() {
-        listener = db.collection("mesajlar")
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Article Hero Section -->
+    <section class="hero" style="min-height: 70vh; background: radial-gradient(ellipse at top, rgba(255, 45, 146, 0.15) 0%, transparent 70%), radial-gradient(ellipse at bottom, rgba(255, 149, 0, 0.15) 0%, transparent 70%), var(--bg-primary);" role="banner">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="hero-container">
+                <!-- Navigation -->
+                <nav class="slide-in-left" role="navigation" aria-label="Post navigasyonu" style="margin-bottom: var(--space-4xl); text-align: left;">
+                    <a href="../blog.html" class="btn btn-secondary interactive-element" aria-label="Blog'a geri dön">
+                        <span aria-hidden="true">←</span>
+                        <span>İçgörüler Hub'a Dön</span>
+                    </a>
+                </nav>
+                
+                <!-- Article Header -->
+                <article class="post-header" role="article">
+                    <div class="post-meta fade-in" style="margin-bottom: var(--space-lg);">
+                        <time class="post-date" datetime="2025-05-08" style="color: var(--accent-orange); font-weight: var(--font-semibold); font-size: var(--text-sm); letter-spacing: 0.05em; text-transform: uppercase;">
+                            8 Mayıs 2025
+                        </time>
+                        <span style="color: var(--text-tertiary); margin: 0 var(--space-md);">•</span>
+                        <span style="color: var(--text-tertiary); font-size: var(--text-sm);">18 dakika okuma</span>
+                        <span style="color: var(--text-tertiary); margin: 0 var(--space-md);">•</span>
+                        <span style="color: var(--accent-pink); font-size: var(--text-sm); font-weight: var(--font-semibold);">Master Class Level</span>
+                    </div>
+                    
+                    <h1 class="hero-title" style="font-size: clamp(var(--text-4xl), 7vw, var(--text-7xl)); margin-bottom: var(--space-xl);">
+                        🔥 Firebase + iOS:<br>
+                        Real-time Magic
+                    </h1>
+                    
+                    <p class="hero-subtitle" style="font-size: clamp(var(--text-lg), 3vw, var(--text-2xl)); margin-bottom: var(--space-xl);">
+                        Serverless Architecture ile Instant Data Synchronization Master Class
+                    </p>
+                    
+                    <div class="post-intro fade-in" style="max-width: 700px; margin: 0 auto;">
+                        <p style="font-size: var(--text-xl); color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-2xl);">
+                            Firebase'in tam potansiyelini kullanarak iOS uygulamalarında real-time data synchronization, advanced analytics ve serverless architecture kurma complete guide'ı. Firestore, Cloud Functions ve Combine framework ile reactive programming patterns.
+                        </p>
+                        
+                        <!-- Tech Stack -->
+                        <div class="tech-stack" style="justify-content: center; margin-bottom: var(--space-2xl);">
+                            <span class="tech-tag interactive-element">Firebase Suite</span>
+                            <span class="tech-tag interactive-element">Firestore</span>
+                            <span class="tech-tag interactive-element">Cloud Functions</span>
+                            <span class="tech-tag interactive-element">Real-time</span>
+                            <span class="tech-tag interactive-element">Combine</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <main class="section" role="main">
+        <div class="container" style="max-width: 800px;">
+            <article class="post-content">
+                
+                <!-- Section 1: Firebase Ecosystem Overview -->
+                <section class="content-section fade-in">
+                    <h2 class="section-title" style="font-size: var(--text-3xl); color: var(--accent-orange); margin-bottom: var(--space-xl);">
+                        🚀 Firebase Ecosystem: Beyond the Basics
+                    </h2>
+                    
+                    <div class="content-prose" style="font-size: var(--text-lg); line-height: 1.8; color: var(--text-secondary);">
+                        <p style="margin-bottom: var(--space-lg);">
+                            Firebase sadece bir backend-as-a-service değil, complete mobile development ecosystem'i. <strong>Firestore</strong> ile NoSQL database, <strong>Cloud Functions</strong> ile serverless computing, <strong>Analytics</strong> ile deep user insights - everything you need for modern iOS apps.
+                        </p>
+                        
+                        <p style="margin-bottom: var(--space-lg);">
+                            En powerful yanı ise <strong>real-time capabilities</strong>. Traditional REST API call patterns'ını geride bırakıp, <strong>reactive data streams</strong> ile instant synchronization sağlayabiliyorsunuz.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Real-time Architecture Deep Dive -->
+                <section class="content-section fade-in" style="background: linear-gradient(135deg, rgba(255, 45, 146, 0.1), rgba(255, 149, 0, 0.1)); padding: var(--space-3xl); border-radius: var(--radius-2xl); margin: var(--space-4xl) 0; border: 1px solid rgba(255, 45, 146, 0.2);">
+                    <h3 style="color: var(--accent-pink); font-size: var(--text-2xl); margin-bottom: var(--space-xl); display: flex; align-items: center; gap: var(--space-md);">
+                        <span aria-hidden="true">⚡</span>
+                        Real-time Architecture Deep Dive
+                    </h3>
+                    
+                    <div class="content-prose" style="margin-bottom: var(--space-lg);">
+                        <p style="margin-bottom: var(--space-lg);">
+                            Modern iOS uygulamalarında real-time functionality implementing etmek için <strong>Firestore Listeners</strong> ve <strong>Combine Publishers</strong> kombinasyonu mükemmel bir harmony yaratıyor.
+                        </p>
+                    </div>
+                    
+                    <div class="code-showcase" style="background: var(--bg-secondary); border-radius: var(--radius-lg); padding: var(--space-xl); margin-bottom: var(--space-lg); border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <pre style="color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: var(--text-sm); line-height: 1.6; overflow-x: auto;"><code style="color: var(--text-primary);">import Firebase
+import Combine
+import SwiftUI
+
+class RealtimeDataManager: ObservableObject {
+    @Published var messages: [Message] = []
+    @Published var isConnected: Bool = false
+    
+    private var cancellables = Set<AnyCancellable>()
+    private let db = Firestore.firestore()
+    private var messageListener: ListenerRegistration?
+    
+    init() {
+        setupRealtimeConnection()
+    }
+    
+    func setupRealtimeConnection() {
+        // Real-time message listener with advanced querying
+        messageListener = db.collection("messages")
             .order(by: "timestamp", descending: false)
+            .whereField("isActive", isEqualTo: true)
             .addSnapshotListener { [weak self] snapshot, error in
-                guard let documents = snapshot?.documents else {
-                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Firestore error: \(error.localizedDescription)")
+                    self.isConnected = false
                     return
                 }
                 
-                self?.messages = documents.compactMap { document in
-                    try? document.data(as: Message.self)
+                guard let documents = snapshot?.documents else {
+                    self.isConnected = false
+                    return
                 }
-            }
-    }
-    
-    func stopListening() {
-        listener?.remove()
-    }
-}</code></pre>
-            </div>
                 
-            <div class="fade-in-up">
-                <h2>🔄 SnapshotListener vs getDocuments</h2>
-                <p>Firebase'de veri çekmenin iki ana yöntemi vardır. Her birinin kendine özgü kullanım alanları vardır:</p>
+                // Process document changes with sophisticated handling
+                self.processDocumentChanges(snapshot?.documentChanges ?? [])
+                self.isConnected = true
                 
-                <div class="comparison-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Yöntem</th>
-                                <th>Kullanım Alanı</th>
-                                <th>Avantajlar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><code>getDocuments()</code></td>
-                                <td style="color: var(--text-secondary)">Tek seferlik veri çekimi</td>
-                                <td style="color: var(--text-secondary)">Düşük maliyet, basit implementasyon</td>
-                            </tr>
-                            <tr>
-                                <td><code>addSnapshotListener</code></td>
-                                <td style="color: var(--text-secondary)">Gerçek zamanlı veri takibi</td>
-                                <td style="color: var(--text-secondary)">Otomatik güncellemeler, reactive UI</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="fade-in-up">
-                <h2>🔐 Authentication Entegrasyonu</h2>
-                <p>Firebase Authentication ile kullanıcı yönetimi oldukça basittir. SwiftUI ile entegre bir giriş sistemi oluşturmak için:</p>
-                
-                <pre><code>import FirebaseAuth
-
-class AuthService: ObservableObject {
-    @Published var isSignedIn = false
-    @Published var currentUser: User?
-    
-    init() {
-        // Auth state değişikliklerini dinle
-        Auth.auth().addStateDidChangeListener { [weak self] _, user in
-            self?.isSignedIn = user != nil
-            self?.currentUser = user
-        }
-    }
-    
-    func signIn(withEmail email: String, password: String) async throws {
-        let result = try await Auth.auth().signIn(withEmail: email, password: password)
-        await MainActor.run {
-            self.currentUser = result.user
-        }
-    }
-    
-    func signOut() throws {
-        try Auth.auth().signOut()
-        currentUser = nil
-    }
-}</code></pre>
-            </div>
-
-            <div class="fade-in-up">
-                <h2>🌐 Offline Desteği</h2>
-                <p>Firebase'in en güçlü özelliklerinden biri offline destek sağlamasıdır. Uygulamanız internet bağlantısı olmadığında bile çalışmaya devam eder:</p>
-                
-                <pre><code>// AppDelegate veya SceneDelegate içinde
-import FirebaseFirestore
-
-func configureFirestore() {
-    let settings = FirestoreSettings()
-    settings.isPersistenceEnabled = true
-    settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
-    
-    Firestore.firestore().settings = settings
-}
-
-// Offline veri yazma
-func addMessageOffline(_ message: Message) {
-    db.collection("mesajlar").addDocument(data: [
-        "text": message.text,
-        "userId": message.userId,
-        "timestamp": FieldValue.serverTimestamp()
-    ]) { error in
-        // Bu işlem offline bile olsa cache'e yazılır
-        // İnternet bağlantısı geldiğinde otomatik sync olur
-    }
-}</code></pre>
-            </div>
-
-            <div class="fade-in-up">
-                <h2>🎯 SwiftUI ile Pratik Örnek</h2>
-                <p>Firebase'i SwiftUI ile kullanırken en iyi pratikleri gösteren basit bir chat uygulaması örneği:</p>
-                
-                <pre><code>struct ChatView: View {
-    @StateObject private var messageService = MessageService()
-    @State private var newMessageText = ""
-    
-    var body: some View {
-        VStack {
-            ScrollView {
-                LazyVStack {
-                    ForEach(messageService.messages) { message in
-                        MessageRow(message: message)
+                // Reactive update with smooth animations
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.messages = documents.compactMap { doc in
+                        try? doc.data(as: Message.self)
                     }
                 }
             }
-            
-            HStack {
-                TextField("Mesaj yazın...", text: $newMessageText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+    }
+    
+    private func processDocumentChanges(_ changes: [DocumentChange]) {
+        for change in changes {
+            switch change.type {
+            case .added:
+                // Handle new message with sound/haptic feedback
+                HapticManager.shared.lightImpact()
+                AudioManager.shared.playNotificationSound()
                 
-                Button("Gönder") {
-                    sendMessage()
-                }
-                .disabled(newMessageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            case .modified:
+                // Handle message updates
+                print("Message updated: \(change.document.documentID)")
+                
+            case .removed:
+                // Handle message deletion
+                print("Message removed: \(change.document.documentID)")
             }
-            .padding()
-        }
-        .onAppear {
-            messageService.startListening()
-        }
-        .onDisappear {
-            messageService.stopListening()
         }
     }
     
-    private func sendMessage() {
-        messageService.sendMessage(newMessageText)
-        newMessageText = ""
+    func sendMessage(_ content: String) async throws {
+        let message = Message(
+            id: UUID().uuidString,
+            content: content,
+            senderId: UserManager.shared.currentUserId,
+            timestamp: Date(),
+            isActive: true
+        )
+        
+        try await db.collection("messages")
+            .document(message.id)
+            .setData(from: message)
+        
+        // Optional: Trigger cloud function for push notifications
+        await triggerNotificationFunction(for: message)
+    }
+    
+    private func triggerNotificationFunction(for message: Message) async {
+        // Call cloud function for push notifications
+        let functions = Functions.functions()
+        let data = [
+            "messageId": message.id,
+            "content": message.content,
+            "senderId": message.senderId
+        ]
+        
+        do {
+            let result = try await functions.httpsCallable("sendMessageNotification").call(data)
+            print("Notification sent: \(result.data)")
+        } catch {
+            print("Failed to send notification: \(error)")
+        }
+    }
+    
+    deinit {
+        messageListener?.remove()
     }
 }</code></pre>
-            </div>
+                    </div>
+                    
+                    <div class="highlight-box" style="background: linear-gradient(135deg, rgba(255, 45, 146, 0.15), rgba(255, 149, 0, 0.15)); padding: var(--space-xl); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-pink);">
+                        <h4 style="color: var(--accent-pink); font-size: var(--text-xl); margin-bottom: var(--space-md);">
+                            🎯 Real-time Pro Tip
+                        </h4>
+                        <p style="margin: 0; font-size: var(--text-base);">
+                            Firestore listeners'ı <strong>@Published properties</strong> ile kombine ederek SwiftUI views'larınız automatic olarak real-time updates alır. Performance için <code>whereField</code> ile queries'i optimize etmeyi unutmayın.
+                        </p>
+                    </div>
+                </section>
 
-            <div class="fade-in-up">
-                <h2>⚡ Performans Optimizasyonu</h2>
-                <p>Firebase ile çalışırken performansı artırmak için dikkat etmeniz gereken önemli noktalar:</p>
-                
-                <pre><code>// Pagination ile büyük veri setlerini yönetme
-class PaginatedMessageService: ObservableObject {
-    @Published var messages: [Message] = []
-    private let pageSize = 20
-    private var lastDocument: DocumentSnapshot?
+                <!-- Advanced Query Patterns -->
+                <section class="content-section fade-in">
+                    <h2 class="section-title" style="font-size: var(--text-3xl); color: var(--accent-cyan); margin-bottom: var(--space-xl);">
+                        🔍 Advanced Query Patterns & Data Modeling
+                    </h2>
+                    
+                    <div class="content-prose" style="font-size: var(--text-lg); line-height: 1.8; color: var(--text-secondary);">
+                        <p style="margin-bottom: var(--space-lg);">
+                            Firestore'un NoSQL nature'ı traditional SQL thinking'den farklı data modeling approaches gerektirir. <strong>Document-subcollection hierarchies</strong>, <strong>composite indexes</strong> ve <strong>array queries</strong> ile sophisticated data patterns implement edebilirsiniz.
+                        </p>
+                        
+                        <div class="query-patterns-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); margin: var(--space-xl) 0;">
+                            <div class="pattern-card" style="background: rgba(90, 200, 250, 0.1); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid rgba(90, 200, 250, 0.2);">
+                                <h5 style="color: var(--accent-cyan); margin-bottom: var(--space-md);">📊 Compound Queries</h5>
+                                <p style="font-size: var(--text-sm); color: var(--text-secondary); margin: 0;">Multiple field filtering ile complex data retrieval patterns</p>
+                            </div>
+                            
+                            <div class="pattern-card" style="background: rgba(52, 199, 89, 0.1); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid rgba(52, 199, 89, 0.2);">
+                                <h5 style="color: var(--accent-green); margin-bottom: var(--space-md);">🗂️ Subcollections</h5>
+                                <p style="font-size: var(--text-sm); color: var(--text-secondary); margin: 0;">Hierarchical data organization ile scalable architectures</p>
+                            </div>
+                            
+                            <div class="pattern-card" style="background: rgba(88, 86, 214, 0.1); padding: var(--space-lg); border-radius: var(--radius-lg); border: 1px solid rgba(88, 86, 214, 0.2);">
+                                <h5 style="color: var(--accent-purple); margin-bottom: var(--space-md);">🔄 Pagination</h5>
+                                <p style="font-size: var(--text-sm); color: var(--text-secondary); margin: 0;">Cursor-based pagination ile infinite scroll experiences</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cloud Functions Integration -->
+                <section class="content-section fade-in" style="background: var(--surface-glass); padding: var(--space-3xl); border-radius: var(--radius-2xl); margin: var(--space-4xl) 0; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h3 style="color: var(--accent-green); font-size: var(--text-2xl); margin-bottom: var(--space-xl); display: flex; align-items: center; gap: var(--space-md);">
+                        <span aria-hidden="true">⚙️</span>
+                        Serverless Functions: iOS Backend Magic
+                    </h3>
+                    
+                    <div class="content-prose" style="margin-bottom: var(--space-lg);">
+                        <p style="margin-bottom: var(--space-lg);">
+                            Cloud Functions ile iOS uygulamanızın server-side logic'ini yazabilir, <strong>database triggers</strong>, <strong>HTTP endpoints</strong> ve <strong>scheduled tasks</strong> oluşturabilirsiniz. Best part: zero server management!
+                        </p>
+                        
+                        <p style="margin-bottom: var(--space-lg);">
+                            Practical use cases: <strong>Push notifications</strong>, <strong>data validation</strong>, <strong>third-party API integrations</strong> ve <strong>complex business logic</strong> processing.
+                        </p>
+                    </div>
+                    
+                    <div class="functions-showcase" style="background: var(--bg-secondary); border-radius: var(--radius-lg); padding: var(--space-xl); margin-bottom: var(--space-lg); border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <h4 style="color: var(--accent-green); margin-bottom: var(--space-lg);">Example: Smart Notification Function</h4>
+                        <pre style="color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: var(--text-sm); line-height: 1.6; overflow-x: auto;"><code style="color: var(--text-primary);">// Cloud Function (Node.js)
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+
+exports.sendMessageNotification = functions.https.onCall(async (data, context) => {
+    const { messageId, content, senderId } = data;
     
-    func loadMoreMessages() {
-        var query = db.collection("mesajlar")
-            .order(by: "timestamp", descending: true)
-            .limit(to: pageSize)
+    // Get sender info
+    const senderDoc = await admin.firestore()
+        .collection('users')
+        .doc(senderId)
+        .get();
+    
+    const senderName = senderDoc.data()?.displayName || 'Someone';
+    
+    // Get all users except sender for notification
+    const usersSnapshot = await admin.firestore()
+        .collection('users')
+        .where('id', '!=', senderId)
+        .get();
+    
+    const tokens = [];
+    usersSnapshot.forEach(doc => {
+        const fcmToken = doc.data().fcmToken;
+        if (fcmToken) tokens.push(fcmToken);
+    });
+    
+    if (tokens.length === 0) return { success: false, message: 'No tokens found' };
+    
+    // Send multicast notification
+    const message = {
+        notification: {
+            title: `New message from ${senderName}`,
+            body: content.length > 50 ? content.substring(0, 50) + '...' : content,
+        },
+        data: {
+            messageId: messageId,
+            senderId: senderId,
+            type: 'new_message'
+        },
+        tokens: tokens
+    };
+    
+    try {
+        const response = await admin.messaging().sendMulticast(message);
+        return { 
+            success: true, 
+            successCount: response.successCount,
+            failureCount: response.failureCount 
+        };
+    } catch (error) {
+        throw new functions.https.HttpsError('internal', 'Failed to send notification');
+    }
+});</code></pre>
+                    </div>
+                    
+                    <div class="ios-integration" style="background: rgba(52, 199, 89, 0.1); padding: var(--space-lg); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-green); margin-top: var(--space-lg);">
+                        <h5 style="color: var(--accent-green); margin-bottom: var(--space-md);">iOS Integration</h5>
+                        <pre style="color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: var(--text-xs); line-height: 1.4; overflow-x: auto;"><code>// iOS Swift Code
+let functions = Functions.functions()
+
+func callCloudFunction() async throws -> NotificationResult {
+    let callable = functions.httpsCallable("sendMessageNotification")
+    let result = try await callable.call([
+        "messageId": messageId,
+        "content": messageContent,
+        "senderId": currentUserId
+    ])
+    
+    return try result.data(as: NotificationResult.self)
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Performance & Optimization -->
+                <section class="content-section fade-in">
+                    <h2 class="section-title" style="font-size: var(--text-3xl); color: var(--accent-purple); margin-bottom: var(--space-xl);">
+                        ⚡ Performance Optimization & Best Practices
+                    </h2>
+                    
+                    <div class="content-prose" style="font-size: var(--text-lg); line-height: 1.8; color: var(--text-secondary);">
+                        <p style="margin-bottom: var(--space-lg);">
+                            Firebase ile high-performance iOS apps yaratmak için <strong>caching strategies</strong>, <strong>offline capabilities</strong> ve <strong>bandwidth optimization</strong> critical importance taşıyor.
+                        </p>
+                        
+                        <div class="optimization-strategies" style="background: linear-gradient(135deg, rgba(88, 86, 214, 0.1), rgba(102, 126, 234, 0.1)); padding: var(--space-xl); border-radius: var(--radius-lg); margin: var(--space-xl) 0; border-left: 4px solid var(--accent-purple);">
+                            <h4 style="color: var(--accent-purple); font-size: var(--text-xl); margin-bottom: var(--space-lg);">
+                                🚀 Optimization Strategies
+                            </h4>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg);">
+                                <div style="margin-bottom: var(--space-md);">
+                                    <strong style="color: var(--accent-purple);">Offline Persistence</strong>
+                                    <p style="margin: var(--space-sm) 0 0 0; font-size: var(--text-sm); color: var(--text-secondary);">Local caching ile seamless offline experience</p>
+                                </div>
+                                
+                                <div style="margin-bottom: var(--space-md);">
+                                    <strong style="color: var(--accent-purple);">Query Optimization</strong>
+                                    <p style="margin: var(--space-sm) 0 0 0; font-size: var(--text-sm); color: var(--text-secondary);">Index design ve efficient filtering patterns</p>
+                                </div>
+                                
+                                <div style="margin-bottom: var(--space-md);">
+                                    <strong style="color: var(--accent-purple);">Batch Operations</strong>
+                                    <p style="margin: var(--space-sm) 0 0 0; font-size: var(--text-sm); color: var(--text-secondary);">Multiple operations'ı single transaction'da grupla</p>
+                                </div>
+                                
+                                <div style="margin-bottom: var(--space-md);">
+                                    <strong style="color: var(--accent-purple);">Security Rules</strong>
+                                    <p style="margin: var(--space-sm) 0 0 0; font-size: var(--text-sm); color: var(--text-secondary);">Client-side security ile performance benefits</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics & Monitoring -->
+                <section class="content-section fade-in">
+                    <h2 class="section-title" style="font-size: var(--text-3xl); color: var(--accent-red); margin-bottom: var(--space-xl);">
+                        📈 Analytics & Real-time Monitoring
+                    </h2>
+                    
+                    <div class="content-prose" style="font-size: var(--text-lg); line-height: 1.8; color: var(--text-secondary);">
+                        <p style="margin-bottom: var(--space-lg);">
+                            Firebase Analytics iOS uygulamanızın user behavior'unu deep level'da analyze etmenizi sağlıyor. <strong>Custom events</strong>, <strong>user properties</strong> ve <strong>conversion tracking</strong> ile data-driven decisions alabilirsiniz.
+                        </p>
+                        
+                        <div class="analytics-implementation" style="background: var(--bg-secondary); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; border: 1px solid rgba(255, 255, 255, 0.05);">
+                            <h4 style="color: var(--accent-red); margin-bottom: var(--space-lg);">Smart Analytics Implementation</h4>
+                            <pre style="color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: var(--text-sm); line-height: 1.6; overflow-x: auto;"><code style="color: var(--text-primary);">import FirebaseAnalytics
+
+class AnalyticsManager {
+    static let shared = AnalyticsManager()
+    
+    private init() {}
+    
+    // Track user journey with sophisticated events
+    func trackMessageSent(content: String, recipientCount: Int) {
+        Analytics.logEvent("message_sent", parameters: [
+            "content_length": content.count,
+            "recipient_count": recipientCount,
+            "message_type": determineMessageType(content),
+            "timestamp": Date().timeIntervalSince1970
+        ])
+    }
+    
+    func trackUserEngagement(feature: String, duration: TimeInterval) {
+        Analytics.logEvent("feature_engagement", parameters: [
+            "feature_name": feature,
+            "engagement_duration": duration,
+            "session_id": SessionManager.shared.currentSessionId
+        ])
+    }
+    
+    // Advanced user properties for segmentation
+    func setUserProperties(for user: User) {
+        Analytics.setUserProperty(user.subscriptionTier, forName: "subscription_tier")
+        Analytics.setUserProperty(user.preferredLanguage, forName: "preferred_language")
+        Analytics.setUserProperty(String(user.daysActive), forName: "days_active")
         
-        if let lastDocument = lastDocument {
-            query = query.start(afterDocument: lastDocument)
+        // Custom computed properties
+        Analytics.setUserProperty(
+            user.messagesSent > 100 ? "power_user" : "regular_user", 
+            forName: "user_category"
+        )
+    }
+    
+    private func determineMessageType(_ content: String) -> String {
+        if content.contains("http") || content.contains("www") {
+            return "link_sharing"
+        } else if content.count > 200 {
+            return "long_message"
+        } else if content.contains("@") {
+            return "mention"
         }
-        
-        query.getDocuments { [weak self] snapshot, error in
-            guard let documents = snapshot?.documents else { return }
+        return "regular"
+    }
+}</code></pre>
+                        </div>
+                        
+                        <div class="monitoring-benefits" style="background: linear-gradient(135deg, rgba(255, 59, 48, 0.1), rgba(255, 45, 146, 0.1)); padding: var(--space-xl); border-radius: var(--radius-lg); margin: var(--space-xl) 0; border-left: 4px solid var(--accent-red);">
+                            <h4 style="color: var(--accent-red); font-size: var(--text-xl); margin-bottom: var(--space-md);">
+                                📊 Real-time Insights
+                            </h4>
+                            <ul style="margin: 0; padding-left: var(--space-lg);">
+                                <li style="margin-bottom: var(--space-sm); color: var(--text-secondary);">
+                                    <strong>User Flow Analysis:</strong> Feature adoption patterns ve user journey optimization
+                                </li>
+                                <li style="margin-bottom: var(--space-sm); color: var(--text-secondary);">
+                                    <strong>Performance Monitoring:</strong> Crash reports, ANRs ve performance metrics
+                                </li>
+                                <li style="margin-bottom: var(--space-sm); color: var(--text-secondary);">
+                                    <strong>A/B Testing:</strong> Feature experiments ile data-driven development
+                                </li>
+                                <li style="margin-bottom: var(--space-sm); color: var(--text-secondary);">
+                                    <strong>Revenue Tracking:</strong> In-app purchases ve subscription analytics
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+            </article>
             
-            self?.lastDocument = documents.last
-            let newMessages = documents.compactMap { try? $0.data(as: Message.self) }
-            self?.messages.append(contentsOf: newMessages)
-        }
-    }
-}</code></pre>
-            </div>
-
-            <div class="fade-in-up">
-                <h2>💡 Best Practices</h2>
-                <p>Firebase ile çalışırken dikkat etmeniz gereken önemli noktalar:</p>
+            <!-- Call to Action -->
+            <section class="cta-section fade-in" style="text-align: center; margin: var(--space-5xl) 0; padding: var(--space-4xl); background: var(--surface-glass); border-radius: var(--radius-2xl); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <h3 style="font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-lg);">
+                    🔥 Firebase Real-time Journey'nizi Başlatın
+                </h3>
+                <p style="color: var(--text-secondary); margin-bottom: var(--space-2xl); max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Bu advanced techniques'leri projelerinizde implement edin ve modern iOS development'in real-time gücünü deneyimleyin.
+                </p>
                 
-                <ul>
-                    <li><strong>DocumentSnapshot.exists kontrolü yapın:</strong> Her zaman belgenin var olup olmadığını kontrol edin</li>
-                    <li><strong>Lifecycle'da listener'ları yönetin:</strong> <code>onDisappear</code> veya <code>deinit</code> içinde listener'ları kaldırın</li>
-                    <li><strong>Security rules'ları unutmayın:</strong> Production'da mutlaka güvenlik kurallarını tanımlayın</li>
-                    <li><strong>ObservableObject kullanın:</strong> SwiftUI ile reactive programming paradigmasını tam olarak kullanın</li>
-                    <li><strong>Pagination uygulayın:</strong> Büyük veri setleri için <code>limit()</code> ve <code>startAfter()</code> kullanın</li>
-                </ul>
-            </div>
+                <div style="display: flex; gap: var(--space-lg); justify-content: center; flex-wrap: wrap;">
+                    <a href="../index.html#projects" class="btn btn-primary interactive-element">
+                        <span>Real-time Projects'e Bak</span>
+                    </a>
+                    <a href="../blog.html" class="btn btn-secondary interactive-element">
+                        <span>Diğer Master Classes</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
 
-            <div class="fade-in-up">
-                <h2>🎉 Sonuç</h2>
-                <p>Firebase, iOS uygulamalarında real-time özellikler geliştirmek için mükemmel bir platform. SwiftUI ile birlikte kullanıldığında reactive programming paradigması sayesinde hem geliştiriciler hem de kullanıcılar için harika bir deneyim sunuyor.</p>
-                
-                <p>Bu yazıda temel Firebase entegrasyonu, authentication, offline destek ve performans optimizasyonu konularını ele aldık. Firebase'in sunduğu diğer özellikler (Cloud Functions, Storage, Analytics) hakkında daha fazla bilgi için <a href="https://firebase.google.com/docs/ios/setup" target="_blank">Firebase dokümantasyonunu</a> incelemenizi öneririm.</p>
-            </div>
-        </article>
-        
-        <!-- Post Footer -->
-        <footer class="post-footer fade-in-up">
-            <div class="author-section">
-                <img src="../cb.png" alt="Celal Başaran" class="author-avatar">
-                <div class="author-info">
-                    <h4>Celal Başaran</h4>
-                    <p>iOS Developer & Swift Enthusiast</p>
+    <!-- Author Bio -->
+    <section class="section section-alt" style="padding: var(--space-4xl) 0;">
+        <div class="container" style="max-width: 600px;">
+            <div class="author-bio card" style="text-align: center; background: var(--surface-glass); backdrop-filter: blur(40px);">
+                <div style="width: 100px; height: 100px; margin: 0 auto var(--space-lg); border-radius: 50%; background: var(--primary-gradient); padding: 4px;">
+                    <img src="../cb.png" alt="Celal Başaran" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" />
+                </div>
+                <h4 style="color: var(--text-primary); margin-bottom: var(--space-md); font-size: var(--text-xl);">
+                    Celal Başaran
+                </h4>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-lg);">
+                    Firebase ecosystem expert ve real-time iOS architecture specialist. Serverless backend solutions ile enterprise-level mobile apps geliştiren technology innovator.
+                </p>
+                <div style="display: flex; gap: var(--space-md); justify-content: center;">
+                    <a href="https://github.com/celalbasaran" class="btn btn-secondary interactive-element" target="_blank" rel="noopener noreferrer" style="padding: var(--space-sm) var(--space-lg);">
+                        GitHub
+                    </a>
+                    <a href="https://twitter.com/celalbasaran" class="btn btn-secondary interactive-element" target="_blank" rel="noopener noreferrer" style="padding: var(--space-sm) var(--space-lg);">
+                        Twitter
+                    </a>
                 </div>
             </div>
-            
-            <nav class="post-navigation-footer">
-                <a href="ios18-yenilikler.html" class="nav-link">← Önceki Yazı</a>
-                <a href="macos-rehberi.html" class="nav-link">Sonraki Yazı →</a>
-            </nav>
-        </footer>
-    </div>
+        </div>
+    </section>
 
+    <!-- Related Articles -->
+    <section class="section" style="background: var(--bg-secondary);">
+        <div class="container">
+            <h3 style="text-align: center; font-size: var(--text-2xl); color: var(--text-primary); margin-bottom: var(--space-3xl);">
+                📚 İlgili Advanced Content
+            </h3>
+            
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-xl);">
+                <article class="blog-card interactive-element">
+                    <div class="blog-icon" aria-hidden="true">📱</div>
+                    <h4 class="blog-title" style="font-size: var(--text-lg);">SwiftUI Quantum UI Tasarımı</h4>
+                    <p class="blog-description" style="font-size: var(--text-base);">
+                        SwiftUI'nin sınırlarını zorlayarak next-level kullanıcı arayüzleri inşa etme sanatı.
+                    </p>
+                    <a href="swiftui-modern-ui.html" class="blog-link interactive-element">
+                        Deep Dive →
+                    </a>
+                </article>
+                
+                <article class="blog-card interactive-element">
+                    <div class="blog-icon" aria-hidden="true">🍏</div>
+                    <h4 class="blog-title" style="font-size: var(--text-lg);">iOS 18 Revolution</h4>
+                    <p class="blog-description" style="font-size: var(--text-base);">
+                        Apple'ın iOS 18 ile getirdiği game-changing features ve developer ecosystem devrimi.
+                    </p>
+                    <a href="ios18-yenilikler.html" class="blog-link interactive-element">
+                        Revolution →
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Revolutionary Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    &copy; 2024 Celal Başaran. Crafted with innovation and passion.
+                </p>
+                <p class="footer-text">
+                    Built with Swift <span class="footer-heart" aria-label="love">❤️</span> and Revolutionary Vision
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Revolutionary JavaScript -->
     <script>
-        // Apple-style scroll animations
+        // Enhanced Firebase blog post interactions
         document.addEventListener('DOMContentLoaded', function() {
+            // Anti-scroll hijacking protection
+            window.scrollTo(0, 0);
+            
+            // Custom cursor system with Firebase theme
+            const cursor = document.getElementById('customCursor');
+            const interactiveElements = document.querySelectorAll('.interactive-element, a, button, code');
+            
+            // Cursor tracking with Firebase orange/red theme
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                // Add Firebase themed glow effect
+                cursor.style.boxShadow = '0 0 20px rgba(255, 149, 0, 0.3)';
+            });
+            
+            // Cursor hover states
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursor.classList.add('cursor-hover');
+                    cursor.style.background = 'var(--accent-orange)';
+                });
+                element.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('cursor-hover');
+                    cursor.style.background = 'var(--accent-blue)';
+                });
+            });
+            
+            // Scroll progress indicator with Firebase gradient
+            const scrollProgress = document.getElementById('scrollProgress');
+            window.addEventListener('scroll', () => {
+                const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                scrollProgress.style.width = Math.min(scrolled, 100) + '%';
+                scrollProgress.style.background = 'linear-gradient(90deg, var(--accent-orange), var(--accent-pink))';
+            });
+            
+            // Enhanced particle system for Firebase theme
+            const particlesContainer = document.getElementById('particles');
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+                
+                // Firebase themed particles (orange, red, yellow)
+                const colors = ['rgba(255, 149, 0, 0.6)', 'rgba(255, 45, 146, 0.6)', 'rgba(255, 204, 2, 0.6)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 12000);
+            }
+            
+            // Create particles periodically
+            setInterval(createParticle, 1000);
+
+            // Advanced content animations with Firebase theme
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -599,16 +706,210 @@ class PaginatedMessageService: ObservableObject {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
+                        
+                        // Add Firebase themed entrance animation
+                        entry.target.style.animation = 'firebaseFadeIn 0.8s ease-out forwards';
                     }
                 });
             }, observerOptions);
 
-            const animatedElements = document.querySelectorAll('.fade-in-up');
-            animatedElements.forEach((element, index) => {
-                element.style.transitionDelay = `${index * 0.1}s`;
-                observer.observe(element);
+            // Observe content sections
+            const contentSections = document.querySelectorAll('.content-section, .fade-in');
+            contentSections.forEach(section => observer.observe(section));
+
+            // Enhanced code highlighting with Firebase theme
+            const codeBlocks = document.querySelectorAll('code, pre');
+            codeBlocks.forEach(code => {
+                code.addEventListener('mouseenter', function() {
+                    this.style.background = 'rgba(255, 149, 0, 0.1)';
+                    this.style.borderRadius = '6px';
+                    this.style.transition = 'all 0.3s ease';
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 4px 12px rgba(255, 149, 0, 0.2)';
+                });
+                
+                code.addEventListener('mouseleave', function() {
+                    this.style.background = '';
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // Firebase themed card effects
+            const cards = document.querySelectorAll('.blog-card, .card, .pattern-card, .optimization-strategies');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
+                    this.style.boxShadow = '0 20px 40px rgba(255, 149, 0, 0.2)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // Copy code functionality with Firebase feedback
+            const codeShowcases = document.querySelectorAll('.code-showcase, .functions-showcase, .analytics-implementation');
+            codeShowcases.forEach(showcase => {
+                const copyButton = document.createElement('button');
+                copyButton.innerHTML = '🔥 Copy Firebase Code';
+                copyButton.className = 'btn btn-secondary interactive-element';
+                copyButton.style.position = 'absolute';
+                copyButton.style.top = 'var(--space-md)';
+                copyButton.style.right = 'var(--space-md)';
+                copyButton.style.fontSize = 'var(--text-xs)';
+                copyButton.style.padding = 'var(--space-xs) var(--space-sm)';
+                copyButton.style.background = 'var(--accent-orange)';
+                copyButton.style.color = 'var(--bg-primary)';
+                
+                showcase.style.position = 'relative';
+                showcase.appendChild(copyButton);
+                
+                copyButton.addEventListener('click', function() {
+                    const code = showcase.querySelector('code').textContent;
+                    navigator.clipboard.writeText(code).then(() => {
+                        this.innerHTML = '✅ Firebase Magic Copied!';
+                        this.style.background = 'var(--accent-green)';
+                        setTimeout(() => {
+                            this.innerHTML = '🔥 Copy Firebase Code';
+                            this.style.background = 'var(--accent-orange)';
+                        }, 2500);
+                    });
+                });
+            });
+
+            // Pattern cards hover enhancement
+            const patternCards = document.querySelectorAll('.pattern-card');
+            patternCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.05)';
+                    this.style.transition = 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Firebase flame animation for special elements
+            const firebaseElements = document.querySelectorAll('.highlight-box, .ios-integration, .monitoring-benefits');
+            firebaseElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.animation = 'firebaseFlame 2s ease-in-out infinite';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.animation = '';
+                });
             });
         });
+
+        // Firebase themed dynamic styles
+        const firebaseStyles = document.createElement('style');
+        firebaseStyles.textContent = `
+            @keyframes firebaseFadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px) scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+            
+            @keyframes firebaseFlame {
+                0%, 100% {
+                    transform: translateY(0) scale(1);
+                    filter: brightness(1);
+                }
+                50% {
+                    transform: translateY(-2px) scale(1.02);
+                    filter: brightness(1.1);
+                }
+            }
+            
+            .content-section {
+                margin-bottom: var(--space-5xl);
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            
+            .content-section.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .pattern-card {
+                transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                cursor: pointer;
+            }
+            
+            .optimization-strategies {
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .optimization-strategies::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 149, 0, 0.1), transparent);
+                transition: left 0.5s ease;
+            }
+            
+            .optimization-strategies:hover::before {
+                left: 100%;
+            }
+            
+            .functions-showcase,
+            .analytics-implementation {
+                transition: all 0.3s ease;
+                position: relative;
+            }
+            
+            .functions-showcase:hover,
+            .analytics-implementation:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 15px 30px rgba(255, 149, 0, 0.2);
+            }
+            
+            /* Firebase responsive enhancements */
+            @media (max-width: 768px) {
+                .query-patterns-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .post-meta {
+                    flex-direction: column;
+                    gap: var(--space-sm);
+                }
+                
+                .post-meta span {
+                    display: none;
+                }
+                
+                .functions-showcase,
+                .analytics-implementation {
+                    padding: var(--space-lg);
+                }
+            }
+        `;
+        document.head.appendChild(firebaseStyles);
     </script>
 </body>
 </html> 
