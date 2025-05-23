@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    
+    <title>SwiftUI ile Modern UI Tasarımı — Celal Başaran</title>
+    <meta name="description" content="SwiftUI'nin gelişmiş özelliklerini kullanarak modern, etkileşimli ve performanslı kullanıcı arayüzleri nasıl tasarlanır?">
+    <meta name="author" content="Celal Başaran">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="SwiftUI ile Modern UI Tasarımı — Celal Başaran">
+    <meta property="og:description" content="SwiftUI'nin gelişmiş özelliklerini kullanarak modern UI tasarımı best practices.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://celalbasaran.com/posts/swiftui-modern-ui.html">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
+    
+    <!-- Apple specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SwiftUI Modern UI">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="../cb.png">
+    <link rel="apple-touch-icon" href="../cb.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../style.css" as="style">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Article specific styles -->
+    <style>
+        .article-content {
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .article-content h2 {
+            font-size: var(--font-size-32);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin: var(--spacing-64) 0 var(--spacing-24) 0;
+            letter-spacing: -0.022em;
+        }
+        
+        .article-content h3 {
+            font-size: var(--font-size-24);
+            font-weight: 600;
+            color: var(--color-secondary);
+            margin: var(--spacing-48) 0 var(--spacing-16) 0;
+            letter-spacing: -0.022em;
+        }
+        
+        .article-content p {
+            font-size: var(--font-size-17);
+            color: var(--color-tertiary);
+            margin-bottom: var(--spacing-24);
+            line-height: 1.6;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin: var(--spacing-24) 0;
+            padding-left: var(--spacing-32);
+        }
+        
+        .article-content li {
+            font-size: var(--font-size-17);
+            color: var(--color-tertiary);
+            margin-bottom: var(--spacing-8);
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: var(--color-gray-50);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-12);
+            padding: var(--spacing-24);
+            margin: var(--spacing-32) 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: var(--font-size-14);
+            line-height: 1.5;
+        }
+        
+        .inline-code {
+            background: var(--color-gray-100);
+            color: var(--color-primary);
+            padding: var(--spacing-2) var(--spacing-8);
+            border-radius: var(--radius-4);
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .article-meta {
+            text-align: center;
+            margin-bottom: var(--spacing-64);
+            padding-bottom: var(--spacing-32);
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-8);
+            font-size: var(--font-size-16);
+            color: var(--color-blue);
+            text-decoration: none;
+            margin-bottom: var(--spacing-32);
+            transition: color var(--transition-standard);
+        }
+        
+        .back-link:hover {
+            color: var(--color-blue-hover);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Article navigation">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="../index.html" class="navbar-brand">Celal Başaran</a>
+                <ul class="navbar-nav">
+                    <li><a href="../index.html#about" class="navbar-link">Hakkımda</a></li>
+                    <li><a href="../index.html#projects" class="navbar-link">Projeler</a></li>
+                    <li><a href="../blog.html" class="navbar-link">Blog</a></li>
+                    <li><a href="../index.html#contact" class="navbar-link">İletişim</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Article Header -->
+        <section class="hero" style="padding: var(--spacing-96) 0 var(--spacing-48) 0;">
+            <div class="container">
+                <a href="../blog.html" class="back-link">
+                    ← Blog'a Dön
+                </a>
+                
+                <div class="article-meta">
+                    <div style="font-size: var(--font-size-14); color: var(--color-gray-600); margin-bottom: var(--spacing-8);">
+                        23 Mayıs 2025
+                    </div>
+                    <h1 style="font-size: clamp(var(--font-size-40), 6vw, var(--font-size-56)); font-weight: 700; letter-spacing: -0.025em; margin-bottom: var(--spacing-16); color: var(--color-primary);">
+                        SwiftUI ile Modern UI Tasarımı
+                    </h1>
+                    <p style="font-size: var(--font-size-20); color: var(--color-tertiary); max-width: 600px; margin: 0 auto;">
+                        SwiftUI'nin gelişmiş özelliklerini kullanarak modern, etkileşimli ve 
+                        performanslı kullanıcı arayüzleri nasıl tasarlanır?
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section class="section">
+            <div class="container">
+                <article class="article-content">
+                    <p>SwiftUI, Apple'ın modern declarative UI framework'ü olarak iOS, macOS, watchOS ve tvOS platformlarında kullanıcı arayüzü geliştirme şeklimizi kökten değiştirdi. Bu yazıda, SwiftUI'nin advanced özelliklerini kullanarak professional ve performanslı uygulamalar geliştirme tekniklerini ele alacağız.</p>
+
+                    <h2>SwiftUI'nin Gücü</h2>
+                    
+                    <p>SwiftUI, geleneksel imperative programlama yaklaşımından farklı olarak declarative bir model sunar. Bu yaklaşım ile UI'ınızın her durumda nasıl görünmesi gerektiğini tanımlarsınız ve SwiftUI gerekli değişiklikleri otomatik olarak yönetir.</p>
+
+                    <h3>State Management Best Practices</h3>
+                    
+                    <p>Modern SwiftUI uygulamalarında state management için çeşitli property wrapper'lar mevcuttur:</p>
+                    
+                    <ul>
+                        <li><span class="inline-code">@State</span> - View'a ait local state için</li>
+                        <li><span class="inline-code">@StateObject</span> - ObservableObject'lerin ilk kez oluşturulması için</li>
+                        <li><span class="inline-code">@ObservedObject</span> - Mevcut ObservableObject'leri gözlemlemek için</li>
+                        <li><span class="inline-code">@EnvironmentObject</span> - Global state paylaşımı için</li>
+                    </ul>
+
+                    <div class="code-block">
+struct ContentView: View {
+    @StateObject private var viewModel = ContentViewModel()
+    @State private var selectedTab = 0
+    
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+                .tag(0)
+            
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("Profile")
+                }
+                .tag(1)
+        }
+        .environmentObject(viewModel)
+    }
+}</div>
+
+                    <h3>Custom View Modifiers</h3>
+                    
+                    <p>SwiftUI'da code reusability için custom view modifier'lar kullanabilirsiniz. Bu approach hem performans hem de maintainability açısından avantajlıdır:</p>
+
+                    <div class="code-block">
+struct CardStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.1), 
+                   radius: 8, x: 0, y: 4)
+    }
+}
+
+extension View {
+    func cardStyle() -> some View {
+        modifier(CardStyle())
+    }
+}</div>
+
+                    <h2>Performance Optimization</h2>
+                    
+                    <p>SwiftUI uygulamalarında performance optimization için dikkat edilmesi gereken temel konular:</p>
+                    
+                    <h3>View Hierarchy Optimization</h3>
+                    
+                    <p>SwiftUI'da view hierarchy'yi optimize etmek için şu teknikleri kullanabilirsiniz:</p>
+                    
+                    <ul>
+                        <li>Mümkün olduğunca flat view hierarchy oluşturun</li>
+                        <li>Expensive computation'ları <span class="inline-code">@State</span> veya <span class="inline-code">@StateObject</span> ile cache'leyin</li>
+                        <li>Large list'ler için <span class="inline-code">LazyVStack</span> ve <span class="inline-code">LazyHStack</span> kullanın</li>
+                        <li>Image loading için async patterns uygulayın</li>
+                    </ul>
+
+                    <div class="code-block">
+struct OptimizedListView: View {
+    @StateObject private var dataManager = DataManager()
+    
+    var body: some View {
+        NavigationView {
+            LazyVStack(spacing: 16) {
+                ForEach(dataManager.items) { item in
+                    ItemRowView(item: item)
+                        .listRowInsets(EdgeInsets())
+                }
+            }
+            .padding()
+            .navigationTitle("Items")
+        }
+        .task {
+            await dataManager.loadData()
+        }
+    }
+}</div>
+
+                    <h3>Animation Excellence</h3>
+                    
+                    <p>SwiftUI'da smooth ve performanslı animasyonlar oluşturmak için:</p>
+                    
+                    <div class="code-block">
+struct AnimatedButton: View {
+    @State private var isPressed = false
+    
+    var body: some View {
+        Button("Tap Me") {
+            // Action
+        }
+        .scaleEffect(isPressed ? 0.95 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), 
+                  value: isPressed)
+        .onLongPressGesture(minimumDuration: 0) { _ in
+            // Nothing
+        } onPressingChanged: { pressing in
+            isPressed = pressing
+        }
+    }
+}</div>
+
+                    <h2>iOS 17+ Features</h2>
+                    
+                    <p>iOS 17 ile gelen yeni SwiftUI özellikleri modern app development'ı daha da güçlendiriyor:</p>
+                    
+                    <ul>
+                        <li><span class="inline-code">@Observable</span> macro ile simplified data model'ler</li>
+                        <li>Improved navigation API</li>
+                        <li>Enhanced animation system</li>
+                        <li>Better accessibility support</li>
+                    </ul>
+
+                    <h3>Observable Macro Usage</h3>
+                    
+                    <div class="code-block">
+@Observable
+class UserViewModel {
+    var name: String = ""
+    var email: String = ""
+    var isLoading: Bool = false
+    
+    func updateProfile() async {
+        isLoading = true
+        defer { isLoading = false }
+        
+        // API call implementation
+        try? await ProfileService.updateProfile(
+            name: name, 
+            email: email
+        )
+    }
+}</div>
+
+                    <h2>Sonuç</h2>
+                    
+                    <p>SwiftUI ile modern UI tasarımı yaparken en önemli faktörler performance, accessibility ve user experience'tir. Declarative programming paradigmasını benimser, state management'ı doğru şekilde uygular ve Apple'ın sunduğu en yeni framework özelliklerini kullanırsanız, kullanıcılarınız için exceptional deneyimler yaratabilirsiniz.</p>
+                    
+                    <p>SwiftUI'nin sürekli gelişen nature'ı, iOS developer'ları için heyecan verici fırsatlar sunuyor. Modern app development'ta öne çıkmak için bu teknolojileri takip etmek ve projelerinizde uygulamak kritik önem taşıyor.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Related Articles -->
+        <section class="section" style="background-color: var(--color-gray-50);">
+            <div class="container">
+                <div class="text-center mb-48">
+                    <h2 class="text-title mb-16">İlgili Yazılar</h2>
+                    <p class="text-body" style="color: var(--color-tertiary);">
+                        iOS development hakkında diğer yazılarım
+                    </p>
+                </div>
+                
+                <div class="grid grid-auto">
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">15 Mayıs 2025</div>
+                            <h3 class="card-title">iOS 18 Developer Yenilikleri</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Apple'ın iOS 18 ile getirdiği developer-focused yenilikler ve 
+                                mevcut uygulamalara entegrasyon stratejileri.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="ios18-yenilikler.html" class="btn btn-secondary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">8 Mayıs 2025</div>
+                            <h3 class="card-title">Firebase iOS Entegrasyonu</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                iOS uygulamalarında Firebase kullanarak real-time data 
+                                synchronization ve backend services implementation.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="firebase-realtime.html" class="btn btn-secondary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="text-center mt-32">
+                    <a href="../blog.html" class="btn btn-primary">Tüm Yazıları Görüntüle</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-gray-900); color: var(--color-white); padding: var(--spacing-48) 0;">
+        <div class="container">
+            <div class="text-center">
+                <p style="margin-bottom: var(--spacing-8); color: var(--color-gray-400);">
+                    © 2024 Celal Başaran. Tüm hakları saklıdır.
+                </p>
+                <p style="color: var(--color-gray-500); font-size: var(--font-size-14);">
+                    Swift ile ❤️ ile geliştirilmiştir.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Minimal JavaScript for smooth interactions -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Simple fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for fade-in effect
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(section);
+        });
+
+        // Add visible class styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

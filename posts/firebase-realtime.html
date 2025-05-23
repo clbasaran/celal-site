@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    
+    <title>Firebase iOS Entegrasyonu — Celal Başaran</title>
+    <meta name="description" content="iOS uygulamalarında Firebase kullanarak real-time data synchronization ve backend services implementation rehberi.">
+    <meta name="author" content="Celal Başaran">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Firebase iOS Entegrasyonu — Celal Başaran">
+    <meta property="og:description" content="Firebase ile iOS uygulamalarında real-time data ve backend services.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://celalbasaran.com/posts/firebase-realtime.html">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
+    
+    <!-- Apple specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Firebase iOS">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="../cb.png">
+    <link rel="apple-touch-icon" href="../cb.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../style.css" as="style">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Article specific styles -->
+    <style>
+        .article-content {
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .article-content h2 {
+            font-size: var(--font-size-32);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin: var(--spacing-64) 0 var(--spacing-24) 0;
+            letter-spacing: -0.022em;
+        }
+        
+        .article-content h3 {
+            font-size: var(--font-size-24);
+            font-weight: 600;
+            color: var(--color-secondary);
+            margin: var(--spacing-48) 0 var(--spacing-16) 0;
+            letter-spacing: -0.022em;
+        }
+        
+        .article-content p {
+            font-size: var(--font-size-17);
+            color: var(--color-tertiary);
+            margin-bottom: var(--spacing-24);
+            line-height: 1.6;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin: var(--spacing-24) 0;
+            padding-left: var(--spacing-32);
+        }
+        
+        .article-content li {
+            font-size: var(--font-size-17);
+            color: var(--color-tertiary);
+            margin-bottom: var(--spacing-8);
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: var(--color-gray-50);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-12);
+            padding: var(--spacing-24);
+            margin: var(--spacing-32) 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: var(--font-size-14);
+            line-height: 1.5;
+        }
+        
+        .inline-code {
+            background: var(--color-gray-100);
+            color: var(--color-primary);
+            padding: var(--spacing-2) var(--spacing-8);
+            border-radius: var(--radius-4);
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .article-meta {
+            text-align: center;
+            margin-bottom: var(--spacing-64);
+            padding-bottom: var(--spacing-32);
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-8);
+            font-size: var(--font-size-16);
+            color: var(--color-blue);
+            text-decoration: none;
+            margin-bottom: var(--spacing-32);
+            transition: color var(--transition-standard);
+        }
+        
+        .back-link:hover {
+            color: var(--color-blue-hover);
+        }
+        
+        .feature-highlight {
+            background: var(--color-gray-50);
+            border-left: 4px solid var(--color-blue);
+            padding: var(--spacing-24);
+            margin: var(--spacing-32) 0;
+            border-radius: 0 var(--radius-8) var(--radius-8) 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Article navigation">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="../index.html" class="navbar-brand">Celal Başaran</a>
+                <ul class="navbar-nav">
+                    <li><a href="../index.html#about" class="navbar-link">Hakkımda</a></li>
+                    <li><a href="../index.html#projects" class="navbar-link">Projeler</a></li>
+                    <li><a href="../blog.html" class="navbar-link">Blog</a></li>
+                    <li><a href="../index.html#contact" class="navbar-link">İletişim</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Article Header -->
+        <section class="hero" style="padding: var(--spacing-96) 0 var(--spacing-48) 0;">
+            <div class="container">
+                <a href="../blog.html" class="back-link">
+                    ← Blog'a Dön
+                </a>
+                
+                <div class="article-meta">
+                    <div style="font-size: var(--font-size-14); color: var(--color-gray-600); margin-bottom: var(--spacing-8);">
+                        8 Mayıs 2025
+                    </div>
+                    <h1 style="font-size: clamp(var(--font-size-40), 6vw, var(--font-size-56)); font-weight: 700; letter-spacing: -0.025em; margin-bottom: var(--spacing-16); color: var(--color-primary);">
+                        Firebase iOS Entegrasyonu
+                    </h1>
+                    <p style="font-size: var(--font-size-20); color: var(--color-tertiary); max-width: 600px; margin: 0 auto;">
+                        iOS uygulamalarında Firebase kullanarak real-time data synchronization 
+                        ve backend services implementation rehberi.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section class="section">
+            <div class="container">
+                <article class="article-content">
+                    <p>Firebase, Google'ın sunduğu backend-as-a-service platform'u olarak iOS uygulamaları için güçlü bir çözüm sunuyor. Real-time database, authentication, cloud storage ve analytics gibi services ile iOS development sürecini önemli ölçüde hızlandırıyor.</p>
+
+                    <h2>Firebase Setup ve Initial Configuration</h2>
+                    
+                    <p>iOS projenizde Firebase'i kullanmaya başlamak için öncelikle Firebase Console'da proje oluşturmalı ve iOS app'inizi register etmelisiniz.</p>
+
+                    <h3>SPM ile Firebase Kurulumu</h3>
+                    
+                    <p>Xcode'da Swift Package Manager kullanarak Firebase'i projenize ekleyin:</p>
+
+                    <div class="code-block">
+// Package.swift dependencies
+dependencies: [
+    .package(
+        url: "https://github.com/firebase/firebase-ios-sdk.git",
+        from: "10.20.0"
+    )
+]
+
+// Hedef products
+.product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+.product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+.product(name: "FirebaseStorage", package: "firebase-ios-sdk"),
+.product(name: "FirebaseAnalytics", package: "firebase-ios-sdk")</div>
+
+                    <h3>App Delegate Configuration</h3>
+
+                    <div class="code-block">
+import SwiftUI
+import Firebase
+
+@main
+struct MyApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}</div>
+
+                    <h2>Firestore Database Integration</h2>
+                    
+                    <p>Firestore, Firebase'in NoSQL document database'i olarak real-time data synchronization için ideal bir çözüm.</p>
+
+                    <h3>Data Model Design</h3>
+                    
+                    <p>Firestore ile çalışırken data modelinizi struct'lar olarak tanımlayın:</p>
+
+                    <div class="code-block">
+import Foundation
+import FirebaseFirestore
+
+struct Task: Identifiable, Codable {
+    @DocumentID var id: String?
+    var title: String
+    var description: String
+    var isCompleted: Bool
+    var priority: Priority
+    var createdAt: Date
+    var updatedAt: Date
+    var assignedTo: String?
+    
+    enum Priority: String, CaseIterable, Codable {
+        case low = "low"
+        case medium = "medium"
+        case high = "high"
+        case urgent = "urgent"
+    }
+    
+    init(title: String, description: String, priority: Priority = .medium) {
+        self.title = title
+        self.description = description
+        self.isCompleted = false
+        self.priority = priority
+        self.createdAt = Date()
+        self.updatedAt = Date()
+    }
+}</div>
+
+                    <h3>Repository Pattern Implementation</h3>
+                    
+                    <p>Firebase operations'ları manage etmek için repository pattern kullanın:</p>
+
+                    <div class="code-block">
+import Firebase
+import FirebaseFirestore
+import Combine
+
+class TaskRepository: ObservableObject {
+    private let db = Firestore.firestore()
+    private let collection = "tasks"
+    
+    @Published var tasks: [Task] = []
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    
+    private var listener: ListenerRegistration?
+    
+    init() {
+        startListening()
+    }
+    
+    deinit {
+        listener?.remove()
+    }
+    
+    // Real-time listening
+    func startListening() {
+        isLoading = true
+        
+        listener = db.collection(collection)
+            .order(by: "createdAt", descending: true)
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    self.errorMessage = error.localizedDescription
+                    self.isLoading = false
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    self.isLoading = false
+                    return
+                }
+                
+                self.tasks = documents.compactMap { document in
+                    try? document.data(as: Task.self)
+                }
+                
+                self.isLoading = false
+            }
+    }
+    
+    // Create new task
+    func createTask(_ task: Task) async throws {
+        let _ = try await db.collection(collection).addDocument(from: task)
+    }
+    
+    // Update existing task
+    func updateTask(_ task: Task) async throws {
+        guard let id = task.id else { 
+            throw FirebaseError.invalidTaskId 
+        }
+        
+        var updatedTask = task
+        updatedTask.updatedAt = Date()
+        
+        try await db.collection(collection)
+            .document(id)
+            .setData(from: updatedTask)
+    }
+    
+    // Delete task
+    func deleteTask(_ task: Task) async throws {
+        guard let id = task.id else { 
+            throw FirebaseError.invalidTaskId 
+        }
+        
+        try await db.collection(collection)
+            .document(id)
+            .delete()
+    }
+    
+    // Advanced queries
+    func getTasksByPriority(_ priority: Task.Priority) async throws -> [Task] {
+        let snapshot = try await db.collection(collection)
+            .whereField("priority", isEqualTo: priority.rawValue)
+            .order(by: "createdAt", descending: true)
+            .getDocuments()
+        
+        return snapshot.documents.compactMap { document in
+            try? document.data(as: Task.self)
+        }
+    }
+}
+
+enum FirebaseError: LocalizedError {
+    case invalidTaskId
+    case networkError
+    case permissionDenied
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidTaskId:
+            return "Invalid task ID"
+        case .networkError:
+            return "Network connection error"
+        case .permissionDenied:
+            return "Permission denied"
+        }
+    }
+}</div>
+
+                    <h2>Firebase Authentication</h2>
+                    
+                    <p>User authentication ve authorization için Firebase Auth kullanın:</p>
+
+                    <h3>Authentication Manager</h3>
+
+                    <div class="code-block">
+import Firebase
+import FirebaseAuth
+import Combine
+
+class AuthenticationManager: ObservableObject {
+    @Published var isAuthenticated = false
+    @Published var currentUser: User?
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    
+    private var authStateHandle: AuthStateDidChangeListenerHandle?
+    
+    init() {
+        setupAuthStateListener()
+    }
+    
+    deinit {
+        if let handle = authStateHandle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
+    }
+    
+    private func setupAuthStateListener() {
+        authStateHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            DispatchQueue.main.async {
+                self?.currentUser = user
+                self?.isAuthenticated = user != nil
+            }
+        }
+    }
+    
+    // Sign up with email
+    func signUp(email: String, password: String, displayName: String) async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let result = try await Auth.auth().createUser(
+                withEmail: email, 
+                password: password
+            )
+            
+            // Update display name
+            let changeRequest = result.user.createProfileChangeRequest()
+            changeRequest.displayName = displayName
+            try await changeRequest.commitChanges()
+            
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
+        isLoading = false
+    }
+    
+    // Sign in with email
+    func signIn(email: String, password: String) async {
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let _ = try await Auth.auth().signIn(
+                withEmail: email, 
+                password: password
+            )
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        
+        isLoading = false
+    }
+    
+    // Sign out
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    // Reset password
+    func resetPassword(email: String) async {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+}</div>
+
+                    <h2>Cloud Storage Integration</h2>
+                    
+                    <p>Firebase Storage ile file upload ve download işlemlerini handle edin:</p>
+
+                    <div class="code-block">
+import Firebase
+import FirebaseStorage
+import UIKit
+
+class StorageManager: ObservableObject {
+    private let storage = Storage.storage()
+    
+    @Published var uploadProgress: Double = 0
+    @Published var isUploading = false
+    @Published var errorMessage: String?
+    
+    // Upload image
+    func uploadImage(_ image: UIImage, 
+                    path: String) async throws -> String {
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            throw StorageError.invalidImageData
+        }
+        
+        let ref = storage.reference().child(path)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        isUploading = true
+        
+        let _ = try await ref.putDataAsync(imageData, metadata: metadata) { [weak self] progress in
+            DispatchQueue.main.async {
+                if let progress = progress {
+                    self?.uploadProgress = Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+                }
+            }
+        }
+        
+        let downloadURL = try await ref.downloadURL()
+        
+        isUploading = false
+        uploadProgress = 0
+        
+        return downloadURL.absoluteString
+    }
+    
+    // Download image
+    func downloadImage(from url: String) async throws -> UIImage {
+        guard let downloadURL = URL(string: url) else {
+            throw StorageError.invalidURL
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: downloadURL)
+        
+        guard let image = UIImage(data: data) else {
+            throw StorageError.invalidImageData
+        }
+        
+        return image
+    }
+    
+    // Delete file
+    func deleteFile(at path: String) async throws {
+        let ref = storage.reference().child(path)
+        try await ref.delete()
+    }
+}
+
+enum StorageError: LocalizedError {
+    case invalidImageData
+    case invalidURL
+    case uploadFailed
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidImageData:
+            return "Invalid image data"
+        case .invalidURL:
+            return "Invalid URL"
+        case .uploadFailed:
+            return "Upload failed"
+        }
+    }
+}</div>
+
+                    <h2>SwiftUI Integration</h2>
+                    
+                    <p>Firebase services'larını SwiftUI views'larıyla entegre edin:</p>
+
+                    <div class="code-block">
+import SwiftUI
+
+struct TaskListView: View {
+    @StateObject private var taskRepository = TaskRepository()
+    @StateObject private var authManager = AuthenticationManager()
+    @State private var showingAddTask = false
+    
+    var body: some View {
+        NavigationView {
+            Group {
+                if authManager.isAuthenticated {
+                    if taskRepository.isLoading && taskRepository.tasks.isEmpty {
+                        ProgressView("Loading tasks...")
+                    } else {
+                        List {
+                            ForEach(taskRepository.tasks) { task in
+                                TaskRowView(task: task) {
+                                    Task {
+                                        try await taskRepository.updateTask($0)
+                                    }
+                                }
+                            }
+                            .onDelete(perform: deleteTask)
+                        }
+                        .refreshable {
+                            // Pull to refresh handled by real-time listener
+                        }
+                    }
+                } else {
+                    AuthenticationView()
+                        .environmentObject(authManager)
+                }
+            }
+            .navigationTitle("Tasks")
+            .toolbar {
+                if authManager.isAuthenticated {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Add") {
+                            showingAddTask = true
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Sign Out") {
+                            authManager.signOut()
+                        }
+                    }
+                }
+            }
+            .sheet(isPresented: $showingAddTask) {
+                AddTaskView { task in
+                    Task {
+                        try await taskRepository.createTask(task)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func deleteTask(at offsets: IndexSet) {
+        for index in offsets {
+            let task = taskRepository.tasks[index]
+            Task {
+                try await taskRepository.deleteTask(task)
+            }
+        }
+    }
+}</div>
+
+                    <h2>Performance Optimization</h2>
+                    
+                    <p>Firebase integration'ında performance için önemli noktalar:</p>
+                    
+                    <ul>
+                        <li><strong>Firestore Listeners:</strong> Gereksiz listener'ları remove edin</li>
+                        <li><strong>Data Pagination:</strong> Large datasets için pagination kullanın</li>
+                        <li><strong>Offline Persistence:</strong> Offline support enable edin</li>
+                        <li><strong>Security Rules:</strong> Optimized security rules yazın</li>
+                    </ul>
+
+                    <div class="feature-highlight">
+                        <h4 style="color: var(--color-blue); margin-bottom: var(--spacing-8);">Performance Tips</h4>
+                        <p style="margin: 0; font-size: var(--font-size-16);">
+                            Firestore queries'larda composite indexes kullanın ve unnecessary field'ları query'lerden exclude edin.
+                        </p>
+                    </div>
+
+                    <h3>Offline Persistence</h3>
+
+                    <div class="code-block">
+// Enable offline persistence
+let settings = Firestore.firestore().settings
+settings.isPersistenceEnabled = true
+Firestore.firestore().settings = settings
+
+// Paginated queries
+func loadMoreTasks() async throws {
+    let snapshot = try await db.collection("tasks")
+        .order(by: "createdAt", descending: true)
+        .limit(to: 20)
+        .start(afterDocument: lastDocument)
+        .getDocuments()
+    
+    let newTasks = snapshot.documents.compactMap { 
+        try? $0.data(as: Task.self) 
+    }
+    
+    tasks.append(contentsOf: newTasks)
+    lastDocument = snapshot.documents.last
+}</div>
+
+                    <h2>Security Best Practices</h2>
+                    
+                    <p>Firebase projelerinizde security için dikkat edilmesi gereken noktalar:</p>
+                    
+                    <ul>
+                        <li>Firestore Security Rules ile data access control</li>
+                        <li>Authentication state validation</li>
+                        <li>Client-side data validation</li>
+                        <li>API key protection</li>
+                    </ul>
+
+                    <h3>Firestore Security Rules</h3>
+
+                    <div class="code-block">
+// Firestore Security Rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Tasks collection rules
+    match /tasks/{taskId} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == resource.data.assignedTo;
+      
+      allow create: if request.auth != null 
+        && request.auth.uid == request.resource.data.assignedTo;
+    }
+    
+    // User profiles
+    match /users/{userId} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == userId;
+    }
+  }
+}</div>
+
+                    <h2>Analytics ve Monitoring</h2>
+                    
+                    <p>Firebase Analytics ile app performance'ını track edin:</p>
+
+                    <div class="code-block">
+import FirebaseAnalytics
+
+// Custom events tracking
+Analytics.logEvent("task_created", parameters: [
+    "task_priority": task.priority.rawValue,
+    "user_id": Auth.auth().currentUser?.uid ?? "anonymous"
+])
+
+// Screen tracking
+Analytics.logEvent(AnalyticsEventScreenView, parameters: [
+    AnalyticsParameterScreenName: "TaskListView",
+    AnalyticsParameterScreenClass: "TaskListView"
+])
+
+// Performance monitoring
+import FirebasePerformance
+
+let trace = Performance.startTrace(name: "task_load_trace")
+// Your task loading code
+trace.stop()</div>
+
+                    <h2>Sonuç</h2>
+                    
+                    <p>Firebase, iOS uygulamaları için powerful ve scalable backend solution sunuyor. Real-time data synchronization, authentication, storage ve analytics features'larıyla development sürecini significantly hızlandırıyor.</p>
+                    
+                    <p>Bu rehberde ele aldığımız patterns ve best practices'leri uygulayarak, production-ready iOS uygulamaları geliştirebilir ve Firebase'in full potential'ından faydalanabilirsiniz.</p>
+                    
+                    <p>Firebase ecosystem'ini master ederek, backend complexity'sini minimize edip frontend experience'a focus edebilir, daha innovative ve user-centric iOS applications yaratabilirsiniz.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Related Articles -->
+        <section class="section" style="background-color: var(--color-gray-50);">
+            <div class="container">
+                <div class="text-center mb-48">
+                    <h2 class="text-title mb-16">İlgili Yazılar</h2>
+                    <p class="text-body" style="color: var(--color-tertiary);">
+                        iOS development hakkında diğer yazılarım
+                    </p>
+                </div>
+                
+                <div class="grid grid-auto">
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">23 Mayıs 2025</div>
+                            <h3 class="card-title">SwiftUI ile Modern UI Tasarımı</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                SwiftUI'nin gelişmiş özelliklerini kullanarak modern, etkileşimli 
+                                kullanıcı arayüzleri tasarlama teknikleri.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="swiftui-modern-ui.html" class="btn btn-secondary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-subtitle">15 Mayıs 2025</div>
+                            <h3 class="card-title">iOS 18 Developer Yenilikleri</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-description">
+                                Apple'ın iOS 18 ile getirdiği developer-focused yenilikler ve 
+                                mevcut uygulamalara entegrasyon stratejileri.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="ios18-yenilikler.html" class="btn btn-secondary btn-small">
+                                Devamını Oku
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="text-center mt-32">
+                    <a href="../blog.html" class="btn btn-primary">Tüm Yazıları Görüntüle</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-gray-900); color: var(--color-white); padding: var(--spacing-48) 0;">
+        <div class="container">
+            <div class="text-center">
+                <p style="margin-bottom: var(--spacing-8); color: var(--color-gray-400);">
+                    © 2024 Celal Başaran. Tüm hakları saklıdır.
+                </p>
+                <p style="color: var(--color-gray-500); font-size: var(--font-size-14);">
+                    Swift ile ❤️ ile geliştirilmiştir.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Minimal JavaScript for smooth interactions -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Simple fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for fade-in effect
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(section);
+        });
+
+        // Add visible class styling
+        const style = document.createElement('style');
+        style.textContent = `
+            .visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 
