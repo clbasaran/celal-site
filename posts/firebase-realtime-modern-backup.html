@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <title>Firebase ile iOS Uygulamalarında Real-time Veri — Celal Başaran</title>
+    <meta name="description" content="Firebase Firestore kullanarak iOS uygulamalarınızda gerçek zamanlı veri senkronizasyonu nasıl yapılır? Combine framework ile entegrasyon örnekleri.">
+    <meta name="keywords" content="Firebase, iOS Development, Real-time Data, Firestore, SwiftUI, Authentication">
+    <meta name="author" content="Celal Başaran">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://celalbasaran.com/posts/firebase-realtime.html" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Firebase ile iOS Uygulamalarında Real-time Veri">
+    <meta property="og:description" content="Firebase Firestore kullanarak iOS uygulamalarınızda gerçek zamanlı veri senkronizasyonu.">
+    <meta property="og:image" content="https://celalbasaran.com/cb.png">
+    <meta property="og:url" content="https://celalbasaran.com/posts/firebase-realtime.html">
+    <meta property="og:type" content="article">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../cb.png">
+    <link rel="apple-touch-icon" href="../cb.png">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="blog-post-page">
+        <div class="container">
+            <!-- Navigation -->
+            <nav class="post-nav">
+                <a href="../blog.html" class="back-link">← Blog'a Geri Dön</a>
+            </nav>
+            
+            <!-- Post Header -->
+            <header class="post-header">
+                <div class="post-date">8 Mayıs 2025</div>
+                <h1 class="post-title">Firebase ile iOS Uygulamalarında Real-time Veri</h1>
+                <p class="post-subtitle">Firebase Firestore kullanarak iOS uygulamalarınızda gerçek zamanlı veri senkronizasyonu nasıl yapılır? Combine framework ile entegrasyon örnekleri.</p>
+            </header>
+            
+            <!-- Post Content -->
+            <article class="post-content">
+                <h2>🔥 Firebase Neden Bu Kadar Popüler?</h2>
+                <p>Firebase, Google'ın geliştirdiği backend-as-a-service (BaaS) platformu olarak, iOS geliştiricilerin hayatını büyük ölçüde kolaylaştırıyor. Özellikle real-time uygulamalar geliştirmek istediğinizde Firebase'in sunduğu avantajlar:</p>
+                
+                <ul>
+                    <li><strong>Gerçek zamanlı veri senkronizasyonu:</strong> Firestore ile veriler anlık olarak tüm cihazlarda senkronize olur</li>
+                    <li><strong>Otomatik offline cache:</strong> İnternet bağlantısı olmadığında bile uygulama çalışmaya devam eder</li>
+                    <li><strong>Kolay authentication yönetimi:</strong> Email, Google, Apple ID gibi çoklu giriş seçenekleri</li>
+                    <li><strong>SwiftUI ile tam uyum:</strong> Reactive programming paradigması ile mükemmel entegrasyon</li>
+                </ul>
+
+                <h2>📡 Firestore ile Gerçek Zamanlı Veri</h2>
+                <p>Firestore'un en güçlü özelliklerinden biri <code>addSnapshotListener</code> metodudur. Bu metod sayesinde veritabanındaki değişiklikleri gerçek zamanlı olarak takip edebilirsiniz:</p>
+                
+                <pre><code>import FirebaseFirestore
+
+class MessageService: ObservableObject {
+    @Published var messages: [Message] = []
+    private var db = Firestore.firestore()
+    private var listener: ListenerRegistration?
+    
+    func startListening() {
+        listener = db.collection("mesajlar")
+            .order(by: "timestamp", descending: false)
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                
+                self?.messages = documents.compactMap { document in
+                    try? document.data(as: Message.self)
+                }
+            }
+    }
+    
+    func stopListening() {
+        listener?.remove()
+    }
+}</code></pre>
+                
+                <h2>🔄 SnapshotListener vs getDocuments</h2>
+                <p>Firebase'de veri çekmenin iki ana yöntemi vardır. Her birinin kendine özgü kullanım alanları vardır:</p>
+                
+                <div style="overflow-x: auto; margin: 1.5rem 0;">
+                    <table style="width: 100%; border-collapse: collapse; background: var(--surface-elevated); border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: var(--primary); color: white;">
+                                <th style="padding: 1rem; text-align: left;">Yöntem</th>
+                                <th style="padding: 1rem; text-align: left;">Kullanım Alanı</th>
+                                <th style="padding: 1rem; text-align: left;">Avantajlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid var(--border);">
+                                <td style="padding: 1rem; color: var(--text-primary);"><code>getDocuments()</code></td>
+                                <td style="padding: 1rem; color: var(--text-secondary);">Tek seferlik veri çekimi</td>
+                                <td style="padding: 1rem; color: var(--text-secondary);">Düşük maliyet, basit implementasyon</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; color: var(--text-primary);"><code>addSnapshotListener</code></td>
+                                <td style="padding: 1rem; color: var(--text-secondary);">Gerçek zamanlı veri takibi</td>
+                                <td style="padding: 1rem; color: var(--text-secondary);">Otomatik güncellemeler, reactive UI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>🔐 Authentication Entegrasyonu</h2>
+                <p>Firebase Authentication ile kullanıcı yönetimi oldukça basittir. SwiftUI ile entegre bir giriş sistemi oluşturmak için:</p>
+                
+                <pre><code>import FirebaseAuth
+
+class AuthService: ObservableObject {
+    @Published var isSignedIn = false
+    @Published var currentUser: User?
+    
+    init() {
+        // Auth state değişikliklerini dinle
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            self?.isSignedIn = user != nil
+            self?.currentUser = user
+        }
+    }
+    
+    func signIn(withEmail email: String, password: String) async throws {
+        let result = try await Auth.auth().signIn(withEmail: email, password: password)
+        await MainActor.run {
+            self.currentUser = result.user
+        }
+    }
+    
+    func signOut() throws {
+        try Auth.auth().signOut()
+        currentUser = nil
+    }
+}</code></pre>
+
+                <h2>🌐 Offline Desteği</h2>
+                <p>Firebase'in en güçlü özelliklerinden biri offline destek sağlamasıdır. Uygulamanız internet bağlantısı olmadığında bile çalışmaya devam eder:</p>
+                
+                <pre><code>// AppDelegate veya SceneDelegate içinde
+import FirebaseFirestore
+
+func configureFirestore() {
+    let settings = FirestoreSettings()
+    settings.isPersistenceEnabled = true
+    settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
+    
+    Firestore.firestore().settings = settings
+}
+
+// Offline veri yazma
+func addMessageOffline(_ message: Message) {
+    db.collection("mesajlar").addDocument(data: [
+        "text": message.text,
+        "userId": message.userId,
+        "timestamp": FieldValue.serverTimestamp()
+    ]) { error in
+        // Bu işlem offline bile olsa cache'e yazılır
+        // İnternet bağlantısı geldiğinde otomatik sync olur
+    }
+}</code></pre>
+
+                <h2>💡 Geliştiriciye Tavsiyeler</h2>
+                <p>Firebase ile çalışırken dikkat etmeniz gereken önemli noktalar:</p>
+                
+                <ul>
+                    <li><strong>DocumentSnapshot.exists kontrolü yap:</strong> Her zaman belgenin var olup olmadığını kontrol edin</li>
+                    <li><strong>Lifecycle içinde listener'ları iyi yönet:</strong> <code>onDisappear</code> veya <code>deinit</code> içinde listener'ları kaldırın</li>
+                    <li><strong>Security rules konfigürasyonlarını ihmal etme:</strong> Production'da mutlaka güvenlik kurallarını tanımlayın</li>
+                    <li><strong>ObservableObject + @Published ile SwiftUI'da bağlam kur:</strong> Reactive programming paradigmasını tam olarak kullanın</li>
+                    <li><strong>Pagination kullan:</strong> Büyük veri setleri için <code>limit()</code> ve <code>startAfter()</code> metodlarını kullanın</li>
+                </ul>
+
+                <h2>🎯 SwiftUI ile Pratik Örnek</h2>
+                <p>Firebase'i SwiftUI ile kullanırken en iyi pratikleri gösteren basit bir chat uygulaması örneği:</p>
+                
+                <pre><code>struct ChatView: View {
+    @StateObject private var messageService = MessageService()
+    @State private var newMessageText = ""
+    
+    var body: some View {
+        VStack {
+            ScrollView {
+                LazyVStack {
+                    ForEach(messageService.messages) { message in
+                        MessageRow(message: message)
+                    }
+                }
+            }
+            
+            HStack {
+                TextField("Mesaj yazın...", text: $newMessageText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Button("Gönder") {
+                    messageService.sendMessage(newMessageText)
+                    newMessageText = ""
+                }
+                .disabled(newMessageText.isEmpty)
+            }
+            .padding()
+        }
+        .onAppear {
+            messageService.startListening()
+        }
+        .onDisappear {
+            messageService.stopListening()
+        }
+    }
+}</code></pre>
+
+                <h2>🧾 Sonuç</h2>
+                <p>Firebase, backend gerektirmeyen ama anlık veri sağlayan güçlü bir altyapı sunar. Bu sistemle iOS uygulamalarınız çok daha interaktif ve modern hale gelir. Özellikle chat uygulamaları, collaborative tools ve real-time dashboard'lar için mükemmel bir seçimdir.</p>
+                
+                <p>Firebase'in sunduğu offline destek, automatic scaling ve güvenlik özellikleri ile birlikte, küçük prototypelerden büyük ölçekli uygulamalara kadar geniş bir yelpazede kullanılabilir.</p>
+                
+                <p>Bir sonraki yazımda Firebase Cloud Functions ile backend logic'i nasıl yönetebileceğiniz konusuna değineceğim. Takipte kalın! 🚀</p>
+            </article>
+            
+            <!-- Post Footer -->
+            <footer class="post-footer">
+                <div class="author-info">
+                    <img src="../cb.png" alt="Celal Başaran" class="author-avatar">
+                    <div class="author-details">
+                        <h4>Celal Başaran</h4>
+                        <p>iOS Developer & Firebase Enthusiast</p>
+                    </div>
+                </div>
+                
+                <nav class="post-navigation">
+                    <a href="../blog.html" class="nav-link">← Tüm Yazılar</a>
+                    <a href="swiftui-modern-ui.html" class="nav-link">Sonraki Yazı →</a>
+                </nav>
+            </footer>
+        </div>
+    </div>
+</body>
+</html> 
