@@ -484,6 +484,34 @@ html {
     font-weight: 500;
 }
 
+.project-status {
+    margin-bottom: 1.5rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-badge.completed {
+    background: linear-gradient(135deg, var(--success), #30d158);
+    color: white;
+}
+
+.status-badge.in-progress {
+    background: linear-gradient(135deg, var(--warning), #ffcc02);
+    color: var(--background);
+}
+
+.status-badge.beta {
+    background: linear-gradient(135deg, var(--secondary), #7c3aed);
+    color: white;
+}
+
 .project-links {
     display: flex;
     gap: 1rem;
