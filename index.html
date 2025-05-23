@@ -176,6 +176,22 @@
     <link rel="modulepreload" href="/assets/js/modules/performance-monitor.js">
     <link rel="modulepreload" href="/assets/js/modules/analytics.js">
     
+    <!-- Performance First CSS - Load Immediately -->
+    <link rel="preload" href="/assets/css/performance-first-animations.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Progressive Loading System - MUST LOAD FIRST -->
+    <script type="module" src="/assets/js/modules/progressive-loader.js"></script>
+    
+    <!-- Advanced Scripts - Load after progressive loader -->
+    <script type="module" src="/assets/js/app.js"></script>
+    <script type="module" src="/assets/js/modules/3d-engine.js"></script>
+    <script type="module" src="/assets/js/modules/ai-assistant.js"></script>
+    <script type="module" src="/assets/js/modules/voice-commands.js"></script>
+    <script type="module" src="/assets/js/modules/apple-devices.js"></script>
+    <script type="module" src="/assets/js/modules/animation-manager.js"></script>
+    <script type="module" src="/assets/js/modules/performance-monitor.js"></script>
+    <script type="module" src="/assets/js/modules/analytics.js"></script>
+    
     <!-- Critical CSS -->
     <style>
         /* Critical CSS for immediate rendering */
@@ -1179,16 +1195,6 @@
         <!-- This is just the beginning of the ultra-advanced portfolio -->
         
     </main>
-    
-    <!-- Advanced Scripts -->
-    <script type="module" src="/assets/js/app.js"></script>
-    <script type="module" src="/assets/js/modules/3d-engine.js"></script>
-    <script type="module" src="/assets/js/modules/ai-assistant.js"></script>
-    <script type="module" src="/assets/js/modules/voice-commands.js"></script>
-    <script type="module" src="/assets/js/modules/apple-devices.js"></script>
-    <script type="module" src="/assets/js/modules/animation-manager.js"></script>
-    <script type="module" src="/assets/js/modules/performance-monitor.js"></script>
-    <script type="module" src="/assets/js/modules/analytics.js"></script>
     
     <!-- Service Worker Registration -->
     <script>

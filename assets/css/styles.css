@@ -6,7 +6,10 @@
  */
 
 /* CSS Layers for Cascade Control */
-@layer reset, tokens, base, components, utilities, animations, apple-optimizations, animation-fixes;
+@layer reset, tokens, base, components, utilities, performance-first, animations, apple-optimizations, animation-fixes;
+
+/* Import Performance First System */
+@import url('./performance-first-animations.css') layer(performance-first);
 
 /* Import Animation Fixes */
 @import url('./animation-fixes.css') layer(animation-fixes);
