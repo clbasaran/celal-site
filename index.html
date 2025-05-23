@@ -43,19 +43,16 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark">
+<body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <span class="logo-icon">⌘</span>
+                <img src="cb.png" alt="CB Logo" class="logo-image">
             </div>
             <div class="nav-title">
                 <span class="site-title">Celal Başaran</span>
             </div>
             <div class="nav-controls">
-                <button class="theme-toggle" aria-label="Toggle theme">
-                    <span class="theme-icon">🌙</span>
-                </button>
                 <button class="nav-toggle" aria-label="Toggle navigation">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
@@ -82,11 +79,8 @@
             </div>
             <nav class="mobile-menu-nav">
                 <a href="#home" class="mobile-menu-link">🏠 Ana Sayfa</a>
-                <a href="#about" class="mobile-menu-link">👤 Hakkımda</a>
-                <a href="#skills" class="mobile-menu-link">⚡ Yetenekler</a>
                 <a href="#projects" class="mobile-menu-link">🚀 Projeler</a>
                 <a href="#blog" class="mobile-menu-link">📝 Blog</a>
-                <a href="#resume" class="mobile-menu-link">📄 Özgeçmiş</a>
                 <a href="#contact" class="mobile-menu-link">📧 İletişim</a>
             </nav>
         </div>
@@ -426,14 +420,6 @@
             const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
             const mobileMenuClose = document.querySelector('.mobile-menu-close');
             const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-            const themeToggle = document.querySelector('.theme-toggle');
-            const themeIcon = document.querySelector('.theme-icon');
-            const body = document.body;
-
-            // Initialize theme from localStorage or default to dark
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            body.classList.add(savedTheme);
-            updateThemeIcon(savedTheme);
 
             // Mobile menu toggle
             function toggleMobileMenu() {
@@ -450,37 +436,20 @@
                 mobileMenu.classList.add('active');
                 mobileMenuOverlay.classList.add('active');
                 navToggle.classList.add('active');
-                body.style.overflow = 'hidden';
+                document.body.style.overflow = 'hidden';
             }
 
             function closeMobileMenu() {
                 mobileMenu.classList.remove('active');
                 mobileMenuOverlay.classList.remove('active');
                 navToggle.classList.remove('active');
-                body.style.overflow = '';
-            }
-
-            // Theme toggle functionality
-            function toggleTheme() {
-                const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
-                body.classList.remove('dark', 'light');
-                body.classList.add(newTheme);
-                
-                localStorage.setItem('theme', newTheme);
-                updateThemeIcon(newTheme);
-            }
-
-            function updateThemeIcon(theme) {
-                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+                document.body.style.overflow = '';
             }
 
             // Event listeners
             navToggle.addEventListener('click', toggleMobileMenu);
             mobileMenuClose.addEventListener('click', closeMobileMenu);
             mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-            themeToggle.addEventListener('click', toggleTheme);
 
             // Close menu when clicking menu links
             mobileMenuLinks.forEach(link => {

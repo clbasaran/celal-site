@@ -99,19 +99,6 @@ html {
     flex-shrink: 0;
 }
 
-.logo-icon {
-    display: inline-block;
-    font-size: 24px;
-    line-height: 1;
-    color: var(--primary);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.logo-icon:hover {
-    transform: scale(1.1);
-}
-
 .nav-logo .logo-image {
     height: 100px;
     width: auto;
@@ -992,19 +979,11 @@ html {
     }
     
     .nav-logo .logo-image {
-        display: none;
-    }
-    
-    .logo-icon {
-        font-size: 20px;
+        height: 32px;
     }
     
     .nav-title {
         display: block;
-    }
-    
-    .theme-toggle {
-        display: flex;
     }
     
     .nav-toggle {
