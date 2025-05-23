@@ -44,48 +44,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="cb.png" alt="CB Logo" class="logo-image">
-            </div>
-            <div class="nav-title">
-                <span class="site-title">Celal Başaran</span>
-            </div>
-            <div class="nav-controls">
-                <button class="nav-toggle" aria-label="Toggle navigation">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Ana Sayfa</a></li>
-                <li><a href="#about">Hakkımda</a></li>
-                <li><a href="#skills">Yetenekler</a></li>
-                <li><a href="#projects">Projeler</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#resume">Özgeçmiş</a></li>
-                <li><a href="#contact">İletişim</a></li>
-            </ul>
-        </div>
-        
-        <!-- Mobile slide-out menu -->
-        <div class="mobile-menu-overlay"></div>
-        <div class="mobile-menu">
-            <div class="mobile-menu-header">
-                <span class="mobile-menu-title">Menü</span>
-                <button class="mobile-menu-close" aria-label="Close menu">✕</button>
-            </div>
-            <nav class="mobile-menu-nav">
-                <a href="#home" class="mobile-menu-link">🏠 Ana Sayfa</a>
-                <a href="#projects" class="mobile-menu-link">🚀 Projeler</a>
-                <a href="#blog" class="mobile-menu-link">📝 Blog</a>
-                <a href="#contact" class="mobile-menu-link">📧 İletişim</a>
-            </nav>
-        </div>
-    </nav>
-
     <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-content">
@@ -411,58 +369,5 @@
             <p>Swift ile ❤️ geliştirildi</p>
         </div>
     </footer>
-
-    <script>
-        // Mobile menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const navToggle = document.querySelector('.nav-toggle');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-            const mobileMenuClose = document.querySelector('.mobile-menu-close');
-            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-
-            // Mobile menu toggle
-            function toggleMobileMenu() {
-                const isActive = mobileMenu.classList.contains('active');
-                
-                if (isActive) {
-                    closeMobileMenu();
-                } else {
-                    openMobileMenu();
-                }
-            }
-
-            function openMobileMenu() {
-                mobileMenu.classList.add('active');
-                mobileMenuOverlay.classList.add('active');
-                navToggle.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeMobileMenu() {
-                mobileMenu.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-                navToggle.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            // Event listeners
-            navToggle.addEventListener('click', toggleMobileMenu);
-            mobileMenuClose.addEventListener('click', closeMobileMenu);
-            mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-
-            // Close menu when clicking menu links
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
-            });
-
-            // Close menu on escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                    closeMobileMenu();
-                }
-            });
-        });
-    </script>
 </body>
 </html> 
