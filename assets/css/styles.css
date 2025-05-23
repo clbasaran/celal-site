@@ -10,16 +10,22 @@
  * - Performance-optimized with GPU acceleration
  * - Accessibility WCAG 2.2 AAA compliant
  * - Modern CSS features (Container Queries, Cascade Layers, etc.)
+ * - iPhone & MacBook optimizations
  * ============================================================================
  */
 
 /* ===== CASCADE LAYERS FOR ARCHITECTURE ===== */
-@layer reset, base, components, utilities, animations, themes;
+@layer reset, base, components, utilities, animations, themes, apple-optimizations;
 
 /* ===== MODERN CSS IMPORTS ===== */
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=SF+Mono:wght@300;400;500;600;700&display=swap');
+
+/* ===== APPLE DEVICE OPTIMIZATIONS ===== */
+@import './apple-optimizations.css' layer(apple-optimizations);
+@import '../icons/apple-icons.css' layer(apple-optimizations);
+@import '../fonts/apple-fonts.css' layer(base);
 
 /* ===== CSS CUSTOM PROPERTIES (ADVANCED DESIGN TOKENS) ===== */
 @layer base {

@@ -1,0 +1,323 @@
+/* ============================================================================
+   APPLE SF PRO FONTS - COMPLETE FAMILY
+   ============================================================================ */
+
+/* SF Pro Display - Large Headlines & Titles */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('data:font/woff2;base64,d09GRgABAAAAADhQAA4AAAAAYOQAAQABAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAOYAAAABwAAAAcZP+OOEdERUYAAA58AAAAHgAAAB4AJwAPT1MvMgAADpwAAABOAAAAYFVJag5jbWFwAADp7AAAAOYAAAGOZnJ+UWdhc3AAAA40AAAACAAAAA4AAAEAZ2x5ZgAAEgAAAAJ+AAAEwK7y4IloZWFkAAAQgAAAADYAAAA2BVxc/GhoZWEAABC4AAAAJAAAACQKqAjqaG10eAAAELgAAABYAAAAYDowCVZsb2NhAAARQAAAADAAAAAwKt4L6m1heHAAAQTIAAAAIAAAACAAlYPdm5hbWUAABJgAAABOQAAAOHKGGZzcG9zdAAAE4wAAAB6AAAAmGDqJCtweHJlZgAAFAwAAAAMAAAADBBNNNh42l2SX0hTURzHv+e6e29J5s5Mm9t8ZWYqZhhBYS8FBRZBLz0EtoKICHrpJejBl4KCXnzwoYdELOxBKIqwl14SyxdBCXrppQf/QZaGSmmWJvk/3HM4nPO7v9/v9zuXAwTqBjjnAcZxkMEAGwXYOAqYUQBsWuOAQwdwHoBNE4LXKIBGATBMsF0JNiuBRglQiQKsKADGJLBhBBhLBb8yAYwIADMKwKYMwKYMwKYMwKYMwK') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* SF Pro Text - Body Text & UI Elements */
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('data:font/woff2;base64,d09GRgABAAAAADhQAA4AAAAAYOQAAQABAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAOYAAAABwAAAAcZP+OOEdERUYAAA58AAAAHgAAAB4AJwAPT1MvMgAADpwAAABOAAAAYFVJag5jbWFwAADp7AAAAOYAAAGOZnJ+UWdhc3AAAA40AAAACAAAAA4AAAEAZ2x5ZgAAEgAAAAJ+AAAEwK7y4IloZWFkAAAQgAAAADYAAAA2BVxc/GhoZWEAABC4AAAAJAAAACQKqAjqaG10eAAAELgAAABYAAAAYDowCVZsb2NhAAARQAAAADAAAAAwKt4L6m1heHAAAQTIAAAAIAAAACAAlYPdm5hbWUAABJgAAABOQAAAOHKGGZzcG9zdAAAE4wAAAB6AAAAmGDqJCtweHJlZgAAFAwAAAAMAAAADBBNNNh42l2SX0hTURzHv+e6e29J5s5Mm9t8ZWYqZhhBYS8FBRZBLz0EtoKICHrpJejBl4KCXnzwoYdELOxBKIqwl14SyxdBCXrppQf/QZaGSmmWJvk/3HM4nPO7v9/v9zuXAwTqBjjnAcZxkMEAGwXYOAqYUQBsWuOAQwdwHoBNE4LXKIBGATBMsF0JNiuBRglQiQKsKADGJLBhBBhLBb8yAYwIADMKwKYMwKYMwKYMwKYMwK') format('woff2');
+  font-weight: 300 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* SF Mono - Code & Monospace Text */
+@font-face {
+  font-family: 'SF Mono';
+  src: url('data:font/woff2;base64,d09GRgABAAAAADhQAA4AAAAAYOQAAQABAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAOYAAAABwAAAAcZP+OOEdERUYAAA58AAAAHgAAAB4AJwAPT1MvMgAADpwAAABOAAAAYFVJag5jbWFwAADp7AAAAOYAAAGOZnJ+UWdhc3AAAA40AAAACAAAAA4AAAEAZ2x5ZgAAEgAAAAJ+AAAEwK7y4IloZWFkAAAQgAAAADYAAAA2BVxc/GhoZWEAABC4AAAAJAAAACQKqAjqaG10eAAAELgAAABYAAAAYDowCVZsb2NhAAARQAAAADAAAAAwKt4L6m1heHAAAQTIAAAAIAAAACAAlYPdm5hbWUAABJgAAABOQAAAOHKGGZzcG9zdAAAE4wAAAB6AAAAmGDqJCtweHJlZgAAFAwAAAAMAAAADBBNNNh42l2SX0hTURzHv+e6e29J5s5Mm9t8ZWYqZhhBYS8FBRZBLz0EtoKICHrpJejBl4KCXnzwoYdELOxBKIqwl14SyxdBCXrppQf/QZaGSmmWJvk/3HM4nPO7v9/v9zuXAwTqBjjnAcZxkMEAGwXYOAqYUQBsWuOAQwdwHoBNE4LXKIBGATBMsF0JNiuBRglQiQKsKADGJLBhBBhLBb8yAYwIADMKwKYMwKYMwKYMwKYMwK') format('woff2');
+  font-weight: 300 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* ============================================================================
+   APPLE FONT FALLBACKS & SYSTEM INTEGRATION
+   ============================================================================ */
+
+/* Font Family Definitions */
+:root {
+  /* SF Pro Display - For large text and headlines */
+  --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* SF Pro Text - For body text and UI */
+  --font-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* SF Mono - For code and monospace */
+  --font-mono: 'SF Mono', SFMono-Regular, Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  
+  /* Apple System Font Stack */
+  --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+/* Typography Classes for Apple Design */
+.font-display {
+  font-family: var(--font-display);
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-text {
+  font-family: var(--font-text);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'kern' 1;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+.font-system {
+  font-family: var(--font-system);
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================================
+   APPLE TYPOGRAPHY SCALE
+   ============================================================================ */
+
+/* Large Title - iOS/macOS Style */
+.text-large-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4.5vw, 34px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.374px;
+}
+
+/* Title 1 */
+.text-title-1 {
+  font-family: var(--font-display);
+  font-size: clamp(25px, 3.5vw, 28px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.364px;
+}
+
+/* Title 2 */
+.text-title-2 {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.8vw, 22px);
+  font-weight: 400;
+  line-height: 1.27;
+  letter-spacing: 0.352px;
+}
+
+/* Title 3 */
+.text-title-3 {
+  font-family: var(--font-text);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.38px;
+}
+
+/* Headline */
+.text-headline {
+  font-family: var(--font-text);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.408px;
+}
+
+/* Body */
+.text-body {
+  font-family: var(--font-text);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.408px;
+}
+
+/* Callout */
+.text-callout {
+  font-family: var(--font-text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+}
+
+/* Subheadline */
+.text-subheadline {
+  font-family: var(--font-text);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: -0.24px;
+}
+
+/* Footnote */
+.text-footnote {
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: -0.08px;
+}
+
+/* Caption 1 */
+.text-caption-1 {
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: 0px;
+}
+
+/* Caption 2 */
+.text-caption-2 {
+  font-family: var(--font-text);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.27;
+  letter-spacing: 0.06px;
+}
+
+/* ============================================================================
+   RESPONSIVE TYPOGRAPHY FOR APPLE DEVICES
+   ============================================================================ */
+
+/* iPhone Typography Adjustments */
+@media screen and (max-width: 428px) {
+  .text-large-title {
+    font-size: clamp(24px, 6vw, 28px);
+    letter-spacing: 0.35px;
+  }
+  
+  .text-title-1 {
+    font-size: clamp(22px, 5vw, 25px);
+  }
+  
+  .text-title-2 {
+    font-size: clamp(19px, 4vw, 20px);
+  }
+  
+  .text-body,
+  .text-headline {
+    font-size: 16px;
+  }
+}
+
+/* MacBook Typography Optimizations */
+@media screen and (min-width: 1024px) {
+  .text-large-title {
+    font-size: clamp(32px, 3vw, 40px);
+    letter-spacing: 0.4px;
+  }
+  
+  .text-title-1 {
+    font-size: clamp(28px, 2.5vw, 32px);
+  }
+  
+  .text-title-2 {
+    font-size: clamp(22px, 2vw, 26px);
+  }
+  
+  .text-body {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}
+
+/* High-DPI Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .font-display,
+  .font-text,
+  .font-system {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* ============================================================================
+   FONT LOADING & PERFORMANCE
+   ============================================================================ */
+
+/* Font Display Optimization */
+@supports (font-display: swap) {
+  @font-face {
+    font-family: 'SF Pro Display';
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'SF Pro Text'; 
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'SF Mono';
+    font-display: swap;
+  }
+}
+
+/* Preload Critical Fonts */
+.preload-fonts::before {
+  content: '';
+  font-family: var(--font-display);
+  font-family: var(--font-text);
+  font-family: var(--font-mono);
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+
+/* Font Loading States */
+.font-loading {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.font-loaded .font-display {
+  font-family: var(--font-display);
+}
+
+.font-loaded .font-text {
+  font-family: var(--font-text);
+}
+
+.font-loaded .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================================
+   ACCESSIBILITY & READABILITY
+   ============================================================================ */
+
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    font-variation-settings: normal !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .font-display,
+  .font-text,
+  .font-system {
+    font-weight: 500;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+/* Print styles */
+@media print {
+  body,
+  .font-display,
+  .font-text {
+    font-family: 'Times New Roman', serif;
+  }
+  
+  .font-mono {
+    font-family: 'Courier New', monospace;
+  }
+} 

@@ -1,0 +1,119 @@
+/* ============================================================================
+   APPLE ICONS & SPLASH SCREENS - IPHONE & MACBOOK OPTIMIZATION
+   ============================================================================ */
+
+/* Apple Touch Icons - All iOS Devices */
+.apple-touch-icons {
+  /* iPhone */
+  --icon-57: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTciIGhlaWdodD0iNTciIHZpZXdCb3g9IjAgMCA1NyA1NyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjU3IiBoZWlnaHQ9IjU3IiByeD0iMTIiIGZpbGw9IiMwMDdBRkYiLz4KPHR5cGU+Q0I8L3RleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJTRiBQcm8gRGlzcGxheSwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkNCPC90ZXh0Pgo8L3N2Zz4K');
+  
+  /* iPhone 3G/3GS */
+  --icon-57: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTciIGhlaWdodD0iNTciIHZpZXdCb3g9IjAgMCA1NyA1NyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjU3IiBoZWlnaHQ9IjU3IiByeD0iMTIiIGZpbGw9IiMwMDdBRkYiLz4KPHR5cGU+Q0I8L3RleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJTRiBQcm8gRGlzcGxheSwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkNCPC90ZXh0Pgo8L3N2Zz4K');
+  
+  /* iPhone 4/4S Retina */
+  --icon-114: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTE0IiBoZWlnaHQ9IjExNCIgdmlld0JveD0iMCAwIDExNCAxMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMTQiIGhlaWdodD0iMTE0IiByeD0iMjQiIGZpbGw9IiMwMDdBRkYiLz4KPHR5cGU+Q0I8L3RleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJTRiBQcm8gRGlzcGxheSwgLWFwcGxlLXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNjAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkNCPC90ZXh0Pgo8L3N2Zz4K');
+}
+
+/* iOS Safari Status Bar */
+.ios-status-bar {
+  --status-bar-height: env(safe-area-inset-top, 20px);
+  --status-bar-color: #000000;
+}
+
+/* iPhone X/11/12/13/14/15 Series */
+@supports (padding: max(0px)) {
+  .safe-area-support {
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+  }
+}
+
+/* Splash Screens for iOS */
+.ios-splash-screens {
+  /* iPhone SE (1st gen) */
+  --splash-iphone-se-1: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgdmlld0JveD0iMCAwIDMyMCA1NjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTY4IiBmaWxsPSIjMEQxMTE3Ii8+Cjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iU0YgUHJvIERpc3BsYXksIC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI0OCIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzAwN0FGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkNCPC90ZXh0Pgo8L3N2Zz4K');
+  
+  /* iPhone X/XS/11 Pro */
+  --splash-iphone-x: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzc1IiBoZWlnaHQ9IjgxMiIgdmlld0JveD0iMCAwIDM3NSA4MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNzUiIGhlaWdodD0iODEyIiBmaWxsPSIjMEQxMTE3Ii8+Cjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iU0YgUHJvIERpc3BsYXksIC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI1NiIgZm9udC13ZWlnaHQ9IjYwMCIgZmlsbD0iIzAwN0FGRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9ImNlbnRyYWwiPkNCPC90ZXh0Pgo8L3N2Zz4K');
+}
+
+/* MacBook Retina Display Optimization */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+  .retina-optimized {
+    /* High-DPI optimizations */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  .retina-icons {
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+}
+
+/* macOS Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .macos-dark-mode {
+    --bg-primary: #1d1d1f;
+    --bg-secondary: #2d2d2f;
+    --text-primary: #f5f5f7;
+    --text-secondary: #86868b;
+    --accent-color: #0071e3;
+    --border-color: #424245;
+  }
+}
+
+/* macOS Light Mode Support */
+@media (prefers-color-scheme: light) {
+  .macos-light-mode {
+    --bg-primary: #fbfbfd;
+    --bg-secondary: #f5f5f7;
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --accent-color: #0071e3;
+    --border-color: #d2d2d7;
+  }
+}
+
+/* Apple Device Specific Adaptations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific */
+  .ios-safari-adaptations {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* MacBook Air/Pro Specific Optimizations */
+@media screen and (min-width: 1366px) and (max-width: 1440px) {
+  .macbook-air-optimization {
+    /* 13" MacBook Air optimizations */
+    --content-max-width: 1200px;
+    --section-padding: 80px 60px;
+  }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1680px) {
+  .macbook-pro-13-optimization {
+    /* 13" MacBook Pro optimizations */
+    --content-max-width: 1280px;
+    --section-padding: 100px 80px;
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .macbook-pro-16-optimization {
+    /* 16" MacBook Pro optimizations */
+    --content-max-width: 1440px;
+    --section-padding: 120px 100px;
+  }
+} 
