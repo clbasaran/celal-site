@@ -77,8 +77,12 @@ html {
 .nav-logo .logo-image {
     height: 80px;
     width: auto;
-    filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(1583%) hue-rotate(212deg) brightness(99%) contrast(101%);
     transition: all 0.3s ease;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-mask: url('cb.png') no-repeat center;
+    -webkit-mask-size: contain;
+    mask: url('cb.png') no-repeat center;
+    mask-size: contain;
 }
 
 .nav-logo .logo-image:hover {
