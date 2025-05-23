@@ -2,8 +2,186 @@
  * ============================================================================
  * CELAL BAŞARAN - ADVANCED PORTFOLIO JAVASCRIPT
  * Modern ES6+ | Intersection Observer | Smooth Animations | Apple UX
+ * Performance Optimized | Error Handling | Browser Compatible
  * ============================================================================
  */
+
+// ===== ERROR HANDLING & LOGGING =====
+class ErrorHandler {
+  static log(error, context = 'Unknown') {
+    console.error(`[${context}] Error:`, error);
+    
+    // Send to analytics in production
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'exception', {
+        description: `${context}: ${error.message}`,
+        fatal: false
+      });
+    }
+  }
+  
+  static handlePromiseRejection(event) {
+    ErrorHandler.log(event.reason, 'Unhandled Promise Rejection');
+    event.preventDefault();
+  }
+  
+  static handleError(event) {
+    ErrorHandler.log(event.error, 'Global Error');
+  }
+}
+
+// Global error handlers
+window.addEventListener('unhandledrejection', ErrorHandler.handlePromiseRejection);
+window.addEventListener('error', ErrorHandler.handleError);
+
+// ===== BROWSER COMPATIBILITY & FEATURE DETECTION =====
+class BrowserSupport {
+  static checkSupport() {
+    const features = {
+      intersectionObserver: 'IntersectionObserver' in window,
+      webGL: !!window.WebGLRenderingContext,
+      serviceWorker: 'serviceWorker' in navigator,
+      webP: false,
+      modernCSS: CSS.supports('backdrop-filter', 'blur(10px)'),
+      es6: (() => {
+        try {
+          new Function('(a = 0) => a');
+          return true;
+        } catch (e) {
+          return false;
+        }
+      })()
+    };
+    
+    // Check WebP support
+    const webP = new Image();
+    webP.onload = webP.onerror = () => {
+      features.webP = webP.height === 2;
+    };
+    webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+    
+    return features;
+  }
+  
+  static addPolyfills() {
+    // Intersection Observer polyfill
+    if (!('IntersectionObserver' in window)) {
+      const script = document.createElement('script');
+      script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
+      document.head.appendChild(script);
+    }
+    
+    // Smooth scroll polyfill for Safari
+    if (!('scrollBehavior' in document.documentElement.style)) {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js';
+      script.onload = () => window.__forceSmoothScrollPolyfill__ = true;
+      document.head.appendChild(script);
+    }
+  }
+}
+
+// ===== PERFORMANCE MONITORING =====
+class PerformanceTracker {
+  constructor() {
+    this.metrics = {};
+    this.observers = [];
+    this.init();
+  }
+  
+  init() {
+    this.measurePageLoad();
+    this.setupPerformanceObserver();
+    this.trackUserInteractions();
+  }
+  
+  measurePageLoad() {
+    try {
+      if ('performance' in window && 'getEntriesByType' in performance) {
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            const navigation = performance.getEntriesByType('navigation')[0];
+            const paint = performance.getEntriesByType('paint');
+            
+            this.metrics = {
+              domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+              loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
+              firstPaint: paint.find(p => p.name === 'first-paint')?.startTime || 0,
+              firstContentfulPaint: paint.find(p => p.name === 'first-contentful-paint')?.startTime || 0,
+              totalLoadTime: navigation.loadEventEnd - navigation.fetchStart
+            };
+            
+            this.reportMetrics();
+          }, 0);
+        });
+      }
+    } catch (error) {
+      ErrorHandler.log(error, 'Performance Measurement');
+    }
+  }
+  
+  setupPerformanceObserver() {
+    try {
+      if ('PerformanceObserver' in window) {
+        // Largest Contentful Paint
+        const lcpObserver = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          const lastEntry = entries[entries.length - 1];
+          this.metrics.largestContentfulPaint = lastEntry.startTime;
+        });
+        lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+        this.observers.push(lcpObserver);
+        
+        // Cumulative Layout Shift
+        let clsValue = 0;
+        const clsObserver = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            if (!entry.hadRecentInput) {
+              clsValue += entry.value;
+            }
+          }
+          this.metrics.cumulativeLayoutShift = clsValue;
+        });
+        clsObserver.observe({ entryTypes: ['layout-shift'] });
+        this.observers.push(clsObserver);
+      }
+    } catch (error) {
+      ErrorHandler.log(error, 'Performance Observer');
+    }
+  }
+  
+  trackUserInteractions() {
+    const interactionEvents = ['click', 'keydown', 'scroll'];
+    let interactionCount = 0;
+    
+    interactionEvents.forEach(event => {
+      document.addEventListener(event, () => {
+        interactionCount++;
+        this.metrics.userInteractions = interactionCount;
+      }, { passive: true });
+    });
+  }
+  
+  reportMetrics() {
+    console.log('📊 Performance Metrics:', this.metrics);
+    
+    // Send to analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_performance', {
+        custom_map: {
+          metric1: 'load_time',
+          metric2: 'fcp_time'
+        },
+        metric1: Math.round(this.metrics.totalLoadTime),
+        metric2: Math.round(this.metrics.firstContentfulPaint)
+      });
+    }
+  }
+  
+  cleanup() {
+    this.observers.forEach(observer => observer.disconnect());
+  }
+}
 
 // ===== CONSTANTS & CONFIGURATION =====
 const CONFIG = {
@@ -11,12 +189,38 @@ const CONFIG = {
   scrollOffset: 100,
   throttleDelay: 16,
   intersectionThreshold: 0.1,
-  navbarHeight: 80
+  navbarHeight: 80,
+  retryAttempts: 3,
+  retryDelay: 1000
 };
 
 // ===== UTILITY FUNCTIONS =====
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
+const $ = (selector) => {
+  try {
+    return document.querySelector(selector);
+  } catch (error) {
+    ErrorHandler.log(error, 'DOM Query');
+    return null;
+  }
+};
+
+const $$ = (selector) => {
+  try {
+    return document.querySelectorAll(selector);
+  } catch (error) {
+    ErrorHandler.log(error, 'DOM Query All');
+    return [];
+  }
+};
+
+const safeExecute = (fn, context = 'Unknown') => {
+  try {
+    return fn();
+  } catch (error) {
+    ErrorHandler.log(error, context);
+    return null;
+  }
+};
 
 const throttle = (func, delay) => {
   let timeoutId;
@@ -24,12 +228,12 @@ const throttle = (func, delay) => {
   return (...args) => {
     const currentTime = Date.now();
     if (currentTime - lastExecTime > delay) {
-      func.apply(this, args);
+      safeExecute(() => func.apply(this, args), 'Throttled Function');
       lastExecTime = currentTime;
     } else {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        func.apply(this, args);
+        safeExecute(() => func.apply(this, args), 'Throttled Function');
         lastExecTime = Date.now();
       }, delay - (currentTime - lastExecTime));
     }
@@ -40,8 +244,23 @@ const debounce = (func, delay) => {
   let timeoutId;
   return (...args) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(this, args), delay);
+    timeoutId = setTimeout(() => {
+      safeExecute(() => func.apply(this, args), 'Debounced Function');
+    }, delay);
   };
+};
+
+// Retry mechanism for failed operations
+const retry = async (fn, attempts = CONFIG.retryAttempts, delay = CONFIG.retryDelay) => {
+  try {
+    return await fn();
+  } catch (error) {
+    if (attempts > 1) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return retry(fn, attempts - 1, delay * 2);
+    }
+    throw error;
+  }
 };
 
 // ===== NAVBAR FUNCTIONALITY =====
@@ -51,94 +270,130 @@ class NavbarManager {
     this.navLinks = $$('.navbar-link');
     this.lastScrollY = window.scrollY;
     this.isScrollingUp = false;
+    this.isInitialized = false;
     
     this.init();
   }
   
   init() {
-    this.handleScroll();
-    this.setupSmoothScrolling();
-    this.updateActiveLink();
+    if (!this.navbar) {
+      ErrorHandler.log(new Error('Navbar element not found'), 'NavbarManager');
+      return;
+    }
     
-    window.addEventListener('scroll', throttle(() => {
+    try {
       this.handleScroll();
+      this.setupSmoothScrolling();
       this.updateActiveLink();
-    }, CONFIG.throttleDelay));
+      
+      window.addEventListener('scroll', throttle(() => {
+        this.handleScroll();
+        this.updateActiveLink();
+      }, CONFIG.throttleDelay), { passive: true });
+      
+      this.isInitialized = true;
+      console.log('✅ NavbarManager initialized');
+    } catch (error) {
+      ErrorHandler.log(error, 'NavbarManager Init');
+    }
   }
   
   handleScroll() {
-    const currentScrollY = window.scrollY;
-    this.isScrollingUp = currentScrollY < this.lastScrollY;
+    if (!this.isInitialized) return;
     
-    // Auto-hide navbar on scroll down
-    if (currentScrollY > CONFIG.navbarHeight) {
-      if (this.isScrollingUp) {
+    try {
+      const currentScrollY = window.scrollY;
+      this.isScrollingUp = currentScrollY < this.lastScrollY;
+      
+      // Auto-hide navbar on scroll down
+      if (currentScrollY > CONFIG.navbarHeight) {
+        if (this.isScrollingUp) {
+          this.navbar.style.transform = 'translateY(0)';
+          this.navbar.style.opacity = '1';
+        } else {
+          this.navbar.style.transform = 'translateY(-100%)';
+          this.navbar.style.opacity = '0.95';
+        }
+      } else {
         this.navbar.style.transform = 'translateY(0)';
         this.navbar.style.opacity = '1';
-      } else {
-        this.navbar.style.transform = 'translateY(-100%)';
-        this.navbar.style.opacity = '0.95';
       }
-    } else {
-      this.navbar.style.transform = 'translateY(0)';
-      this.navbar.style.opacity = '1';
+      
+      // Navbar background opacity based on scroll
+      const opacity = Math.min(currentScrollY / 200, 1);
+      this.navbar.style.setProperty('--navbar-opacity', opacity);
+      
+      this.lastScrollY = currentScrollY;
+    } catch (error) {
+      ErrorHandler.log(error, 'NavbarManager Scroll');
     }
-    
-    // Navbar background opacity based on scroll
-    const opacity = Math.min(currentScrollY / 200, 1);
-    this.navbar.style.setProperty('--navbar-opacity', opacity);
-    
-    this.lastScrollY = currentScrollY;
   }
   
   setupSmoothScrolling() {
     this.navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href.startsWith('#')) {
-          e.preventDefault();
-          const targetId = href.substring(1);
-          const targetElement = $(`#${targetId}`);
-          
-          if (targetElement) {
-            this.smoothScrollTo(targetElement);
+        try {
+          const href = link.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = $(`#${targetId}`);
+            
+            if (targetElement) {
+              this.smoothScrollTo(targetElement);
+            }
           }
+        } catch (error) {
+          ErrorHandler.log(error, 'Smooth Scrolling');
         }
       });
     });
   }
   
   smoothScrollTo(element) {
-    const targetPosition = element.offsetTop - CONFIG.navbarHeight;
-    
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
+    try {
+      const targetPosition = element.offsetTop - CONFIG.navbarHeight;
+      
+      if ('scrollTo' in window) {
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      } else {
+        // Fallback for older browsers
+        window.scrollTo(0, targetPosition);
+      }
+    } catch (error) {
+      ErrorHandler.log(error, 'Smooth Scroll To');
+    }
   }
   
   updateActiveLink() {
-    const sections = $$('section[id]');
-    const scrollPosition = window.scrollY + CONFIG.navbarHeight + 50;
-    
-    let activeSection = '';
-    
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
+    try {
+      const sections = $$('section[id]');
+      const scrollPosition = window.scrollY + CONFIG.navbarHeight + 50;
       
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        activeSection = section.getAttribute('id');
-      }
-    });
-    
-    this.navLinks.forEach(link => {
-      link.classList.remove('active');
-      const href = link.getAttribute('href');
-      if (href === `#${activeSection}`) {
-        link.classList.add('active');
-      }
-    });
+      let activeSection = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          activeSection = section.getAttribute('id');
+        }
+      });
+      
+      this.navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href');
+        if (href === `#${activeSection}`) {
+          link.classList.add('active');
+        }
+      });
+    } catch (error) {
+      ErrorHandler.log(error, 'Update Active Link');
+    }
   }
 }
 

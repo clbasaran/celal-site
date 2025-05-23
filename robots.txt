@@ -1,16 +1,10 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://celalbasaran.com/sitemap.xml
+# Sitemap
+Sitemap: https://celalbasaran.github.io/sitemap.xml
 
-# Disallow unnecessary files
-Disallow: /*.json$
-Disallow: /README.md
-Disallow: /.git/
-Disallow: /node_modules/
-
-# Crawl delay to be respectful
+# Crawl-delay for respectful crawling
 Crawl-delay: 1
 
 # Allow all major search engines
@@ -26,8 +20,13 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
-# Social media crawlers
-User-agent: facebookexternalhit/
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: facebookexternalhit
 Allow: /
 
 User-agent: Twitterbot
@@ -36,9 +35,24 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-# Block AI training crawlers if desired
-# User-agent: GPTBot
-# Disallow: /
+# Block specific paths if needed
+# Disallow: /private/
+# Disallow: /temp/
 
-# User-agent: ChatGPT-User
-# Disallow: / 
+# Allow CSS and JS files for proper rendering
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.ico$
+Allow: /*.woff$
+Allow: /*.woff2$
+Allow: /*.ttf$
+Allow: /*.eot$
+
+# Host directive (optional)
+Host: https://celalbasaran.github.io 
