@@ -1,0 +1,320 @@
+{
+  "categories": [
+    {
+      "id": "mobile",
+      "name": "Mobile Development",
+      "icon": "📱",
+      "description": "iOS ve cross-platform mobile development expertise",
+      "skills": [
+        {
+          "name": "Swift",
+          "level": 95,
+          "years": 8,
+          "category": "language",
+          "description": "Advanced Swift programming, protocol-oriented programming"
+        },
+        {
+          "name": "SwiftUI",
+          "level": 92,
+          "years": 5,
+          "category": "framework",
+          "description": "Modern declarative UI framework mastery"
+        },
+        {
+          "name": "UIKit",
+          "level": 88,
+          "years": 7,
+          "category": "framework",
+          "description": "Traditional iOS UI framework, custom controls"
+        },
+        {
+          "name": "Combine",
+          "level": 85,
+          "years": 4,
+          "category": "framework",
+          "description": "Reactive programming, async/await patterns"
+        },
+        {
+          "name": "Core Data",
+          "level": 80,
+          "years": 6,
+          "category": "framework",
+          "description": "Local data persistence, complex relationships"
+        }
+      ]
+    },
+    {
+      "id": "ai-ml",
+      "name": "AI/Machine Learning",
+      "icon": "🧠",
+      "description": "Artificial Intelligence ve Machine Learning entegrasyonları",
+      "skills": [
+        {
+          "name": "Core ML",
+          "level": 90,
+          "years": 4,
+          "category": "framework",
+          "description": "iOS machine learning model integration"
+        },
+        {
+          "name": "Vision Framework",
+          "level": 85,
+          "years": 3,
+          "category": "framework",
+          "description": "Computer vision, image analysis"
+        },
+        {
+          "name": "Natural Language",
+          "level": 75,
+          "years": 2,
+          "category": "framework",
+          "description": "Text analysis, sentiment analysis"
+        },
+        {
+          "name": "TensorFlow",
+          "level": 70,
+          "years": 3,
+          "category": "framework",
+          "description": "Model training, custom ML solutions"
+        },
+        {
+          "name": "Python",
+          "level": 78,
+          "years": 4,
+          "category": "language",
+          "description": "Data science, model development"
+        }
+      ]
+    },
+    {
+      "id": "ar-3d",
+      "name": "AR/3D Development",
+      "icon": "🔮",
+      "description": "Augmented Reality ve 3D graphics programming",
+      "skills": [
+        {
+          "name": "ARKit",
+          "level": 85,
+          "years": 4,
+          "category": "framework",
+          "description": "Augmented reality experiences"
+        },
+        {
+          "name": "RealityKit",
+          "level": 80,
+          "years": 3,
+          "category": "framework",
+          "description": "3D rendering, physics simulation"
+        },
+        {
+          "name": "SceneKit",
+          "level": 75,
+          "years": 5,
+          "category": "framework",
+          "description": "3D graphics, animations"
+        },
+        {
+          "name": "Metal",
+          "level": 70,
+          "years": 3,
+          "category": "framework",
+          "description": "GPU programming, high-performance graphics"
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backend & Cloud",
+      "icon": "☁️",
+      "description": "Server-side development ve cloud services",
+      "skills": [
+        {
+          "name": "CloudKit",
+          "level": 88,
+          "years": 5,
+          "category": "service",
+          "description": "Apple's cloud database service"
+        },
+        {
+          "name": "Firebase",
+          "level": 85,
+          "years": 4,
+          "category": "service",
+          "description": "Google's mobile platform"
+        },
+        {
+          "name": "Vapor",
+          "level": 75,
+          "years": 2,
+          "category": "framework",
+          "description": "Swift server-side framework"
+        },
+        {
+          "name": "GraphQL",
+          "level": 70,
+          "years": 3,
+          "category": "api",
+          "description": "Modern API query language"
+        },
+        {
+          "name": "REST APIs",
+          "level": 90,
+          "years": 8,
+          "category": "api",
+          "description": "RESTful service design and integration"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "Development Tools",
+      "icon": "🛠️",
+      "description": "Development environment ve productivity tools",
+      "skills": [
+        {
+          "name": "Xcode",
+          "level": 95,
+          "years": 8,
+          "category": "ide",
+          "description": "Apple's development environment mastery"
+        },
+        {
+          "name": "Git",
+          "level": 90,
+          "years": 8,
+          "category": "tool",
+          "description": "Version control, branching strategies"
+        },
+        {
+          "name": "Instruments",
+          "level": 85,
+          "years": 6,
+          "category": "tool",
+          "description": "Performance profiling, debugging"
+        },
+        {
+          "name": "TestFlight",
+          "level": 88,
+          "years": 7,
+          "category": "tool",
+          "description": "Beta testing, app distribution"
+        },
+        {
+          "name": "Fastlane",
+          "level": 80,
+          "years": 4,
+          "category": "tool",
+          "description": "Automation, CI/CD pipelines"
+        }
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Design & UX",
+      "icon": "🎨",
+      "description": "User experience design ve Apple Design Language",
+      "skills": [
+        {
+          "name": "Apple HIG",
+          "level": 95,
+          "years": 8,
+          "category": "guideline",
+          "description": "Human Interface Guidelines expertise"
+        },
+        {
+          "name": "Figma",
+          "level": 80,
+          "years": 4,
+          "category": "tool",
+          "description": "UI/UX design, prototyping"
+        },
+        {
+          "name": "Sketch",
+          "level": 75,
+          "years": 5,
+          "category": "tool",
+          "description": "Interface design, symbols"
+        },
+        {
+          "name": "SF Symbols",
+          "level": 90,
+          "years": 4,
+          "category": "resource",
+          "description": "Apple's icon system"
+        }
+      ]
+    }
+  ],
+  "languages": {
+    "programming": [
+      {
+        "name": "Swift",
+        "level": 95,
+        "years": 8,
+        "primary": true
+      },
+      {
+        "name": "Objective-C",
+        "level": 75,
+        "years": 3,
+        "primary": false
+      },
+      {
+        "name": "Python",
+        "level": 78,
+        "years": 4,
+        "primary": false
+      },
+      {
+        "name": "JavaScript",
+        "level": 70,
+        "years": 5,
+        "primary": false
+      }
+    ],
+    "spoken": [
+      {
+        "name": "Türkçe",
+        "level": "Native",
+        "flag": "🇹🇷"
+      },
+      {
+        "name": "English",
+        "level": "Advanced",
+        "flag": "🇺🇸"
+      },
+      {
+        "name": "Deutsch",
+        "level": "Intermediate",
+        "flag": "🇩🇪"
+      }
+    ]
+  },
+  "certifications": [
+    {
+      "name": "Apple Developer Program",
+      "issuer": "Apple",
+      "year": "2017-2025",
+      "active": true
+    },
+    {
+      "name": "iOS App Development with Swift",
+      "issuer": "Apple",
+      "year": "2018",
+      "active": true
+    },
+    {
+      "name": "Machine Learning Specialization",
+      "issuer": "Stanford/Coursera",
+      "year": "2022",
+      "active": true
+    }
+  ],
+  "summary": {
+    "totalSkills": 35,
+    "averageLevel": 82,
+    "yearsExperience": 8,
+    "specializations": ["iOS Development", "AI/ML Integration", "AR/VR", "Performance Optimization"],
+    "strengths": ["SwiftUI Mastery", "Core ML Integration", "Apple Design Language", "Performance Optimization"]
+  }
+} 

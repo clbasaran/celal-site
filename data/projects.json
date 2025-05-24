@@ -1,0 +1,152 @@
+{
+  "featured": [
+    {
+      "id": "celalbasaran-app",
+      "title": "CelalBasaran.app",
+      "subtitle": "Personal Brand iOS App",
+      "description": "Native iOS uygulaması ile kişisel marka deneyimi. SwiftUI, Core ML ve ARKit entegrasyonu.",
+      "image": "/assets/images/projects/celalbasaran-app.jpg",
+      "technologies": ["SwiftUI", "Core ML", "ARKit", "CloudKit"],
+      "status": "development",
+      "year": "2025",
+      "link": "/posts/celalbasaran-app.html",
+      "github": "https://github.com/celalbasaran/celalbasaran-app",
+      "appstore": null,
+      "featured": true
+    },
+    {
+      "id": "cleanithx",
+      "title": "CleanITHX",
+      "subtitle": "AI-Powered System Optimizer",
+      "description": "Machine Learning ile sistem optimizasyonu. Intelligent cache management ve performance monitoring.",
+      "image": "/assets/images/projects/cleanithx.jpg",
+      "technologies": ["Swift", "Core ML", "Metal", "System Extensions"],
+      "status": "active",
+      "year": "2024",
+      "link": "/posts/cleanithx.html",
+      "github": "https://github.com/celalbasaran/cleanithx",
+      "appstore": "https://apps.apple.com/app/cleanithx",
+      "featured": true
+    },
+    {
+      "id": "signalci",
+      "title": "SignalCI",
+      "subtitle": "Enterprise CI/CD Platform",
+      "description": "iOS ekipleri için gelişmiş CI/CD pipeline yönetimi. Automated testing ve deployment.",
+      "image": "/assets/images/projects/signalci.jpg",
+      "technologies": ["Swift", "Vapor", "Docker", "Kubernetes"],
+      "status": "active",
+      "year": "2024",
+      "link": "/posts/signalci.html",
+      "github": "https://github.com/celalbasaran/signalci",
+      "appstore": null,
+      "featured": true
+    }
+  ],
+  "mobile": [
+    {
+      "id": "ios18-features",
+      "title": "iOS 18 Feature Explorer",
+      "subtitle": "Interactive iOS 18 Demo",
+      "description": "iOS 18'in yeni özelliklerini keşfetmek için interaktif demo uygulaması.",
+      "image": "/assets/images/projects/ios18-features.jpg",
+      "technologies": ["SwiftUI", "WidgetKit", "App Intents", "Live Activities"],
+      "status": "completed",
+      "year": "2024",
+      "link": "/posts/ios18-yenilikler.html",
+      "github": "https://github.com/celalbasaran/ios18-features",
+      "appstore": "https://apps.apple.com/app/ios18-features"
+    },
+    {
+      "id": "swiftui-masterclass",
+      "title": "SwiftUI Masterclass",
+      "subtitle": "Advanced SwiftUI Components",
+      "description": "Production-ready SwiftUI components ve advanced UI patterns koleksiyonu.",
+      "image": "/assets/images/projects/swiftui-masterclass.jpg",
+      "technologies": ["SwiftUI", "Combine", "AsyncImage", "LazyGrid"],
+      "status": "active",
+      "year": "2024",
+      "link": "/posts/swiftui.html",
+      "github": "https://github.com/celalbasaran/swiftui-masterclass",
+      "appstore": null
+    },
+    {
+      "id": "firebase-ios",
+      "title": "Firebase iOS Integration",
+      "subtitle": "Complete Firebase Setup",
+      "description": "iOS uygulamaları için kapsamlı Firebase entegrasyonu ve best practices.",
+      "image": "/assets/images/projects/firebase-ios.jpg",
+      "technologies": ["Firebase", "CloudFirestore", "Authentication", "Analytics"],
+      "status": "completed",
+      "year": "2023",
+      "link": "/posts/firebase.html",
+      "github": "https://github.com/celalbasaran/firebase-ios",
+      "appstore": null
+    }
+  ],
+  "ai": [
+    {
+      "id": "coreml-studio",
+      "title": "Core ML Studio",
+      "subtitle": "ML Model Development Kit",
+      "description": "iOS geliştiricileri için Core ML model geliştirme ve test araçları.",
+      "image": "/assets/images/projects/coreml-studio.jpg",
+      "technologies": ["Core ML", "CreateML", "TensorFlow", "Python"],
+      "status": "development",
+      "year": "2025",
+      "link": "/posts/coreml-studio.html",
+      "github": "https://github.com/celalbasaran/coreml-studio",
+      "appstore": null
+    },
+    {
+      "id": "vision-ai",
+      "title": "Vision AI Toolkit",
+      "subtitle": "Computer Vision Framework",
+      "description": "iOS uygulamaları için gelişmiş computer vision ve image processing kütüphanesi.",
+      "image": "/assets/images/projects/vision-ai.jpg",
+      "technologies": ["Vision", "Core Image", "Metal", "ARKit"],
+      "status": "active",
+      "year": "2024",
+      "link": "/posts/vision-ai.html",
+      "github": "https://github.com/celalbasaran/vision-ai",
+      "appstore": null
+    }
+  ],
+  "web": [
+    {
+      "id": "macos-guide",
+      "title": "macOS Development Guide",
+      "subtitle": "Complete macOS Tutorial",
+      "description": "macOS uygulama geliştirme için kapsamlı rehber ve örnek projeler.",
+      "image": "/assets/images/projects/macos-guide.jpg",
+      "technologies": ["AppKit", "SwiftUI", "Catalyst", "macOS APIs"],
+      "status": "active",
+      "year": "2024",
+      "link": "/posts/macos-rehberi.html",
+      "github": "https://github.com/celalbasaran/macos-guide",
+      "appstore": null
+    },
+    {
+      "id": "photography-portfolio",
+      "title": "Photography Portfolio",
+      "subtitle": "Visual Storytelling Platform",
+      "description": "Fotoğrafçılar için modern, responsive portfolio web sitesi.",
+      "image": "/assets/images/projects/photography.jpg",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "WebGL"],
+      "status": "completed",
+      "year": "2024",
+      "link": "/posts/photography.html",
+      "github": "https://github.com/celalbasaran/photography-portfolio",
+      "appstore": null
+    }
+  ],
+  "stats": {
+    "totalProjects": 12,
+    "completedProjects": 6,
+    "activeProjects": 4,
+    "developmentProjects": 2,
+    "totalDownloads": "1.2M+",
+    "githubStars": "2.5K+",
+    "yearsExperience": 8
+  }
+} 
