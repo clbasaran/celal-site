@@ -1,114 +1,174 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="tr" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     
-    <!-- Essential Meta -->
-    <title>Celal Başaran - Senior iOS Architect & AI Developer</title>
-    <meta name="description" content="🚀 Senior iOS Architect & AI-powered Full-Stack Developer. Next-gen mobile applications, machine learning integration, AR/VR experiences.">
+    <!-- Primary Meta Tags -->
+    <title>Celal Başaran • Senior iOS Architect</title>
+    <meta name="title" content="Celal Başaran • Senior iOS Architect">
+    <meta name="description" content="Senior iOS Architect ve AI uzmanı. SwiftUI, Core ML, ARKit ile next-generation mobil deneyimler geliştiriyorum.">
     <meta name="author" content="Celal Başaran">
+    <meta name="keywords" content="iOS, Swift, SwiftUI, Mobile Developer, AI, Machine Learning, Turkey">
     
-    <!-- Apple Meta -->
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/">
+    <meta property="og:title" content="Celal Başaran • Senior iOS Architect">
+    <meta property="og:description" content="Senior iOS Architect ve AI uzmanı. SwiftUI, Core ML, ARKit ile next-generation mobil deneyimler geliştiriyorum.">
+    <meta property="og:image" content="https://celalbasaran.com/assets/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://celalbasaran.com/">
+    <meta property="twitter:title" content="Celal Başaran • Senior iOS Architect">
+    <meta property="twitter:description" content="Senior iOS Architect ve AI uzmanı. SwiftUI, Core ML, ARKit ile next-generation mobil deneyimler geliştiriyorum.">
+    <meta property="twitter:image" content="https://celalbasaran.com/assets/images/og-image.jpg">
+    
+    <!-- Apple Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Celal Başaran">
     <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="yes">
     
     <!-- Theme Colors -->
-    <meta name="theme-color" content="#000000">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/assets/icons/safari-pinned-tab.svg" color="#0A84FF">
     
-    <!-- Preconnects -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
     
-    <!-- Critical Inline Styles -->
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="https://api.github.com">
+    
+    <!-- Critical CSS Inline -->
     <style>
-        /* ===== CRITICAL FOUNDATION STYLES ===== */
-        
-        /* CSS Custom Properties */
+        /* Apple Design System V4 - Critical Path */
         :root {
-            --color-white: #ffffff;
-            --color-black: #000000;
-            --color-gray-50: #f9fafb;
-            --color-gray-100: #f3f4f6;
-            --color-gray-200: #e5e7eb;
-            --color-gray-300: #d1d5db;
-            --color-gray-400: #9ca3af;
-            --color-gray-500: #6b7280;
-            --color-gray-600: #4b5563;
-            --color-gray-700: #374151;
-            --color-gray-800: #1f2937;
-            --color-gray-900: #111827;
+            /* SF Pro Font Stack */
+            --font-family-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+            --font-family-mono: "SF Mono", Monaco, "Cascadia Code", "Fira Code", monospace;
             
-            --color-blue: #007AFF;
-            --color-purple: #5856D6;
+            /* Apple Design Language V4 Colors */
+            --color-blue: #0A84FF;
+            --color-indigo: #5E5CE6;
+            --color-purple: #AF52DE;
             --color-pink: #FF2D92;
             --color-red: #FF3B30;
             --color-orange: #FF9500;
             --color-yellow: #FFCC00;
-            --color-green: #34C759;
+            --color-green: #32D74B;
             --color-mint: #00C7BE;
             --color-teal: #30B0C7;
-            --color-cyan: #32D74B;
-            --color-indigo: #5AC8FA;
+            --color-cyan: #32ADE6;
             
-            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
-            --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+            /* Grayscale Palette */
+            --color-gray-1: #8E8E93;
+            --color-gray-2: #636366;
+            --color-gray-3: #48484A;
+            --color-gray-4: #3A3A3C;
+            --color-gray-5: #2C2C2E;
+            --color-gray-6: #1C1C1E;
             
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
-            --radius-2xl: 24px;
-            --radius-full: 9999px;
+            /* System Colors Light */
+            --color-label: #000000;
+            --color-secondary-label: rgba(60, 60, 67, 0.6);
+            --color-tertiary-label: rgba(60, 60, 67, 0.3);
+            --color-quaternary-label: rgba(60, 60, 67, 0.18);
+            --color-system-fill: rgba(120, 120, 128, 0.2);
+            --color-secondary-fill: rgba(120, 120, 128, 0.16);
+            --color-tertiary-fill: rgba(118, 118, 128, 0.12);
+            --color-quaternary-fill: rgba(118, 118, 128, 0.08);
+            --color-system-background: #FFFFFF;
+            --color-secondary-background: #F2F2F7;
+            --color-tertiary-background: #FFFFFF;
+            --color-grouped-background: #F2F2F7;
+            --color-secondary-grouped-background: #FFFFFF;
+            --color-tertiary-grouped-background: #F2F2F7;
+            --color-separator: rgba(60, 60, 67, 0.36);
+            --color-opaque-separator: #C6C6C8;
             
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+            /* 8pt Grid System */
+            --spacing-0: 0;
+            --spacing-1: 4px;
+            --spacing-2: 8px;
+            --spacing-3: 12px;
+            --spacing-4: 16px;
+            --spacing-5: 20px;
+            --spacing-6: 24px;
+            --spacing-7: 28px;
+            --spacing-8: 32px;
+            --spacing-10: 40px;
+            --spacing-12: 48px;
+            --spacing-16: 64px;
+            --spacing-20: 80px;
+            --spacing-24: 96px;
+            --spacing-32: 128px;
             
-            --transition-fast: 0.15s ease;
-            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            /* Border Radius */
+            --radius-small: 4px;
+            --radius-medium: 8px;
+            --radius-large: 12px;
+            --radius-extra-large: 16px;
+            --radius-system: 10px;
+            --radius-continuous: 20px;
             
-            --z-dropdown: 1000;
-            --z-modal: 1100;
-            --z-tooltip: 1200;
+            /* Shadows */
+            --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-medium: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            --shadow-large: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            --shadow-extra-large: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            
+            /* Animation Timing */
+            --timing-linear: cubic-bezier(0.0, 0.0, 1.0, 1.0);
+            --timing-ease: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+            --timing-ease-in: cubic-bezier(0.42, 0.0, 1.0, 1.0);
+            --timing-ease-out: cubic-bezier(0.0, 0.0, 0.58, 1.0);
+            --timing-ease-in-out: cubic-bezier(0.42, 0.0, 0.58, 1.0);
+            --timing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+            /* Z-Index Scale */
+            --z-negative: -1;
+            --z-normal: 0;
+            --z-tooltip: 1000;
+            --z-modal: 2000;
+            --z-notification: 3000;
             --z-maximum: 9999;
         }
         
-        [data-theme="light"] {
-            --bg-primary: var(--color-white);
-            --bg-secondary: var(--color-gray-50);
-            --bg-tertiary: var(--color-gray-100);
-            --bg-elevated: var(--color-white);
-            --text-primary: var(--color-gray-900);
-            --text-secondary: var(--color-gray-600);
-            --text-tertiary: var(--color-gray-500);
-            --border-primary: var(--color-gray-200);
-            --border-secondary: var(--color-gray-300);
+        /* Dark Mode Overrides */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-label: #FFFFFF;
+                --color-secondary-label: rgba(235, 235, 245, 0.6);
+                --color-tertiary-label: rgba(235, 235, 245, 0.3);
+                --color-quaternary-label: rgba(235, 235, 245, 0.18);
+                --color-system-fill: rgba(120, 120, 128, 0.36);
+                --color-secondary-fill: rgba(120, 120, 128, 0.32);
+                --color-tertiary-fill: rgba(118, 118, 128, 0.28);
+                --color-quaternary-fill: rgba(118, 118, 128, 0.24);
+                --color-system-background: #000000;
+                --color-secondary-background: #1C1C1E;
+                --color-tertiary-background: #2C2C2E;
+                --color-grouped-background: #000000;
+                --color-secondary-grouped-background: #1C1C1E;
+                --color-tertiary-grouped-background: #2C2C2E;
+                --color-separator: rgba(84, 84, 88, 0.65);
+                --color-opaque-separator: #38383A;
+            }
         }
         
-        [data-theme="dark"], :root {
-            --bg-primary: var(--color-black);
-            --bg-secondary: #0d1117;
-            --bg-tertiary: #161b22;
-            --bg-elevated: #1c2128;
-            --text-primary: var(--color-white);
-            --text-secondary: rgba(255, 255, 255, 0.8);
-            --text-tertiary: rgba(255, 255, 255, 0.6);
-            --border-primary: rgba(255, 255, 255, 0.1);
-            --border-secondary: rgba(255, 255, 255, 0.15);
-        }
-        
-        /* Reset & Base */
+        /* Reset & Foundation */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -116,934 +176,393 @@
         }
         
         html {
-            font-family: var(--font-system);
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-primary);
+            font-size: 16px;
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
             -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         body {
-            font-size: 16px;
+            font-family: var(--font-family-system);
             font-weight: 400;
+            line-height: 1.6;
+            color: var(--color-label);
+            background-color: var(--color-system-background);
             overflow-x: hidden;
-            background: linear-gradient(135deg, 
-                var(--bg-primary) 0%, 
-                var(--bg-secondary) 50%, 
-                var(--bg-tertiary) 100%);
             min-height: 100vh;
-        }
-        
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5em;
-        }
-        
-        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
-        h2 { font-size: clamp(2rem, 4vw, 3rem); }
-        h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
-        h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
-        
-        p {
-            margin-bottom: 1em;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-        
-        a {
-            color: var(--color-blue);
-            text-decoration: none;
-            transition: var(--transition-fast);
-        }
-        
-        a:hover {
-            color: var(--color-purple);
-            text-decoration: underline;
-        }
-        
-        /* Layout Utilities */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .section {
-            padding: 6rem 0;
+            min-height: 100dvh;
             position: relative;
         }
         
-        .grid {
-            display: grid;
-            gap: 2rem;
-        }
-        
-        .flex {
-            display: flex;
-        }
-        
-        .flex-col {
-            flex-direction: column;
-        }
-        
-        .items-center {
-            align-items: center;
-        }
-        
-        .justify-center {
-            justify-content: center;
-        }
-        
-        .justify-between {
-            justify-content: space-between;
-        }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        /* Responsive Grid */
-        @media (min-width: 768px) {
-            .md\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-            .md\\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-            .container { padding: 0 3rem; }
-        }
-        
-        @media (min-width: 1024px) {
-            .lg\\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
-            .container { padding: 0 4rem; }
-        }
-        
-        /* Component Styles */
-        .card {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-primary);
-            border-radius: var(--radius-xl);
-            padding: 2rem;
-            transition: var(--transition-smooth);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--border-secondary);
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--radius-full);
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            text-decoration: none;
-            outline: none;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--color-blue), var(--color-purple));
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
-        }
-        
-        .btn-secondary {
-            background: var(--bg-elevated);
-            color: var(--text-primary);
-            border: 1px solid var(--border-primary);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--border-secondary);
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        /* iOS Safe Area Support */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(var(--spacing-4), env(safe-area-inset-left));
+                padding-right: max(var(--spacing-4), env(safe-area-inset-right));
             }
         }
         
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        .animate-pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        /* Loading State */
-        .loading-overlay {
+        /* Loading Animation */
+        .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-primary);
+            background: var(--color-system-background);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: var(--z-maximum);
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s var(--timing-ease-out);
         }
         
-        .loading-overlay.hidden {
+        .loading-screen.hidden {
             opacity: 0;
             pointer-events: none;
         }
         
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border-primary);
-            border-top: 3px solid var(--color-blue);
+        .apple-spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--color-quaternary-fill);
+            border-top: 2px solid var(--color-blue);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1s var(--timing-linear) infinite;
         }
         
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Hide content until loaded */
+        body:not(.loaded) main {
+            opacity: 0;
+        }
+        
+        body.loaded main {
+            opacity: 1;
+            transition: opacity 0.6s var(--timing-ease-out);
+        }
     </style>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'; this.onload=null;">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Celal Başaran",
+        "jobTitle": "Senior iOS Architect",
+        "description": "Senior iOS Architect ve AI uzmanı. SwiftUI, Core ML, ARKit ile next-generation mobil deneyimler geliştiriyorum.",
+        "url": "https://celalbasaran.com",
+        "sameAs": [
+            "https://github.com/celalbasaran",
+            "https://linkedin.com/in/celalbasaran",
+            "https://twitter.com/celalbasaran"
+        ],
+        "knowsAbout": ["iOS Development", "Swift", "SwiftUI", "Machine Learning", "Artificial Intelligence", "Mobile Applications"]
+    }
+    </script>
 </head>
 
-<body data-theme="dark">
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="apple-spinner"></div>
     </div>
-
+    
+    <!-- Skip to Main Content -->
+    <a href="#main" class="skip-link">İçeriğe Geç</a>
+    
     <!-- Navigation -->
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-content">
-                <div class="nav-brand">
-                    <h3>Celal Başaran</h3>
-                    <p>iOS Architect</p>
-                </div>
+    <nav class="navigation" role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="#home" class="brand-link" aria-label="Ana sayfa">
+                    <span class="brand-text">Celal Başaran</span>
+                    <span class="brand-subtitle">iOS Architect</span>
+                </a>
+            </div>
+            
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="#about" class="nav-link" role="menuitem">Hakkımda</a></li>
+                <li role="none"><a href="#projects" class="nav-link" role="menuitem">Projeler</a></li>
+                <li role="none"><a href="#blog" class="nav-link" role="menuitem">Blog</a></li>
+                <li role="none"><a href="#contact" class="nav-link" role="menuitem">İletişim</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Tema değiştir" id="themeToggle">
+                    <svg class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path class="sun-icon" d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3"/>
+                        <path class="moon-icon opacity-0" d="M17.75 4.09L15.5 6.34L16.75 7.59L19 5.34L17.75 4.09M21 10V12H23V10M20.66 15.66L19 17.32L20.34 18.66L22 17L20.66 15.66"/>
+                    </svg>
+                </button>
                 
-                <div class="nav-links">
-                    <a href="#about">Hakkımda</a>
-                    <a href="#experience">Deneyim</a>
-                    <a href="#projects">Projeler</a>
-                    <a href="#skills">Yetenekler</a>
-                    <a href="#contact">İletişim</a>
-                </div>
-                
-                <div class="nav-actions">
-                    <button class="theme-toggle" id="themeToggle">🌙</button>
-                    <a href="#contact" class="btn btn-primary">Birlikte Çalışalım</a>
-                </div>
+                <button class="menu-toggle" aria-label="Menü aç/kapat" id="menuToggle">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
             </div>
         </div>
     </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <span class="status-dot"></span>
-                        Yeni projeler için müsait
+    
+    <!-- Main Content -->
+    <main id="main" role="main">
+        <!-- Hero Section -->
+        <section class="hero" id="home" role="banner">
+            <div class="hero-background">
+                <div class="gradient-orb gradient-orb-1"></div>
+                <div class="gradient-orb gradient-orb-2"></div>
+                <div class="gradient-orb gradient-orb-3"></div>
+            </div>
+            
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge" data-animate="fade-up" data-delay="0">
+                        <span class="status-indicator"></span>
+                        <span>Yeni projeler için müsait</span>
                     </div>
                     
-                    <h1 class="hero-title">
-                        Merhaba, ben
+                    <h1 class="hero-title" data-animate="fade-up" data-delay="100">
+                        <span class="hero-greeting">Merhaba, ben</span>
                         <span class="hero-name">Celal Başaran</span>
-                        <span class="hero-role">Senior iOS Architect</span>
+                        <span class="hero-role" id="heroRole">Senior iOS Architect</span>
                     </h1>
                     
-                    <p class="hero-subtitle">
-                        <strong>AI-powered</strong> mobil uygulamalar ve next-generation teknolojilerle 
-                        geleceğin dijital deneyimlerini bugünden tasarlıyorum. 
-                        <strong>7+ yıl</strong> deneyimle SwiftUI, Machine Learning ve AR/VR çözümlerinde uzmanım.
+                    <p class="hero-description" data-animate="fade-up" data-delay="200">
+                        <strong>SwiftUI</strong> ve <strong>AI-powered</strong> teknolojilerle geleceğin mobil deneyimlerini tasarlıyorum. 
+                        <strong>7+ yıl</strong> deneyimimle enterprise seviye iOS uygulamaları ve next-generation çözümler geliştiriyorum.
                     </p>
                     
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Tamamlanan Proje</div>
+                    <div class="hero-stats" data-animate="fade-up" data-delay="300">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="50">0</div>
+                            <div class="stat-label">Proje</div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-number">7+</div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="7">0</div>
                             <div class="stat-label">Yıl Deneyim</div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-number">100K+</div>
-                            <div class="stat-label">App İndirme</div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="500">0</div>
+                            <div class="stat-label">K+ İndirme</div>
                         </div>
-                        <div class="stat">
-                            <div class="stat-number">15+</div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="25">0</div>
                             <div class="stat-label">Mutlu Müşteri</div>
                         </div>
                     </div>
                     
-                    <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">
+                    <div class="hero-actions" data-animate="fade-up" data-delay="400">
+                        <a href="#projects" class="cta-button cta-primary">
                             <span>Projelerimi Keşfet</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg class="cta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
                                 <path d="M7 17L17 7M17 7H7M17 7V17"/>
                             </svg>
                         </a>
                         
-                        <a href="/cv.pdf" class="btn btn-secondary" download>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                            </svg>
-                            <span>CV İndir</span>
-                        </a>
-                        
-                        <a href="mailto:celal@example.com" class="btn btn-secondary">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <a href="#contact" class="cta-button cta-secondary">
+                            <svg class="cta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                                 <polyline points="22,6 12,13 2,6"/>
                             </svg>
                             <span>İletişime Geç</span>
                         </a>
+                        
+                        <a href="/assets/cv-celal-basaran.pdf" class="cta-button cta-tertiary" download>
+                            <svg class="cta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                            </svg>
+                            <span>CV İndir</span>
+                        </a>
                     </div>
                 </div>
                 
-                <div class="hero-visual">
+                <div class="hero-visual" data-animate="fade-up" data-delay="500">
                     <div class="avatar-container">
-                        <div class="avatar">
-                            <img src="/avatar.jpg" alt="Celal Başaran" />
-                        </div>
+                        <img src="/assets/images/celal-avatar.jpg" alt="Celal Başaran profil fotoğrafı" class="hero-avatar" loading="eager">
                         <div class="avatar-ring"></div>
                     </div>
                     
-                    <div class="tech-icons">
-                        <div class="tech-icon">📱</div>
-                        <div class="tech-icon">🤖</div>
-                        <div class="tech-icon">⚡</div>
-                        <div class="tech-icon">🚀</div>
+                    <div class="tech-stack-preview">
+                        <div class="tech-item" style="--delay: 0s">
+                            <span class="tech-icon">📱</span>
+                            <span class="tech-label">iOS</span>
+                        </div>
+                        <div class="tech-item" style="--delay: 0.1s">
+                            <span class="tech-icon">🧠</span>
+                            <span class="tech-label">AI/ML</span>
+                        </div>
+                        <div class="tech-item" style="--delay: 0.2s">
+                            <span class="tech-icon">⚡</span>
+                            <span class="tech-label">SwiftUI</span>
+                        </div>
+                        <div class="tech-item" style="--delay: 0.3s">
+                            <span class="tech-icon">🔮</span>
+                            <span class="tech-label">ARKit</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            
+            <div class="scroll-indicator" data-animate="fade-up" data-delay="600">
+                <span class="scroll-text">Keşfetmeye devam edin</span>
+                <div class="scroll-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
         
-        <div class="hero-scroll">
-            <div class="scroll-indicator">
-                <span>Keşfetmeye devam edin</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-                </svg>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <div class="section-header">
-                <h2>Hakkımda</h2>
-                <p>Teknoloji tutkunu, innovation odaklı bir geliştirici olarak her projede mükemmellik arayışı içindeyim</p>
-            </div>
-            
-            <div class="about-grid grid md:grid-cols-2">
-                <div class="about-story card">
-                    <h3>🚀 Benim Hikayem</h3>
-                    <p>
-                        2017'de iOS development dünyasına ilk adımımı attığımda, teknolojinin insanların 
-                        hayatlarını nasıl değiştirebileceğine dair büyük bir tutku geliştirdim. 
-                        <strong>7 yıl</strong> boyunca bu tutkuyu beslemeye devam ettim.
+        <!-- About Section -->
+        <section class="section about-section" id="about">
+            <div class="container">
+                <header class="section-header" data-animate="fade-up">
+                    <h2 class="section-title">Hakkımda</h2>
+                    <p class="section-subtitle">
+                        Teknoloji tutkunu, innovation odaklı bir iOS mimarı olarak her projede mükemmellik peşindeyim.
                     </p>
-                    <p>
-                        Ankara'da başlayan bu yolculuk, bugün global ölçekte projeler üretmeme ve 
-                        <strong>AI/ML entegrasyonları</strong> ile geleceğin uygulamalarını geliştirmeme olanak sağlıyor.
-                    </p>
-                    <p>
-                        Her gün yeni teknolojiler öğreniyor, sınırları zorlayarak 
-                        <strong>impossible'ı possible</strong> yapmanın yollarını arıyorum.
-                    </p>
-                </div>
+                </header>
                 
-                <div class="philosophy card">
-                    <h3>💡 Çalışma Felsefem</h3>
-                    <div class="principles">
-                        <div class="principle">
-                            <span class="principle-icon">🎯</span>
-                            <div>
-                                <h4>User-Centered Design</h4>
-                                <p>Her feature kullanıcı deneyimini iyileştirmeli</p>
-                            </div>
+                <div class="about-grid">
+                    <div class="about-card story-card" data-animate="fade-up" data-delay="100">
+                        <div class="card-header">
+                            <div class="card-icon">🚀</div>
+                            <h3 class="card-title">Benim Hikayem</h3>
                         </div>
                         
-                        <div class="principle">
-                            <span class="principle-icon">⚡</span>
-                            <div>
-                                <h4>Performance First</h4>
-                                <p>Optimizasyon her adımda öncelik</p>
-                            </div>
+                        <div class="card-content">
+                            <p>
+                                2017'de iOS development dünyasına ilk adımımı attığımda, teknolojinin insanların 
+                                hayatlarını nasıl değiştirebileceğine dair büyük bir vizyon geliştirdim.
+                            </p>
+                            <p>
+                                <strong>7 yıl boyunca</strong> bu vizyonu gerçekleştirmek için sürekli öğrendim, 
+                                deneyimledim ve sınırları zorladım. Ankara'da başlayan bu yolculuk, bugün 
+                                <strong>enterprise seviye</strong> projeler üretmeme olanak sağlıyor.
+                            </p>
+                            <p>
+                                <strong>AI/ML entegrasyonları</strong> ile geleceğin uygulamalarını geliştirirken, 
+                                her gün yeni teknolojiler keşfediyor ve <strong>impossible'ı possible</strong> yapmanın yollarını arıyorum.
+                            </p>
                         </div>
-                        
-                        <div class="principle">
-                            <span class="principle-icon">🔮</span>
-                            <div>
-                                <h4>Future-Proof Code</h4>
-                                <p>Sürdürülebilir ve ölçeklenebilir çözümler</p>
-                            </div>
-                        </div>
-                        
-                        <div class="principle">
-                            <span class="principle-icon">🚀</span>
-                            <div>
-                                <h4>Innovation Mindset</h4>
-                                <p>Sürekli öğrenme ve gelişim</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="section" id="experience">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Profesyonel Deneyim</h2>
-                <p>Kariyer yolculuğumda kazandığım deneyimler ve başarılar</p>
-            </div>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">2024 - Günümüz</div>
-                    <div class="timeline-content card">
-                        <h3>Senior iOS Architect</h3>
-                        <h4>Freelance & Consulting</h4>
-                        <p>Enterprise seviye iOS uygulamaları geliştirme, AI/ML entegrasyonu, teknik danışmanlık ve ekip yönetimi.</p>
-                        <div class="achievements">
-                            <span class="achievement">AI Integration</span>
-                            <span class="achievement">Team Leadership</span>
-                            <span class="achievement">Architecture Design</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">2022 - 2024</div>
-                    <div class="timeline-content card">
-                        <h3>iOS Lead Developer</h3>
-                        <h4>Tech Startup</h4>
-                        <p>SwiftUI ile modern uygulamalar geliştirme, Core ML entegrasyonu, ARKit projeleri ve performance optimization.</p>
-                        <div class="achievements">
-                            <span class="achievement">SwiftUI Expert</span>
-                            <span class="achievement">Core ML</span>
-                            <span class="achievement">ARKit</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">2019 - 2022</div>
-                    <div class="timeline-content card">
-                        <h3>iOS Developer</h3>
-                        <h4>Mobile Agency</h4>
-                        <p>Çeşitli sektörlerde iOS uygulamaları geliştirme, UIKit mastery, Core Data ve networking işlemleri.</p>
-                        <div class="achievements">
-                            <span class="achievement">UIKit</span>
-                            <span class="achievement">Core Data</span>
-                            <span class="achievement">Networking</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">2017 - 2019</div>
-                    <div class="timeline-content card">
-                        <h3>Junior iOS Developer</h3>
-                        <h4>Software Company</h4>
-                        <p>iOS development temellerini öğrenme, Objective-C'den Swift'e geçiş ve ilk professional projeler.</p>
-                        <div class="achievements">
-                            <span class="achievement">Swift</span>
-                            <span class="achievement">iOS Basics</span>
-                            <span class="achievement">App Store</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Öne Çıkan Projeler</h2>
-                <p>Son yıllarda geliştirdiğim innovative projeler ve uygulamalar</p>
-            </div>
-            
-            <div class="projects-grid grid md:grid-cols-2 lg:grid-cols-4">
-                <div class="project-card card">
-                    <div class="project-image">
-                        <div class="project-icon">🤖</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>AI Chat Assistant</h3>
-                        <p>SwiftUI ve Core ML kullanarak geliştirilen akıllı sohbet uygulaması. Natural language processing ile kullanıcı deneyimi.</p>
-                        <div class="project-tech">
-                            <span>SwiftUI</span>
-                            <span>Core ML</span>
-                            <span>NLP</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-secondary">Demo</a>
-                            <a href="#" class="btn btn-primary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card card">
-                    <div class="project-image">
-                        <div class="project-icon">📱</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>FinTech Mobile App</h3>
-                        <p>Yeni nesil banking uygulaması. Biometric authentication, real-time analytics ve modern UI/UX design.</p>
-                        <div class="project-tech">
-                            <span>SwiftUI</span>
-                            <span>Combine</span>
-                            <span>CloudKit</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-secondary">Demo</a>
-                            <a href="#" class="btn btn-primary">App Store</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card card">
-                    <div class="project-image">
-                        <div class="project-icon">🥽</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>AR Shopping Experience</h3>
-                        <p>ARKit kullanarak geliştirilen sanal alışveriş deneyimi. 3D product visualization ve spatial interaction.</p>
-                        <div class="project-tech">
-                            <span>ARKit</span>
-                            <span>RealityKit</span>
-                            <span>Metal</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-secondary">Demo</a>
-                            <a href="#" class="btn btn-primary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card card">
-                    <div class="project-image">
-                        <div class="project-icon">⚡</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Real-time Collaboration</h3>
-                        <p>Takım çalışması için geliştirilen real-time collaboration platformu. WebSocket, push notifications ve sync.</p>
-                        <div class="project-tech">
-                            <span>SwiftUI</span>
-                            <span>WebSocket</span>
-                            <span>Firebase</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-secondary">Demo</a>
-                            <a href="#" class="btn btn-primary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section" id="skills">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Teknoloji Stack'im</h2>
-                <p>Uzmanlaştığım teknolojiler ve gelişim alanlarım</p>
-            </div>
-            
-            <div class="skills-grid grid md:grid-cols-2 lg:grid-cols-4">
-                <div class="skill-category card">
-                    <div class="skill-icon">📱</div>
-                    <h3>Mobile Development</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Swift</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">SwiftUI</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 92%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">UIKit</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Combine</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skill-category card">
-                    <div class="skill-icon">🤖</div>
-                    <h3>AI & Machine Learning</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Core ML</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">TensorFlow</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 82%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Vision Framework</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 88%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skill-category card">
-                    <div class="skill-icon">🌐</div>
-                    <h3>Web Technologies</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">React</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 78%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">TypeScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Node.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">GraphQL</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 72%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skill-category card">
-                    <div class="skill-icon">🎨</div>
-                    <h3>Design & Tools</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Figma</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Design Systems</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Prototyping</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 82%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">UX Research</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 76%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Müşteri Görüşleri</h2>
-                <p>Birlikte çalıştığım kişi ve kurumların deneyimleri</p>
-            </div>
-            
-            <div class="testimonials-grid grid md:grid-cols-2 lg:grid-cols-4">
-                <div class="testimonial card">
-                    <div class="testimonial-content">
-                        <p>"Celal ile çalışmak harika bir deneyimdi. iOS uygulaması için talep ettiğimiz tüm AI features'ları zamanında ve kusursuz teslim etti."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">👨‍💼</div>
-                        <div>
-                            <h4>Mehmet Kaya</h4>
-                            <p>CTO, TechStart</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial card">
-                    <div class="testimonial-content">
-                        <p>"SwiftUI konusundaki expertise'i sayesinde uygulamamızın performansını %40 artırdı. Kod kalitesi ve architecture harika."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">👩‍💼</div>
-                        <div>
-                            <h4>Ayşe Demir</h4>
-                            <p>Product Manager, FinanceApp</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial card">
-                    <div class="testimonial-content">
-                        <p>"ARKit projemizde gösterdiği technical leadership ve innovation approach'u sayesinde müşterilerimizden çok olumlu geri dönüşler aldık."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">👨‍💻</div>
-                        <div>
-                            <h4>Can Özkan</h4>
-                            <p>Founder, AR Solutions</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial card">
-                    <div class="testimonial-content">
-                        <p>"Machine Learning entegrasyonu için danışmanlık aldık. Complex AI modellerini iOS'a kusursuz şekilde entegre etti."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">👩‍🔬</div>
-                        <div>
-                            <h4>Dr. Elif Yılmaz</h4>
-                            <p>Research Lead, AI Lab</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section" id="contact">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>İletişime Geçin</h2>
-                <p>Yeni projelerinizde birlikte çalışmak için bana ulaşın</p>
-            </div>
-            
-            <div class="contact-grid grid md:grid-cols-2">
-                <div class="contact-info">
-                    <h3>Benimle İletişime Geçin</h3>
-                    <p>Yenilikçi projelerinizde yer almak ve teknoloji ile etki yaratmak için sabırsızlanıyorum.</p>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-icon">📧</div>
-                            <div>
-                                <h4>Email</h4>
-                                <p>celal@example.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-icon">💼</div>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <p>linkedin.com/in/celalbasaran</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-icon">💻</div>
-                            <div>
-                                <h4>GitHub</h4>
-                                <p>github.com/celalbasaran</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-icon">🐦</div>
-                            <div>
-                                <h4>Twitter</h4>
-                                <p>@celalbasaran</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form card">
-                    <h3>Proje Teklifi Gönderin</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Ad Soyad</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="company">Şirket (Opsiyonel)</label>
-                            <input type="text" id="company" name="company">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="project">Proje Detayları</label>
-                            <textarea id="project" name="project" rows="4" placeholder="Projeniz hakkında detayları paylaşın..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="budget">Bütçe Aralığı</label>
-                            <select id="budget" name="budget">
-                                <option value="">Seçiniz</option>
-                                <option value="5k-10k">$5,000 - $10,000</option>
-                                <option value="10k-25k">$10,000 - $25,000</option>
-                                <option value="25k-50k">$25,000 - $50,000</option>
-                                <option value="50k+">$50,000+</option>
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">
-                            <span>Proje Teklifini Gönder</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
-                            </svg>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <h3>Celal Başaran</h3>
-                    <p>Senior iOS Architect & AI Developer</p>
-                    <p>Ankara, Turkey 🇹🇷</p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-section">
-                        <h4>Navigasyon</h4>
-                        <a href="#about">Hakkımda</a>
-                        <a href="#experience">Deneyim</a>
-                        <a href="#projects">Projeler</a>
-                        <a href="#contact">İletişim</a>
                     </div>
                     
-                    <div class="footer-section">
-                        <h4>Projeler</h4>
-                        <a href="#">GitHub</a>
-                        <a href="#">App Store</a>
-                        <a href="#">Dribbble</a>
-                        <a href="#">Medium</a>
+                    <div class="about-card philosophy-card" data-animate="fade-up" data-delay="200">
+                        <div class="card-header">
+                            <div class="card-icon">💡</div>
+                            <h3 class="card-title">Çalışma Felsefem</h3>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="philosophy-list">
+                                <div class="philosophy-item">
+                                    <div class="philosophy-icon">🎯</div>
+                                    <div class="philosophy-content">
+                                        <h4>User-Centered Design</h4>
+                                        <p>Her feature kullanıcı deneyimini iyileştirmeli</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="philosophy-item">
+                                    <div class="philosophy-icon">⚡</div>
+                                    <div class="philosophy-content">
+                                        <h4>Performance First</h4>
+                                        <p>60fps+ animasyonlar ve optimize kod yapısı</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="philosophy-item">
+                                    <div class="philosophy-icon">🔮</div>
+                                    <div class="philosophy-content">
+                                        <h4>Future-Proof Architecture</h4>
+                                        <p>Sürdürülebilir ve ölçeklenebilir çözümler</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="philosophy-item">
+                                    <div class="philosophy-icon">🧠</div>
+                                    <div class="philosophy-content">
+                                        <h4>AI-First Mindset</h4>
+                                        <p>Machine Learning ile akıllı çözümler</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="footer-section">
-                        <h4>İletişim</h4>
-                        <a href="mailto:celal@example.com">Email</a>
-                        <a href="#">LinkedIn</a>
-                        <a href="#">Twitter</a>
-                        <a href="#">Instagram</a>
+                </div>
+                
+                <div class="skills-preview" data-animate="fade-up" data-delay="300">
+                    <h3 class="skills-title">Teknoloji Stack'im</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <div class="skill-header">
+                                <span class="skill-icon">📱</span>
+                                <span class="skill-name">Mobile</span>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Swift</span>
+                                <span class="skill-tag">SwiftUI</span>
+                                <span class="skill-tag">UIKit</span>
+                                <span class="skill-tag">Combine</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-header">
+                                <span class="skill-icon">🤖</span>
+                                <span class="skill-name">AI/ML</span>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Core ML</span>
+                                <span class="skill-tag">TensorFlow</span>
+                                <span class="skill-tag">Vision</span>
+                                <span class="skill-tag">NLP</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-header">
+                                <span class="skill-icon">🔮</span>
+                                <span class="skill-name">AR/3D</span>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">ARKit</span>
+                                <span class="skill-tag">RealityKit</span>
+                                <span class="skill-tag">Metal</span>
+                                <span class="skill-tag">SceneKit</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <div class="skill-header">
+                                <span class="skill-icon">☁️</span>
+                                <span class="skill-name">Backend</span>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">CloudKit</span>
+                                <span class="skill-tag">Firebase</span>
+                                <span class="skill-tag">GraphQL</span>
+                                <span class="skill-tag">REST</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 Celal Başaran. Tüm hakları saklıdır.</p>
-                <p>Swift ile ❤️ ile geliştirilmiştir.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- External Styles -->
-    <link rel="stylesheet" href="styles.css">
+        </section>
+    </main>
     
-    <!-- JavaScript -->
-    <script src="app.js"></script>
+    <!-- Scripts -->
+    <script type="module" src="script.js"></script>
 </body>
 </html> 

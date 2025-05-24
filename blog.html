@@ -1,810 +1,507 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="tr" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- Performance Hints -->
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     
     <!-- Primary Meta Tags -->
-    <title>Blog - Celal Başaran | iOS Development, Swift, SwiftUI Tutorials & Modern Technologies</title>
-    <meta name="title" content="Blog - Celal Başaran | iOS Development, Swift, SwiftUI Tutorials & Modern Technologies">
-    <meta name="description" content="📱 iOS Development, Swift, SwiftUI ve modern teknolojiler üzerine professional blog yazıları. In-depth tutorials, best practices, code examples ve industry insights. Real-world projects ve hands-on experiences.">
-    <meta name="keywords" content="iOS Blog, Swift Tutorial, SwiftUI Guide, Firebase iOS, Mobile Development, React, TypeScript, Core Data, UIKit, Xcode, App Store, iOS 17, iOS 18, Celal Başaran">
+    <title>Blog • Celal Başaran - iOS Development İçerikleri</title>
+    <meta name="title" content="Blog • Celal Başaran - iOS Development İçerikleri">
+    <meta name="description" content="iOS development, SwiftUI, AI/ML ve mobile teknolojiler hakkında güncel yazılar ve teknik içerikler.">
     <meta name="author" content="Celal Başaran">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="language" content="Turkish">
-    <meta name="revisit-after" content="3 days">
-    <meta name="rating" content="general">
-    <meta name="distribution" content="global">
-    
-    <!-- Geographic Meta Tags -->
-    <meta name="geo.region" content="TR-06">
-    <meta name="geo.placename" content="Ankara">
-    <meta name="geo.position" content="39.9334;32.8597">
-    <meta name="ICBM" content="39.9334, 32.8597">
+    <meta name="keywords" content="iOS Blog, SwiftUI, Core ML, ARKit, Mobile Development, Apple, Swift">
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="blog">
-    <meta property="og:url" content="https://celalbasaran.github.io/blog.html">
-    <meta property="og:title" content="Blog - Celal Başaran | iOS Development & Modern Technologies">
-    <meta property="og:description" content="📱 iOS Development, Swift, SwiftUI ve modern teknolojiler üzerine professional blog yazıları ve tutorials. Real-world projects ve industry insights.">
-    <meta property="og:image" content="https://celalbasaran.github.io/blog-og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Celal Başaran Blog - iOS Development Tutorials">
-    <meta property="og:site_name" content="Celal Başaran Blog">
-    <meta property="og:locale" content="tr_TR">
-    <meta property="og:locale:alternate" content="en_US">
-    <meta property="article:author" content="Celal Başaran">
-    <meta property="article:publisher" content="https://celalbasaran.github.io/">
-    <meta property="article:section" content="Technology">
-    <meta property="article:tag" content="iOS Development">
-    <meta property="article:tag" content="Swift">
-    <meta property="article:tag" content="SwiftUI">
-    <meta property="article:tag" content="Mobile Development">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://celalbasaran.github.io/blog.html">
-    <meta property="twitter:title" content="Blog - Celal Başaran | iOS Development & Modern Technologies">
-    <meta property="twitter:description" content="📱 iOS Development, Swift, SwiftUI ve modern teknolojiler üzerine professional blog yazıları ve tutorials.">
-    <meta property="twitter:image" content="https://celalbasaran.github.io/blog-og-image.jpg">
-    <meta property="twitter:image:alt" content="Celal Başaran Blog - iOS Development Tutorials">
-    <meta property="twitter:creator" content="@celalbasaran">
-    <meta property="twitter:site" content="@celalbasaran">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/blog.html">
+    <meta property="og:title" content="Blog • Celal Başaran - iOS Development İçerikleri">
+    <meta property="og:description" content="iOS development, SwiftUI, AI/ML ve mobile teknolojiler hakkında güncel yazılar ve teknik içerikler.">
+    <meta property="og:image" content="https://celalbasaran.com/assets/images/blog-og.jpg">
     
     <!-- Apple Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Celal Blog">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+    <meta name="format-detection" content="telephone=no">
     
-    <!-- Microsoft Meta Tags -->
-    <meta name="msapplication-TileColor" content="#388bfd">
-    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-    <meta name="msapplication-config" content="/browserconfig.xml">
-    <meta name="msapplication-navbutton-color" content="#0d1117">
-    <meta name="theme-color" content="#0d1117">
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1117">
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://celalbasaran.github.io/blog.html">
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
     
-    <!-- Alternative Languages -->
-    <link rel="alternate" hreflang="tr" href="https://celalbasaran.github.io/blog.html">
-    <link rel="alternate" hreflang="en" href="https://celalbasaran.github.io/en/blog.html">
-    <link rel="alternate" hreflang="x-default" href="https://celalbasaran.github.io/blog.html">
-    
-    <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="Celal Başaran Blog RSS" href="https://celalbasaran.github.io/feed.xml">
-    <link rel="alternate" type="application/atom+xml" title="Celal Başaran Blog Atom" href="https://celalbasaran.github.io/atom.xml">
-    
-    <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/manifest.json">
-    
-    <!-- Preconnect to important domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://api.github.com">
-    
-    <!-- DNS Prefetch -->
-    <link rel="dns-prefetch" href="//github.com">
-    <link rel="dns-prefetch" href="//linkedin.com">
-    <link rel="dns-prefetch" href="//twitter.com">
-    <link rel="dns-prefetch" href="//instagram.com">
-    <link rel="dns-prefetch" href="//youtube.com">
-    
-    <!-- Resource Hints -->
-    <link rel="prefetch" href="/index.html">
-    <link rel="preload" href="/style.css" as="style">
-    <link rel="preload" href="/blog-script.js" as="script">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Structured Data - Blog -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Blog",
-        "name": "Celal Başaran Blog",
-        "description": "iOS Development, Swift, SwiftUI ve modern teknolojiler üzerine professional blog yazıları ve tutorials.",
-        "url": "https://celalbasaran.github.io/blog.html",
-        "inLanguage": "tr-TR",
-        "author": {
-            "@type": "Person",
-            "name": "Celal Başaran",
-            "url": "https://celalbasaran.github.io/",
-            "sameAs": [
-                "https://github.com/celalbasaran",
-                "https://linkedin.com/in/celalbasaran",
-                "https://twitter.com/celalbasaran"
-            ]
-        },
-        "publisher": {
-            "@type": "Person",
-            "name": "Celal Başaran",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://celalbasaran.github.io/logo.png"
-            }
-        },
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://celalbasaran.github.io/blog.html"
-        },
-        "blogPost": [
-            {
-                "@type": "BlogPosting",
-                "headline": "SwiftUI ile Modern UI Tasarımı",
-                "description": "SwiftUI kullanarak modern ve responsive UI tasarımları oluşturma rehberi",
-                "url": "https://celalbasaran.github.io/posts/swiftui-modern-ui.html",
-                "datePublished": "2024-01-15",
-                "dateModified": "2024-01-15",
-                "author": {
-                    "@type": "Person",
-                    "name": "Celal Başaran"
-                },
-                "image": "https://celalbasaran.github.io/images/swiftui-modern-ui.jpg",
-                "keywords": ["SwiftUI", "iOS", "UI Design", "Mobile Development"]
-            }
-        ]
-    }
-    </script>
-    
-    <!-- Structured Data - BreadcrumbList -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Ana Sayfa",
-                "item": "https://celalbasaran.github.io/"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Blog",
-                "item": "https://celalbasaran.github.io/blog.html"
-            }
-        ]
-    }
-    </script>
-    
-    <!-- Structured Data - Website -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Celal Başaran Blog",
-        "url": "https://celalbasaran.github.io/blog.html",
-        "description": "iOS Development ve modern teknolojiler blog",
-        "author": {
-            "@type": "Person",
-            "name": "Celal Başaran"
-        },
-        "inLanguage": "tr-TR",
-        "copyrightYear": "2024",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://celalbasaran.github.io/blog.html?search={search_term_string}",
-            "query-input": "required name=search_term_string"
+    <!-- Critical CSS -->
+    <style>
+        /* Apple Design System V4 Variables (Critical Path) */
+        :root {
+            --font-family-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+            --color-blue: #0A84FF;
+            --color-label: #000000;
+            --color-secondary-label: rgba(60, 60, 67, 0.6);
+            --color-system-background: #FFFFFF;
+            --color-secondary-background: #F2F2F7;
+            --spacing-4: 16px;
+            --spacing-6: 24px;
+            --spacing-8: 32px;
+            --radius-extra-large: 16px;
         }
-    }
-    </script>
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-label: #FFFFFF;
+                --color-secondary-label: rgba(235, 235, 245, 0.6);
+                --color-system-background: #000000;
+                --color-secondary-background: #1C1C1E;
+            }
+        }
+        
+        /* Reset & Foundation */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family-system);
+            color: var(--color-label);
+            background-color: var(--color-system-background);
+            line-height: 1.6;
+        }
+        
+        /* Loading State */
+        body:not(.loaded) .main-content {
+            opacity: 0;
+        }
+        
+        body.loaded .main-content {
+            opacity: 1;
+            transition: opacity 0.6s ease;
+        }
+    </style>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'; this.onload=null;">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
 </head>
 
 <body>
-    <!-- Skip to content link for accessibility -->
-    <a href="#main-content" class="skip-link">Ana içeriğe geç</a>
+    <!-- Skip to Main Content -->
+    <a href="#main" class="skip-link">İçeriğe Geç</a>
     
-    <!-- Advanced Navigation -->
-    <nav class="navbar" id="navbar" role="navigation" aria-label="Ana navigasyon">
-        <div class="container">
-            <div class="navbar-container">
-                <a href="index.html" class="navbar-brand" aria-label="Ana Sayfa">
-                    <span class="sr-only">Celal Başaran</span>
-                    Celal
+    <!-- Navigation -->
+    <nav class="navigation" role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link" aria-label="Ana sayfa">
+                    <span class="brand-text">Celal Başaran</span>
+                    <span class="brand-subtitle">iOS Blog</span>
                 </a>
-                
-                <ul class="navbar-nav" role="menubar">
-                    <li role="none">
-                        <a href="index.html#about" class="navbar-link" role="menuitem" aria-label="Hakkımda Bölümü">
-                            Hakkımda
-                        </a>
-                    </li>
-                    <li role="none">
-                        <a href="index.html#projects" class="navbar-link" role="menuitem" aria-label="Projeler Bölümü">
-                            Projeler
-                        </a>
-                    </li>
-                    <li role="none">
-                        <a href="index.html#skills" class="navbar-link" role="menuitem" aria-label="Yetenekler Bölümü">
-                            Yetenekler
-                        </a>
-                    </li>
-                    <li role="none">
-                        <a href="blog.html" class="navbar-link active" role="menuitem" aria-current="page" aria-label="Blog Sayfası">
-                            Blog
-                        </a>
-                    </li>
-                    <li role="none">
-                        <a href="index.html#contact" class="navbar-link" role="menuitem" aria-label="İletişim Bölümü">
-                            İletişim
-                        </a>
-                    </li>
-                </ul>
-                
-                <a href="index.html#contact" class="navbar-cta" aria-label="Benimle iletişime geç">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M21.5 12C21.5 17.2467 17.2467 21.5 12 21.5C6.75329 21.5 2.5 17.2467 2.5 12C2.5 6.75329 6.75329 2.5 12 2.5C17.2467 2.5 21.5 6.75329 21.5 12Z" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 12H16M16 12L13 9M16 12L13 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </div>
+            
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="/" class="nav-link" role="menuitem">Ana Sayfa</a></li>
+                <li role="none"><a href="/#about" class="nav-link" role="menuitem">Hakkımda</a></li>
+                <li role="none"><a href="/#projects" class="nav-link" role="menuitem">Projeler</a></li>
+                <li role="none"><a href="/blog.html" class="nav-link active" role="menuitem">Blog</a></li>
+                <li role="none"><a href="/#contact" class="nav-link" role="menuitem">İletişim</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Tema değiştir" id="themeToggle">
+                    <svg class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path class="sun-icon" d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3"/>
+                        <path class="moon-icon opacity-0" d="M17.75 4.09L15.5 6.34L16.75 7.59L19 5.34L17.75 4.09M21 10V12H23V10M20.66 15.66L19 17.32L20.34 18.66L22 17L20.66 15.66"/>
                     </svg>
-                    Birlikte Çalışalım
-                </a>
+                </button>
+                
+                <button class="menu-toggle" aria-label="Menü aç/kapat" id="menuToggle">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main id="main-content">
-        <!-- Blog Hero Section -->
-        <section class="blog-hero" id="blog-hero" aria-labelledby="blog-hero-title">
+    <main id="main" class="main-content" role="main">
+        <!-- Blog Header -->
+        <section class="blog-header">
             <div class="container">
-                <div class="blog-hero-content stagger-animation">
-                    <div class="fade-in">
-                        <h1 class="display-xl blog-hero-title" id="blog-hero-title">
-                            iOS Development & 
-                            <br>
-                            <span class="text-accent">Modern Technologies</span>
-                        </h1>
+                <div class="header-content" data-animate="fade-up">
+                    <div class="header-badge">
+                        <span class="badge-icon">📝</span>
+                        <span>iOS Development Blog</span>
                     </div>
                     
-                    <div class="fade-in">
-                        <p class="blog-hero-subtitle body-xl">
-                            Swift, SwiftUI, React ve modern teknolojiler üzerine 
-                            <strong>in-depth tutorials</strong>, best practices ve 
-                            <span class="text-accent">professional insights</span>. 
-                            Real-world projects ve industry experiences.
-                        </p>
-                    </div>
+                    <h1 class="header-title">
+                        Teknoloji ve <span class="gradient-text">Innovation</span>
+                    </h1>
                     
-                    <div class="blog-hero-stats fade-in">
-                        <div class="blog-stat">
-                            <span class="blog-stat-value">25+</span>
-                            <span class="blog-stat-label">Blog Yazısı</span>
-                        </div>
-                        <div class="blog-stat">
-                            <span class="blog-stat-value">5K+</span>
-                            <span class="blog-stat-label">Monthly Readers</span>
-                        </div>
-                        <div class="blog-stat">
-                            <span class="blog-stat-value">3</span>
-                            <span class="blog-stat-label">Categories</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Post Section -->
-        <section class="section" id="featured-post" aria-labelledby="featured-title">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title headline-lg fade-in" id="featured-title">
-                        Öne Çıkan Yazı
-                    </h2>
-                    <p class="section-subtitle fade-in">
-                        En son ve en popüler blog yazım
+                    <p class="header-description">
+                        iOS development, SwiftUI, AI/ML entegrasyonları ve mobile teknolojilerin geleceği hakkında 
+                        derinlemesine yazılar ve teknik içerikler.
                     </p>
-                </div>
-                
-                <div class="featured-post-card scale-in">
-                    <div class="featured-post-image">
-                        <div class="featured-post-category">
-                            <span class="badge badge-primary">SwiftUI</span>
-                            <span class="badge badge-secondary">iOS 17+</span>
+                    
+                    <div class="header-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-label">Yazı</span>
                         </div>
-                        <div class="featured-post-overlay">
-                            <a href="posts/swiftui-modern-ui.html" class="btn btn-primary btn-lg" aria-label="Read SwiftUI article">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z" stroke="currentColor" stroke-width="2"/>
-                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                Yazıyı Oku
-                            </a>
+                        <div class="stat-item">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Okuyucu</span>
                         </div>
-                    </div>
-                    <div class="featured-post-content">
-                        <div class="featured-post-meta">
-                            <time class="featured-post-date" datetime="2024-01-15">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="18" height="18" x="3" y="4" rx="2" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M16 2V6M8 2V6M3 10H21" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                15 Ocak 2024
-                            </time>
-                            <span class="featured-post-read-time">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                                8 dk okuma
-                            </span>
-                        </div>
-                        
-                        <h3 class="featured-post-title title-xl">
-                            SwiftUI ile Modern UI Geliştirme: 
-                            Comprehensive Guide to iOS 17+ Features
-                        </h3>
-                        
-                        <p class="featured-post-excerpt">
-                            SwiftUI'nin en son özelliklerini kullanarak modern, 
-                            performanslı ve kullanıcı dostu iOS uygulamaları nasıl 
-                            geliştirebileceğinizi öğrenin. State management, 
-                            custom components ve performance optimization tekniklerini kapsar.
-                        </p>
-                        
-                        <div class="featured-post-tags">
-                            <span class="tag">SwiftUI</span>
-                            <span class="tag">iOS 17</span>
-                            <span class="tag">UI/UX</span>
-                            <span class="tag">Performance</span>
-                            <span class="tag">State Management</span>
+                        <div class="stat-item">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Kategori</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Blog Categories & Filter -->
-        <section class="section section-glass" id="blog-categories" aria-labelledby="categories-title">
+        <!-- Blog Categories -->
+        <section class="blog-categories">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title headline-lg fade-in" id="categories-title">
-                        Blog Kategorileri
-                    </h2>
-                    <p class="section-subtitle fade-in">
-                        İlgi alanınıza göre yazıları filtreleyebilirsiniz
-                    </p>
-                </div>
-                
-                <div class="blog-filter fade-in">
-                    <button class="filter-btn active" data-filter="all" aria-label="Tüm yazılar">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        Tüm Yazılar
+                <div class="category-filters" data-animate="fade-up" data-delay="100">
+                    <button class="filter-btn active" data-category="all">
+                        <span class="filter-icon">📱</span>
+                        <span>Tümü</span>
                     </button>
-                    
-                    <button class="filter-btn" data-filter="ios" aria-label="iOS yazıları">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="14" height="20" x="5" y="2" rx="2" stroke="currentColor" stroke-width="2"/>
-                            <path d="M12 18H12.01M9 5H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        iOS Development
+                    <button class="filter-btn" data-category="swiftui">
+                        <span class="filter-icon">⚡</span>
+                        <span>SwiftUI</span>
                     </button>
-                    
-                    <button class="filter-btn" data-filter="web" aria-label="Web yazıları">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                            <path d="M2 12H22M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                        Web Development
+                    <button class="filter-btn" data-category="ai-ml">
+                        <span class="filter-icon">🧠</span>
+                        <span>AI/ML</span>
                     </button>
-                    
-                    <button class="filter-btn" data-filter="tutorial" aria-label="Tutorial yazıları">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.5 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V7.5L14.5 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M14 2V8H20M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Tutorials
+                    <button class="filter-btn" data-category="performance">
+                        <span class="filter-icon">🚀</span>
+                        <span>Performance</span>
+                    </button>
+                    <button class="filter-btn" data-category="architecture">
+                        <span class="filter-icon">🏗️</span>
+                        <span>Architecture</span>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Blog Posts Grid -->
-        <section class="section" id="blog-posts" aria-labelledby="posts-title">
+        <!-- Featured Post -->
+        <section class="featured-post">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title headline-lg fade-in" id="posts-title">
-                        Son Blog Yazıları
-                    </h2>
-                    <p class="section-subtitle fade-in">
-                        Güncel teknoloji trendleri ve deep-dive technical content
-                    </p>
-                </div>
-                
-                <div class="blog-posts-grid">
-                    <!-- SwiftUI Modern UI Post -->
-                    <article class="blog-post-card fade-in" data-category="ios tutorial">
-                        <div class="blog-post-image">
-                            <div class="blog-post-category-badges">
-                                <span class="badge badge-primary">SwiftUI</span>
-                                <span class="badge badge-secondary">Tutorial</span>
+                <div class="featured-content" data-animate="fade-up" data-delay="200">
+                    <div class="featured-badge">Öne Çıkan Yazı</div>
+                    
+                    <article class="featured-article">
+                        <div class="article-image">
+                            <img src="/assets/images/blog/featured-swiftui-performance.jpg" 
+                                 alt="SwiftUI Performance Optimization" 
+                                 loading="lazy">
+                            <div class="article-overlay">
+                                <div class="article-category">SwiftUI</div>
+                                <div class="article-read-time">8 dk okuma</div>
                             </div>
-                            <div class="blog-post-overlay">
-                                <a href="posts/swiftui-modern-ui.html" class="btn btn-primary" aria-label="Read SwiftUI Modern UI article">
-                                    Yazıyı Oku
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-post-content">
-                            <div class="blog-post-meta">
-                                <time datetime="2024-01-15">15 Ocak 2024</time>
-                                <span class="blog-post-read-time">8 dk</span>
-                            </div>
-                            
-                            <h3 class="blog-post-title">
-                                <a href="posts/swiftui-modern-ui.html">
-                                    SwiftUI ile Modern UI Geliştirme
-                                </a>
-                            </h3>
-                            
-                            <p class="blog-post-excerpt">
-                                SwiftUI'nin en son özelliklerini kullanarak modern iOS uygulamaları 
-                                geliştirmeyi öğrenin. State management, custom components ve 
-                                performance optimization.
-                            </p>
-                            
-                            <div class="blog-post-tags">
-                                <span class="tag">SwiftUI</span>
-                                <span class="tag">iOS 17</span>
-                                <span class="tag">Performance</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- iOS 18 Yenilikler Post -->
-                    <article class="blog-post-card fade-in" data-category="ios">
-                        <div class="blog-post-image">
-                            <div class="blog-post-category-badges">
-                                <span class="badge badge-primary">iOS 18</span>
-                                <span class="badge badge-secondary">News</span>
-                            </div>
-                            <div class="blog-post-overlay">
-                                <a href="posts/ios18-yenilikler.html" class="btn btn-primary" aria-label="Read iOS 18 article">
-                                    Yazıyı Oku
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-post-content">
-                            <div class="blog-post-meta">
-                                <time datetime="2024-01-10">10 Ocak 2024</time>
-                                <span class="blog-post-read-time">12 dk</span>
-                            </div>
-                            
-                            <h3 class="blog-post-title">
-                                <a href="posts/ios18-yenilikler.html">
-                                    iOS 18 Yenilikleri: Developer's Guide
-                                </a>
-                            </h3>
-                            
-                            <p class="blog-post-excerpt">
-                                iOS 18 ile gelen yeni özellikler, API değişiklikleri ve 
-                                geliştiriciler için önemli güncellemeler. App Intents 2.0, 
-                                enhanced widgets ve SwiftData evolution.
-                            </p>
-                            
-                            <div class="blog-post-tags">
-                                <span class="tag">iOS 18</span>
-                                <span class="tag">WWDC 2024</span>
-                                <span class="tag">API Updates</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Firebase Realtime Post -->
-                    <article class="blog-post-card fade-in" data-category="ios tutorial">
-                        <div class="blog-post-image">
-                            <div class="blog-post-category-badges">
-                                <span class="badge badge-primary">Firebase</span>
-                                <span class="badge badge-secondary">Backend</span>
-                            </div>
-                            <div class="blog-post-overlay">
-                                <a href="posts/firebase-realtime.html" class="btn btn-primary" aria-label="Read Firebase article">
-                                    Yazıyı Oku
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-post-content">
-                            <div class="blog-post-meta">
-                                <time datetime="2024-01-05">5 Ocak 2024</time>
-                                <span class="blog-post-read-time">15 dk</span>
-                            </div>
-                            
-                            <h3 class="blog-post-title">
-                                <a href="posts/firebase-realtime.html">
-                                    Firebase iOS Entegrasyonu: Complete Guide
-                                </a>
-                            </h3>
-                            
-                            <p class="blog-post-excerpt">
-                                Firebase ile iOS uygulamanızı güçlendirin. Firestore, 
-                                Authentication, Cloud Storage ve real-time features 
-                                için complete integration guide.
-                            </p>
-                            
-                            <div class="blog-post-tags">
-                                <span class="tag">Firebase</span>
-                                <span class="tag">Backend</span>
-                                <span class="tag">Real-time</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- React TypeScript Post -->
-                    <article class="blog-post-card fade-in" data-category="web tutorial">
-                        <div class="blog-post-image">
-                            <div class="blog-post-category-badges">
-                                <span class="badge badge-primary">React</span>
-                                <span class="badge badge-secondary">TypeScript</span>
-                            </div>
-                            <div class="blog-post-overlay">
-                                <a href="#" class="btn btn-primary" aria-label="Read React TypeScript article">
-                                    Yazıyı Oku
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-post-content">
-                            <div class="blog-post-meta">
-                                <time datetime="2024-01-01">1 Ocak 2024</time>
-                                <span class="blog-post-read-time">10 dk</span>
-                            </div>
-                            
-                            <h3 class="blog-post-title">
-                                <a href="#">
-                                    React ile TypeScript: Modern Web Development
-                                </a>
-                            </h3>
-                            
-                            <p class="blog-post-excerpt">
-                                React ve TypeScript kombinasyonu ile type-safe, 
-                                maintainable web uygulamaları geliştirme. 
-                                Best practices ve performance optimization.
-                            </p>
-                            
-                            <div class="blog-post-tags">
-                                <span class="tag">React</span>
-                                <span class="tag">TypeScript</span>
-                                <span class="tag">Frontend</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Next.js Performance Post -->
-                    <article class="blog-post-card fade-in" data-category="web">
-                        <div class="blog-post-image">
-                            <div class="blog-post-category-badges">
-                                <span class="badge badge-primary">Next.js</span>
-                                <span class="badge badge-secondary">Performance</span>
-                            </div>
-                            <div class="blog-post-overlay">
-                                <a href="#" class="btn btn-primary" aria-label="Read Next.js article">
-                                    Yazıyı Oku
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-post-content">
-                            <div class="blog-post-meta">
-                                <time datetime="2023-12-28">28 Aralık 2023</time>
-                                <span class="blog-post-read-time">7 dk</span>
-                            </div>
-                            
-                            <h3 class="blog-post-title">
-                                <a href="#">
-                                    Next.js 14 Performance Optimization
-                                </a>
-                            </h3>
-                            
-                            <p class="blog-post-excerpt">
-                                Next.js 14 ile ultra-fast web uygulamaları geliştirme. 
-                                Server Components, streaming ve advanced optimization 
-                                teknikleri.
-                            </p>
-                            
-                            <div class="blog-post-tags">
-                                <span class="tag">Next.js</span>
-                                <span class="tag">Performance</span>
-                                <span class="tag">SSR</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Core Data Tutorial -->
-                    <article class="blog-post-card fade-in" data-category="ios tutorial">
-                        <div class="blog-post-image">
-                            <div class="blog-post-category-badges">
-                                <span class="badge badge-primary">Core Data</span>
-                                <span class="badge badge-secondary">Database</span>
-                            </div>
-                            <div class="blog-post-overlay">
-                                <a href="#" class="btn btn-primary" aria-label="Read Core Data article">
-                                    Yazıyı Oku
-                                </a>
-                            </div>
-                        </div>
-                        <div class="blog-post-content">
-                            <div class="blog-post-meta">
-                                <time datetime="2023-12-25">25 Aralık 2023</time>
-                                <span class="blog-post-read-time">20 dk</span>
-                            </div>
-                            
-                            <h3 class="blog-post-title">
-                                <a href="#">
-                                    Core Data Mastery: Advanced Techniques
-                                </a>
-                            </h3>
-                            
-                            <p class="blog-post-excerpt">
-                                Core Data ile kompleks veri yönetimi. Relationships, 
-                                migrations, performance optimization ve CloudKit sync 
-                                ile professional data management.
-                            </p>
-                            
-                            <div class="blog-post-tags">
-                                <span class="tag">Core Data</span>
-                                <span class="tag">CloudKit</span>
-                                <span class="tag">Database</span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-                
-                <div class="text-center mt-16 fade-in">
-                    <a href="#" class="btn btn-gradient btn-lg" aria-label="Load more posts">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12L12 19L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Daha Fazla Yazı Yükle
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Newsletter Section -->
-        <section class="section section-glass" id="newsletter" aria-labelledby="newsletter-title">
-            <div class="container">
-                <div class="newsletter-container">
-                    <div class="newsletter-content">
-                        <div class="newsletter-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 7L10.94 13.94C11.52 14.52 12.48 14.52 13.06 13.94L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                <rect width="20" height="16" x="2" y="4" rx="2" stroke="currentColor" stroke-width="2"/>
-                            </svg>
                         </div>
                         
-                        <h2 class="newsletter-title headline-lg" id="newsletter-title">
-                            Newsletter'a Abone Ol
-                        </h2>
-                        
-                        <p class="newsletter-description">
-                            Yeni blog yazıları, iOS development tips ve exclusive content 
-                            için haftalık newsletter'ımıza abone olun. 
-                            <strong>Spam yok, sadece quality content!</strong>
-                        </p>
-                        
-                        <form class="newsletter-form" id="newsletter-form" novalidate>
-                            <div class="newsletter-form-group">
-                                <input 
-                                    type="email" 
-                                    id="newsletter-email" 
-                                    name="email" 
-                                    class="newsletter-input" 
-                                    placeholder="email@example.com"
-                                    required
-                                    aria-label="Email address for newsletter"
-                                >
-                                <button type="submit" class="newsletter-submit" aria-label="Subscribe to newsletter">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <div class="article-content">
+                            <h2 class="article-title">
+                                SwiftUI Performance: 60fps'de Büyük Uygulamalar Geliştirmek
+                            </h2>
+                            
+                            <p class="article-excerpt">
+                                SwiftUI ile enterprise seviye uygulamalar geliştirirken performans optimizasyonu kritik öneme sahip. 
+                                Bu yazıda, büyük veri setleri, karmaşık UI bileşenleri ve real-time güncellemeler ile 
+                                60fps performans hedefine ulaşmanın yollarını keşfedeceğiz.
+                            </p>
+                            
+                            <div class="article-meta">
+                                <div class="article-author">
+                                    <img src="/assets/images/celal-avatar.jpg" alt="Celal Başaran" class="author-avatar">
+                                    <div class="author-info">
+                                        <span class="author-name">Celal Başaran</span>
+                                        <time class="publish-date" datetime="2025-05-20">20 Mayıs 2025</time>
+                                    </div>
+                                </div>
+                                
+                                <a href="#swiftui-performance" class="read-more-btn">
+                                    <span>Devamını Oku</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
                                     </svg>
-                                    Abone Ol
-                                </button>
+                                </a>
                             </div>
-                            <p class="newsletter-note">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                Istediğiniz zaman abonelikten çıkabilirsiniz
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Grid -->
+        <section class="blog-grid">
+            <div class="container">
+                <div class="articles-grid" data-animate="fade-up" data-delay="300">
+                    
+                    <!-- Article 1 -->
+                    <article class="article-card" data-category="ai-ml">
+                        <div class="card-image">
+                            <img src="/assets/images/blog/ios-ai-integration.jpg" 
+                                 alt="iOS AI Integration" 
+                                 loading="lazy">
+                            <div class="card-category">AI/ML</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">iOS Uygulamalarında AI Entegrasyonu: Core ML ve Beyond</h3>
+                            
+                            <p class="card-excerpt">
+                                Core ML, Vision, Natural Language frameworks'leri kullanarak iOS uygulamalarına 
+                                yapay zeka nasıl entegre edilir? Pratik örnekler ve best practices.
                             </p>
-                        </form>
-                    </div>
+                            
+                            <div class="card-meta">
+                                <time datetime="2025-05-18">18 Mayıs 2025</time>
+                                <span class="read-time">6 dk</span>
+                            </div>
+                            
+                            <a href="#ios-ai-integration" class="card-link" aria-label="iOS AI entegrasyonu yazısını oku"></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="article-card" data-category="architecture">
+                        <div class="card-image">
+                            <img src="/assets/images/blog/arkit-future.jpg" 
+                                 alt="ARKit Future" 
+                                 loading="lazy">
+                            <div class="card-category">AR/VR</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">ARKit'in Geleceği: Mixed Reality Uygulamaları</h3>
+                            
+                            <p class="card-excerpt">
+                                Apple'ın AR vizyonu ve ARKit'in gelişimi. RealityKit, Object Capture ve 
+                                gelecekteki mixed reality deneyimleri için hazırlık.
+                            </p>
+                            
+                            <div class="card-meta">
+                                <time datetime="2025-05-15">15 Mayıs 2025</time>
+                                <span class="read-time">10 dk</span>
+                            </div>
+                            
+                            <a href="#arkit-future" class="card-link" aria-label="ARKit geleceği yazısını oku"></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="article-card" data-category="performance">
+                        <div class="card-image">
+                            <img src="/assets/images/blog/machine-learning-mobile.jpg" 
+                                 alt="Machine Learning Mobile" 
+                                 loading="lazy">
+                            <div class="card-category">Performance</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">Mobile Device'larda Machine Learning Optimizasyonu</h3>
+                            
+                            <p class="card-excerpt">
+                                Sınırlı kaynaklara sahip mobile cihazlarda ML modellerini optimize etmek. 
+                                Model compression, quantization ve edge computing stratejileri.
+                            </p>
+                            
+                            <div class="card-meta">
+                                <time datetime="2025-05-12">12 Mayıs 2025</time>
+                                <span class="read-time">12 dk</span>
+                            </div>
+                            
+                            <a href="#machine-learning-mobile" class="card-link" aria-label="Mobile ML optimizasyonu yazısını oku"></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="article-card" data-category="swiftui">
+                        <div class="card-image">
+                            <img src="/assets/images/blog/swiftui-animations.jpg" 
+                                 alt="SwiftUI Animations" 
+                                 loading="lazy">
+                            <div class="card-category">SwiftUI</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">SwiftUI Animasyonları: Micro-interactions ve UX</h3>
+                            
+                            <p class="card-excerpt">
+                                Native iOS uygulamalarındaki gibi smooth animasyonlar oluşturmak. 
+                                Spring animasyonları, gesture-driven interactions ve performance tips.
+                            </p>
+                            
+                            <div class="card-meta">
+                                <time datetime="2025-05-10">10 Mayıs 2025</time>
+                                <span class="read-time">8 dk</span>
+                            </div>
+                            
+                            <a href="#swiftui-animations" class="card-link" aria-label="SwiftUI animasyonları yazısını oku"></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 5 -->
+                    <article class="article-card" data-category="architecture">
+                        <div class="card-image">
+                            <img src="/assets/images/blog/clean-architecture-ios.jpg" 
+                                 alt="Clean Architecture iOS" 
+                                 loading="lazy">
+                            <div class="card-category">Architecture</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">iOS'ta Clean Architecture: MVVM++ Pattern</h3>
+                            
+                            <p class="card-excerpt">
+                                Büyük ekiplerde sürdürülebilir iOS uygulamaları geliştirmek için 
+                                gelişmiş mimari pattern'ları ve dependency injection.
+                            </p>
+                            
+                            <div class="card-meta">
+                                <time datetime="2025-05-08">8 Mayıs 2025</time>
+                                <span class="read-time">15 dk</span>
+                            </div>
+                            
+                            <a href="#clean-architecture-ios" class="card-link" aria-label="Clean Architecture yazısını oku"></a>
+                        </div>
+                    </article>
+
+                    <!-- Article 6 -->
+                    <article class="article-card" data-category="performance">
+                        <div class="card-image">
+                            <img src="/assets/images/blog/ios-memory-management.jpg" 
+                                 alt="iOS Memory Management" 
+                                 loading="lazy">
+                            <div class="card-category">Performance</div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">iOS Memory Management: ARC ve Performance Profiling</h3>
+                            
+                            <p class="card-excerpt">
+                                Memory leaks, retain cycles ve performance bottleneck'ları tespit etmek. 
+                                Instruments kullanımı ve memory optimization teknikleri.
+                            </p>
+                            
+                            <div class="card-meta">
+                                <time datetime="2025-05-05">5 Mayıs 2025</time>
+                                <span class="read-time">11 dk</span>
+                            </div>
+                            
+                            <a href="#ios-memory-management" class="card-link" aria-label="iOS memory management yazısını oku"></a>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- Load More -->
+                <div class="load-more-section" data-animate="fade-up" data-delay="400">
+                    <button class="load-more-btn">
+                        <span>Daha Fazla Yazı Yükle</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 5v14M5 12l7 7 7-7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Subscription -->
+        <section class="newsletter-section">
+            <div class="container">
+                <div class="newsletter-content" data-animate="fade-up" data-delay="500">
+                    <div class="newsletter-icon">📬</div>
+                    
+                    <h2 class="newsletter-title">Güncel Kalın</h2>
+                    
+                    <p class="newsletter-description">
+                        iOS development, SwiftUI ve AI/ML konularındaki en güncel yazılarımdan haberdar olmak için 
+                        email listemize katılın. Haftalık özet ve özel içerikler.
+                    </p>
+                    
+                    <form class="newsletter-form" id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" 
+                                   class="newsletter-input" 
+                                   placeholder="Email adresiniz" 
+                                   required 
+                                   aria-label="Email adresi">
+                            <button type="submit" class="newsletter-submit" aria-label="Newsletter'a abone ol">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="privacy-notice">
+                            <small>
+                                Email adresiniz sadece blog güncellemeleri için kullanılacak. 
+                                <a href="#privacy">Gizlilik politikası</a>
+                            </small>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-main">
-                    <h3 class="footer-title">Celal Başaran</h3>
-                    <p class="footer-description">
-                        Senior iOS Developer & Software Architect
-                        <br>
-                        Modern teknolojilerle innovative çözümler geliştiren yazılım uzmanı
-                    </p>
+                <div class="footer-brand">
+                    <h3>Celal Başaran</h3>
+                    <p>Senior iOS Architect • AI Enthusiast</p>
                 </div>
                 
                 <div class="footer-links">
-                    <div class="footer-section">
-                        <h4 class="footer-section-title">Blog</h4>
-                        <ul class="footer-nav">
-                            <li><a href="#" class="footer-link">iOS Development</a></li>
-                            <li><a href="#" class="footer-link">SwiftUI Tutorials</a></li>
-                            <li><a href="#" class="footer-link">Web Development</a></li>
-                            <li><a href="#" class="footer-link">Tech News</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-section">
-                        <h4 class="footer-section-title">Kategoriler</h4>
-                        <ul class="footer-nav">
-                            <li><a href="#" class="footer-link">Tutorials</a></li>
-                            <li><a href="#" class="footer-link">Best Practices</a></li>
-                            <li><a href="#" class="footer-link">Performance</a></li>
-                            <li><a href="#" class="footer-link">Architecture</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-section">
-                        <h4 class="footer-section-title">Connect</h4>
-                        <div class="social-links">
-                            <a href="https://github.com/celalbasaran" class="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                                </svg>
-                            </a>
-                            <a href="https://linkedin.com/in/celalbasaran" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                </svg>
-                            </a>
-                            <a href="https://twitter.com/celalbasaran" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
+                    <a href="/" class="footer-link">Ana Sayfa</a>
+                    <a href="/#about" class="footer-link">Hakkımda</a>
+                    <a href="/#projects" class="footer-link">Projeler</a>
+                    <a href="/blog.html" class="footer-link">Blog</a>
+                    <a href="/#contact" class="footer-link">İletişim</a>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="https://github.com/celalbasaran" class="social-link" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/in/celalbasaran" class="social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/celalbasaran" class="social-link" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p class="footer-copyright">
-                    &copy; 2024 Celal Başaran. Tüm hakları saklıdır.
+                <p>&copy; 2025 Celal Başaran. Tüm hakları saklıdır.</p>
+                <p class="build-info">
+                    Apple Design Language V4 ile ❤️ ile geliştirild. 
+                    <span id="buildTime">Build time loading...</span>
                 </p>
-                <div class="footer-meta">
-                    <span class="footer-meta-item">
-                        Apple Design Language ile tasarlandı
-                    </span>
-                    <span class="footer-meta-separator">•</span>
-                    <span class="footer-meta-item">
-                        Blog v2.0
-                    </span>
-                </div>
             </div>
         </div>
     </footer>
-
+    
     <!-- Scripts -->
-    <script type="module" src="blog-script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html> 
