@@ -1,0 +1,350 @@
+/* ========================================
+   Accessibility Component - WCAG 2.1 AA
+   Enhanced Accessibility Features
+   ======================================== */
+
+/* === SCREEN READER UTILITIES === */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: var(--spacing-md) !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  background: var(--color-primary) !important;
+  color: white !important;
+  border-radius: var(--radius-md) !important;
+  z-index: var(--z-modal) !important;
+}
+
+/* === SKIP LINKS === */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: var(--spacing-md);
+  background: var(--color-primary);
+  color: white;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  z-index: var(--z-modal);
+  transition: top var(--transition-fast);
+  font-size: var(--font-size-body);
+}
+
+.skip-link:focus {
+  top: var(--spacing-md);
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* === FOCUS MANAGEMENT === */
+.focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Enhanced focus for interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+/* Focus trap for modals */
+.focus-trap-active {
+  position: relative;
+}
+
+.focus-trap-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-modal-backdrop);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* === HIGH CONTRAST SUPPORT === */
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: #0000FF;
+    --color-secondary: #800080;
+    --color-success: #008000;
+    --color-warning: #FF8C00;
+    --color-error: #FF0000;
+    --focus-ring-width: 3px;
+    --focus-ring-color: #0000FF;
+  }
+
+  .btn {
+    border: 2px solid currentColor;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .card,
+  .project-card,
+  .skill-category {
+    border: 2px solid var(--color-separator);
+  }
+}
+
+/* === REDUCED MOTION SUPPORT === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-name {
+    animation: none !important;
+  }
+
+  .typewriter-cursor {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .scroll-indicator {
+    animation: none !important;
+  }
+
+  .stat-number {
+    animation: none !important;
+  }
+}
+
+/* === FORCED COLORS MODE (Windows High Contrast) === */
+@media (forced-colors: active) {
+  .btn {
+    forced-color-adjust: none;
+    border: 2px solid ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .btn:hover,
+  .btn:focus-visible {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .theme-toggle {
+    border: 2px solid ButtonText;
+  }
+
+  .card,
+  .project-card {
+    border: 2px solid WindowText;
+    background: Window;
+    color: WindowText;
+  }
+}
+
+/* === TOUCH TARGET ACCESSIBILITY === */
+.touch-target {
+  min-width: var(--min-touch-target);
+  min-height: var(--min-touch-target);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure all interactive elements meet minimum touch target size */
+button,
+a[href],
+input,
+textarea,
+select,
+[tabindex]:not([tabindex="-1"]) {
+  min-height: var(--min-touch-target);
+  min-width: var(--min-touch-target);
+}
+
+/* Exception for inline links in text */
+p a,
+span a,
+li a {
+  min-height: auto;
+  min-width: auto;
+}
+
+/* === KEYBOARD NAVIGATION === */
+/* Ensure keyboard users can see the focus */
+.keyboard-user *:focus {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Hide focus outline for mouse users */
+.mouse-user *:focus {
+  outline: none;
+}
+
+/* === LIVE REGIONS === */
+[aria-live] {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+[aria-live].announce {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  padding: var(--spacing-md);
+  background: var(--color-secondary-background);
+  border: 1px solid var(--color-separator);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-md) 0;
+}
+
+/* === COLOR CONTRAST UTILITIES === */
+.high-contrast {
+  background: var(--color-label);
+  color: var(--color-background);
+  border: 2px solid currentColor;
+}
+
+.medium-contrast {
+  background: var(--color-secondary-label);
+  color: var(--color-background);
+}
+
+.accessible-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.accessible-link:hover,
+.accessible-link:focus-visible {
+  text-decoration-thickness: 2px;
+  background: rgba(0, 122, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+}
+
+/* === ERROR AND STATUS MESSAGING === */
+.error-message {
+  color: var(--color-error);
+  background: rgba(255, 59, 48, 0.1);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-error);
+  margin: var(--spacing-md) 0;
+}
+
+.success-message {
+  color: var(--color-success);
+  background: rgba(52, 199, 89, 0.1);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-success);
+  margin: var(--spacing-md) 0;
+}
+
+.warning-message {
+  color: var(--color-warning);
+  background: rgba(255, 149, 0, 0.1);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-warning);
+  margin: var(--spacing-md) 0;
+}
+
+/* === LANDMARK REGIONS === */
+[role="banner"],
+[role="navigation"],
+[role="main"],
+[role="contentinfo"],
+[role="complementary"],
+[role="region"] {
+  position: relative;
+}
+
+/* Visual indication of landmark regions for testing */
+.show-landmarks [role="banner"]::before,
+.show-landmarks [role="navigation"]::before,
+.show-landmarks [role="main"]::before,
+.show-landmarks [role="contentinfo"]::before {
+  content: attr(role);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  font-size: var(--font-size-caption-1);
+  padding: 2px 6px;
+  border-radius: 0 0 var(--radius-sm) 0;
+  z-index: var(--z-tooltip);
+  pointer-events: none;
+}
+
+/* === PRINT ACCESSIBILITY === */
+@media print {
+  .sr-only {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    clip: auto !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: smaller;
+    color: #666;
+  }
+
+  a[href^="mailto:"]::after,
+  a[href^="tel:"]::after {
+    content: "";
+  }
+} 

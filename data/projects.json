@@ -1,0 +1,173 @@
+{
+  "featured": [
+    {
+      "id": "portfolio-os-v6",
+      "title": "Portfolio OS V6",
+      "description": "Apple Design Language V6 ile geliştirilmiş, WCAG 2.1 AA uyumlu modern portfolio sistemi. Glassmorphism efektleri, tema yönetimi ve PWA özelliklerini içeren responsive tasarım.",
+      "category": "Web Development",
+      "status": "active",
+      "technologies": ["HTML5", "CSS3", "JavaScript", "PWA", "WCAG 2.1 AA"],
+      "year": "2024",
+      "featured": true,
+      "image": "/assets/images/projects/portfolio-os-v6.png",
+      "gallery": [
+        "/assets/images/projects/portfolio-os-v6-1.png",
+        "/assets/images/projects/portfolio-os-v6-2.png",
+        "/assets/images/projects/portfolio-os-v6-3.png"
+      ],
+      "links": {
+        "demo": "https://clbasaran.github.io/celal-site/",
+        "github": "https://github.com/clbasaran/celal-site"
+      },
+      "highlights": [
+        "Apple Design Language V6 compliant",
+        "WCAG 2.1 AA accessibility standards",
+        "Progressive Web App (PWA)",
+        "Dark/Light/Auto theme support",
+        "Responsive glassmorphism UI",
+        "Performance optimized"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "ecommerce-dashboard",
+      "title": "E-Commerce Dashboard",
+      "description": "Modern e-ticaret yönetim paneli. Real-time analytics, inventory management ve order tracking özellikleri.",
+      "category": "Web Application",
+      "status": "completed",
+      "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL", "Material-UI"],
+      "year": "2023",
+      "featured": false,
+      "image": "/assets/images/projects/ecommerce-dashboard.png",
+      "client": "TechCommerce Ltd.",
+      "duration": "4 months",
+      "team": 3,
+      "role": "Lead Frontend Developer",
+      "links": {
+        "demo": "https://demo.ecommerce-dashboard.com"
+      }
+    },
+    {
+      "id": "healthcare-mobile-app",
+      "title": "Healthcare Mobile App",
+      "description": "Hasta takip ve randevu yönetimi mobil uygulaması. HIPAA compliant ve accessibility odaklı tasarım.",
+      "category": "Mobile Development",
+      "status": "completed",
+      "technologies": ["React Native", "Firebase", "Node.js", "MongoDB"],
+      "year": "2023",
+      "featured": false,
+      "image": "/assets/images/projects/healthcare-app.png",
+      "client": "HealthTech Solutions",
+      "duration": "6 months",
+      "team": 4,
+      "role": "Full Stack Developer & UX Designer"
+    },
+    {
+      "id": "fintech-design-system",
+      "title": "FinTech Design System",
+      "description": "Finansal teknoloji şirketi için kapsamlı design system. 50+ component ve accessibility guidelines.",
+      "category": "Design System",
+      "status": "completed",
+      "technologies": ["Figma", "Storybook", "React", "Sass", "TypeScript"],
+      "year": "2022",
+      "featured": false,
+      "image": "/assets/images/projects/fintech-design-system.png",
+      "client": "CryptoBank Inc.",
+      "duration": "8 months",
+      "team": 2,
+      "role": "Senior UI/UX Designer",
+      "links": {
+        "storybook": "https://storybook.cryptobank.com"
+      }
+    },
+    {
+      "id": "learning-platform",
+      "title": "Online Learning Platform",
+      "description": "Adaptive öğrenme algoritmaları ile kişiselleştirilmiş eğitim platformu. Video streaming ve interactive quizzes.",
+      "category": "EdTech",
+      "status": "completed",
+      "technologies": ["Vue.js", "Python", "Django", "Redis", "AWS"],
+      "year": "2022",
+      "featured": false,
+      "image": "/assets/images/projects/learning-platform.png",
+      "client": "EduTech Solutions",
+      "duration": "10 months",
+      "team": 6,
+      "role": "Frontend Lead & UX Designer"
+    },
+    {
+      "id": "real-estate-crm",
+      "title": "Real Estate CRM",
+      "description": "Emlak danışmanları için customer relationship management sistemi. Lead tracking ve automated workflows.",
+      "category": "CRM System",
+      "status": "completed", 
+      "technologies": ["Angular", "Node.js", "PostgreSQL", "Docker"],
+      "year": "2021",
+      "featured": false,
+      "image": "/assets/images/projects/real-estate-crm.png",
+      "client": "PropTech Ltd.",
+      "duration": "5 months",
+      "team": 3,
+      "role": "Full Stack Developer"
+    },
+    {
+      "id": "accessibility-audit-tool",
+      "title": "Accessibility Audit Tool",
+      "description": "Web sitelerinin WCAG 2.1 uyumluluğunu test eden automated audit tool. Detaylı raporlama ve öneriler.",
+      "category": "Accessibility Tool",
+      "status": "in-progress",
+      "technologies": ["Node.js", "Puppeteer", "React", "Express", "axe-core"],
+      "year": "2024",
+      "featured": false,
+      "image": "/assets/images/projects/accessibility-tool.png",
+      "client": "Open Source",
+      "duration": "ongoing",
+      "team": 1,
+      "role": "Solo Developer",
+      "links": {
+        "github": "https://github.com/clbasaran/accessibility-audit-tool"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "web-development",
+      "name": "Web Development",
+      "description": "Modern web uygulamaları ve siteler",
+      "count": 4
+    },
+    {
+      "id": "mobile-development", 
+      "name": "Mobile Development",
+      "description": "iOS ve Android mobil uygulamalar",
+      "count": 1
+    },
+    {
+      "id": "design-system",
+      "name": "Design System",
+      "description": "UI component kütüphaneleri ve design systems",
+      "count": 1
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility",
+      "description": "Web erişilebilirlik projeleri ve audit tools",
+      "count": 1
+    }
+  ],
+  "stats": {
+    "totalProjects": 7,
+    "completedProjects": 6,
+    "inProgressProjects": 1,
+    "featuredProjects": 1,
+    "clientSatisfaction": 100,
+    "averageProjectDuration": "6 months",
+    "technologiesUsed": 25
+  },
+  "meta": {
+    "lastUpdated": "2024-01-15T10:00:00Z",
+    "version": "1.0.0",
+    "source": "portfolio-os-v6"
+  }
+} 

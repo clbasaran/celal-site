@@ -62,11 +62,15 @@ class PortfolioApp {
       this.showLoadingIndicator();
       
       // Core modülleri sırayla başlat
-      await this.initThemeManager();
-      await this.initNavigationSystem(); 
-      await this.initAccessibilityManager();
-      await this.initAnimationSystem();
-      await this.initInteractionHandlers();
+      await this.loadCoreModules();
+      
+      // Component'leri yükle
+      await this.loadComponents();
+      
+      // Data layer'ı başlat
+      await this.initDataLayer();
+      
+      // PWA özelliklerini başlat
       await this.initPWAFeatures();
       
       // Loading indicator gizle
@@ -88,6 +92,197 @@ class PortfolioApp {
       this.log('Bootstrap hatası:', 'error', error);
       this.handleCriticalError(error);
     }
+  }
+
+  async loadCoreModules() {
+    const coreModules = [
+      { name: 'themeManager', loader: () => this.loadThemeManager() },
+      { name: 'dataManager', loader: () => this.loadDataManager() }
+    ];
+
+    for (const module of coreModules) {
+      try {
+        await module.loader();
+        this.log(`✅ ${module.name} yüklendi`, 'info');
+      } catch (error) {
+        this.log(`❌ ${module.name} yüklenemedi:`, 'error', error);
+      }
+    }
+  }
+
+  async loadComponents() {
+    const components = [
+      { name: 'navigation', loader: () => this.loadNavigationComponent() },
+      { name: 'hero', loader: () => this.loadHeroComponent() }
+    ];
+
+    // Paralel component yükleme
+    const loadPromises = components.map(async (component) => {
+      try {
+        await component.loader();
+        this.log(`✅ ${component.name} component yüklendi`, 'info');
+        return { name: component.name, status: 'success' };
+      } catch (error) {
+        this.log(`❌ ${component.name} component yüklenemedi:`, 'error', error);
+        return { name: component.name, status: 'error', error };
+      }
+    });
+
+    const results = await Promise.allSettled(loadPromises);
+    this.log('📦 Component yükleme tamamlandı', 'info', results);
+  }
+
+  async loadThemeManager() {
+    if (window.themeManager) {
+      this.modules.themeManager = window.themeManager;
+      this.log('🎨 Theme Manager zaten yüklü', 'info');
+      return;
+    }
+
+    // Theme Manager'ı dinamik yükle (eğer ayrı dosyada ise)
+    try {
+      await this.loadScript('./assets/js/components/theme-manager.js');
+      
+      // Yükleme tamamlanana kadar bekle
+      await this.waitForGlobal('themeManager', 5000);
+      
+      this.modules.themeManager = window.themeManager;
+      this.log('🎨 Theme Manager yüklendi', 'info');
+    } catch (error) {
+      this.log('Theme Manager yüklenemedi, fallback kullanılıyor', 'warn');
+      await this.initFallbackThemeManager();
+    }
+  }
+
+  async loadDataManager() {
+    if (window.dataManager) {
+      this.modules.dataManager = window.dataManager;
+      this.log('📊 Data Manager zaten yüklü', 'info');
+      return;
+    }
+
+    try {
+      await this.loadScript('./assets/js/utils/data-manager.js');
+      await this.waitForGlobal('dataManager', 5000);
+      
+      this.modules.dataManager = window.dataManager;
+      this.log('📊 Data Manager yüklendi', 'info');
+    } catch (error) {
+      this.log('Data Manager yüklenemedi', 'error', error);
+      throw error;
+    }
+  }
+
+  async loadNavigationComponent() {
+    if (window.navigationComponent) {
+      this.modules.navigation = window.navigationComponent;
+      this.log('🧭 Navigation zaten yüklü', 'info');
+      return;
+    }
+
+    try {
+      await this.loadScript('./assets/js/components/navigation.js');
+      await this.waitForGlobal('navigationComponent', 5000);
+      
+      this.modules.navigation = window.navigationComponent;
+      this.log('🧭 Navigation component yüklendi', 'info');
+    } catch (error) {
+      this.log('Navigation component yüklenemedi', 'error', error);
+      await this.initFallbackNavigation();
+    }
+  }
+
+  async loadHeroComponent() {
+    if (window.heroComponent) {
+      this.modules.hero = window.heroComponent;
+      this.log('🦸 Hero zaten yüklü', 'info');
+      return;
+    }
+
+    try {
+      await this.loadScript('./assets/js/components/hero.js');
+      await this.waitForGlobal('heroComponent', 5000);
+      
+      this.modules.hero = window.heroComponent;
+      this.log('🦸 Hero component yüklendi', 'info');
+    } catch (error) {
+      this.log('Hero component yüklenemedi', 'error', error);
+      // Hero component olmadan da çalışabilir
+    }
+  }
+
+  async initDataLayer() {
+    if (!this.modules.dataManager) {
+      this.log('Data Manager bulunamadı, veri yüklenemedi', 'warn');
+      return;
+    }
+
+    try {
+      // Kritik verileri yükle
+      const profileData = await this.modules.dataManager.getProfile();
+      const projectsData = await this.modules.dataManager.getProjects();
+      
+      // Global veri store
+      window.portfolioData = {
+        profile: profileData,
+        projects: projectsData
+      };
+      
+      this.log('📊 Data layer başlatıldı', 'info');
+      this.emit('data:loaded', { profile: profileData, projects: projectsData });
+      
+    } catch (error) {
+      this.log('Data layer başlatılamadı:', 'warn', error);
+      // Fallback data ile devam et
+      await this.initFallbackData();
+    }
+  }
+
+  async initFallbackData() {
+    window.portfolioData = {
+      profile: {
+        name: 'Celal Başaran',
+        title: 'Full Stack Developer & UI/UX Designer',
+        description: 'Apple Design Language V6 ile modern, erişilebilir web deneyimleri oluşturuyor.',
+        status: 'available'
+      },
+      projects: {
+        featured: [],
+        projects: []
+      }
+    };
+    
+    this.log('📋 Fallback data kullanılıyor', 'info');
+  }
+
+  async initFallbackThemeManager() {
+    // Basit fallback theme manager
+    this.modules.themeManager = {
+      getCurrentTheme: () => localStorage.getItem('portfolio-theme') || 'auto',
+      setTheme: (theme) => {
+        localStorage.setItem('portfolio-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+    };
+  }
+
+  async initFallbackNavigation() {
+    // Basit fallback navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+    
+    this.log('🧭 Fallback navigation aktif', 'info');
   }
 
   // === ACCESSIBILITY FEATURES ===
@@ -128,17 +323,10 @@ class PortfolioApp {
     document.addEventListener('keydown', (e) => {
       this.handleKeyboardNavigation(e);
     });
-    
-    // Tab trapping for modals
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Tab') {
-        this.handleTabNavigation(e);
-      }
-    });
   }
 
   handleKeyboardNavigation(event) {
-    const { key, ctrlKey, altKey, shiftKey } = event;
+    const { key, ctrlKey } = event;
     
     // Global keyboard shortcuts
     const shortcuts = {
@@ -147,9 +335,7 @@ class PortfolioApp {
       'p': () => ctrlKey && this.navigateToSection('projects'),
       's': () => ctrlKey && this.navigateToSection('skills'), 
       'c': () => ctrlKey && this.navigateToSection('contact'),
-      't': () => ctrlKey && this.toggleTheme(),
-      '/': () => this.focusSearch(),
-      '?': () => this.showKeyboardShortcuts()
+      't': () => ctrlKey && this.toggleTheme()
     };
     
     const handler = shortcuts[key];
@@ -158,26 +344,6 @@ class PortfolioApp {
       handler();
       this.announceToScreenReader(`Keyboard shortcut activated: ${key}`);
     }
-  }
-
-  handleTabNavigation(event) {
-    const focusableElements = this.getFocusableElements();
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-    
-    if (event.shiftKey && document.activeElement === firstElement) {
-      event.preventDefault();
-      lastElement.focus();
-    } else if (!event.shiftKey && document.activeElement === lastElement) {
-      event.preventDefault(); 
-      firstElement.focus();
-    }
-  }
-
-  getFocusableElements() {
-    return Array.from(document.querySelectorAll(
-      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    ));
   }
 
   setupFocusManagement() {
@@ -189,9 +355,6 @@ class PortfolioApp {
     document.addEventListener('mousedown', () => {
       document.body.classList.remove('keyboard-navigation');
     });
-    
-    // Focus stack for modal management
-    this.accessibility.focusStack = [];
   }
 
   setupLiveRegions() {
@@ -204,6 +367,17 @@ class PortfolioApp {
       liveRegion.setAttribute('aria-atomic', 'true');
       document.body.appendChild(liveRegion);
     }
+  }
+
+  handleHighContrastMode() {
+    const highContrastQuery = window.matchMedia('(prefers-contrast: high)');
+    
+    const applyHighContrast = (matches) => {
+      document.documentElement.classList.toggle('high-contrast', matches);
+    };
+    
+    applyHighContrast(highContrastQuery.matches);
+    highContrastQuery.addListener((e) => applyHighContrast(e.matches));
   }
 
   announceToScreenReader(message, priority = 'polite') {
@@ -221,241 +395,40 @@ class PortfolioApp {
     this.log(`📢 Screen Reader: ${message}`, 'info');
   }
 
-  // === THEME MANAGEMENT ===
+  // === NAVIGATION HELPERS ===
 
-  async initThemeManager() {
-    const savedTheme = localStorage.getItem('portfolio-theme');
-    const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    
-    this.config.theme = savedTheme || systemPreference;
-    this.applyTheme(this.config.theme);
-    
-    // Theme toggle button
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => this.toggleTheme());
-      this.updateThemeToggleButton();
-    }
-    
-    // System theme change listener
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (this.config.theme === 'auto') {
-        this.applyTheme(e.matches ? 'dark' : 'light');
+  navigateToSection(sectionId) {
+    if (this.modules.navigation && this.modules.navigation.navigateToSection) {
+      this.modules.navigation.navigateToSection(sectionId);
+    } else {
+      // Fallback navigation
+      const targetElement = document.getElementById(sectionId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
       }
-    });
-    
-    this.log('🎨 Theme manager initialized', 'info');
+    }
   }
 
   toggleTheme() {
-    const themes = ['light', 'dark', 'auto'];
-    const currentIndex = themes.indexOf(this.config.theme);
-    const nextTheme = themes[(currentIndex + 1) % themes.length];
-    
-    this.config.theme = nextTheme;
-    localStorage.setItem('portfolio-theme', nextTheme);
-    
-    this.applyTheme(nextTheme);
-    this.updateThemeToggleButton();
-    
-    this.announceToScreenReader(`Theme changed to ${nextTheme} mode`);
-    this.emit('theme:changed', { theme: nextTheme });
-  }
-
-  applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    
-    // Update meta theme-color for PWA
-    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeColorMeta) {
-      const color = theme === 'dark' ? '#000000' : '#FFFFFF';
-      themeColorMeta.setAttribute('content', color);
+    if (this.modules.themeManager && this.modules.themeManager.cycleTheme) {
+      this.modules.themeManager.cycleTheme();
+    } else {
+      // Fallback theme toggle
+      const current = localStorage.getItem('portfolio-theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
+      localStorage.setItem('portfolio-theme', next);
+      document.documentElement.setAttribute('data-theme', next);
     }
   }
 
-  updateThemeToggleButton() {
-    const themeIcon = document.querySelector('.theme-icon');
-    const icons = {
-      light: '🌙',
-      dark: '☀️', 
-      auto: '🌓'
-    };
-    
-    if (themeIcon) {
-      themeIcon.textContent = icons[this.config.theme];
-    }
-  }
-
-  // === NAVIGATION SYSTEM ===
-
-  async initNavigationSystem() {
-    // Mobile navigation toggle
-    this.setupMobileNavigation();
-    
-    // Smooth scroll navigation
-    this.setupSmoothScrolling();
-    
-    // Active section tracking
-    this.setupSectionTracking();
-    
-    // Breadcrumb navigation
-    this.setupBreadcrumbs();
-    
-    this.log('🧭 Navigation system initialized', 'info');
-  }
-
-  setupMobileNavigation() {
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (navToggle && navMenu) {
-      navToggle.addEventListener('click', () => {
-        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-        
-        navToggle.setAttribute('aria-expanded', !isExpanded);
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        // Focus management
-        if (!isExpanded) {
-          this.trapFocus(navMenu);
-          navMenu.querySelector('.nav-link').focus();
-        } else {
-          this.releaseFocus();
-        }
-        
-        this.announceToScreenReader(
-          isExpanded ? 'Navigation menu closed' : 'Navigation menu opened'
-        );
-      });
-    }
-  }
-
-  setupSmoothScrolling() {
-    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-    
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        this.navigateToSection(targetId);
-      });
-    });
-  }
-
-  navigateToSection(sectionId) {
-    const targetElement = document.getElementById(sectionId);
-    
-    if (targetElement) {
-      // Close mobile menu
-      this.closeMobileMenu();
-      
-      // Smooth scroll with offset for fixed header
-      const headerHeight = document.querySelector('.navigation').offsetHeight;
-      const targetPosition = targetElement.offsetTop - headerHeight;
-      
-      window.scrollTo({
-        top: targetPosition,
-        behavior: this.config.reducedMotion ? 'auto' : 'smooth'
-      });
-      
-      // Update active navigation link
-      this.updateActiveNavigation(sectionId);
-      
-      // Announce to screen reader
-      const sectionTitle = targetElement.querySelector('h1, h2, h3')?.textContent;
-      this.announceToScreenReader(`Navigated to ${sectionTitle || sectionId} section`);
-    }
-  }
-
-  setupSectionTracking() {
-    // Intersection Observer for active section tracking
-    const observerOptions = {
-      rootMargin: '-20% 0px -70% 0px',
-      threshold: 0
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.updateActiveNavigation(entry.target.id);
-        }
-      });
-    }, observerOptions);
-
-    // Observe all sections with IDs
-    document.querySelectorAll('section[id]').forEach(section => {
-      observer.observe(section);
-    });
-
-    this.performance.observers.set('sectionTracking', observer);
-  }
-
-  updateActiveNavigation(activeId) {
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-      const isActive = link.getAttribute('href') === `#${activeId}`;
-      link.classList.toggle('active', isActive);
-      link.setAttribute('aria-current', isActive ? 'page' : 'false');
-    });
-  }
-
-  closeMobileMenu() {
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (navToggle && navMenu) {
-      navToggle.setAttribute('aria-expanded', 'false');
-      navToggle.classList.remove('active');
-      navMenu.classList.remove('active');
-      this.releaseFocus();
-    }
-  }
-
-  // === ANIMATION SYSTEM ===
-
-  async initAnimationSystem() {
-    if (this.config.reducedMotion) {
-      this.log('⚡ Animations disabled due to reduced motion preference', 'info');
-      return;
+  handleEscapeKey() {
+    // Close any open modals or menus
+    if (this.modules.navigation && this.modules.navigation.closeNavigation) {
+      this.modules.navigation.closeNavigation();
     }
     
-    // Intersection Observer for scroll animations
-    this.setupScrollAnimations();
-    
-    // Parallax effects (if motion allowed)
-    this.setupParallaxEffects();
-    
-    this.log('🎬 Animation system initialized', 'info');
-  }
-
-  setupScrollAnimations() {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -10% 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          entry.target.setAttribute('aria-hidden', 'false');
-        }
-      });
-    }, observerOptions);
-
-    // Observe animatable elements
-    const animatableElements = document.querySelectorAll(
-      '.project-card, .skill-category, .stat-item, .section-header'
-    );
-    
-    animatableElements.forEach(el => {
-      el.setAttribute('aria-hidden', 'true');
-      observer.observe(el);
-    });
-
-    this.performance.observers.set('scrollAnimations', observer);
+    // Emit escape event for other components
+    this.emit('app:escape');
   }
 
   // === PERFORMANCE MONITORING ===
@@ -466,9 +439,6 @@ class PortfolioApp {
     
     // Resource loading metrics
     this.measureResourceMetrics();
-    
-    // User interaction metrics
-    this.measureInteractionMetrics();
   }
 
   measureWebVitals() {
@@ -487,14 +457,11 @@ class PortfolioApp {
       this.performance.metrics.set('LCP', lastEntry.startTime);
     });
     lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+  }
 
-    // First Input Delay
-    const fidObserver = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        this.performance.metrics.set('FID', entry.processingStart - entry.startTime);
-      }
-    });
-    fidObserver.observe({ entryTypes: ['first-input'] });
+  measureResourceMetrics() {
+    // Measure component load times
+    this.performance.componentLoadStart = performance.now();
   }
 
   calculateLoadMetrics() {
@@ -516,9 +483,6 @@ class PortfolioApp {
     // Install prompt handling
     this.setupInstallPrompt();
     
-    // Offline handling
-    this.setupOfflineHandling();
-    
     this.log('📱 PWA features initialized', 'info');
   }
 
@@ -537,21 +501,15 @@ class PortfolioApp {
     }
   }
 
+  setupInstallPrompt() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window.installPrompt = e;
+      this.emit('pwa:installable');
+    });
+  }
+
   // === UTILITY METHODS ===
-
-  trapFocus(element) {
-    this.accessibility.focusStack.push(document.activeElement);
-    element.setAttribute('aria-modal', 'true');
-    document.body.classList.add('focus-trap-active');
-  }
-
-  releaseFocus() {
-    const previousFocus = this.accessibility.focusStack.pop();
-    if (previousFocus) {
-      previousFocus.focus();
-    }
-    document.body.classList.remove('focus-trap-active');
-  }
 
   showLoadingIndicator() {
     const loader = document.getElementById('loading-indicator');
@@ -635,8 +593,57 @@ class PortfolioApp {
     return Object.fromEntries(this.performance.metrics);
   }
 
-  isAccessible() {
-    return this.accessibility.screenReader || this.accessibility.keyboardNavigation;
+  getModules() {
+    return { ...this.modules };
+  }
+
+  isReady() {
+    return this.isInitialized;
+  }
+
+  async reload() {
+    this.log('🔄 Portfolio OS yeniden başlatılıyor...', 'info');
+    
+    // Cleanup current modules
+    Object.values(this.modules).forEach(module => {
+      if (module && typeof module.destroy === 'function') {
+        module.destroy();
+      }
+    });
+    
+    this.modules = {};
+    this.isInitialized = false;
+    
+    // Restart
+    await this.bootstrap();
+  }
+
+  async loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  async waitForGlobal(globalName, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+      const startTime = Date.now();
+      
+      const checkGlobal = () => {
+        if (window[globalName]) {
+          resolve(window[globalName]);
+        } else if (Date.now() - startTime > timeout) {
+          reject(new Error(`Global ${globalName} not found within ${timeout}ms`));
+        } else {
+          setTimeout(checkGlobal, 100);
+        }
+      };
+      
+      checkGlobal();
+    });
   }
 }
 

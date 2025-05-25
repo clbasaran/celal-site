@@ -1,0 +1,74 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- iPhone frame -->
+  <rect width="390" height="844" rx="39" fill="#1D1D1F"/>
+  <rect x="12" y="12" width="366" height="820" rx="27" fill="#F2F2F7"/>
+  
+  <!-- Status bar -->
+  <text x="30" y="40" font-family="SF Pro Text, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#1D1D1F">9:41</text>
+  <text x="320" y="40" font-family="SF Pro Text, -apple-system, sans-serif" font-size="14" fill="#1D1D1F">100%</text>
+  <rect x="330" y="32" width="20" height="10" rx="2" fill="#34C759"/>
+  
+  <!-- Navigation -->
+  <rect x="12" y="55" width="366" height="60" fill="rgba(255,255,255,0.8)" stroke="#E5E5EA" stroke-width="1"/>
+  <text x="30" y="90" font-family="SF Pro Display, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#007AFF">🍎 Portfolio OS</text>
+  
+  <!-- Hamburger menu -->
+  <rect x="340" y="75" width="20" height="2" rx="1" fill="#007AFF"/>
+  <rect x="340" y="82" width="20" height="2" rx="1" fill="#007AFF"/>
+  <rect x="340" y="89" width="20" height="2" rx="1" fill="#007AFF"/>
+  
+  <!-- Hero Section Mobile -->
+  <rect x="12" y="115" width="366" height="400" fill="linear-gradient(135deg, #007AFF 0%, #5856D6 100%)" opacity="0.1"/>
+  
+  <!-- Hero Content Mobile -->
+  <text x="30" y="150" font-family="SF Pro Display, -apple-system, sans-serif" font-size="10" font-weight="500" fill="#007AFF">Portfolio OS V6 Aktif</text>
+  
+  <text x="30" y="190" font-family="SF Pro Display, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#1D1D1F">Merhaba, Ben</text>
+  <text x="30" y="220" font-family="SF Pro Display, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#007AFF">Celal Başaran</text>
+  
+  <text x="30" y="250" font-family="SF Pro Text, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#86868B">Full Stack Developer</text>
+  <text x="30" y="270" font-family="SF Pro Text, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#86868B">&amp; UI/UX Designer</text>
+  
+  <!-- Mobile avatar -->
+  <circle cx="300" cy="220" r="60" fill="#F2F2F7" stroke="#E5E5EA" stroke-width="1"/>
+  <text x="300" y="230" font-family="system-ui" font-size="30" text-anchor="middle">👨‍💻</text>
+  
+  <!-- Mobile buttons -->
+  <rect x="30" y="320" width="330" height="44" rx="22" fill="#007AFF"/>
+  <text x="195" y="347" font-family="SF Pro Text, -apple-system, sans-serif" font-size="17" font-weight="600" fill="white" text-anchor="middle">Projelerimi Gör</text>
+  
+  <rect x="30" y="375" width="330" height="44" rx="22" fill="none" stroke="#007AFF" stroke-width="1"/>
+  <text x="195" y="402" font-family="SF Pro Text, -apple-system, sans-serif" font-size="17" font-weight="600" fill="#007AFF" text-anchor="middle">CV İndir</text>
+  
+  <!-- Sections preview -->
+  <rect x="12" y="525" width="366" height="100" fill="white" stroke="#E5E5EA" stroke-width="1"/>
+  <text x="30" y="550" font-family="SF Pro Display, -apple-system, sans-serif" font-size="20" font-weight="600" fill="#1D1D1F">Hakkımda</text>
+  <text x="30" y="575" font-family="SF Pro Text, -apple-system, sans-serif" font-size="14" fill="#86868B">Apple Design Language V6 prensipleriyle</text>
+  <text x="30" y="595" font-family="SF Pro Text, -apple-system, sans-serif" font-size="14" fill="#86868B">modern ve erişilebilir web deneyimleri...</text>
+  
+  <rect x="12" y="635" width="366" height="100" fill="white" stroke="#E5E5EA" stroke-width="1"/>
+  <text x="30" y="660" font-family="SF Pro Display, -apple-system, sans-serif" font-size="20" font-weight="600" fill="#1D1D1F">Projeler</text>
+  
+  <!-- Project cards mini -->
+  <rect x="30" y="675" width="80" height="50" rx="8" fill="#F2F2F7" stroke="#E5E5EA"/>
+  <rect x="120" y="675" width="80" height="50" rx="8" fill="#F2F2F7" stroke="#E5E5EA"/>
+  <rect x="210" y="675" width="80" height="50" rx="8" fill="#F2F2F7" stroke="#E5E5EA"/>
+  <rect x="300" y="675" width="50" height="50" rx="8" fill="#F2F2F7" stroke="#E5E5EA"/>
+  
+  <!-- Skills section -->
+  <rect x="12" y="745" width="366" height="60" fill="white" stroke="#E5E5EA" stroke-width="1"/>
+  <text x="30" y="770" font-family="SF Pro Display, -apple-system, sans-serif" font-size="20" font-weight="600" fill="#1D1D1F">Yetenekler</text>
+  
+  <!-- Skill tags -->
+  <rect x="30" y="780" width="50" height="20" rx="10" fill="#007AFF"/>
+  <text x="55" y="793" font-family="SF Pro Text, -apple-system, sans-serif" font-size="10" font-weight="500" fill="white" text-anchor="middle">HTML5</text>
+  
+  <rect x="90" y="780" width="45" height="20" rx="10" fill="#5856D6"/>
+  <text x="112" y="793" font-family="SF Pro Text, -apple-system, sans-serif" font-size="10" font-weight="500" fill="white" text-anchor="middle">CSS3</text>
+  
+  <rect x="145" y="780" width="35" height="20" rx="10" fill="#34C759"/>
+  <text x="162" y="793" font-family="SF Pro Text, -apple-system, sans-serif" font-size="10" font-weight="500" fill="white" text-anchor="middle">JS</text>
+  
+  <!-- Bottom navigation indicator -->
+  <rect x="170" y="810" width="50" height="4" rx="2" fill="#1D1D1F"/>
+</svg> 

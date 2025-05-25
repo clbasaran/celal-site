@@ -596,4 +596,13 @@ section {
     background: transparent !important;
     color: #000000 !important;
   }
-} 
+}
+
+/* === IMPORT UTILITIES === */
+@import url('./utilities.css');
+@import url('./themes.css');
+@import url('./components/navigation.css');
+@import url('./components/hero.css');
+@import url('./components/sections.css');
+@import url('./components/accessibility.css');
+@import url('./components/footer.css'); 

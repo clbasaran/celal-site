@@ -1,0 +1,97 @@
+/* ========================================
+   Footer Component - Apple Design V6
+   ======================================== */
+
+.footer {
+  background: var(--color-background);
+  border-top: 1px solid var(--color-separator);
+  padding: var(--spacing-2xl) 0 var(--spacing-xl) 0;
+  margin-top: var(--spacing-3xl);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  text-align: center;
+}
+
+.footer-text {
+  font-size: var(--font-size-footnote);
+  color: var(--color-secondary-label);
+  margin: 0;
+}
+
+.footer-compliance {
+  display: inline-block;
+  margin-left: var(--spacing-2);
+  padding: var(--spacing-1) var(--spacing-2);
+  background: var(--color-fill);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-caption-1);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+}
+
+.footer-nav {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-link {
+  font-size: var(--font-size-footnote);
+  color: var(--color-secondary-label);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+.footer-link:hover {
+  color: var(--color-primary);
+  background: var(--color-fill);
+}
+
+.footer-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background: var(--color-background);
+    border-top-color: var(--color-separator);
+  }
+}
+
+/* Print styles */
+@media print {
+  .footer {
+    border-top: 1pt solid #000000;
+    background: transparent !important;
+  }
+  
+  .footer-text,
+  .footer-link {
+    color: #000000 !important;
+  }
+} 
