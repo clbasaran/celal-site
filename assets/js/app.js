@@ -6,6 +6,7 @@
 // ===== IMPORTS =====
 import { ThemeManager } from './components/theme-manager.js';
 import { NavigationManager } from './components/navigation.js';
+import { HeroManager } from './components/hero.js';
 import { DataManager } from './components/data-manager.js';
 import { AnimationManager } from './components/animation-manager.js';
 import { PerformanceManager } from './components/performance-manager.js';
@@ -20,6 +21,7 @@ class PortfolioOSV6 {
         // Component managers
         this.theme = null;
         this.navigation = null;
+        this.hero = null;
         this.data = null;
         this.animation = null;
         this.performance = null;
@@ -96,6 +98,10 @@ class PortfolioOSV6 {
         // Navigation manager
         this.navigation = new NavigationManager();
         await this.navigation.init();
+        
+        // Hero manager
+        this.hero = new HeroManager();
+        await this.hero.init();
         
         // Update loading progress
         this.updateLoadingProgress(30, 'Temel bileşenler yüklendi');
