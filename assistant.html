@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Celal Başaran'ın AI Assistant'ı - Sorularınızı yanıtlamak ve size yardımcı olmak için buradayım">
+    <meta name="keywords" content="AI Assistant, Yapay Zeka, Chat, Celal Başaran, Portfolio">
+    <meta name="author" content="Celal Başaran">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="AI Assistant - Celal Başaran Portfolio">
+    <meta property="og:description" content="Portfolyom hakkında sorularınızı yanıtlamak için AI assistant'ım ile sohbet edin">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/assistant.html">
+    <meta property="og:image" content="assets/images/og-assistant.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Assistant - Celal Başaran">
+    <meta name="twitter:description" content="AI assistant ile portfolyom hakkında sohbet edin">
+    <meta name="twitter:image" content="assets/images/twitter-assistant.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="pwa/manifest.json">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components/assistant.chat.css">
+    <link rel="stylesheet" href="assets/css/components/accessibility.panel.css">
+    <link rel="stylesheet" href="assets/css/components/navbar.css">
+    <link rel="stylesheet" href="assets/css/components/footer.main.css">
+    <link rel="stylesheet" href="assets/css/components/animations.css">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="assets/fonts/sf-pro-display.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/js/modules/assistant.js" as="script">
+    <link rel="preload" href="assets/js/modules/accessibility.js" as="script">
+    
+    <title>AI Assistant - Celal Başaran Portfolio</title>
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "AI Assistant - Celal Başaran Portfolio",
+        "description": "Celal Başaran'ın AI Assistant'ı ile portfolyo hakkında sohbet edin",
+        "url": "https://celalbasaran.com/assistant.html",
+        "author": {
+            "@type": "Person",
+            "name": "Celal Başaran",
+            "url": "https://celalbasaran.com"
+        },
+        "inLanguage": "tr",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Celal Başaran Portfolio",
+            "url": "https://celalbasaran.com"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Ana içeriğe geç</a>
+    <a href="#assistant-chat" class="skip-link">AI Assistant'a geç</a>
+    <a href="#navigation" class="skip-link">Navigasyona geç</a>
+    
+    <!-- Accessibility Panel -->
+    <div id="accessibility-panel" class="accessibility-panel" role="dialog" aria-label="Erişilebilirlik Ayarları" aria-hidden="true">
+        <div class="accessibility-panel__content">
+            <div class="accessibility-panel__header">
+                <h2>Erişilebilirlik Ayarları</h2>
+                <button type="button" class="accessibility-panel__close" aria-label="Erişilebilirlik panelini kapat">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="accessibility-panel__body">
+                <div class="accessibility-option">
+                    <label for="high-contrast-toggle">Yüksek Kontrast</label>
+                    <input type="checkbox" id="high-contrast-toggle" role="switch" aria-describedby="high-contrast-desc">
+                    <span id="high-contrast-desc" class="accessibility-option__desc">Daha iyi görünürlük için yüksek kontrast modunu etkinleştir</span>
+                </div>
+                
+                <div class="accessibility-option">
+                    <label for="reduced-motion-toggle">Azaltılmış Hareket</label>
+                    <input type="checkbox" id="reduced-motion-toggle" role="switch" aria-describedby="reduced-motion-desc">
+                    <span id="reduced-motion-desc" class="accessibility-option__desc">Animasyonları ve geçişleri azalt</span>
+                </div>
+                
+                <div class="accessibility-option">
+                    <label for="focus-indicators-toggle">Odak Göstergeleri</label>
+                    <input type="checkbox" id="focus-indicators-toggle" role="switch" aria-describedby="focus-indicators-desc" checked>
+                    <span id="focus-indicators-desc" class="accessibility-option__desc">Klavye navigasyonu için görünür odak göstergeleri</span>
+                </div>
+                
+                <div class="accessibility-option">
+                    <label for="voice-announcements-toggle">Sesli Duyurular</label>
+                    <input type="checkbox" id="voice-announcements-toggle" role="switch" aria-describedby="voice-announcements-desc">
+                    <span id="voice-announcements-desc" class="accessibility-option__desc">Önemli değişiklikler için sesli duyurular</span>
+                </div>
+                
+                <div class="accessibility-option">
+                    <label for="font-size-range">Yazı Boyutu</label>
+                    <input type="range" id="font-size-range" min="0.8" max="1.5" step="0.1" value="1" aria-describedby="font-size-desc">
+                    <span id="font-size-desc" class="accessibility-option__desc">Yazı boyutunu ayarla (80% - 150%)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav id="navigation" class="navbar" role="navigation" aria-label="Ana navigasyon">
+        <div class="navbar__container">
+            <div class="navbar__brand">
+                <a href="index.html" class="navbar__logo" aria-label="Ana sayfaya git">
+                    <svg width="32" height="32" viewBox="0 0 32 32" class="navbar__logo-icon">
+                        <path d="M16 2L29 8.5L29 23.5L16 30L3 23.5L3 8.5L16 2Z" fill="currentColor"/>
+                    </svg>
+                    <span class="navbar__logo-text">Celal Başaran</span>
+                </a>
+            </div>
+            
+            <button type="button" class="navbar__toggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+            </button>
+            
+            <div id="navbar-menu" class="navbar__menu" role="menu">
+                <a href="index.html" class="navbar__link" role="menuitem">Ana Sayfa</a>
+                <a href="about.html" class="navbar__link" role="menuitem">Hakkımda</a>
+                <a href="skills.html" class="navbar__link" role="menuitem">Yetenekler</a>
+                <a href="projects.html" class="navbar__link" role="menuitem">Projeler</a>
+                <a href="blog.html" class="navbar__link" role="menuitem">Blog</a>
+                <a href="contact.html" class="navbar__link" role="menuitem">İletişim</a>
+                <a href="assistant.html" class="navbar__link navbar__link--active" role="menuitem" aria-current="page">AI Assistant</a>
+                
+                <div class="navbar__actions">
+                    <button type="button" class="navbar__accessibility-btn" aria-label="Erişilebilirlik ayarlarını aç" title="Erişilebilirlik">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </button>
+                    
+                    <button type="button" class="navbar__theme-toggle" aria-label="Tema değiştir" title="Koyu/Açık tema">
+                        <svg class="navbar__theme-icon navbar__theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="navbar__theme-icon navbar__theme-icon--dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="assistant-hero" aria-labelledby="assistant-hero-title">
+            <div class="container">
+                <div class="assistant-hero__content">
+                    <h1 id="assistant-hero-title" class="assistant-hero__title">
+                        AI Assistant
+                        <span class="assistant-hero__subtitle">Portfolyom hakkında her şeyi biliyorum</span>
+                    </h1>
+                    
+                    <div class="assistant-hero__description">
+                        <p>Merhaba! Ben Celal'ın AI assistant'ıyım. Portfolyosu, projeleri, yetenekleri ve deneyimleri hakkında sorularınızı yanıtlamak için buradayım. Ayrıca genel programlama ve teknoloji konularında da yardımcı olabilirim.</p>
+                    </div>
+                    
+                    <div class="assistant-hero__features">
+                        <div class="feature-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4"></path>
+                                <circle cx="12" cy="12" r="9"></circle>
+                            </svg>
+                            <span>Anında Yanıt</span>
+                        </div>
+                        <div class="feature-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                            <span>Portfolyo Uzmanı</span>
+                        </div>
+                        <div class="feature-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                            <span>Sesli Girdi</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="assistant-hero__visual">
+                    <div class="ai-avatar">
+                        <div class="ai-avatar__circle">
+                            <div class="ai-avatar__core"></div>
+                            <div class="ai-avatar__ring ai-avatar__ring--1"></div>
+                            <div class="ai-avatar__ring ai-avatar__ring--2"></div>
+                            <div class="ai-avatar__ring ai-avatar__ring--3"></div>
+                        </div>
+                        <div class="ai-avatar__pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Assistant Chat Interface -->
+        <section id="assistant-chat" class="assistant-chat" aria-labelledby="chat-title">
+            <div class="container">
+                <div class="assistant-chat__header">
+                    <h2 id="chat-title" class="assistant-chat__title">Sohbet</h2>
+                    <div class="assistant-chat__status">
+                        <div class="status-indicator status-indicator--online" aria-label="Assistant aktif"></div>
+                        <span>AI Assistant aktif</span>
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <!-- Chat Messages Area -->
+                    <div class="chat-messages" role="log" aria-live="polite" aria-label="Sohbet mesajları">
+                        <div class="chat-message chat-message--assistant" role="article">
+                            <div class="chat-message__avatar">
+                                <div class="avatar avatar--ai">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 1L21.5 6.5V17.5L12 23L2.5 17.5V6.5L12 1Z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="chat-message__content">
+                                <div class="chat-message__bubble">
+                                    <p>Merhaba! Ben Celal'ın AI assistant'ıyım. Size nasıl yardımcı olabilirim? Portfolyosu, projeleri, yetenekleri hakkında sorularınızı yanıtlayabilirim. 😊</p>
+                                </div>
+                                <time class="chat-message__time" datetime="2024-01-01T12:00:00">Az önce</time>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Typing Indicator -->
+                    <div class="typing-indicator" aria-label="AI yazıyor" style="display: none;">
+                        <div class="typing-indicator__avatar">
+                            <div class="avatar avatar--ai">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 1L21.5 6.5V17.5L12 23L2.5 17.5V6.5L12 1Z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="typing-indicator__bubble">
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <button type="button" class="quick-action" data-message="Celal'ın yetenekleri nelerdir?">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 12l2 2 4-4"></path>
+                                <circle cx="12" cy="12" r="9"></circle>
+                            </svg>
+                            Yetenekleri
+                        </button>
+                        <button type="button" class="quick-action" data-message="En son projeleri nelerdir?">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="9" cy="9" r="2"></circle>
+                                <path d="M21 15l-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                            </svg>
+                            Projeler
+                        </button>
+                        <button type="button" class="quick-action" data-message="İş deneyimi nasıl?">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                            Deneyim
+                        </button>
+                        <button type="button" class="quick-action" data-message="İletişim bilgileri nelerdir?">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            İletişim
+                        </button>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <form class="chat-input" role="form" aria-label="Mesaj gönder">
+                        <div class="chat-input__container">
+                            <div class="chat-input__field">
+                                <textarea 
+                                    id="chat-input-textarea"
+                                    placeholder="Mesajınızı yazın..."
+                                    rows="1"
+                                    maxlength="2000"
+                                    aria-label="Mesaj yazın"
+                                    aria-describedby="chat-input-help"
+                                ></textarea>
+                                <div id="chat-input-help" class="chat-input__help">
+                                    Enter ile gönder, Shift+Enter ile yeni satır
+                                </div>
+                            </div>
+                            
+                            <div class="chat-input__actions">
+                                <button 
+                                    type="button" 
+                                    class="chat-input__voice-btn" 
+                                    aria-label="Sesli mesaj başlat" 
+                                    title="Sesli mesaj (Space tuşuna basılı tutun)"
+                                >
+                                    <svg class="voice-icon voice-icon--mic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                                    </svg>
+                                    <svg class="voice-icon voice-icon--stop" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                        <rect x="6" y="6" width="12" height="12" rx="2"></rect>
+                                    </svg>
+                                </button>
+                                
+                                <button 
+                                    type="submit" 
+                                    class="chat-input__send-btn" 
+                                    aria-label="Mesaj gönder"
+                                    disabled
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input__footer">
+                            <div class="chat-input__features">
+                                <span class="feature-hint">
+                                    <kbd>Enter</kbd> gönder • <kbd>Shift+Enter</kbd> yeni satır • <kbd>Space</kbd> sesli mesaj
+                                </span>
+                            </div>
+                            <div class="chat-input__character-count">
+                                <span class="current-count">0</span>/<span class="max-count">2000</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="assistant-faq" aria-labelledby="faq-title">
+            <div class="container">
+                <div class="assistant-faq__header">
+                    <h2 id="faq-title" class="assistant-faq__title">Sıkça Sorulan Sorular</h2>
+                    <p class="assistant-faq__description">AI Assistant hakkında merak ettiğiniz sorular</p>
+                </div>
+                
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3 class="faq-item__question">AI Assistant nasıl çalışır?</h3>
+                        <p class="faq-item__answer">AI Assistant, Celal'ın portfolyosu hakkındaki bilgileri analiz ederek sorularınızı yanıtlar. Gerçek zamanlı olarak etkileşim kurabilir ve konuşma geçmişinizi hatırlar.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-item__question">Hangi konularda yardım edebilir?</h3>
+                        <p class="faq-item__answer">Celal'ın yetenekleri, projeleri, iş deneyimi, eğitimi ve portfolyosu hakkında detaylı bilgi verebilir. Ayrıca genel programlama sorularınızı da yanıtlayabilir.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-item__question">Sesli mesaj nasıl gönderilir?</h3>
+                        <p class="faq-item__answer">Mikrofon butonuna tıklayın veya Space tuşuna basılı tutun. Mesajınızı söyledikten sonra butonu bırakın, sistem otomatik olarak metne çevirecektir.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h3 class="faq-item__question">Verilerim güvende mi?</h3>
+                        <p class="faq-item__answer">Evet, tüm konuşmalarınız yerel olarak saklanır ve başka hiçbir yerde paylaşılmaz. İstediğiniz zaman sohbet geçmişinizi silebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" class="footer__logo-icon">
+                            <path d="M16 2L29 8.5L29 23.5L16 30L3 23.5L3 8.5L16 2Z" fill="currentColor"/>
+                        </svg>
+                        <span class="footer__logo-text">Celal Başaran</span>
+                    </div>
+                    <p class="footer__description">
+                        Frontend Developer & UI/UX Designer<br>
+                        Yaratıcı ve kullanıcı odaklı çözümler geliştiriyorum.
+                    </p>
+                </div>
+                
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Navigasyon</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="index.html" class="footer__link">Ana Sayfa</a></li>
+                            <li><a href="about.html" class="footer__link">Hakkımda</a></li>
+                            <li><a href="skills.html" class="footer__link">Yetenekler</a></li>
+                            <li><a href="projects.html" class="footer__link">Projeler</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">İçerik</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="blog.html" class="footer__link">Blog</a></li>
+                            <li><a href="contact.html" class="footer__link">İletişim</a></li>
+                            <li><a href="assistant.html" class="footer__link">AI Assistant</a></li>
+                            <li><a href="hire-me.html" class="footer__link">İşe Alın</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Sosyal Medya</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="https://github.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">GitHub</a></li>
+                            <li><a href="https://linkedin.com/in/celalbasaran" class="footer__link" target="_blank" rel="noopener">LinkedIn</a></li>
+                            <li><a href="https://twitter.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">Twitter</a></li>
+                            <li><a href="https://instagram.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <div class="footer__copyright">
+                    <p>&copy; 2024 Celal Başaran. Tüm hakları saklıdır.</p>
+                </div>
+                <div class="footer__legal">
+                    <a href="#privacy" class="footer__legal-link">Gizlilik Politikası</a>
+                    <a href="#terms" class="footer__legal-link">Kullanım Şartları</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script type="module" src="assets/js/modules/utils.js"></script>
+    <script type="module" src="assets/js/modules/theme-manager.js"></script>
+    <script type="module" src="assets/js/modules/accessibility.js"></script>
+    <script type="module" src="assets/js/modules/assistant.js"></script>
+    <script type="module" src="assets/js/modules/performance-monitor.js"></script>
+    <script type="module" src="assets/js/modules/scroll-animations.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('pwa/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+    
+    <!-- Analytics (placeholder) -->
+    <script>
+        // Google Analytics veya diğer analytics kodları
+        // Bu bölüm gerçek proje için doldurulacak
+    </script>
+</body>
+</html> 

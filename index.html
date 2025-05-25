@@ -1,1 +1,454 @@
- 
+<!DOCTYPE html>
+<html lang="tr" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Portfolio OS • Celal Başaran • Modern iOS Developer Platform</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfolio OS - Modern iOS Developer platformu. AI Assistant, Erişilebilirlik özellikleri ve gelişmiş analytics ile donatılmış profesyonel portföy sistemi.">
+    <meta name="keywords" content="Portfolio OS, iOS Developer, SwiftUI, AI Assistant, Accessibility, Modern Web Platform">
+    <meta name="author" content="Celal Başaran">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Portfolio OS • Modern Developer Platform">
+    <meta property="og:description" content="AI destekli, erişilebilir ve analitik odaklı modern developer portfolyo platformu">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/">
+    <meta property="og:image" content="https://celalbasaran.com/assets/images/portfolio-os-og.jpg">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Portfolio OS">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="manifest" href="/pwa/manifest.json">
+    
+    <!-- Critical CSS -->
+    <link rel="preload" href="/assets/css/reset.css" as="style">
+    <link rel="preload" href="/assets/css/main.css" as="style">
+    <link rel="preload" href="/assets/css/components/navbar.css" as="style">
+    <link rel="preload" href="/assets/css/components/assistant.chat.css" as="style">
+    <link rel="preload" href="/assets/css/components/accessibility.panel.css" as="style">
+    
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/components/navbar.css">
+    <link rel="stylesheet" href="/assets/css/components/cards.css">
+    <link rel="stylesheet" href="/assets/css/components/animations.css">
+    <link rel="stylesheet" href="/assets/css/components/assistant.chat.css">
+    <link rel="stylesheet" href="/assets/css/components/accessibility.panel.css">
+    <link rel="stylesheet" href="/assets/css/components/stats.grid.css">
+    
+    <!-- Module Preloads -->
+    <link rel="modulepreload" href="/assets/js/init.js">
+    <link rel="modulepreload" href="/assets/js/app.js">
+    <link rel="modulepreload" href="/assets/js/script.js">
+    <link rel="modulepreload" href="/assets/js/modules/assistant.js">
+    <link rel="modulepreload" href="/assets/js/modules/accessibility.js">
+    <link rel="modulepreload" href="/assets/js/modules/session-manager.js">
+    <link rel="modulepreload" href="/assets/js/modules/config-loader.js">
+    <link rel="modulepreload" href="/assets/js/modules/scroll-persistence.js">
+    <link rel="modulepreload" href="/assets/js/modules/animation-orchestrator.js">
+    
+    <style>
+        /* Critical inline CSS for above-the-fold content */
+        .hero-section {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 60%, var(--green) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 64px;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-6);
+            background: linear-gradient(45deg, #fff, #e0f2fe);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 500;
+            margin-bottom: var(--space-8);
+            opacity: 0.9;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: var(--space-8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Links -->
+    <div class="skip-links">
+        <a href="#main" class="skip-link">Ana içeriğe geç</a>
+        <a href="#navigation" class="skip-link">Navigasyona geç</a>
+        <a href="#features" class="skip-link">Özelliklere geç</a>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">💻</div>
+            <div class="loading-text">Portfolio OS Yükleniyor</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loading-stats">
+                <div class="stat">
+                    <span class="label">Modüller</span>
+                    <span class="value" id="moduleCount">0/12</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Durum</span>
+                    <span class="value" id="systemStatus">Başlatılıyor</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav id="navigation" class="navbar glass" role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">💻</span>
+                    <span class="brand-text">Portfolio OS</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link active" aria-current="page">Ana Sayfa</a>
+                <a href="/about.html" class="nav-link">Hakkımda</a>
+                <a href="/projects.html" class="nav-link">Projeler</a>
+                <a href="/skills.html" class="nav-link">Yetenekler</a>
+                <a href="/blog.html" class="nav-link">Blog</a>
+                
+                <!-- New Module Pages -->
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false">
+                        Sistem <span class="dropdown-icon">▾</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="/assistant.html" class="dropdown-link">
+                            <span class="link-icon">🤖</span>
+                            <span class="link-text">AI Assistant</span>
+                        </a>
+                        <a href="/accessibility.html" class="dropdown-link">
+                            <span class="link-icon">♿</span>
+                            <span class="link-text">Erişilebilirlik</span>
+                        </a>
+                        <a href="/stats.html" class="dropdown-link">
+                            <span class="link-icon">📊</span>
+                            <span class="link-text">Analytics</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="/contact.html" class="nav-link">İletişim</a>
+                <a href="/hire-me.html" class="nav-link btn-primary">İşbirliği</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button id="themeToggle" class="control-btn" aria-label="Tema değiştir">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="aiAssistantToggle" class="control-btn" aria-label="AI Asistan">
+                    <span class="ai-icon">🤖</span>
+                </button>
+                <button id="accessibilityToggle" class="control-btn" aria-label="Erişilebilirlik Ayarları">
+                    <span class="accessibility-icon">♿</span>
+                </button>
+                <button id="menuToggle" class="menu-toggle" aria-label="Menü">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main" role="main">
+        <!-- Hero Section -->
+        <section class="hero-section" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="hero-content" data-anim="fadeInUp">
+                    <h1 id="hero-title" class="hero-title">
+                        Portfolio OS
+                    </h1>
+                    <p class="hero-subtitle">
+                        Modern developer için tasarlanmış AI destekli, erişilebilir ve analitik odaklı portfolyo platform sistemi
+                    </p>
+                    
+                    <div class="hero-actions" data-anim="staggerFadeIn">
+                        <button id="launchAssistant" class="btn-primary btn-large">
+                            <span class="btn-text">AI Assistant'ı Başlat</span>
+                            <span class="btn-icon">🚀</span>
+                        </button>
+                        <a href="/about.html" class="btn-secondary btn-large">
+                            <span class="btn-text">Hakkımda</span>
+                            <span class="btn-icon">👨‍💻</span>
+                        </a>
+                    </div>
+                    
+                    <!-- System Status Indicators -->
+                    <div class="system-indicators" data-anim="fadeInUp" data-anim-delay="600">
+                        <div class="indicator" id="aiStatus">
+                            <span class="indicator-icon">🤖</span>
+                            <span class="indicator-text">AI Assistant: Hazır</span>
+                        </div>
+                        <div class="indicator" id="accessibilityStatus">
+                            <span class="indicator-icon">♿</span>
+                            <span class="indicator-text">Erişilebilirlik: Aktif</span>
+                        </div>
+                        <div class="indicator" id="analyticsStatus">
+                            <span class="indicator-icon">📊</span>
+                            <span class="indicator-text">Analytics: Çalışıyor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="features-section" aria-labelledby="features-title">
+            <div class="container">
+                <header class="section-header" data-anim="fadeInUp">
+                    <h2 id="features-title" class="section-title">Sistem Özellikleri</h2>
+                    <p class="section-subtitle">
+                        Modern web teknolojileri ile güçlendirilmiş gelişmiş özellikler
+                    </p>
+                </header>
+                
+                <div class="feature-grid" data-anim="staggerFadeIn">
+                    <div class="feature-card" data-feature="ai-assistant">
+                        <div class="feature-icon">🤖</div>
+                        <h3 class="feature-title">AI Assistant</h3>
+                        <p class="feature-description">
+                            Doğal dil işleme ile portfolyo hakkında sorular sorun, session verilerinizi analiz edin
+                        </p>
+                        <div class="feature-stats">
+                            <span class="stat">NLP Destekli</span>
+                            <span class="stat">Sesli Komut</span>
+                            <span class="stat">Çok Dilli</span>
+                        </div>
+                        <a href="/assistant.html" class="feature-link">Keşfet →</a>
+                    </div>
+                    
+                    <div class="feature-card" data-feature="accessibility">
+                        <div class="feature-icon">♿</div>
+                        <h3 class="feature-title">Erişilebilirlik</h3>
+                        <p class="feature-description">
+                            WCAG 2.1 AA uyumlu, klavye navigasyonu ve ekran okuyucu desteği ile herkes için erişilebilir
+                        </p>
+                        <div class="feature-stats">
+                            <span class="stat">WCAG 2.1 AA</span>
+                            <span class="stat">Klavye Nav.</span>
+                            <span class="stat">Ekran Okuyucu</span>
+                        </div>
+                        <a href="/accessibility.html" class="feature-link">Ayarlar →</a>
+                    </div>
+                    
+                    <div class="feature-card" data-feature="analytics">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Advanced Analytics</h3>
+                        <p class="feature-description">
+                            Gerçek zamanlı performans metrikleri, kullanıcı davranış analizi ve detaylı raporlama
+                        </p>
+                        <div class="feature-stats">
+                            <span class="stat">Gerçek Zamanlı</span>
+                            <span class="stat">Core Web Vitals</span>
+                            <span class="stat">Session Tracking</span>
+                        </div>
+                        <a href="/stats.html" class="feature-link">Görüntüle →</a>
+                    </div>
+                    
+                    <div class="feature-card" data-feature="animation-system">
+                        <div class="feature-icon">✨</div>
+                        <h3 class="feature-title">Animation Orchestrator</h3>
+                        <p class="feature-description">
+                            Gelişmiş animasyon sistemi ile scroll-triggered animasyonlar ve staggered timing
+                        </p>
+                        <div class="feature-stats">
+                            <span class="stat">Intersection Observer</span>
+                            <span class="stat">GPU Hızlandırma</span>
+                            <span class="stat">Reduced Motion</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card" data-feature="config-system">
+                        <div class="feature-icon">⚙️</div>
+                        <h3 class="feature-title">Dynamic Config</h3>
+                        <p class="feature-description">
+                            Dinamik konfigürasyon yükleme, cache stratejileri ve hot-reload desteği
+                        </p>
+                        <div class="feature-stats">
+                            <span class="stat">Hot Reload</span>
+                            <span class="stat">Cache Strategy</span>
+                            <span class="stat">Fallback System</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card" data-feature="session-system">
+                        <div class="feature-icon">🔄</div>
+                        <h3 class="feature-title">Session Management</h3>
+                        <p class="feature-description">
+                            Gelişmiş session tracking, scroll persistence ve cross-tab senkronizasyon
+                        </p>
+                        <div class="feature-stats">
+                            <span class="stat">Cross-tab Sync</span>
+                            <span class="stat">Scroll Persistence</span>
+                            <span class="stat">Behavior Tracking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Access Section -->
+        <section class="quick-access-section" aria-labelledby="quick-access-title">
+            <div class="container">
+                <header class="section-header" data-anim="fadeInUp">
+                    <h2 id="quick-access-title" class="section-title">Hızlı Erişim</h2>
+                    <p class="section-subtitle">Sık kullanılan özelliklere tek tıkla ulaşın</p>
+                </header>
+                
+                <div class="quick-access-grid" data-anim="staggerFadeIn">
+                    <button class="quick-access-card" id="quickLaunchAI">
+                        <div class="quick-icon">🤖</div>
+                        <div class="quick-title">AI Assistant</div>
+                        <div class="quick-status" id="aiQuickStatus">Hazır</div>
+                    </button>
+                    
+                    <button class="quick-access-card" id="quickAccessibility">
+                        <div class="quick-icon">♿</div>
+                        <div class="quick-title">Erişilebilirlik</div>
+                        <div class="quick-status" id="a11yQuickStatus">Aktif</div>
+                    </button>
+                    
+                    <button class="quick-access-card" id="quickStats">
+                        <div class="quick-icon">📊</div>
+                        <div class="quick-title">Canlı İstatistikler</div>
+                        <div class="quick-status" id="statsQuickStatus">Canlı</div>
+                    </button>
+                    
+                    <button class="quick-access-card" id="quickTheme">
+                        <div class="quick-icon">🎨</div>
+                        <div class="quick-title">Tema Değiştir</div>
+                        <div class="quick-status" id="themeQuickStatus">Auto</div>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Portfolio OS</h3>
+                    <p>Modern developer platformu</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Platform</h4>
+                        <a href="/assistant.html">AI Assistant</a>
+                        <a href="/accessibility.html">Erişilebilirlik</a>
+                        <a href="/stats.html">Analytics</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Portfolyo</h4>
+                        <a href="/about.html">Hakkımda</a>
+                        <a href="/projects.html">Projeler</a>
+                        <a href="/skills.html">Yetenekler</a>
+                        <a href="/blog.html">Blog</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>İletişim</h4>
+                        <a href="/contact.html">İletişim</a>
+                        <a href="/hire-me.html">İşbirliği</a>
+                    </div>
+                </div>
+                
+                <div class="footer-status">
+                    <h4>Sistem Durumu</h4>
+                    <div class="status-indicators">
+                        <div class="status-item">
+                            <span class="status-dot status-dot--success"></span>
+                            <span>Tüm Sistemler Çalışıyor</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-dot status-dot--success"></span>
+                            <span>AI Assistant: Online</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-dot status-dot--success"></span>
+                            <span>Analytics: Aktif</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Celal Başaran. Tüm hakları saklıdır.</p>
+                <div class="footer-tech">
+                    <span>Portfolio OS v2.0</span>
+                    <span>•</span>
+                    <span>12 Modül Aktif</span>
+                    <span>•</span>
+                    <span id="systemUptime">Uptime: Hesaplanıyor...</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ARIA Live Regions -->
+    <div id="polite-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    <div id="assertive-announcements" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+    
+    <!-- Scripts -->
+    <script type="module" src="/assets/js/init.js"></script>
+    <script type="module" src="/assets/js/app.js"></script>
+    <script type="module" src="/assets/js/script.js"></script>
+</body>
+</html> 

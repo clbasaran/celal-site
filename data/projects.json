@@ -1,152 +1,418 @@
 {
   "featured": [
     {
-      "id": "celalbasaran-app",
-      "title": "CelalBasaran.app",
-      "subtitle": "Personal Brand iOS App",
-      "description": "Native iOS uygulaması ile kişisel marka deneyimi. SwiftUI, Core ML ve ARKit entegrasyonu.",
-      "image": "/assets/images/projects/celalbasaran-app.jpg",
-      "technologies": ["SwiftUI", "Core ML", "ARKit", "CloudKit"],
-      "status": "development",
-      "year": "2025",
-      "link": "/posts/celalbasaran-app.html",
-      "github": "https://github.com/celalbasaran/celalbasaran-app",
-      "appstore": null,
-      "featured": true
-    },
-    {
-      "id": "cleanithx",
-      "title": "CleanITHX",
-      "subtitle": "AI-Powered System Optimizer",
-      "description": "Machine Learning ile sistem optimizasyonu. Intelligent cache management ve performance monitoring.",
-      "image": "/assets/images/projects/cleanithx.jpg",
-      "technologies": ["Swift", "Core ML", "Metal", "System Extensions"],
-      "status": "active",
-      "year": "2024",
-      "link": "/posts/cleanithx.html",
-      "github": "https://github.com/celalbasaran/cleanithx",
-      "appstore": "https://apps.apple.com/app/cleanithx",
-      "featured": true
-    },
-    {
-      "id": "signalci",
-      "title": "SignalCI",
-      "subtitle": "Enterprise CI/CD Platform",
-      "description": "iOS ekipleri için gelişmiş CI/CD pipeline yönetimi. Automated testing ve deployment.",
-      "image": "/assets/images/projects/signalci.jpg",
-      "technologies": ["Swift", "Vapor", "Docker", "Kubernetes"],
-      "status": "active",
-      "year": "2024",
-      "link": "/posts/signalci.html",
-      "github": "https://github.com/celalbasaran/signalci",
-      "appstore": null,
-      "featured": true
-    }
-  ],
-  "mobile": [
-    {
-      "id": "ios18-features",
-      "title": "iOS 18 Feature Explorer",
-      "subtitle": "Interactive iOS 18 Demo",
-      "description": "iOS 18'in yeni özelliklerini keşfetmek için interaktif demo uygulaması.",
-      "image": "/assets/images/projects/ios18-features.jpg",
-      "technologies": ["SwiftUI", "WidgetKit", "App Intents", "Live Activities"],
+      "id": "portfolio-os",
+      "title": "Portfolio OS",
+      "subtitle": "Apple Design Language V5 Portfolio System",
+      "description": "Modern web teknolojileri ile geliştirilmiş, Apple Design Language V5 prensiplerini takip eden enterprise-grade portfolio sistemi. 100+ modüler dosya ile gelişmiş mimari.",
+      "longDescription": "Portfolio OS, modern web development standartlarını Apple'ın tasarım felsefesi ile birleştiren kapsamlı bir portfolio sistemidir. Glassmorphism efektleri, gelişmiş animasyonlar ve responsive tasarım ile kullanıcı deneyimini ön planda tutar. Modüler mimari sayesinde kolayca genişletilebilir ve özelleştirilebilir.",
+      "category": "web",
       "status": "completed",
-      "year": "2024",
-      "link": "/posts/ios18-yenilikler.html",
-      "github": "https://github.com/celalbasaran/ios18-features",
-      "appstore": "https://apps.apple.com/app/ios18-features"
+      "featured": true,
+      "priority": 1,
+      "startDate": "2024-01-15",
+      "endDate": "2024-03-20",
+      "duration": "2 months",
+      "technologies": [
+        "HTML5", "CSS3", "JavaScript", "SCSS", "Webpack", "Git"
+      ],
+      "features": [
+        "Apple Design Language V5",
+        "Glassmorphism Effects",
+        "Responsive Design",
+        "Dark/Light Mode",
+        "Performance Optimized",
+        "SEO Friendly",
+        "Accessibility Compliant",
+        "Modular Architecture"
+      ],
+      "images": {
+        "thumbnail": "/assets/images/projects/portfolio-os/thumbnail.jpg",
+        "hero": "/assets/images/projects/portfolio-os/hero.jpg",
+        "gallery": [
+          "/assets/images/projects/portfolio-os/gallery-1.jpg",
+          "/assets/images/projects/portfolio-os/gallery-2.jpg",
+          "/assets/images/projects/portfolio-os/gallery-3.jpg",
+          "/assets/images/projects/portfolio-os/gallery-4.jpg"
+        ]
+      },
+      "links": {
+        "live": "https://celal-portfolio.com",
+        "github": "https://github.com/celalbasaran/portfolio-os",
+        "demo": "https://demo.celal-portfolio.com"
+      },
+      "metrics": {
+        "linesOfCode": 43000,
+        "files": 100,
+        "performanceScore": 98,
+        "accessibilityScore": 100,
+        "seoScore": 95
+      },
+      "awards": [
+        "Best Portfolio Design 2024",
+        "Innovation in Web Development"
+      ],
+      "testimonials": [
+        {
+          "author": "John Doe",
+          "role": "Senior Developer",
+          "company": "Tech Corp",
+          "text": "Incredible attention to detail and modern design principles."
+        }
+      ]
     },
     {
-      "id": "swiftui-masterclass",
-      "title": "SwiftUI Masterclass",
-      "subtitle": "Advanced SwiftUI Components",
-      "description": "Production-ready SwiftUI components ve advanced UI patterns koleksiyonu.",
-      "image": "/assets/images/projects/swiftui-masterclass.jpg",
-      "technologies": ["SwiftUI", "Combine", "AsyncImage", "LazyGrid"],
-      "status": "active",
-      "year": "2024",
-      "link": "/posts/swiftui.html",
-      "github": "https://github.com/celalbasaran/swiftui-masterclass",
-      "appstore": null
-    },
-    {
-      "id": "firebase-ios",
-      "title": "Firebase iOS Integration",
-      "subtitle": "Complete Firebase Setup",
-      "description": "iOS uygulamaları için kapsamlı Firebase entegrasyonu ve best practices.",
-      "image": "/assets/images/projects/firebase-ios.jpg",
-      "technologies": ["Firebase", "CloudFirestore", "Authentication", "Analytics"],
+      "id": "ecommerce-platform",
+      "title": "E-Commerce Platform",
+      "subtitle": "Full-Stack E-Commerce Solution",
+      "description": "React ve Node.js ile geliştirilmiş, mikroservis mimarisi kullanan enterprise-level e-ticaret platformu. Real-time inventory, payment processing ve analytics.",
+      "longDescription": "Modern e-ticaret ihtiyaçlarını karşılamak için tasarlanmış kapsamlı bir platform. Mikroservis mimarisi, real-time özellikler ve gelişmiş analytics ile işletmelerin dijital dönüşümünü destekler.",
+      "category": "fullstack",
       "status": "completed",
-      "year": "2023",
-      "link": "/posts/firebase.html",
-      "github": "https://github.com/celalbasaran/firebase-ios",
-      "appstore": null
-    }
-  ],
-  "ai": [
-    {
-      "id": "coreml-studio",
-      "title": "Core ML Studio",
-      "subtitle": "ML Model Development Kit",
-      "description": "iOS geliştiricileri için Core ML model geliştirme ve test araçları.",
-      "image": "/assets/images/projects/coreml-studio.jpg",
-      "technologies": ["Core ML", "CreateML", "TensorFlow", "Python"],
-      "status": "development",
-      "year": "2025",
-      "link": "/posts/coreml-studio.html",
-      "github": "https://github.com/celalbasaran/coreml-studio",
-      "appstore": null
+      "featured": true,
+      "priority": 2,
+      "startDate": "2023-09-01",
+      "endDate": "2024-01-15",
+      "duration": "4.5 months",
+      "technologies": [
+        "React", "Node.js", "Express", "MongoDB", "Redis", "Docker", "AWS", "Stripe"
+      ],
+      "features": [
+        "Microservices Architecture",
+        "Real-time Inventory",
+        "Payment Processing",
+        "Advanced Analytics",
+        "Admin Dashboard",
+        "Mobile Responsive",
+        "Multi-language Support",
+        "SEO Optimized"
+      ],
+      "images": {
+        "thumbnail": "/assets/images/projects/ecommerce/thumbnail.jpg",
+        "hero": "/assets/images/projects/ecommerce/hero.jpg",
+        "gallery": [
+          "/assets/images/projects/ecommerce/gallery-1.jpg",
+          "/assets/images/projects/ecommerce/gallery-2.jpg",
+          "/assets/images/projects/ecommerce/gallery-3.jpg"
+        ]
+      },
+      "links": {
+        "live": "https://ecommerce-demo.com",
+        "github": "https://github.com/celalbasaran/ecommerce-platform",
+        "case-study": "https://blog.celal.dev/ecommerce-case-study"
+      },
+      "metrics": {
+        "users": 10000,
+        "transactions": 50000,
+        "uptime": 99.9,
+        "loadTime": 1.2
+      }
     },
     {
-      "id": "vision-ai",
-      "title": "Vision AI Toolkit",
-      "subtitle": "Computer Vision Framework",
-      "description": "iOS uygulamaları için gelişmiş computer vision ve image processing kütüphanesi.",
-      "image": "/assets/images/projects/vision-ai.jpg",
-      "technologies": ["Vision", "Core Image", "Metal", "ARKit"],
-      "status": "active",
-      "year": "2024",
-      "link": "/posts/vision-ai.html",
-      "github": "https://github.com/celalbasaran/vision-ai",
-      "appstore": null
+      "id": "ai-chat-assistant",
+      "title": "AI Chat Assistant",
+      "subtitle": "Intelligent Customer Support System",
+      "description": "OpenAI GPT entegrasyonu ile geliştirilmiş akıllı müşteri destek sistemi. Natural language processing ve machine learning özellikleri.",
+      "longDescription": "Yapay zeka teknolojilerini kullanarak müşteri hizmetlerini otomatikleştiren gelişmiş bir chat sistemi. Natural language processing ile kullanıcı sorularını anlayıp uygun yanıtlar üretir.",
+      "category": "ai",
+      "status": "in-progress",
+      "featured": true,
+      "priority": 3,
+      "startDate": "2024-02-01",
+      "endDate": null,
+      "duration": "ongoing",
+      "technologies": [
+        "Python", "FastAPI", "OpenAI GPT", "PostgreSQL", "React", "WebSocket", "Docker"
+      ],
+      "features": [
+        "Natural Language Processing",
+        "Context Awareness",
+        "Multi-language Support",
+        "Real-time Chat",
+        "Analytics Dashboard",
+        "Custom Training",
+        "API Integration",
+        "Scalable Architecture"
+      ],
+      "images": {
+        "thumbnail": "/assets/images/projects/ai-chat/thumbnail.jpg",
+        "hero": "/assets/images/projects/ai-chat/hero.jpg",
+        "gallery": [
+          "/assets/images/projects/ai-chat/gallery-1.jpg",
+          "/assets/images/projects/ai-chat/gallery-2.jpg"
+        ]
+      },
+      "links": {
+        "demo": "https://ai-chat-demo.com",
+        "github": "https://github.com/celalbasaran/ai-chat-assistant"
+      },
+      "metrics": {
+        "accuracy": 94,
+        "responseTime": 0.8,
+        "satisfaction": 4.7
+      }
     }
   ],
-  "web": [
+  "categories": [
     {
-      "id": "macos-guide",
-      "title": "macOS Development Guide",
-      "subtitle": "Complete macOS Tutorial",
-      "description": "macOS uygulama geliştirme için kapsamlı rehber ve örnek projeler.",
-      "image": "/assets/images/projects/macos-guide.jpg",
-      "technologies": ["AppKit", "SwiftUI", "Catalyst", "macOS APIs"],
-      "status": "active",
-      "year": "2024",
-      "link": "/posts/macos-rehberi.html",
-      "github": "https://github.com/celalbasaran/macos-guide",
-      "appstore": null
+      "id": "web",
+      "name": "Web Development",
+      "icon": "🌐",
+      "color": "#3b82f6",
+      "description": "Modern web applications ve responsive websites"
     },
     {
-      "id": "photography-portfolio",
-      "title": "Photography Portfolio",
-      "subtitle": "Visual Storytelling Platform",
-      "description": "Fotoğrafçılar için modern, responsive portfolio web sitesi.",
-      "image": "/assets/images/projects/photography.jpg",
-      "technologies": ["HTML5", "CSS3", "JavaScript", "WebGL"],
+      "id": "mobile",
+      "name": "Mobile Apps",
+      "icon": "📱",
+      "color": "#10b981",
+      "description": "iOS ve cross-platform mobile applications"
+    },
+    {
+      "id": "fullstack",
+      "name": "Full-Stack",
+      "icon": "⚡",
+      "color": "#f59e0b",
+      "description": "End-to-end application development"
+    },
+    {
+      "id": "ai",
+      "name": "AI/ML",
+      "icon": "🧠",
+      "color": "#8b5cf6",
+      "description": "Artificial Intelligence ve Machine Learning"
+    },
+    {
+      "id": "opensource",
+      "name": "Open Source",
+      "icon": "🔓",
+      "color": "#ef4444",
+      "description": "Community contributions ve open source projects"
+    },
+    {
+      "id": "design",
+      "name": "UI/UX Design",
+      "icon": "🎨",
+      "color": "#06b6d4",
+      "description": "User interface ve user experience design"
+    }
+  ],
+  "all": [
+    {
+      "id": "blog-cms",
+      "title": "Blog CMS",
+      "subtitle": "Content Management System",
+      "description": "Headless CMS mimarisi ile geliştirilmiş modern blog sistemi. Markdown desteği, SEO optimizasyonu ve admin paneli.",
+      "category": "web",
       "status": "completed",
-      "year": "2024",
-      "link": "/posts/photography.html",
-      "github": "https://github.com/celalbasaran/photography-portfolio",
-      "appstore": null
+      "featured": false,
+      "startDate": "2023-06-01",
+      "endDate": "2023-08-15",
+      "technologies": ["Next.js", "Strapi", "PostgreSQL", "Tailwind CSS"],
+      "images": {
+        "thumbnail": "/assets/images/projects/blog-cms/thumbnail.jpg"
+      },
+      "links": {
+        "live": "https://blog-cms-demo.com",
+        "github": "https://github.com/celalbasaran/blog-cms"
+      }
+    },
+    {
+      "id": "task-manager",
+      "title": "Task Manager",
+      "subtitle": "Project Management Tool",
+      "description": "Agile metodolojileri destekleyen proje yönetim aracı. Kanban board, time tracking ve team collaboration özellikleri.",
+      "category": "web",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2023-03-01",
+      "endDate": "2023-05-30",
+      "technologies": ["Vue.js", "Laravel", "MySQL", "Socket.io"],
+      "images": {
+        "thumbnail": "/assets/images/projects/task-manager/thumbnail.jpg"
+      },
+      "links": {
+        "live": "https://task-manager-demo.com",
+        "github": "https://github.com/celalbasaran/task-manager"
+      }
+    },
+    {
+      "id": "weather-app",
+      "title": "Weather App",
+      "subtitle": "Cross-Platform Weather Application",
+      "description": "React Native ile geliştirilmiş hava durumu uygulaması. Real-time weather data, forecasts ve location-based services.",
+      "category": "mobile",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2023-01-15",
+      "endDate": "2023-02-28",
+      "technologies": ["React Native", "Expo", "OpenWeather API", "AsyncStorage"],
+      "images": {
+        "thumbnail": "/assets/images/projects/weather-app/thumbnail.jpg"
+      },
+      "links": {
+        "github": "https://github.com/celalbasaran/weather-app",
+        "app-store": "https://apps.apple.com/weather-app"
+      }
+    },
+    {
+      "id": "fitness-tracker",
+      "title": "Fitness Tracker",
+      "subtitle": "Health & Fitness Mobile App",
+      "description": "Flutter ile geliştirilmiş fitness takip uygulaması. Workout planning, progress tracking ve social features.",
+      "category": "mobile",
+      "status": "in-progress",
+      "featured": false,
+      "startDate": "2024-01-01",
+      "endDate": null,
+      "technologies": ["Flutter", "Dart", "Firebase", "HealthKit"],
+      "images": {
+        "thumbnail": "/assets/images/projects/fitness-tracker/thumbnail.jpg"
+      },
+      "links": {
+        "github": "https://github.com/celalbasaran/fitness-tracker"
+      }
+    },
+    {
+      "id": "data-visualization",
+      "title": "Data Visualization Dashboard",
+      "subtitle": "Interactive Analytics Platform",
+      "description": "D3.js ve React ile geliştirilmiş interaktif veri görselleştirme platformu. Real-time charts ve advanced analytics.",
+      "category": "fullstack",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2022-10-01",
+      "endDate": "2022-12-15",
+      "technologies": ["React", "D3.js", "Node.js", "MongoDB", "WebSocket"],
+      "images": {
+        "thumbnail": "/assets/images/projects/data-viz/thumbnail.jpg"
+      },
+      "links": {
+        "live": "https://data-viz-demo.com",
+        "github": "https://github.com/celalbasaran/data-visualization"
+      }
+    },
+    {
+      "id": "ml-image-classifier",
+      "title": "ML Image Classifier",
+      "subtitle": "Computer Vision Application",
+      "description": "TensorFlow ile geliştirilmiş görüntü sınıflandırma sistemi. Custom model training ve real-time prediction.",
+      "category": "ai",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2022-08-01",
+      "endDate": "2022-09-30",
+      "technologies": ["Python", "TensorFlow", "OpenCV", "Flask", "Docker"],
+      "images": {
+        "thumbnail": "/assets/images/projects/ml-classifier/thumbnail.jpg"
+      },
+      "links": {
+        "demo": "https://ml-classifier-demo.com",
+        "github": "https://github.com/celalbasaran/ml-image-classifier"
+      }
+    },
+    {
+      "id": "component-library",
+      "title": "React Component Library",
+      "subtitle": "Reusable UI Components",
+      "description": "TypeScript ile geliştirilmiş, Storybook dokümantasyonlu React component library. Design system implementation.",
+      "category": "opensource",
+      "status": "maintained",
+      "featured": false,
+      "startDate": "2022-05-01",
+      "endDate": null,
+      "technologies": ["React", "TypeScript", "Storybook", "Rollup", "Jest"],
+      "images": {
+        "thumbnail": "/assets/images/projects/component-lib/thumbnail.jpg"
+      },
+      "links": {
+        "npm": "https://npmjs.com/package/@celal/ui-components",
+        "github": "https://github.com/celalbasaran/react-component-library",
+        "storybook": "https://storybook.celal-ui.com"
+      }
+    },
+    {
+      "id": "design-system",
+      "title": "Design System",
+      "subtitle": "Comprehensive Design Language",
+      "description": "Figma ve code implementation ile geliştirilmiş kapsamlı design system. Tokens, components ve guidelines.",
+      "category": "design",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2022-03-01",
+      "endDate": "2022-07-15",
+      "technologies": ["Figma", "Design Tokens", "CSS Variables", "Documentation"],
+      "images": {
+        "thumbnail": "/assets/images/projects/design-system/thumbnail.jpg"
+      },
+      "links": {
+        "figma": "https://figma.com/design-system",
+        "documentation": "https://design-system.celal.dev"
+      }
     }
   ],
-  "stats": {
-    "totalProjects": 12,
-    "completedProjects": 6,
-    "activeProjects": 4,
-    "developmentProjects": 2,
-    "totalDownloads": "1.2M+",
-    "githubStars": "2.5K+",
-    "yearsExperience": 8
-  }
+  "statistics": {
+    "total": 11,
+    "completed": 8,
+    "inProgress": 2,
+    "maintained": 1,
+    "featured": 3,
+    "byCategory": {
+      "web": 3,
+      "mobile": 2,
+      "fullstack": 2,
+      "ai": 2,
+      "opensource": 1,
+      "design": 1
+    },
+    "technologies": {
+      "most_used": ["React", "JavaScript", "Node.js", "TypeScript", "Python"],
+      "trending": ["AI/ML", "React Native", "Docker", "AWS"]
+    }
+  },
+  "timeline": [
+    {
+      "year": 2024,
+      "projects": ["Portfolio OS", "AI Chat Assistant", "Fitness Tracker"],
+      "highlights": ["Apple Design Language V5", "AI Integration", "Mobile Development"]
+    },
+    {
+      "year": 2023,
+      "projects": ["E-Commerce Platform", "Blog CMS", "Task Manager", "Weather App"],
+      "highlights": ["Microservices", "Full-Stack Development", "Cross-Platform"]
+    },
+    {
+      "year": 2022,
+      "projects": ["Data Visualization", "ML Image Classifier", "Component Library", "Design System"],
+      "highlights": ["Data Science", "Machine Learning", "Open Source", "Design"]
+    }
+  ],
+  "skills_gained": {
+    "frontend": ["React", "Vue.js", "TypeScript", "CSS3", "Responsive Design"],
+    "backend": ["Node.js", "Python", "Laravel", "API Design", "Microservices"],
+    "mobile": ["React Native", "Flutter", "iOS Development", "Cross-Platform"],
+    "ai_ml": ["TensorFlow", "OpenAI GPT", "Computer Vision", "NLP"],
+    "devops": ["Docker", "AWS", "CI/CD", "Monitoring", "Deployment"],
+    "design": ["Figma", "Design Systems", "UI/UX", "Prototyping"]
+  },
+  "future_projects": [
+    {
+      "title": "Blockchain DApp",
+      "description": "Decentralized application with smart contracts",
+      "technologies": ["Solidity", "Web3.js", "React", "Ethereum"],
+      "timeline": "Q2 2024"
+    },
+    {
+      "title": "AR Mobile App",
+      "description": "Augmented reality mobile application",
+      "technologies": ["ARKit", "Swift", "3D Graphics", "Core ML"],
+      "timeline": "Q3 2024"
+    },
+    {
+      "title": "IoT Dashboard",
+      "description": "Internet of Things monitoring platform",
+      "technologies": ["MQTT", "InfluxDB", "Grafana", "Raspberry Pi"],
+      "timeline": "Q4 2024"
+    }
+  ]
 } 

@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Celal Başaran Portfolio - Site istatistikleri, analytics ve performance metrikleri">
+    <meta name="keywords" content="İstatistikler, Analytics, Performance, Celal Başaran, Portfolio, Metrics">
+    <meta name="author" content="Celal Başaran">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="İstatistikler - Celal Başaran Portfolio">
+    <meta property="og:description" content="Site performansı, kullanıcı deneyimi ve detaylı analytics istatistikleri">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/stats.html">
+    <meta property="og:image" content="assets/images/og-stats.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="İstatistikler - Celal Başaran">
+    <meta name="twitter:description" content="Portfolio site istatistikleri ve performance metrikleri">
+    <meta name="twitter:image" content="assets/images/twitter-stats.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="pwa/manifest.json">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components/stats.grid.css">
+    <link rel="stylesheet" href="assets/css/components/navbar.css">
+    <link rel="stylesheet" href="assets/css/components/footer.main.css">
+    <link rel="stylesheet" href="assets/css/components/animations.css">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="assets/fonts/sf-pro-display.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/js/modules/session-manager.js" as="script">
+    <link rel="preload" href="assets/js/modules/performance-monitor.js" as="script">
+    
+    <title>İstatistikler - Celal Başaran Portfolio</title>
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "İstatistikler - Celal Başaran Portfolio",
+        "description": "Site performansı ve kullanıcı deneyimi istatistikleri",
+        "url": "https://celalbasaran.com/stats.html",
+        "author": {
+            "@type": "Person",
+            "name": "Celal Başaran",
+            "url": "https://celalbasaran.com"
+        },
+        "inLanguage": "tr",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Celal Başaran Portfolio",
+            "url": "https://celalbasaran.com"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Ana içeriğe geç</a>
+    <a href="#stats-overview" class="skip-link">İstatistik özetine geç</a>
+    <a href="#performance-metrics" class="skip-link">Performance metriklerine geç</a>
+    <a href="#navigation" class="skip-link">Navigasyona geç</a>
+    
+    <!-- Navigation -->
+    <nav id="navigation" class="navbar" role="navigation" aria-label="Ana navigasyon">
+        <div class="navbar__container">
+            <div class="navbar__brand">
+                <a href="index.html" class="navbar__logo" aria-label="Ana sayfaya git">
+                    <svg width="32" height="32" viewBox="0 0 32 32" class="navbar__logo-icon">
+                        <path d="M16 2L29 8.5L29 23.5L16 30L3 23.5L3 8.5L16 2Z" fill="currentColor"/>
+                    </svg>
+                    <span class="navbar__logo-text">Celal Başaran</span>
+                </a>
+            </div>
+            
+            <button type="button" class="navbar__toggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+            </button>
+            
+            <div id="navbar-menu" class="navbar__menu" role="menu">
+                <a href="index.html" class="navbar__link" role="menuitem">Ana Sayfa</a>
+                <a href="about.html" class="navbar__link" role="menuitem">Hakkımda</a>
+                <a href="skills.html" class="navbar__link" role="menuitem">Yetenekler</a>
+                <a href="projects.html" class="navbar__link" role="menuitem">Projeler</a>
+                <a href="blog.html" class="navbar__link" role="menuitem">Blog</a>
+                <a href="contact.html" class="navbar__link" role="menuitem">İletişim</a>
+                <a href="assistant.html" class="navbar__link" role="menuitem">AI Assistant</a>
+                <a href="stats.html" class="navbar__link navbar__link--active" role="menuitem" aria-current="page">İstatistikler</a>
+                
+                <div class="navbar__actions">
+                    <button type="button" class="navbar__accessibility-btn" aria-label="Erişilebilirlik ayarlarını aç" title="Erişilebilirlik">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </button>
+                    
+                    <button type="button" class="navbar__theme-toggle" aria-label="Tema değiştir" title="Koyu/Açık tema">
+                        <svg class="navbar__theme-icon navbar__theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="navbar__theme-icon navbar__theme-icon--dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="stats-hero" aria-labelledby="stats-hero-title">
+            <div class="container">
+                <div class="stats-hero__content">
+                    <h1 id="stats-hero-title" class="stats-hero__title">
+                        İstatistikler
+                        <span class="stats-hero__subtitle">Site performansı ve analytics</span>
+                    </h1>
+                    
+                    <div class="stats-hero__description">
+                        <p>Bu sayfa, portfolyo sitesinin performance metrikleri, kullanıcı deneyimi istatistikleri ve analytics verilerini gerçek zamanlı olarak gösterir. Tüm veriler gizlilik odaklı bir yaklaşımla toplanır.</p>
+                    </div>
+                    
+                    <div class="stats-hero__controls">
+                        <div class="time-range-selector">
+                            <label for="time-range">Zaman Aralığı:</label>
+                            <select id="time-range" class="time-range-select">
+                                <option value="24h">Son 24 Saat</option>
+                                <option value="7d" selected>Son 7 Gün</option>
+                                <option value="30d">Son 30 Gün</option>
+                                <option value="90d">Son 90 Gün</option>
+                                <option value="1y">Son 1 Yıl</option>
+                            </select>
+                        </div>
+                        
+                        <button type="button" class="refresh-btn" id="refresh-stats" aria-label="İstatistikleri yenile">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"></polyline>
+                                <polyline points="1 20 1 14 7 14"></polyline>
+                                <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                            </svg>
+                            <span>Yenile</span>
+                        </button>
+                        
+                        <button type="button" class="export-btn" id="export-stats" aria-label="İstatistikleri dışa aktar">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Dışa Aktar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Stats Overview -->
+        <section id="stats-overview" class="stats-overview" aria-labelledby="overview-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="overview-title" class="section-title">Genel Bakış</h2>
+                    <p class="section-description">Sitenin temel performance ve kullanım istatistikleri</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card stat-card--visitors">
+                        <div class="stat-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Toplam Ziyaretçi</h3>
+                            <div class="stat-card__value">
+                                <span class="stat-number" data-stat="total-visitors">12,847</span>
+                                <span class="stat-change stat-change--positive">+8.2%</span>
+                            </div>
+                            <p class="stat-card__description">Son 30 günde</p>
+                        </div>
+                        <div class="stat-card__chart">
+                            <canvas id="visitors-chart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card--pageviews">
+                        <div class="stat-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Sayfa Görüntüleme</h3>
+                            <div class="stat-card__value">
+                                <span class="stat-number" data-stat="pageviews">34,256</span>
+                                <span class="stat-change stat-change--positive">+12.4%</span>
+                            </div>
+                            <p class="stat-card__description">Son 30 günde</p>
+                        </div>
+                        <div class="stat-card__chart">
+                            <canvas id="pageviews-chart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card--bounce-rate">
+                        <div class="stat-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Çıkış Oranı</h3>
+                            <div class="stat-card__value">
+                                <span class="stat-number" data-stat="bounce-rate">28.7%</span>
+                                <span class="stat-change stat-change--negative">-3.1%</span>
+                            </div>
+                            <p class="stat-card__description">Düşük daha iyi</p>
+                        </div>
+                        <div class="stat-card__chart">
+                            <canvas id="bounce-rate-chart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card--session-duration">
+                        <div class="stat-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Ortalama Oturum</h3>
+                            <div class="stat-card__value">
+                                <span class="stat-number" data-stat="session-duration">4m 32s</span>
+                                <span class="stat-change stat-change--positive">+15.8%</span>
+                            </div>
+                            <p class="stat-card__description">Kaliteli etkileşim</p>
+                        </div>
+                        <div class="stat-card__chart">
+                            <canvas id="session-duration-chart" width="100" height="40"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Performance Metrics -->
+        <section id="performance-metrics" class="performance-metrics" aria-labelledby="performance-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="performance-title" class="section-title">Performance Metrikleri</h2>
+                    <p class="section-description">Core Web Vitals ve sayfa performansı</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card metric-card--lcp">
+                        <div class="metric-card__header">
+                            <h3 class="metric-card__title">Largest Contentful Paint</h3>
+                            <div class="metric-card__score metric-card__score--good">İyi</div>
+                        </div>
+                        <div class="metric-card__value">
+                            <span class="metric-number">1.2s</span>
+                            <span class="metric-threshold">< 2.5s</span>
+                        </div>
+                        <div class="metric-card__description">
+                            <p>Ana içeriğin yüklenme hızı. 2.5 saniyenin altında olmalıdır.</p>
+                        </div>
+                        <div class="metric-card__progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 48%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card metric-card--fid">
+                        <div class="metric-card__header">
+                            <h3 class="metric-card__title">First Input Delay</h3>
+                            <div class="metric-card__score metric-card__score--excellent">Mükemmel</div>
+                        </div>
+                        <div class="metric-card__value">
+                            <span class="metric-number">12ms</span>
+                            <span class="metric-threshold">< 100ms</span>
+                        </div>
+                        <div class="metric-card__description">
+                            <p>İlk etkileşime yanıt verme süresi. 100ms'nin altında olmalıdır.</p>
+                        </div>
+                        <div class="metric-card__progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 12%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card metric-card--cls">
+                        <div class="metric-card__header">
+                            <h3 class="metric-card__title">Cumulative Layout Shift</h3>
+                            <div class="metric-card__score metric-card__score--good">İyi</div>
+                        </div>
+                        <div class="metric-card__value">
+                            <span class="metric-number">0.08</span>
+                            <span class="metric-threshold">< 0.1</span>
+                        </div>
+                        <div class="metric-card__description">
+                            <p>Beklenmeyen layout değişiklikleri. 0.1'in altında olmalıdır.</p>
+                        </div>
+                        <div class="metric-card__progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card metric-card--fcp">
+                        <div class="metric-card__header">
+                            <h3 class="metric-card__title">First Contentful Paint</h3>
+                            <div class="metric-card__score metric-card__score--good">İyi</div>
+                        </div>
+                        <div class="metric-card__value">
+                            <span class="metric-number">0.9s</span>
+                            <span class="metric-threshold">< 1.8s</span>
+                        </div>
+                        <div class="metric-card__description">
+                            <p>İlk içeriğin görünür olma süresi. 1.8 saniyenin altında olmalıdır.</p>
+                        </div>
+                        <div class="metric-card__progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lighthouse-scores">
+                    <h3 class="lighthouse-scores__title">Lighthouse Skorları</h3>
+                    <div class="lighthouse-grid">
+                        <div class="lighthouse-score">
+                            <div class="score-circle score-circle--performance">
+                                <span class="score-value">94</span>
+                            </div>
+                            <span class="score-label">Performance</span>
+                        </div>
+                        <div class="lighthouse-score">
+                            <div class="score-circle score-circle--accessibility">
+                                <span class="score-value">100</span>
+                            </div>
+                            <span class="score-label">Accessibility</span>
+                        </div>
+                        <div class="lighthouse-score">
+                            <div class="score-circle score-circle--best-practices">
+                                <span class="score-value">96</span>
+                            </div>
+                            <span class="score-label">Best Practices</span>
+                        </div>
+                        <div class="lighthouse-score">
+                            <div class="score-circle score-circle--seo">
+                                <span class="score-value">98</span>
+                            </div>
+                            <span class="score-label">SEO</span>
+                        </div>
+                        <div class="lighthouse-score">
+                            <div class="score-circle score-circle--pwa">
+                                <span class="score-value">92</span>
+                            </div>
+                            <span class="score-label">PWA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Traffic Analytics -->
+        <section class="traffic-analytics" aria-labelledby="traffic-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="traffic-title" class="section-title">Trafik Analizi</h2>
+                    <p class="section-description">Ziyaretçi kaynakları ve demografik bilgiler</p>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3 class="analytics-card__title">Trafik Kaynakları</h3>
+                        <div class="traffic-sources">
+                            <div class="traffic-source">
+                                <div class="traffic-source__label">
+                                    <span class="traffic-source__color" style="background-color: #4285f4;"></span>
+                                    <span class="traffic-source__name">Organic Search</span>
+                                </div>
+                                <div class="traffic-source__value">42.3%</div>
+                            </div>
+                            <div class="traffic-source">
+                                <div class="traffic-source__label">
+                                    <span class="traffic-source__color" style="background-color: #34a853;"></span>
+                                    <span class="traffic-source__name">Direct</span>
+                                </div>
+                                <div class="traffic-source__value">28.7%</div>
+                            </div>
+                            <div class="traffic-source">
+                                <div class="traffic-source__label">
+                                    <span class="traffic-source__color" style="background-color: #ea4335;"></span>
+                                    <span class="traffic-source__name">Social Media</span>
+                                </div>
+                                <div class="traffic-source__value">18.9%</div>
+                            </div>
+                            <div class="traffic-source">
+                                <div class="traffic-source__label">
+                                    <span class="traffic-source__color" style="background-color: #fbbc04;"></span>
+                                    <span class="traffic-source__name">Referral</span>
+                                </div>
+                                <div class="traffic-source__value">10.1%</div>
+                            </div>
+                        </div>
+                        <div class="traffic-chart">
+                            <canvas id="traffic-sources-chart" width="200" height="200"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <h3 class="analytics-card__title">Popüler Sayfalar</h3>
+                        <div class="popular-pages">
+                            <div class="page-item">
+                                <span class="page-rank">1</span>
+                                <div class="page-info">
+                                    <span class="page-name">Ana Sayfa</span>
+                                    <span class="page-url">/index.html</span>
+                                </div>
+                                <div class="page-stats">
+                                    <span class="page-views">8,245</span>
+                                    <span class="page-percentage">24.1%</span>
+                                </div>
+                            </div>
+                            <div class="page-item">
+                                <span class="page-rank">2</span>
+                                <div class="page-info">
+                                    <span class="page-name">Projeler</span>
+                                    <span class="page-url">/projects.html</span>
+                                </div>
+                                <div class="page-stats">
+                                    <span class="page-views">5,892</span>
+                                    <span class="page-percentage">17.2%</span>
+                                </div>
+                            </div>
+                            <div class="page-item">
+                                <span class="page-rank">3</span>
+                                <div class="page-info">
+                                    <span class="page-name">Hakkımda</span>
+                                    <span class="page-url">/about.html</span>
+                                </div>
+                                <div class="page-stats">
+                                    <span class="page-views">4,731</span>
+                                    <span class="page-percentage">13.8%</span>
+                                </div>
+                            </div>
+                            <div class="page-item">
+                                <span class="page-rank">4</span>
+                                <div class="page-info">
+                                    <span class="page-name">Blog</span>
+                                    <span class="page-url">/blog.html</span>
+                                </div>
+                                <div class="page-stats">
+                                    <span class="page-views">3,456</span>
+                                    <span class="page-percentage">10.1%</span>
+                                </div>
+                            </div>
+                            <div class="page-item">
+                                <span class="page-rank">5</span>
+                                <div class="page-info">
+                                    <span class="page-name">Yetenekler</span>
+                                    <span class="page-url">/skills.html</span>
+                                </div>
+                                <div class="page-stats">
+                                    <span class="page-views">2,987</span>
+                                    <span class="page-percentage">8.7%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <h3 class="analytics-card__title">Cihaz Dağılımı</h3>
+                        <div class="device-stats">
+                            <div class="device-item">
+                                <div class="device-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                                    </svg>
+                                </div>
+                                <div class="device-info">
+                                    <span class="device-name">Desktop</span>
+                                    <span class="device-percentage">56.8%</span>
+                                </div>
+                                <div class="device-bar">
+                                    <div class="device-fill" style="width: 56.8%;"></div>
+                                </div>
+                            </div>
+                            <div class="device-item">
+                                <div class="device-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                    </svg>
+                                </div>
+                                <div class="device-info">
+                                    <span class="device-name">Mobile</span>
+                                    <span class="device-percentage">34.7%</span>
+                                </div>
+                                <div class="device-bar">
+                                    <div class="device-fill" style="width: 34.7%;"></div>
+                                </div>
+                            </div>
+                            <div class="device-item">
+                                <div class="device-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                    </svg>
+                                </div>
+                                <div class="device-info">
+                                    <span class="device-name">Tablet</span>
+                                    <span class="device-percentage">8.5%</span>
+                                </div>
+                                <div class="device-bar">
+                                    <div class="device-fill" style="width: 8.5%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <h3 class="analytics-card__title">Coğrafi Dağılım</h3>
+                        <div class="geographic-stats">
+                            <div class="country-item">
+                                <span class="country-flag">🇹🇷</span>
+                                <div class="country-info">
+                                    <span class="country-name">Türkiye</span>
+                                    <span class="country-percentage">67.2%</span>
+                                </div>
+                                <span class="country-visitors">8,632</span>
+                            </div>
+                            <div class="country-item">
+                                <span class="country-flag">🇺🇸</span>
+                                <div class="country-info">
+                                    <span class="country-name">ABD</span>
+                                    <span class="country-percentage">12.4%</span>
+                                </div>
+                                <span class="country-visitors">1,593</span>
+                            </div>
+                            <div class="country-item">
+                                <span class="country-flag">🇩🇪</span>
+                                <div class="country-info">
+                                    <span class="country-name">Almanya</span>
+                                    <span class="country-percentage">8.9%</span>
+                                </div>
+                                <span class="country-visitors">1,143</span>
+                            </div>
+                            <div class="country-item">
+                                <span class="country-flag">🇬🇧</span>
+                                <div class="country-info">
+                                    <span class="country-name">İngiltere</span>
+                                    <span class="country-percentage">5.1%</span>
+                                </div>
+                                <span class="country-visitors">655</span>
+                            </div>
+                            <div class="country-item">
+                                <span class="country-flag">🇫🇷</span>
+                                <div class="country-info">
+                                    <span class="country-name">Fransa</span>
+                                    <span class="country-percentage">6.4%</span>
+                                </div>
+                                <span class="country-visitors">824</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Technical Stats -->
+        <section class="technical-stats" aria-labelledby="technical-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="technical-title" class="section-title">Teknik İstatistikler</h2>
+                    <p class="section-description">Tarayıcı, işletim sistemi ve teknoloji kullanımı</p>
+                </div>
+                
+                <div class="technical-grid">
+                    <div class="tech-card">
+                        <h3 class="tech-card__title">Tarayıcı Dağılımı</h3>
+                        <div class="browser-stats">
+                            <div class="browser-item">
+                                <div class="browser-icon">
+                                    <img src="data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z' fill='%234285F4'/%3E%3C/svg%3E" alt="Chrome" width="20" height="20">
+                                </div>
+                                <span class="browser-name">Chrome</span>
+                                <span class="browser-percentage">68.4%</span>
+                            </div>
+                            <div class="browser-item">
+                                <div class="browser-icon">
+                                    <img src="data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z' fill='%23FF9500'/%3E%3C/svg%3E" alt="Safari" width="20" height="20">
+                                </div>
+                                <span class="browser-name">Safari</span>
+                                <span class="browser-percentage">15.7%</span>
+                            </div>
+                            <div class="browser-item">
+                                <div class="browser-icon">
+                                    <img src="data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z' fill='%23FF4500'/%3E%3C/svg%3E" alt="Firefox" width="20" height="20">
+                                </div>
+                                <span class="browser-name">Firefox</span>
+                                <span class="browser-percentage">8.9%</span>
+                            </div>
+                            <div class="browser-item">
+                                <div class="browser-icon">
+                                    <img src="data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z' fill='%230078D4'/%3E%3C/svg%3E" alt="Edge" width="20" height="20">
+                                </div>
+                                <span class="browser-name">Edge</span>
+                                <span class="browser-percentage">7.0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3 class="tech-card__title">İşletim Sistemi</h3>
+                        <div class="os-stats">
+                            <div class="os-item">
+                                <span class="os-name">Windows</span>
+                                <div class="os-bar">
+                                    <div class="os-fill" style="width: 54.2%;"></div>
+                                </div>
+                                <span class="os-percentage">54.2%</span>
+                            </div>
+                            <div class="os-item">
+                                <span class="os-name">macOS</span>
+                                <div class="os-bar">
+                                    <div class="os-fill" style="width: 28.7%;"></div>
+                                </div>
+                                <span class="os-percentage">28.7%</span>
+                            </div>
+                            <div class="os-item">
+                                <span class="os-name">iOS</span>
+                                <div class="os-bar">
+                                    <div class="os-fill" style="width: 8.4%;"></div>
+                                </div>
+                                <span class="os-percentage">8.4%</span>
+                            </div>
+                            <div class="os-item">
+                                <span class="os-name">Android</span>
+                                <div class="os-bar">
+                                    <div class="os-fill" style="width: 5.9%;"></div>
+                                </div>
+                                <span class="os-percentage">5.9%</span>
+                            </div>
+                            <div class="os-item">
+                                <span class="os-name">Linux</span>
+                                <div class="os-bar">
+                                    <div class="os-fill" style="width: 2.8%;"></div>
+                                </div>
+                                <span class="os-percentage">2.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3 class="tech-card__title">Site Teknolojileri</h3>
+                        <div class="tech-features">
+                            <div class="feature-item">
+                                <span class="feature-name">JavaScript Support</span>
+                                <span class="feature-percentage">99.8%</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-name">Service Worker</span>
+                                <span class="feature-percentage">87.3%</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-name">WebP Support</span>
+                                <span class="feature-percentage">92.1%</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-name">Dark Mode</span>
+                                <span class="feature-percentage">64.7%</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-name">Touch Device</span>
+                                <span class="feature-percentage">43.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <h3 class="tech-card__title">Bağlantı Hızı</h3>
+                        <div class="connection-stats">
+                            <div class="connection-item">
+                                <span class="connection-type">4G</span>
+                                <div class="connection-bar">
+                                    <div class="connection-fill" style="width: 52.3%;"></div>
+                                </div>
+                                <span class="connection-percentage">52.3%</span>
+                            </div>
+                            <div class="connection-item">
+                                <span class="connection-type">WiFi</span>
+                                <div class="connection-bar">
+                                    <div class="connection-fill" style="width: 41.7%;"></div>
+                                </div>
+                                <span class="connection-percentage">41.7%</span>
+                            </div>
+                            <div class="connection-item">
+                                <span class="connection-type">3G</span>
+                                <div class="connection-bar">
+                                    <div class="connection-fill" style="width: 4.2%;"></div>
+                                </div>
+                                <span class="connection-percentage">4.2%</span>
+                            </div>
+                            <div class="connection-item">
+                                <span class="connection-type">2G</span>
+                                <div class="connection-bar">
+                                    <div class="connection-fill" style="width: 1.8%;"></div>
+                                </div>
+                                <span class="connection-percentage">1.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Real-time Stats -->
+        <section class="realtime-stats" aria-labelledby="realtime-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="realtime-title" class="section-title">Gerçek Zamanlı İstatistikler</h2>
+                    <p class="section-description">Şu anda sitede aktif olan kullanıcılar ve canlı veriler</p>
+                </div>
+                
+                <div class="realtime-grid">
+                    <div class="realtime-card realtime-card--active-users">
+                        <div class="realtime-indicator">
+                            <span class="pulse-dot"></span>
+                            <span class="realtime-label">Canlı</span>
+                        </div>
+                        <div class="realtime-value">
+                            <span class="realtime-number">23</span>
+                            <span class="realtime-unit">aktif kullanıcı</span>
+                        </div>
+                        <div class="realtime-chart">
+                            <canvas id="realtime-users-chart" width="200" height="80"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="realtime-card realtime-card--live-events">
+                        <h3 class="realtime-card__title">Canlı Etkinlikler</h3>
+                        <div class="live-events">
+                            <div class="event-item">
+                                <span class="event-time">14:32:15</span>
+                                <span class="event-action">Sayfa Görüntüleme</span>
+                                <span class="event-page">/projects.html</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-time">14:31:58</span>
+                                <span class="event-action">Yeni Ziyaretçi</span>
+                                <span class="event-page">/index.html</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-time">14:31:42</span>
+                                <span class="event-action">AI Assistant</span>
+                                <span class="event-page">/assistant.html</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-time">14:31:23</span>
+                                <span class="event-action">Form Gönderimi</span>
+                                <span class="event-page">/contact.html</span>
+                            </div>
+                            <div class="event-item">
+                                <span class="event-time">14:30:54</span>
+                                <span class="event-action">Blog Okuma</span>
+                                <span class="event-page">/blog.html</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" class="footer__logo-icon">
+                            <path d="M16 2L29 8.5L29 23.5L16 30L3 23.5L3 8.5L16 2Z" fill="currentColor"/>
+                        </svg>
+                        <span class="footer__logo-text">Celal Başaran</span>
+                    </div>
+                    <p class="footer__description">
+                        Frontend Developer & UI/UX Designer<br>
+                        Yaratıcı ve kullanıcı odaklı çözümler geliştiriyorum.
+                    </p>
+                </div>
+                
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Navigasyon</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="index.html" class="footer__link">Ana Sayfa</a></li>
+                            <li><a href="about.html" class="footer__link">Hakkımda</a></li>
+                            <li><a href="skills.html" class="footer__link">Yetenekler</a></li>
+                            <li><a href="projects.html" class="footer__link">Projeler</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">İçerik</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="blog.html" class="footer__link">Blog</a></li>
+                            <li><a href="contact.html" class="footer__link">İletişim</a></li>
+                            <li><a href="assistant.html" class="footer__link">AI Assistant</a></li>
+                            <li><a href="hire-me.html" class="footer__link">İşe Alın</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Analytics</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="stats.html" class="footer__link">İstatistikler</a></li>
+                            <li><a href="#stats-overview" class="footer__link">Genel Bakış</a></li>
+                            <li><a href="#performance-metrics" class="footer__link">Performance</a></li>
+                            <li><a href="#traffic-analytics" class="footer__link">Trafik Analizi</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Sosyal Medya</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="https://github.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">GitHub</a></li>
+                            <li><a href="https://linkedin.com/in/celalbasaran" class="footer__link" target="_blank" rel="noopener">LinkedIn</a></li>
+                            <li><a href="https://twitter.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">Twitter</a></li>
+                            <li><a href="https://instagram.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <div class="footer__copyright">
+                    <p>&copy; 2024 Celal Başaran. Tüm hakları saklıdır.</p>
+                    <p class="footer__privacy-note">Bu site gizlilik odaklı analytics kullanır.</p>
+                </div>
+                <div class="footer__legal">
+                    <a href="#privacy" class="footer__legal-link">Gizlilik Politikası</a>
+                    <a href="#terms" class="footer__legal-link">Kullanım Şartları</a>
+                    <a href="#analytics" class="footer__legal-link">Analytics Politikası</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script type="module" src="assets/js/modules/utils.js"></script>
+    <script type="module" src="assets/js/modules/theme-manager.js"></script>
+    <script type="module" src="assets/js/modules/session-manager.js"></script>
+    <script type="module" src="assets/js/modules/performance-monitor.js"></script>
+    <script type="module" src="assets/js/modules/scroll-animations.js"></script>
+    
+    <!-- Charts Library (Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Stats Initialization -->
+    <script type="module">
+        import { SessionManager } from './assets/js/modules/session-manager.js';
+        import { PerformanceMonitor } from './assets/js/modules/performance-monitor.js';
+        
+        // Initialize stats page
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessionManager = new SessionManager();
+            const performanceMonitor = new PerformanceMonitor();
+            
+            // Initialize charts and real-time updates
+            initializeCharts();
+            startRealTimeUpdates();
+        });
+        
+        function initializeCharts() {
+            // Chart initialization code will be here
+            console.log('Charts initialized');
+        }
+        
+        function startRealTimeUpdates() {
+            // Real-time updates code will be here
+            console.log('Real-time updates started');
+        }
+    </script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('pwa/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+    
+    <!-- Analytics (placeholder) -->
+    <script>
+        // Google Analytics veya diğer analytics kodları
+        // Bu bölüm gerçek proje için doldurulacak
+    </script>
+</body>
+</html> 

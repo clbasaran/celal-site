@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Hakkımda • Celal Başaran • iOS Developer</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Celal Başaran - 8+ yıllık deneyimli iOS Developer. SwiftUI, UIKit, AI/ML entegrasyonları konusunda uzman. Modern iOS uygulamaları geliştiriyorum.">
+    <meta name="keywords" content="iOS Developer, Swift Developer, SwiftUI Expert, Mobile App Developer, AI ML Integration">
+    <meta name="author" content="Celal Başaran">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hakkımda • Celal Başaran">
+    <meta property="og:description" content="8+ yıllık deneyimli iOS Developer. Modern teknolojilerle kullanıcı odaklı uygulamalar geliştiriyorum.">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://celalbasaran.com/about.html">
+    <meta property="og:image" content="https://celalbasaran.com/assets/images/about-og.jpg">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Portfolio OS">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="manifest" href="/pwa/manifest.json">
+    
+    <!-- Critical CSS -->
+    <link rel="preload" href="/assets/css/reset.css" as="style">
+    <link rel="preload" href="/assets/css/main.css" as="style">
+    <link rel="preload" href="/assets/css/components/navbar.css" as="style">
+    <link rel="preload" href="/assets/css/components/about.css" as="style">
+    
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/components/navbar.css">
+    <link rel="stylesheet" href="/assets/css/components/about.css">
+    <link rel="stylesheet" href="/assets/css/components/cards.css">
+    <link rel="stylesheet" href="/assets/css/components/animations.css">
+    
+    <!-- Preload Critical JS -->
+    <link rel="modulepreload" href="/assets/js/init.js">
+    <link rel="modulepreload" href="/assets/js/app.js">
+    
+    <style>
+        /* Critical inline CSS for above-the-fold content */
+        .about-hero {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 64px;
+        }
+        
+        .profile-section {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--space-16);
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .profile-image {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: var(--glass-light);
+            backdrop-filter: blur(20px);
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main" class="skip-link">Ana içeriğe geç</a>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">👨‍💻</div>
+            <div class="loading-text">Hakkımda Yükleniyor</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar glass" role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">📱</span>
+                    <span class="brand-text">Portfolio OS</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link">Ana Sayfa</a>
+                <a href="/about.html" class="nav-link active" aria-current="page">Hakkımda</a>
+                <a href="/projects.html" class="nav-link">Projeler</a>
+                <a href="/blog.html" class="nav-link">Blog</a>
+                <a href="/contact.html" class="nav-link">İletişim</a>
+                <a href="/hire-me.html" class="nav-link btn-primary">İşbirliği</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button id="themeToggle" class="control-btn" aria-label="Tema değiştir">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="aiToggle" class="control-btn" aria-label="AI Asistan">
+                    <span class="ai-icon">🤖</span>
+                </button>
+                <button id="menuToggle" class="menu-toggle" aria-label="Menü">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main" role="main">
+        <!-- Hero Section -->
+        <section class="about-hero" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="profile-section" data-animate="fadeInUp">
+                    <div class="profile-image-container">
+                        <div class="profile-image">
+                            <img src="/assets/images/profile.jpg" alt="Celal Başaran profil fotoğrafı" 
+                                 loading="eager" data-animate="scaleIn">
+                        </div>
+                        <div class="profile-status">
+                            <span class="status-indicator"></span>
+                            <span class="status-text">Yeni projeler için müsait</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-content">
+                        <h1 id="hero-title" class="hero-title">
+                            Merhaba, Ben <span class="gradient-text">Celal</span> 👋
+                        </h1>
+                        <p class="hero-subtitle">
+                            <strong>iOS Developer</strong> olarak 8+ yıldır <strong>kullanıcı odaklı</strong> 
+                            mobil uygulamalar geliştiriyorum. SwiftUI, AI/ML entegrasyonları ve 
+                            <strong>modern teknolojiler</strong> konusunda uzmanım.
+                        </p>
+                        
+                        <div class="profile-stats" data-animate="staggerFadeIn">
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="50">0</span>
+                                <span class="stat-label">Tamamlanan Proje</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="8">0</span>
+                                <span class="stat-label">Yıllık Deneyim</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="95">0</span>
+                                <span class="stat-label">Müşteri Memnuniyeti</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <a href="/contact.html" class="btn-primary">
+                                <span class="btn-text">İletişime Geç</span>
+                                <span class="btn-icon">💬</span>
+                            </a>
+                            <a href="/assets/cv/celal-basaran-cv.pdf" class="btn-secondary" download>
+                                <span class="btn-text">CV İndir</span>
+                                <span class="btn-icon">📄</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Journey Section -->
+        <section class="journey-section" aria-labelledby="journey-title">
+            <div class="container">
+                <header class="section-header" data-animate="fadeInUp">
+                    <h2 id="journey-title" class="section-title">Gelişim Yolculuğum</h2>
+                    <p class="section-subtitle">
+                        Teknolojiye olan tutkum ve sürekli öğrenme isteğimle geldiğim nokta
+                    </p>
+                </header>
+                
+                <div class="journey-timeline" data-animate="staggerFadeIn">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-content">
+                            <h3>AI/ML Entegrasyonları</h3>
+                            <p>Core ML, Vision Framework ve AI destekli uygulamalar geliştirme konusunda uzmanlaştım.</p>
+                            <div class="timeline-tags">
+                                <span class="tag">Core ML</span>
+                                <span class="tag">Vision</span>
+                                <span class="tag">NLP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023</div>
+                        <div class="timeline-content">
+                            <h3>SwiftUI Mastery</h3>
+                            <p>SwiftUI ile modern, declarative UI geliştirme konusunda uzmanlaştım ve 20+ proje tamamladım.</p>
+                            <div class="timeline-tags">
+                                <span class="tag">SwiftUI</span>
+                                <span class="tag">Combine</span>
+                                <span class="tag">MVVM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021</div>
+                        <div class="timeline-content">
+                            <h3>Senior iOS Developer</h3>
+                            <p>TechCorp'ta senior pozisyona terfi ettim ve ekip liderliği yapmaya başladım.</p>
+                            <div class="timeline-tags">
+                                <span class="tag">Team Lead</span>
+                                <span class="tag">Architecture</span>
+                                <span class="tag">Mentoring</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2018</div>
+                        <div class="timeline-content">
+                            <h3>iOS Developer Kariyeri</h3>
+                            <p>Bilgisayar Mühendisliği mezuniyetimin ardından iOS development'a odaklandım.</p>
+                            <div class="timeline-tags">
+                                <span class="tag">Swift</span>
+                                <span class="tag">UIKit</span>
+                                <span class="tag">iOS SDK</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2016</div>
+                        <div class="timeline-content">
+                            <h3>Üniversite & İlk Projeler</h3>
+                            <p>İstanbul Teknik Üniversitesi'nde eğitimime devam ederken ilk mobil projelerimi geliştirdim.</p>
+                            <div class="timeline-tags">
+                                <span class="tag">Education</span>
+                                <span class="tag">Learning</span>
+                                <span class="tag">First Apps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section class="skills-section" aria-labelledby="skills-title">
+            <div class="container">
+                <header class="section-header" data-animate="fadeInUp">
+                    <h2 id="skills-title" class="section-title">Teknik Yetenekler</h2>
+                    <p class="section-subtitle">
+                        Modern iOS development için gereken tüm teknolojilerde uzmanım
+                    </p>
+                </header>
+                
+                <div class="skills-grid" data-animate="staggerFadeIn">
+                    <div class="skill-category">
+                        <div class="category-header">
+                            <span class="category-icon">📱</span>
+                            <h3>iOS Development</h3>
+                        </div>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <span class="skill-name">SwiftUI</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="95"></div>
+                                </div>
+                                <span class="skill-percentage">95%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">UIKit</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="90"></div>
+                                </div>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Swift</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="95"></div>
+                                </div>
+                                <span class="skill-percentage">95%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Combine</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="85"></div>
+                                </div>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="category-header">
+                            <span class="category-icon">🤖</span>
+                            <h3>AI & ML</h3>
+                        </div>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <span class="skill-name">Core ML</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="88"></div>
+                                </div>
+                                <span class="skill-percentage">88%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Vision Framework</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="85"></div>
+                                </div>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Natural Language</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="80"></div>
+                                </div>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Create ML</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="82"></div>
+                                </div>
+                                <span class="skill-percentage">82%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="category-header">
+                            <span class="category-icon">🛠️</span>
+                            <h3>Tools & Frameworks</h3>
+                        </div>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <span class="skill-name">Xcode</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="95"></div>
+                                </div>
+                                <span class="skill-percentage">95%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Git</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="90"></div>
+                                </div>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Firebase</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="85"></div>
+                                </div>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">CloudKit</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="88"></div>
+                                </div>
+                                <span class="skill-percentage">88%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="category-header">
+                            <span class="category-icon">🎨</span>
+                            <h3>Design & UX</h3>
+                        </div>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <span class="skill-name">UI/UX Design</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="85"></div>
+                                </div>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Figma</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="80"></div>
+                                </div>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Animation</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="88"></div>
+                                </div>
+                                <span class="skill-percentage">88%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Prototyping</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-level="85"></div>
+                                </div>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Values Section -->
+        <section class="values-section" aria-labelledby="values-title">
+            <div class="container">
+                <header class="section-header" data-animate="fadeInUp">
+                    <h2 id="values-title" class="section-title">Değerlerim & Yaklaşımım</h2>
+                    <p class="section-subtitle">
+                        Her projede uygulama prensiplerin ve değerlerim
+                    </p>
+                </header>
+                
+                <div class="values-grid" data-animate="staggerFadeIn">
+                    <div class="value-card">
+                        <div class="value-icon">👤</div>
+                        <h3>Kullanıcı Odaklılık</h3>
+                        <p>
+                            Her uygulama geliştirirken kullanıcı deneyimini öncelik olarak görürüm. 
+                            İnsanların hayatını kolaylaştıran çözümler üretirim.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">⚡</div>
+                        <h3>Performance</h3>
+                        <p>
+                            Yüksek performans ve optimizasyon konusunda detaycıyım. 
+                            Uygulamalarım hızlı, akıcı ve verimli çalışır.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🔄</div>
+                        <h3>Sürekli Öğrenme</h3>
+                        <p>
+                            Teknoloji sürekli gelişiyor, ben de kendimi güncel tutuyorum. 
+                            Yeni framework'ler ve yaklaşımları öğrenmeyi seviyorum.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h3>İşbirliği</h3>
+                        <p>
+                            Takım çalışmasına inanırım. Tasarımcılar, PM'ler ve 
+                            diğer geliştiricilerle etkili işbirliği yaparım.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">📐</div>
+                        <h3>Kaliteli Kod</h3>
+                        <p>
+                            Temiz, okunabilir ve sürdürülebilir kod yazarım. 
+                            Best practice'lere ve kod standartlarına uyarım.
+                        </p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🚀</div>
+                        <h3>İnovasyon</h3>
+                        <p>
+                            Yeni teknolojiler ve yaratıcı çözümlerle projelerime 
+                            değer katmayı hedefliyorum.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Interests Section -->
+        <section class="interests-section" aria-labelledby="interests-title">
+            <div class="container">
+                <header class="section-header" data-animate="fadeInUp">
+                    <h2 id="interests-title" class="section-title">İlgi Alanları & Hobiler</h2>
+                    <p class="section-subtitle">
+                        İş dışında neler yapıyorum ve nelerle ilgileniyorum
+                    </p>
+                </header>
+                
+                <div class="interests-grid" data-animate="staggerFadeIn">
+                    <div class="interest-item">
+                        <span class="interest-icon">🏃‍♂️</span>
+                        <h3>Spor & Fitness</h3>
+                        <p>Düzenli koşu ve fitness ile hem vücut hem de zihin sağlığımı koruyorum.</p>
+                    </div>
+                    
+                    <div class="interest-item">
+                        <span class="interest-icon">📚</span>
+                        <h3>Okumak</h3>
+                        <p>Teknoloji, kişisel gelişim ve felsefe kitapları okumayı severim.</p>
+                    </div>
+                    
+                    <div class="interest-item">
+                        <span class="interest-icon">🎵</span>
+                        <h3>Müzik</h3>
+                        <p>Kod yazarken klasik müzik dinler, boş zamanlarımda gitar çalarım.</p>
+                    </div>
+                    
+                    <div class="interest-item">
+                        <span class="interest-icon">✈️</span>
+                        <h3>Seyahat</h3>
+                        <p>Yeni kültürler keşfetmek ve farklı perspektifler kazanmak için seyahat ederim.</p>
+                    </div>
+                    
+                    <div class="interest-item">
+                        <span class="interest-icon">📷</span>
+                        <h3>Fotoğrafçılık</h3>
+                        <p>Doğa ve şehir fotoğrafçılığı ile yaratıcı tarafımı geliştiriyorum.</p>
+                    </div>
+                    
+                    <div class="interest-item">
+                        <span class="interest-icon">🧘‍♂️</span>
+                        <h3>Meditasyon</h3>
+                        <p>Zihinsel berraklık ve odaklanma için düzenli meditasyon yapıyorum.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="cta-section" aria-labelledby="cta-title">
+            <div class="container">
+                <div class="cta-content" data-animate="fadeInUp">
+                    <h2 id="cta-title">Bir Sonraki Projeniz İçin Hazırım 🚀</h2>
+                    <p>
+                        iOS development konusunda deneyimli bir partner arıyorsanız, 
+                        birlikte harika şeyler yaratıp. Hemen iletişime geçelim!
+                    </p>
+                    <div class="cta-actions">
+                        <a href="/contact.html" class="btn-primary">
+                            <span class="btn-text">Proje Başlayalım</span>
+                            <span class="btn-icon">💬</span>
+                        </a>
+                        <a href="/projects.html" class="btn-secondary">
+                            <span class="btn-text">Projelerimi İncele</span>
+                            <span class="btn-icon">👀</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- FPS Monitor -->
+    <div id="fpsMonitor" class="fps-monitor">
+        <span id="fpsValue">60</span>
+        <span class="fps-label">FPS</span>
+    </div>
+    
+    <!-- AI Assistant -->
+    <div id="aiAssistant" class="ai-assistant">
+        <div class="ai-header">
+            <h3>AI Asistan</h3>
+            <button class="ai-close">×</button>
+        </div>
+        <div class="ai-content">
+            <p>Celal hakkında daha fazla bilgi almak ister misiniz?</p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script type="module" src="/assets/js/init.js"></script>
+    <script type="module" src="/assets/js/app.js"></script>
+    <script type="module" src="/assets/js/modules/observer.js"></script>
+    <script type="module" src="/assets/js/modules/scroll-animations.js"></script>
+    <script type="module" src="/assets/js/modules/staggered-fade.js"></script>
+</body>
+</html> 

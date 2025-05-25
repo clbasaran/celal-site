@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Celal Başaran Portfolio - Erişilebilirlik özellikleri ve ayarları. Herkes için tasarlanmış bir deneyim.">
+    <meta name="keywords" content="Erişilebilirlik, Accessibility, WCAG, Celal Başaran, Portfolio, Kapsayıcı Tasarım">
+    <meta name="author" content="Celal Başaran">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Erişilebilirlik - Celal Başaran Portfolio">
+    <meta property="og:description" content="Herkes için erişilebilir tasarım ve kapsayıcı kullanıcı deneyimi">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/accessibility.html">
+    <meta property="og:image" content="assets/images/og-accessibility.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Erişilebilirlik - Celal Başaran">
+    <meta name="twitter:description" content="Kapsayıcı tasarım ve erişilebilirlik özellikleri">
+    <meta name="twitter:image" content="assets/images/twitter-accessibility.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="pwa/manifest.json">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components/accessibility.panel.css">
+    <link rel="stylesheet" href="assets/css/components/navbar.css">
+    <link rel="stylesheet" href="assets/css/components/footer.main.css">
+    <link rel="stylesheet" href="assets/css/components/animations.css">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="assets/fonts/sf-pro-display.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/js/modules/accessibility.js" as="script">
+    
+    <title>Erişilebilirlik - Celal Başaran Portfolio</title>
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Erişilebilirlik - Celal Başaran Portfolio",
+        "description": "Kapsayıcı tasarım ve erişilebilirlik özellikleri",
+        "url": "https://celalbasaran.com/accessibility.html",
+        "author": {
+            "@type": "Person",
+            "name": "Celal Başaran",
+            "url": "https://celalbasaran.com"
+        },
+        "inLanguage": "tr",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Celal Başaran Portfolio",
+            "url": "https://celalbasaran.com"
+        },
+        "accessibilityFeature": [
+            "alternativeText",
+            "captions",
+            "structuralNavigation",
+            "highContrast",
+            "largePrint",
+            "readingOrder"
+        ],
+        "accessibilityControl": [
+            "fullKeyboardControl",
+            "fullMouseControl",
+            "fullTouchControl"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip Links for Accessibility -->
+    <div class="skip-links" role="navigation" aria-label="Hızlı erişim linkleri">
+        <a href="#main-content" class="skip-link">Ana içeriğe geç</a>
+        <a href="#accessibility-settings" class="skip-link">Erişilebilirlik ayarlarına geç</a>
+        <a href="#keyboard-shortcuts" class="skip-link">Klavye kısayollarına geç</a>
+        <a href="#navigation" class="skip-link">Navigasyona geç</a>
+    </div>
+    
+    <!-- Accessibility Announcement -->
+    <div id="accessibility-announcements" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Accessibility Panel -->
+    <div id="accessibility-panel" class="accessibility-panel" role="dialog" aria-label="Erişilebilirlik Ayarları" aria-hidden="true">
+        <div class="accessibility-panel__content">
+            <div class="accessibility-panel__header">
+                <h2>Erişilebilirlik Ayarları</h2>
+                <button type="button" class="accessibility-panel__close" aria-label="Erişilebilirlik panelini kapat">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="accessibility-panel__body">
+                <div class="accessibility-section">
+                    <h3>Görsel Ayarlar</h3>
+                    
+                    <div class="accessibility-option">
+                        <label for="high-contrast-toggle">Yüksek Kontrast</label>
+                        <input type="checkbox" id="high-contrast-toggle" role="switch" aria-describedby="high-contrast-desc">
+                        <span id="high-contrast-desc" class="accessibility-option__desc">Daha iyi görünürlük için yüksek kontrast modunu etkinleştir</span>
+                    </div>
+                    
+                    <div class="accessibility-option">
+                        <label for="font-size-range">Yazı Boyutu</label>
+                        <input type="range" id="font-size-range" min="0.8" max="1.5" step="0.1" value="1" aria-describedby="font-size-desc">
+                        <span id="font-size-desc" class="accessibility-option__desc">Yazı boyutunu ayarla (80% - 150%)</span>
+                        <div class="font-size-display">Mevcut: <span id="font-size-value">100%</span></div>
+                    </div>
+                    
+                    <div class="accessibility-option">
+                        <label for="line-height-range">Satır Aralığı</label>
+                        <input type="range" id="line-height-range" min="1.2" max="2.0" step="0.1" value="1.5" aria-describedby="line-height-desc">
+                        <span id="line-height-desc" class="accessibility-option__desc">Metin satırları arasındaki boşluğu ayarla</span>
+                    </div>
+                    
+                    <div class="accessibility-option">
+                        <label for="letter-spacing-range">Harf Aralığı</label>
+                        <input type="range" id="letter-spacing-range" min="0" max="0.2" step="0.05" value="0" aria-describedby="letter-spacing-desc">
+                        <span id="letter-spacing-desc" class="accessibility-option__desc">Harfler arasındaki boşluğu ayarla</span>
+                    </div>
+                </div>
+                
+                <div class="accessibility-section">
+                    <h3>Hareket ve Animasyon</h3>
+                    
+                    <div class="accessibility-option">
+                        <label for="reduced-motion-toggle">Azaltılmış Hareket</label>
+                        <input type="checkbox" id="reduced-motion-toggle" role="switch" aria-describedby="reduced-motion-desc">
+                        <span id="reduced-motion-desc" class="accessibility-option__desc">Animasyonları ve geçişleri azalt</span>
+                    </div>
+                    
+                    <div class="accessibility-option">
+                        <label for="parallax-toggle">Paralaks Efektleri</label>
+                        <input type="checkbox" id="parallax-toggle" role="switch" aria-describedby="parallax-desc" checked>
+                        <span id="parallax-desc" class="accessibility-option__desc">Paralaks kaydırma efektlerini etkinleştir</span>
+                    </div>
+                    
+                    <div class="accessibility-option">
+                        <label for="auto-play-toggle">Otomatik Oynatma</label>
+                        <input type="checkbox" id="auto-play-toggle" role="switch" aria-describedby="auto-play-desc">
+                        <span id="auto-play-desc" class="accessibility-option__desc">Videoları ve animasyonları otomatik oynat</span>
+                    </div>
+                </div>
+                
+                <div class="accessibility-section">
+                    <h3>Navigasyon ve Etkileşim</h3>
+                    
+                    <div class="accessibility-option">
+                        <label for="focus-indicators-toggle">Odak Göstergeleri</label>
+                        <input type="checkbox" id="focus-indicators-toggle" role="switch" aria-describedby="focus-indicators-desc" checked>
+                        <span id="focus-indicators-desc" class="accessibility-option__desc">Klavye navigasyonu için görünür odak göstergeleri</span>
+                    </div>
+                    
+                    <div class="accessibility-option">
+                        <label for="skip-links-toggle">Hızlı Erişim Linkleri</label>
+                        <input type="checkbox" id="skip-links-toggle" role="switch" aria-describedby="skip-links-desc" checked>
+                        <span id="skip-links-desc" class="accessibility-option__desc">Sayfa bölümlerine hızlı atlama linkleri</span>
+                    </div>
+                    
+                    <div class="accessibility-option">
+                        <label for="voice-announcements-toggle">Sesli Duyurular</label>
+                        <input type="checkbox" id="voice-announcements-toggle" role="switch" aria-describedby="voice-announcements-desc">
+                        <span id="voice-announcements-desc" class="accessibility-option__desc">Önemli değişiklikler için sesli duyurular</span>
+                    </div>
+                </div>
+                
+                <div class="accessibility-section">
+                    <h3>Tema ve Renk</h3>
+                    
+                    <fieldset class="accessibility-option">
+                        <legend>Tema Seçimi</legend>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="theme" value="auto" checked>
+                                <span>Sistem Ayarı</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="theme" value="light">
+                                <span>Açık Tema</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="theme" value="dark">
+                                <span>Koyu Tema</span>
+                            </label>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="accessibility-option">
+                        <label for="color-blind-toggle">Renk Körlüğü Desteği</label>
+                        <input type="checkbox" id="color-blind-toggle" role="switch" aria-describedby="color-blind-desc">
+                        <span id="color-blind-desc" class="accessibility-option__desc">Renk körlüğü dostu renk paleti kullan</span>
+                    </div>
+                </div>
+                
+                <div class="accessibility-panel__actions">
+                    <button type="button" class="btn btn--secondary" id="reset-accessibility">Varsayılanları Geri Yükle</button>
+                    <button type="button" class="btn btn--primary" id="save-accessibility">Ayarları Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav id="navigation" class="navbar" role="navigation" aria-label="Ana navigasyon">
+        <div class="navbar__container">
+            <div class="navbar__brand">
+                <a href="index.html" class="navbar__logo" aria-label="Ana sayfaya git">
+                    <svg width="32" height="32" viewBox="0 0 32 32" class="navbar__logo-icon">
+                        <path d="M16 2L29 8.5L29 23.5L16 30L3 23.5L3 8.5L16 2Z" fill="currentColor"/>
+                    </svg>
+                    <span class="navbar__logo-text">Celal Başaran</span>
+                </a>
+            </div>
+            
+            <button type="button" class="navbar__toggle" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+            </button>
+            
+            <div id="navbar-menu" class="navbar__menu" role="menu">
+                <a href="index.html" class="navbar__link" role="menuitem">Ana Sayfa</a>
+                <a href="about.html" class="navbar__link" role="menuitem">Hakkımda</a>
+                <a href="skills.html" class="navbar__link" role="menuitem">Yetenekler</a>
+                <a href="projects.html" class="navbar__link" role="menuitem">Projeler</a>
+                <a href="blog.html" class="navbar__link" role="menuitem">Blog</a>
+                <a href="contact.html" class="navbar__link" role="menuitem">İletişim</a>
+                <a href="assistant.html" class="navbar__link" role="menuitem">AI Assistant</a>
+                <a href="accessibility.html" class="navbar__link navbar__link--active" role="menuitem" aria-current="page">Erişilebilirlik</a>
+                
+                <div class="navbar__actions">
+                    <button type="button" class="navbar__accessibility-btn" aria-label="Erişilebilirlik ayarlarını aç" title="Erişilebilirlik">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </button>
+                    
+                    <button type="button" class="navbar__theme-toggle" aria-label="Tema değiştir" title="Koyu/Açık tema">
+                        <svg class="navbar__theme-icon navbar__theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="navbar__theme-icon navbar__theme-icon--dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="accessibility-hero" aria-labelledby="accessibility-hero-title">
+            <div class="container">
+                <div class="accessibility-hero__content">
+                    <h1 id="accessibility-hero-title" class="accessibility-hero__title">
+                        Erişilebilirlik
+                        <span class="accessibility-hero__subtitle">Herkes için tasarlanmış deneyim</span>
+                    </h1>
+                    
+                    <div class="accessibility-hero__description">
+                        <p>Bu portfolyo, tüm kullanıcılar için eşit erişim sağlamak amacıyla <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1 AA standartlarına uygun olarak tasarlanmıştır. Engelli kullanıcılar da dahil olmak üzere herkesin rahatça kullanabileceği kapsayıcı bir deneyim sunuyoruz.</p>
+                    </div>
+                    
+                    <div class="accessibility-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">AA</span>
+                            <span class="stat-label">WCAG Uyumluluğu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Klavye Erişimi</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">4.5:1</span>
+                            <span class="stat-label">Min. Kontrast Oranı</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">15+</span>
+                            <span class="stat-label">Dil Desteği</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accessibility-hero__visual">
+                    <div class="accessibility-icon">
+                        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M20.188 10.934c.388.472.582 1.133.582 1.966 0 .834-.194 1.494-.582 1.966a6.859 6.859 0 01-1.238 1.4 5.915 5.915 0 01-1.708.87c-.647.204-1.327.304-2.04.304-.713 0-1.393-.1-2.04-.304a5.915 5.915 0 01-1.708-.87 6.859 6.859 0 01-1.238-1.4C3.806 14.394 3.612 13.734 3.612 12.9c0-.833.194-1.494.582-1.966a6.859 6.859 0 011.238-1.4 5.915 5.915 0 011.708-.87c.647-.204 1.327-.304 2.04-.304.713 0 1.393.1 2.04.304a5.915 5.915 0 011.708.87 6.859 6.859 0 011.238 1.4z"></path>
+                            <path d="M12 9a3 3 0 100 6 3 3 0 000-6z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Accessibility Settings Section -->
+        <section id="accessibility-settings" class="accessibility-settings" aria-labelledby="settings-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="settings-title" class="section-title">Erişilebilirlik Ayarları</h2>
+                    <p class="section-description">Deneyiminizi kişiselleştirmek için aşağıdaki ayarları kullanabilirsiniz</p>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <div class="settings-card__header">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <h3>Görsel Ayarlar</h3>
+                        </div>
+                        <div class="settings-card__content">
+                            <p>Yazı boyutu, kontrast ve renk ayarlarını özelleştirin</p>
+                            <button type="button" class="btn btn--outline" data-setting="visual">Görsel Ayarları Aç</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card__header">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                <path d="M2 2l7.586 7.586"></path>
+                                <circle cx="11" cy="11" r="2"></circle>
+                            </svg>
+                            <h3>Hareket ve Animasyon</h3>
+                        </div>
+                        <div class="settings-card__content">
+                            <p>Animasyonları ve hareket efektlerini kontrol edin</p>
+                            <button type="button" class="btn btn--outline" data-setting="motion">Hareket Ayarları</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card__header">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <path d="M9 9h6v6h-6z"></path>
+                            </svg>
+                            <h3>Navigasyon</h3>
+                        </div>
+                        <div class="settings-card__content">
+                            <p>Klavye navigasyonu ve odak göstergelerini ayarlayın</p>
+                            <button type="button" class="btn btn--outline" data-setting="navigation">Navigasyon Ayarları</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div class="settings-card__header">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                            <h3>Ses ve Duyurular</h3>
+                        </div>
+                        <div class="settings-card__content">
+                            <p>Sesli duyurular ve ekran okuyucu ayarları</p>
+                            <button type="button" class="btn btn--outline" data-setting="audio">Ses Ayarları</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Keyboard Shortcuts Section -->
+        <section id="keyboard-shortcuts" class="keyboard-shortcuts" aria-labelledby="shortcuts-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="shortcuts-title" class="section-title">Klavye Kısayolları</h2>
+                    <p class="section-description">Site içinde hızlı navigasyon için klavye kısayolları</p>
+                </div>
+                
+                <div class="shortcuts-grid">
+                    <div class="shortcut-category">
+                        <h3 class="shortcut-category__title">Genel Navigasyon</h3>
+                        <div class="shortcut-list">
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Tab</kbd>
+                                </div>
+                                <div class="shortcut-description">Bir sonraki öğeye git</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Shift</kbd> + <kbd>Tab</kbd>
+                                </div>
+                                <div class="shortcut-description">Bir önceki öğeye git</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Enter</kbd>
+                                </div>
+                                <div class="shortcut-description">Linki etkinleştir veya butona bas</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Space</kbd>
+                                </div>
+                                <div class="shortcut-description">Butona bas veya sayfa kaydır</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="shortcut-category">
+                        <h3 class="shortcut-category__title">Sayfa Navigasyonu</h3>
+                        <div class="shortcut-list">
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>H</kbd>
+                                </div>
+                                <div class="shortcut-description">Başlıklar arasında gezin (H1-H6)</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>L</kbd>
+                                </div>
+                                <div class="shortcut-description">Linkler arasında gezin</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>F</kbd>
+                                </div>
+                                <div class="shortcut-description">Form elemanları arasında gezin</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>B</kbd>
+                                </div>
+                                <div class="shortcut-description">Butonlar arasında gezin</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="shortcut-category">
+                        <h3 class="shortcut-category__title">Erişilebilirlik</h3>
+                        <div class="shortcut-list">
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>A</kbd>
+                                </div>
+                                <div class="shortcut-description">Erişilebilirlik panelini aç/kapat</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>C</kbd>
+                                </div>
+                                <div class="shortcut-description">Yüksek kontrast modu aç/kapat</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>M</kbd>
+                                </div>
+                                <div class="shortcut-description">Azaltılmış hareket modu aç/kapat</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>T</kbd>
+                                </div>
+                                <div class="shortcut-description">Tema değiştir (açık/koyu)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="shortcut-category">
+                        <h3 class="shortcut-category__title">Hızlı Erişim</h3>
+                        <div class="shortcut-list">
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>1</kbd>
+                                </div>
+                                <div class="shortcut-description">Ana sayfaya git</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>2</kbd>
+                                </div>
+                                <div class="shortcut-description">Hakkımda sayfasına git</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>3</kbd>
+                                </div>
+                                <div class="shortcut-description">Projeler sayfasına git</div>
+                            </div>
+                            <div class="shortcut-item">
+                                <div class="shortcut-keys">
+                                    <kbd>Alt</kbd> + <kbd>4</kbd>
+                                </div>
+                                <div class="shortcut-description">İletişim sayfasına git</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Accessibility Features Section -->
+        <section class="accessibility-features" aria-labelledby="features-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="features-title" class="section-title">Erişilebilirlik Özellikleri</h2>
+                    <p class="section-description">Bu sitede bulunan erişilebilirlik özellikleri ve desteklenen teknolojiler</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <path d="M9 9h6v6h-6z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Klavye Navigasyonu</h3>
+                        <p class="feature-item__description">Tüm site fonksiyonlarına klavye ile tam erişim. Tab, Enter ve ok tuşları ile kolay navigasyon.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Ekran Okuyucu Desteği</h3>
+                        <p class="feature-item__description">NVDA, JAWS, VoiceOver ve diğer ekran okuyucular için optimize edilmiş semantik HTML yapısı.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Yüksek Kontrast</h3>
+                        <p class="feature-item__description">WCAG AA standartlarında minimum 4.5:1 kontrast oranı ve yüksek kontrast modu seçeneği.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                <path d="M2 2l7.586 7.586"></path>
+                                <circle cx="11" cy="11" r="2"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Azaltılmış Hareket</h3>
+                        <p class="feature-item__description">Sistem tercihlerini algılar ve animasyonları azaltır. Manuel kontrol de mevcut.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10,9 9,9 8,9"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Alt Metin</h3>
+                        <p class="feature-item__description">Tüm görsel içerikler için açıklayıcı alternatif metinler ve ARIA etiketleri.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Sesli Duyurular</h3>
+                        <p class="feature-item__description">Önemli değişiklikler ve bildirimler için sesli duyuru sistemi (isteğe bağlı).</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="4 17 10 11 4 5"></polyline>
+                                <line x1="12" y1="19" x2="20" y2="19"></line>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Hızlı Erişim</h3>
+                        <p class="feature-item__description">Skip links ve landmark navigation ile sayfa bölümlerine hızlı atlama.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </div>
+                        <h3 class="feature-item__title">Odak Göstergeleri</h3>
+                        <p class="feature-item__description">Görünür ve anlaşılır odak göstergeleri ile klavye navigasyonu takibi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Accessibility Test Section -->
+        <section class="accessibility-test" aria-labelledby="test-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="test-title" class="section-title">Erişilebilirlik Testi</h2>
+                    <p class="section-description">Site erişilebilirliğini test etmek için aşağıdaki araçları kullanabilirsiniz</p>
+                </div>
+                
+                <div class="test-tools">
+                    <div class="test-tool">
+                        <h3 class="test-tool__title">Hızlı Test</h3>
+                        <p class="test-tool__description">Temel erişilebilirlik kontrollerini gerçekleştirin</p>
+                        <button type="button" class="btn btn--primary" id="run-accessibility-test">Test Başlat</button>
+                        
+                        <div id="test-results" class="test-results" style="display: none;">
+                            <h4>Test Sonuçları:</h4>
+                            <div class="test-result-list"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="test-recommendations">
+                        <h3>Önerilen Araçlar</h3>
+                        <ul class="tool-list">
+                            <li><a href="https://wave.webaim.org/" target="_blank" rel="noopener">WAVE Web Accessibility Evaluator</a></li>
+                            <li><a href="https://www.deque.com/axe/" target="_blank" rel="noopener">Axe DevTools</a></li>
+                            <li><a href="https://www.ssa.gov/accessibility/andi/" target="_blank" rel="noopener">ANDI (Accessible Name & Description Inspector)</a></li>
+                            <li><a href="https://developer.chrome.com/docs/lighthouse/" target="_blank" rel="noopener">Lighthouse Accessibility Audit</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" class="footer__logo-icon">
+                            <path d="M16 2L29 8.5L29 23.5L16 30L3 23.5L3 8.5L16 2Z" fill="currentColor"/>
+                        </svg>
+                        <span class="footer__logo-text">Celal Başaran</span>
+                    </div>
+                    <p class="footer__description">
+                        Frontend Developer & UI/UX Designer<br>
+                        Yaratıcı ve kullanıcı odaklı çözümler geliştiriyorum.
+                    </p>
+                </div>
+                
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Navigasyon</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="index.html" class="footer__link">Ana Sayfa</a></li>
+                            <li><a href="about.html" class="footer__link">Hakkımda</a></li>
+                            <li><a href="skills.html" class="footer__link">Yetenekler</a></li>
+                            <li><a href="projects.html" class="footer__link">Projeler</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">İçerik</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="blog.html" class="footer__link">Blog</a></li>
+                            <li><a href="contact.html" class="footer__link">İletişim</a></li>
+                            <li><a href="assistant.html" class="footer__link">AI Assistant</a></li>
+                            <li><a href="hire-me.html" class="footer__link">İşe Alın</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Erişilebilirlik</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="accessibility.html" class="footer__link">Erişilebilirlik</a></li>
+                            <li><a href="#keyboard-shortcuts" class="footer__link">Klavye Kısayolları</a></li>
+                            <li><a href="#accessibility-settings" class="footer__link">Erişilebilirlik Ayarları</a></li>
+                            <li><button type="button" class="footer__link accessibility-panel-trigger">Hızlı Ayarlar</button></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h3 class="footer__column-title">Sosyal Medya</h3>
+                        <ul class="footer__link-list">
+                            <li><a href="https://github.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">GitHub</a></li>
+                            <li><a href="https://linkedin.com/in/celalbasaran" class="footer__link" target="_blank" rel="noopener">LinkedIn</a></li>
+                            <li><a href="https://twitter.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">Twitter</a></li>
+                            <li><a href="https://instagram.com/celalbasaran" class="footer__link" target="_blank" rel="noopener">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <div class="footer__copyright">
+                    <p>&copy; 2024 Celal Başaran. Tüm hakları saklıdır.</p>
+                    <p class="footer__accessibility-note">Bu site WCAG 2.1 AA standartlarına uygun olarak tasarlanmıştır.</p>
+                </div>
+                <div class="footer__legal">
+                    <a href="#privacy" class="footer__legal-link">Gizlilik Politikası</a>
+                    <a href="#terms" class="footer__legal-link">Kullanım Şartları</a>
+                    <a href="#accessibility" class="footer__legal-link">Erişilebilirlik Beyanı</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script type="module" src="assets/js/modules/utils.js"></script>
+    <script type="module" src="assets/js/modules/theme-manager.js"></script>
+    <script type="module" src="assets/js/modules/accessibility.js"></script>
+    <script type="module" src="assets/js/modules/performance-monitor.js"></script>
+    <script type="module" src="assets/js/modules/scroll-animations.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('pwa/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
+    
+    <!-- Analytics (placeholder) -->
+    <script>
+        // Google Analytics veya diğer analytics kodları
+        // Bu bölüm gerçek proje için doldurulacak
+    </script>
+</body>
+</html> 

@@ -1,0 +1,461 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2024-12-15T10:30:00Z",
+    "totalPosts": 45,
+    "totalCategories": 8,
+    "totalTags": 24,
+    "featuredPost": "swiftui-modern-ios-development"
+  },
+  
+  "categories": [
+    {
+      "id": "swiftui",
+      "name": "SwiftUI",
+      "slug": "swiftui",
+      "description": "Modern UI geliştirme teknikleri ve SwiftUI ipuçları",
+      "color": "#007AFF",
+      "icon": "🎨",
+      "postCount": 18,
+      "featured": true
+    },
+    {
+      "id": "ai-ml",
+      "name": "AI & Machine Learning",
+      "slug": "ai-ml",
+      "description": "iOS'te yapay zeka ve makine öğrenmesi entegrasyonları",
+      "color": "#34C759",
+      "icon": "🤖",
+      "postCount": 8,
+      "featured": true
+    },
+    {
+      "id": "ios",
+      "name": "iOS Development",
+      "slug": "ios",
+      "description": "iOS platform geliştirme teknikleri ve ipuçları",
+      "color": "#FF9500",
+      "icon": "📱",
+      "postCount": 15,
+      "featured": true
+    },
+    {
+      "id": "tutorial",
+      "name": "Tutorials",
+      "slug": "tutorial",
+      "description": "Adım adım rehberler ve öğretici içerikler",
+      "color": "#AF52DE",
+      "icon": "📚",
+      "postCount": 12,
+      "featured": true
+    },
+    {
+      "id": "tips",
+      "name": "Tips & Tricks",
+      "slug": "tips",
+      "description": "Pratik çözümler ve development ipuçları",
+      "color": "#FF3B30",
+      "icon": "💡",
+      "postCount": 10,
+      "featured": false
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "slug": "performance",
+      "description": "iOS uygulama performance optimizasyonu",
+      "color": "#5856D6",
+      "icon": "⚡",
+      "postCount": 6,
+      "featured": false
+    },
+    {
+      "id": "design",
+      "name": "Design",
+      "slug": "design",
+      "description": "UI/UX tasarım prensipleri ve uygulamaları",
+      "color": "#FF2D92",
+      "icon": "🎯",
+      "postCount": 4,
+      "featured": false
+    },
+    {
+      "id": "news",
+      "name": "News & Updates",
+      "slug": "news",
+      "description": "iOS ve development dünyasından haberler",
+      "color": "#32D74B",
+      "icon": "📰",
+      "postCount": 3,
+      "featured": false
+    }
+  ],
+  
+  "tags": [
+    {
+      "id": "swiftui",
+      "name": "SwiftUI",
+      "slug": "swiftui",
+      "postCount": 25
+    },
+    {
+      "id": "uikit",
+      "name": "UIKit",
+      "slug": "uikit",
+      "postCount": 18
+    },
+    {
+      "id": "coreml",
+      "name": "Core ML",
+      "slug": "coreml",
+      "postCount": 12
+    },
+    {
+      "id": "animation",
+      "name": "Animation",
+      "slug": "animation",
+      "postCount": 15
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "slug": "performance",
+      "postCount": 10
+    },
+    {
+      "id": "arkit",
+      "name": "ARKit",
+      "slug": "arkit",
+      "postCount": 8
+    },
+    {
+      "id": "combine",
+      "name": "Combine",
+      "slug": "combine",
+      "postCount": 14
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "slug": "swift",
+      "postCount": 30
+    },
+    {
+      "id": "ios18",
+      "name": "iOS 18",
+      "slug": "ios18",
+      "postCount": 6
+    },
+    {
+      "id": "mvvm",
+      "name": "MVVM",
+      "slug": "mvvm",
+      "postCount": 12
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
+      "slug": "testing",
+      "postCount": 8
+    },
+    {
+      "id": "architecture",
+      "name": "Architecture",
+      "slug": "architecture",
+      "postCount": 9
+    }
+  ],
+  
+  "authors": [
+    {
+      "id": "celal-basaran",
+      "name": "Celal Başaran",
+      "slug": "celal-basaran",
+      "bio": "8+ yıllık deneyimli iOS Developer. SwiftUI, AI/ML ve modern teknolojiler uzmanı.",
+      "avatar": "/assets/images/authors/celal-basaran.jpg",
+      "social": {
+        "twitter": "@celalbasaran",
+        "linkedin": "celalbasaran",
+        "github": "celalbasaran"
+      },
+      "postCount": 45,
+      "expertise": ["SwiftUI", "iOS Development", "AI/ML", "Performance"]
+    }
+  ],
+  
+  "posts": [
+    {
+      "id": "swiftui-modern-ios-development",
+      "title": "SwiftUI ile Modern iOS Uygulaması Geliştirme Rehberi",
+      "slug": "swiftui-modern-ios-development",
+      "excerpt": "SwiftUI'ın son güncellemeleri ile birlikte iOS 18'de neler değişti? Modern uygulama geliştirme teknikleri, best practice'ler ve performans optimizasyonları.",
+      "content": "",
+      "featured": true,
+      "published": true,
+      "publishedAt": "2024-12-15T08:00:00Z",
+      "updatedAt": "2024-12-15T08:00:00Z",
+      "readingTime": 8,
+      "views": 2500,
+      "likes": 180,
+      "comments": 24,
+      "author": "celal-basaran",
+      "categories": ["swiftui", "ios"],
+      "tags": ["swiftui", "ios18", "performance", "swift"],
+      "featuredImage": "/assets/images/blog/swiftui-featured.jpg",
+      "images": [
+        "/assets/images/blog/swiftui-1.jpg",
+        "/assets/images/blog/swiftui-2.jpg"
+      ],
+      "seo": {
+        "title": "SwiftUI Modern iOS Development Guide 2024",
+        "description": "Complete guide to modern iOS app development with SwiftUI, including iOS 18 features and performance optimization.",
+        "keywords": ["SwiftUI", "iOS Development", "iOS 18", "Swift", "Mobile App"]
+      }
+    },
+    {
+      "id": "swiftui-advanced-animations",
+      "title": "SwiftUI ile Gelişmiş Animasyonlar",
+      "slug": "swiftui-advanced-animations",
+      "excerpt": "SwiftUI'da hero animasyonları, custom transitions ve physics-based animasyonları nasıl oluşturulur?",
+      "content": "",
+      "featured": false,
+      "published": true,
+      "publishedAt": "2024-12-10T10:00:00Z",
+      "updatedAt": "2024-12-10T10:00:00Z",
+      "readingTime": 6,
+      "views": 1800,
+      "likes": 142,
+      "comments": 28,
+      "author": "celal-basaran",
+      "categories": ["swiftui", "tutorial"],
+      "tags": ["swiftui", "animation", "tutorial"],
+      "featuredImage": "/assets/images/blog/swiftui-animations.jpg",
+      "images": [
+        "/assets/images/blog/animation-1.jpg",
+        "/assets/images/blog/animation-2.jpg"
+      ],
+      "seo": {
+        "title": "Advanced SwiftUI Animations Tutorial",
+        "description": "Learn to create advanced animations in SwiftUI including hero animations and custom transitions.",
+        "keywords": ["SwiftUI", "Animation", "iOS", "Tutorial", "Hero Animation"]
+      }
+    },
+    {
+      "id": "core-ml-real-world-applications",
+      "title": "Core ML ile Gerçek Dünya Uygulamaları",
+      "slug": "core-ml-real-world-applications",
+      "excerpt": "Core ML modellerini iOS uygulamalarına entegre etme, optimizasyon teknikleri ve performance ipuçları.",
+      "content": "",
+      "featured": false,
+      "published": true,
+      "publishedAt": "2024-12-05T14:00:00Z",
+      "updatedAt": "2024-12-05T14:00:00Z",
+      "readingTime": 12,
+      "views": 2100,
+      "likes": 165,
+      "comments": 34,
+      "author": "celal-basaran",
+      "categories": ["ai-ml", "ios"],
+      "tags": ["coreml", "ai", "performance"],
+      "featuredImage": "/assets/images/blog/core-ml-integration.jpg",
+      "images": [
+        "/assets/images/blog/coreml-1.jpg",
+        "/assets/images/blog/coreml-2.jpg"
+      ],
+      "seo": {
+        "title": "Core ML Real World Applications in iOS",
+        "description": "Complete guide to integrating Core ML models in iOS apps with optimization techniques.",
+        "keywords": ["Core ML", "AI", "iOS", "Machine Learning", "Performance"]
+      }
+    },
+    {
+      "id": "ios-18-hidden-features",
+      "title": "iOS 18'de Gizli Kalmış 10 Özellik",
+      "slug": "ios-18-hidden-features",
+      "excerpt": "iOS 18 ile gelen yeni API'lar, developer araçları ve kullanıcı deneyimi iyileştirmeleri.",
+      "content": "",
+      "featured": false,
+      "published": true,
+      "publishedAt": "2024-12-01T12:00:00Z",
+      "updatedAt": "2024-12-01T12:00:00Z",
+      "readingTime": 5,
+      "views": 3200,
+      "likes": 248,
+      "comments": 52,
+      "author": "celal-basaran",
+      "categories": ["ios", "tips"],
+      "tags": ["ios18", "tips", "api"],
+      "featuredImage": "/assets/images/blog/ios-18-features.jpg",
+      "images": [
+        "/assets/images/blog/ios18-1.jpg",
+        "/assets/images/blog/ios18-2.jpg"
+      ],
+      "seo": {
+        "title": "iOS 18 Hidden Features for Developers",
+        "description": "Discover 10 hidden features and improvements in iOS 18 for better app development.",
+        "keywords": ["iOS 18", "iOS Development", "New Features", "Apple", "API"]
+      }
+    },
+    {
+      "id": "swiftui-navigation-complete-guide",
+      "title": "SwiftUI Navigation: Kapsamlı Rehber",
+      "slug": "swiftui-navigation-complete-guide",
+      "excerpt": "SwiftUI'da navigation sistem, deep linking, state management ve navigation pattern'ları.",
+      "content": "",
+      "featured": false,
+      "published": true,
+      "publishedAt": "2024-11-28T09:00:00Z",
+      "updatedAt": "2024-11-28T09:00:00Z",
+      "readingTime": 15,
+      "views": 1600,
+      "likes": 128,
+      "comments": 23,
+      "author": "celal-basaran",
+      "categories": ["tutorial", "swiftui"],
+      "tags": ["swiftui", "navigation", "tutorial", "deeplink"],
+      "featuredImage": "/assets/images/blog/swiftui-navigation.jpg",
+      "images": [
+        "/assets/images/blog/navigation-1.jpg",
+        "/assets/images/blog/navigation-2.jpg"
+      ],
+      "seo": {
+        "title": "Complete SwiftUI Navigation Guide",
+        "description": "Master SwiftUI navigation with deep linking, state management and best practices.",
+        "keywords": ["SwiftUI", "Navigation", "Deep Linking", "State Management", "Tutorial"]
+      }
+    },
+    {
+      "id": "ios-app-performance-optimization",
+      "title": "iOS Uygulama Performance Optimizasyonu",
+      "slug": "ios-app-performance-optimization",
+      "excerpt": "Memory management, CPU optimizasyonu, lazy loading ve performance profiling teknikleri.",
+      "content": "",
+      "featured": false,
+      "published": true,
+      "publishedAt": "2024-11-25T11:00:00Z",
+      "updatedAt": "2024-11-25T11:00:00Z",
+      "readingTime": 10,
+      "views": 2800,
+      "likes": 201,
+      "comments": 41,
+      "author": "celal-basaran",
+      "categories": ["ios", "performance"],
+      "tags": ["performance", "optimization", "memory"],
+      "featuredImage": "/assets/images/blog/ios-performance.jpg",
+      "images": [
+        "/assets/images/blog/performance-1.jpg",
+        "/assets/images/blog/performance-2.jpg"
+      ],
+      "seo": {
+        "title": "iOS App Performance Optimization Guide",
+        "description": "Complete guide to iOS app performance optimization including memory management and profiling.",
+        "keywords": ["iOS Performance", "Optimization", "Memory Management", "Profiling", "iOS"]
+      }
+    },
+    {
+      "id": "vision-framework-practical-guide",
+      "title": "Vision Framework ile Pratik Projeler",
+      "slug": "vision-framework-practical-guide",
+      "excerpt": "Vision Framework kullanarak QR kod okuyucu, text recognition ve face detection uygulamaları.",
+      "content": "",
+      "featured": false,
+      "published": true,
+      "publishedAt": "2024-11-20T13:00:00Z",
+      "updatedAt": "2024-11-20T13:00:00Z",
+      "readingTime": 8,
+      "views": 1900,
+      "likes": 156,
+      "comments": 31,
+      "author": "celal-basaran",
+      "categories": ["ai-ml", "tutorial"],
+      "tags": ["vision", "ocr", "facedetection"],
+      "featuredImage": "/assets/images/blog/vision-framework.jpg",
+      "images": [
+        "/assets/images/blog/vision-1.jpg",
+        "/assets/images/blog/vision-2.jpg"
+      ],
+      "seo": {
+        "title": "Vision Framework Practical Projects Guide",
+        "description": "Build practical projects with Vision Framework including QR reader and face detection.",
+        "keywords": ["Vision Framework", "Computer Vision", "iOS", "Face Detection", "OCR"]
+      }
+    },
+    {
+      "id": "combine-async-await-migration",
+      "title": "Combine'dan Async/Await'e Geçiş",
+      "slug": "combine-async-await-migration",
+      "excerpt": "Modern Swift concurrency modeline geçiş için pratik rehber ve migration stratejileri.",
+      "content": "",
+      "featured": false,
+      "published": true,
+      "publishedAt": "2024-11-15T16:00:00Z",
+      "updatedAt": "2024-11-15T16:00:00Z",
+      "readingTime": 7,
+      "views": 1400,
+      "likes": 98,
+      "comments": 19,
+      "author": "celal-basaran",
+      "categories": ["ios", "tutorial"],
+      "tags": ["combine", "async", "swift", "concurrency"],
+      "featuredImage": "/assets/images/blog/combine-async.jpg",
+      "images": [
+        "/assets/images/blog/async-1.jpg",
+        "/assets/images/blog/async-2.jpg"
+      ],
+      "seo": {
+        "title": "Migrating from Combine to Async/Await in Swift",
+        "description": "Practical guide to migrating from Combine to modern Swift concurrency with async/await.",
+        "keywords": ["Combine", "Async Await", "Swift", "Concurrency", "Migration"]
+      }
+    }
+  ],
+  
+  "featured": {
+    "hero": "swiftui-modern-ios-development",
+    "sidebar": [
+      "ios-18-hidden-features",
+      "core-ml-real-world-applications",
+      "ios-app-performance-optimization"
+    ],
+    "newsletter": {
+      "title": "iOS Development Newsletter",
+      "description": "Haftalık iOS development haberleri ve tutorials",
+      "subscriberCount": 2500,
+      "frequency": "weekly"
+    }
+  },
+  
+  "analytics": {
+    "totalViews": 25000,
+    "totalLikes": 1800,
+    "totalComments": 340,
+    "averageReadingTime": 8.5,
+    "topCategories": [
+      { "category": "swiftui", "percentage": 40 },
+      { "category": "ios", "percentage": 33 },
+      { "category": "ai-ml", "percentage": 18 },
+      { "category": "tutorial", "percentage": 27 }
+    ],
+    "topTags": [
+      { "tag": "swift", "count": 30 },
+      { "tag": "swiftui", "count": 25 },
+      { "tag": "ios", "count": 22 },
+      { "tag": "performance", "count": 15 }
+    ],
+    "monthlyStats": [
+      { "month": "2024-12", "posts": 8, "views": 12000 },
+      { "month": "2024-11", "posts": 12, "views": 18000 },
+      { "month": "2024-10", "posts": 10, "views": 15000 }
+    ]
+  },
+  
+  "settings": {
+    "postsPerPage": 6,
+    "enableComments": true,
+    "enableNewsletter": true,
+    "enableSocialShare": true,
+    "enableReadingProgress": true,
+    "enableRelatedPosts": true,
+    "enableSearchHighlight": true
+  }
+} 

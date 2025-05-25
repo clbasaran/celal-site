@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Blog • Celal Başaran • iOS Developer</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Celal Başaran'ın iOS development, SwiftUI, AI/ML teknolojileri hakkında yazıları. Modern mobil uygulama geliştirme ipuçları ve deneyimler.">
+    <meta name="keywords" content="iOS Blog, SwiftUI Tutorials, AI ML Articles, Mobile Development Tips, iOS Developer Blog">
+    <meta name="author" content="Celal Başaran">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog • Celal Başaran">
+    <meta property="og:description" content="iOS development, SwiftUI ve modern teknolojiler hakkında güncel yazılar ve rehberler.">
+    <meta property="og:type" content="blog">
+    <meta property="og:url" content="https://celalbasaran.com/blog.html">
+    <meta property="og:image" content="https://celalbasaran.com/assets/images/blog-og.jpg">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Portfolio OS">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="manifest" href="/pwa/manifest.json">
+    
+    <!-- Critical CSS -->
+    <link rel="preload" href="/assets/css/reset.css" as="style">
+    <link rel="preload" href="/assets/css/main.css" as="style">
+    <link rel="preload" href="/assets/css/components/navbar.css" as="style">
+    <link rel="preload" href="/assets/css/components/blog.css" as="style">
+    
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/components/navbar.css">
+    <link rel="stylesheet" href="/assets/css/components/blog.css">
+    <link rel="stylesheet" href="/assets/css/components/cards.css">
+    <link rel="stylesheet" href="/assets/css/components/animations.css">
+    
+    <!-- Preload Critical JS -->
+    <link rel="modulepreload" href="/assets/js/init.js">
+    <link rel="modulepreload" href="/assets/js/app.js">
+    
+    <style>
+        /* Critical inline CSS for above-the-fold content */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--blue) 100%);
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 64px;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-8);
+            margin-top: var(--space-8);
+        }
+        
+        .blog-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            border: 1px solid var(--separator);
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main" class="skip-link">Ana içeriğe geç</a>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">📝</div>
+            <div class="loading-text">Blog Yükleniyor</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar glass" role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">📱</span>
+                    <span class="brand-text">Portfolio OS</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link">Ana Sayfa</a>
+                <a href="/about.html" class="nav-link">Hakkımda</a>
+                <a href="/projects.html" class="nav-link">Projeler</a>
+                <a href="/skills.html" class="nav-link">Yetenekler</a>
+                <a href="/blog.html" class="nav-link active" aria-current="page">Blog</a>
+                <a href="/contact.html" class="nav-link">İletişim</a>
+                <a href="/hire-me.html" class="nav-link btn-primary">İşbirliği</a>
+            </div>
+            
+            <div class="nav-controls">
+                <button id="themeToggle" class="control-btn" aria-label="Tema değiştir">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="aiToggle" class="control-btn" aria-label="AI Asistan">
+                    <span class="ai-icon">🤖</span>
+                </button>
+                <button id="menuToggle" class="menu-toggle" aria-label="Menü">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main" role="main">
+        <!-- Hero Section -->
+        <section class="blog-hero" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="hero-content" data-animate="fadeInUp">
+                    <h1 id="hero-title" class="hero-title">
+                        Blog & Yazılar 📝
+                    </h1>
+                    <p class="hero-subtitle">
+                        <strong>iOS development</strong>, SwiftUI, AI/ML ve modern teknolojiler hakkında 
+                        <strong>deneyimlerimi</strong> ve <strong>öğrendiklerimi</strong> paylaşıyorum.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="45">0</span>
+                            <span class="stat-label">Yazı</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="25000">0</span>
+                            <span class="stat-label">Okuyucu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="12">0</span>
+                            <span class="stat-label">Kategori</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-count="4.8">0</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Featured Post -->
+        <section class="featured-section" aria-labelledby="featured-title">
+            <div class="container">
+                <header class="section-header" data-animate="fadeInUp">
+                    <h2 id="featured-title" class="section-title">Öne Çıkan Yazı</h2>
+                    <p class="section-subtitle">
+                        Bu hafta en çok okunan ve beğenilen yazım
+                    </p>
+                </header>
+                
+                <article class="featured-post" data-animate="fadeInUp">
+                    <div class="featured-content">
+                        <div class="featured-meta">
+                            <span class="post-category">SwiftUI</span>
+                            <span class="post-date">15 Aralık 2024</span>
+                            <span class="read-time">8 dk okuma</span>
+                        </div>
+                        <h3 class="featured-title">SwiftUI ile Modern iOS Uygulaması Geliştirme Rehberi</h3>
+                        <p class="featured-excerpt">
+                            SwiftUI'ın son güncellemeleri ile birlikte iOS 18'de neler değişti? 
+                            Modern uygulama geliştirme teknikleri, best practice'ler ve performans optimizasyonları.
+                        </p>
+                        <div class="featured-tags">
+                            <span class="tag">SwiftUI</span>
+                            <span class="tag">iOS 18</span>
+                            <span class="tag">Performance</span>
+                            <span class="tag">Best Practices</span>
+                        </div>
+                        <div class="featured-actions">
+                            <a href="/blog/swiftui-modern-ios-development" class="btn-primary">
+                                <span>Yazıyı Oku</span>
+                                <span>→</span>
+                            </a>
+                            <div class="post-stats">
+                                <span class="stat">
+                                    <span class="icon">👁️</span>
+                                    <span>2.5k görüntüleme</span>
+                                </span>
+                                <span class="stat">
+                                    <span class="icon">👍</span>
+                                    <span>180 beğeni</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured-image">
+                        <img src="/assets/images/blog/swiftui-featured.jpg" alt="SwiftUI Modern Development" loading="eager">
+                        <div class="image-overlay">
+                            <span class="featured-badge">Öne Çıkan</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Blog Filters -->
+        <section class="filters-section" aria-labelledby="filters-title">
+            <div class="container">
+                <div class="filters-container">
+                    <h2 id="filters-title" class="sr-only">Blog filtreleri</h2>
+                    
+                    <div class="filter-controls" data-animate="fadeInUp">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" data-filter="all">
+                                <span class="tab-icon">📝</span>
+                                <span>Tümü</span>
+                                <span class="tab-count">45</span>
+                            </button>
+                            <button class="filter-tab" data-filter="swiftui">
+                                <span class="tab-icon">🎨</span>
+                                <span>SwiftUI</span>
+                                <span class="tab-count">18</span>
+                            </button>
+                            <button class="filter-tab" data-filter="ai-ml">
+                                <span class="tab-icon">🤖</span>
+                                <span>AI/ML</span>
+                                <span class="tab-count">8</span>
+                            </button>
+                            <button class="filter-tab" data-filter="ios">
+                                <span class="tab-icon">📱</span>
+                                <span>iOS</span>
+                                <span class="tab-count">15</span>
+                            </button>
+                            <button class="filter-tab" data-filter="tutorial">
+                                <span class="tab-icon">📚</span>
+                                <span>Tutorial</span>
+                                <span class="tab-count">12</span>
+                            </button>
+                            <button class="filter-tab" data-filter="tips">
+                                <span class="tab-icon">💡</span>
+                                <span>İpuçları</span>
+                                <span class="tab-count">10</span>
+                            </button>
+                        </div>
+                        
+                        <div class="filter-actions">
+                            <div class="search-container">
+                                <input type="text" id="blogSearch" class="search-input" 
+                                       placeholder="Blog yazılarında ara..." aria-label="Blog ara">
+                                <button class="search-btn" aria-label="Ara">
+                                    <span>🔍</span>
+                                </button>
+                            </div>
+                            
+                            <select id="sortSelect" class="sort-select" aria-label="Sıralama">
+                                <option value="newest">En Yeni</option>
+                                <option value="oldest">En Eski</option>
+                                <option value="popular">En Popüler</option>
+                                <option value="mostRead">En Çok Okunan</option>
+                                <option value="alphabetical">A-Z</option>
+                            </select>
+                            
+                            <div class="view-toggle" role="group" aria-label="Görünüm seçenekleri">
+                                <button class="view-btn active" data-view="grid" aria-label="Grid görünüm">
+                                    <span>⊞</span>
+                                </button>
+                                <button class="view-btn" data-view="list" aria-label="Liste görünüm">
+                                    <span>☰</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Blog Posts -->
+        <section class="blog-section" aria-labelledby="blog-title">
+            <div class="container">
+                <h2 id="blog-title" class="sr-only">Blog yazıları</h2>
+                
+                <div id="blogGrid" class="blog-grid" data-animate="staggerFadeIn">
+                    <!-- SwiftUI Tutorial -->
+                    <article class="blog-card" data-category="swiftui,tutorial">
+                        <div class="blog-image">
+                            <img src="/assets/images/blog/swiftui-animations.jpg" alt="SwiftUI Animations" loading="lazy">
+                            <div class="blog-overlay">
+                                <span class="reading-time">6 dk</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">SwiftUI</span>
+                                <span class="blog-date">10 Aralık 2024</span>
+                            </div>
+                            <h3 class="blog-title">
+                                <a href="/blog/swiftui-advanced-animations">SwiftUI ile Gelişmiş Animasyonlar</a>
+                            </h3>
+                            <p class="blog-excerpt">
+                                SwiftUI'da hero animasyonları, custom transitions ve physics-based animasyonları nasıl oluşturulur?
+                            </p>
+                            <div class="blog-tags">
+                                <span class="tag">SwiftUI</span>
+                                <span class="tag">Animation</span>
+                                <span class="tag">Tutorial</span>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-stats">
+                                    <span class="stat">
+                                        <span class="icon">👁️</span>
+                                        <span>1.8k</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">👍</span>
+                                        <span>142</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">💬</span>
+                                        <span>28</span>
+                                    </span>
+                                </div>
+                                <a href="/blog/swiftui-advanced-animations" class="read-more">
+                                    Devamını Oku →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- AI/ML Article -->
+                    <article class="blog-card" data-category="ai-ml,ios">
+                        <div class="blog-image">
+                            <img src="/assets/images/blog/core-ml-integration.jpg" alt="Core ML Integration" loading="lazy">
+                            <div class="blog-overlay">
+                                <span class="reading-time">12 dk</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">AI/ML</span>
+                                <span class="blog-date">5 Aralık 2024</span>
+                            </div>
+                            <h3 class="blog-title">
+                                <a href="/blog/core-ml-real-world-applications">Core ML ile Gerçek Dünya Uygulamaları</a>
+                            </h3>
+                            <p class="blog-excerpt">
+                                Core ML modellerini iOS uygulamalarına entegre etme, optimizasyon teknikleri ve performance ipuçları.
+                            </p>
+                            <div class="blog-tags">
+                                <span class="tag">Core ML</span>
+                                <span class="tag">AI</span>
+                                <span class="tag">Performance</span>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-stats">
+                                    <span class="stat">
+                                        <span class="icon">👁️</span>
+                                        <span>2.1k</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">👍</span>
+                                        <span>165</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">💬</span>
+                                        <span>34</span>
+                                    </span>
+                                </div>
+                                <a href="/blog/core-ml-real-world-applications" class="read-more">
+                                    Devamını Oku →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- iOS Tips -->
+                    <article class="blog-card" data-category="ios,tips">
+                        <div class="blog-image">
+                            <img src="/assets/images/blog/ios-18-features.jpg" alt="iOS 18 Features" loading="lazy">
+                            <div class="blog-overlay">
+                                <span class="reading-time">5 dk</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">iOS</span>
+                                <span class="blog-date">1 Aralık 2024</span>
+                            </div>
+                            <h3 class="blog-title">
+                                <a href="/blog/ios-18-hidden-features">iOS 18'de Gizli Kalmış 10 Özellik</a>
+                            </h3>
+                            <p class="blog-excerpt">
+                                iOS 18 ile gelen yeni API'lar, developer araçları ve kullanıcı deneyimi iyileştirmeleri.
+                            </p>
+                            <div class="blog-tags">
+                                <span class="tag">iOS 18</span>
+                                <span class="tag">Tips</span>
+                                <span class="tag">API</span>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-stats">
+                                    <span class="stat">
+                                        <span class="icon">👁️</span>
+                                        <span>3.2k</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">👍</span>
+                                        <span>248</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">💬</span>
+                                        <span>52</span>
+                                    </span>
+                                </div>
+                                <a href="/blog/ios-18-hidden-features" class="read-more">
+                                    Devamını Oku →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Tutorial Article -->
+                    <article class="blog-card" data-category="tutorial,swiftui">
+                        <div class="blog-image">
+                            <img src="/assets/images/blog/swiftui-navigation.jpg" alt="SwiftUI Navigation" loading="lazy">
+                            <div class="blog-overlay">
+                                <span class="reading-time">15 dk</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Tutorial</span>
+                                <span class="blog-date">28 Kasım 2024</span>
+                            </div>
+                            <h3 class="blog-title">
+                                <a href="/blog/swiftui-navigation-complete-guide">SwiftUI Navigation: Kapsamlı Rehber</a>
+                            </h3>
+                            <p class="blog-excerpt">
+                                SwiftUI'da navigation sistem, deep linking, state management ve navigation pattern'ları.
+                            </p>
+                            <div class="blog-tags">
+                                <span class="tag">SwiftUI</span>
+                                <span class="tag">Navigation</span>
+                                <span class="tag">Tutorial</span>
+                                <span class="tag">Deep Link</span>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-stats">
+                                    <span class="stat">
+                                        <span class="icon">👁️</span>
+                                        <span>1.6k</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">👍</span>
+                                        <span>128</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">💬</span>
+                                        <span>23</span>
+                                    </span>
+                                </div>
+                                <a href="/blog/swiftui-navigation-complete-guide" class="read-more">
+                                    Devamını Oku →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Performance Article -->
+                    <article class="blog-card" data-category="ios,tips">
+                        <div class="blog-image">
+                            <img src="/assets/images/blog/ios-performance.jpg" alt="iOS Performance" loading="lazy">
+                            <div class="blog-overlay">
+                                <span class="reading-time">10 dk</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Performance</span>
+                                <span class="blog-date">25 Kasım 2024</span>
+                            </div>
+                            <h3 class="blog-title">
+                                <a href="/blog/ios-app-performance-optimization">iOS Uygulama Performance Optimizasyonu</a>
+                            </h3>
+                            <p class="blog-excerpt">
+                                Memory management, CPU optimizasyonu, lazy loading ve performance profiling teknikleri.
+                            </p>
+                            <div class="blog-tags">
+                                <span class="tag">Performance</span>
+                                <span class="tag">Optimization</span>
+                                <span class="tag">Memory</span>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-stats">
+                                    <span class="stat">
+                                        <span class="icon">👁️</span>
+                                        <span>2.8k</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">👍</span>
+                                        <span>201</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">💬</span>
+                                        <span>41</span>
+                                    </span>
+                                </div>
+                                <a href="/blog/ios-app-performance-optimization" class="read-more">
+                                    Devamını Oku →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- AI Article -->
+                    <article class="blog-card" data-category="ai-ml,tutorial">
+                        <div class="blog-image">
+                            <img src="/assets/images/blog/vision-framework.jpg" alt="Vision Framework" loading="lazy">
+                            <div class="blog-overlay">
+                                <span class="reading-time">8 dk</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">AI/ML</span>
+                                <span class="blog-date">20 Kasım 2024</span>
+                            </div>
+                            <h3 class="blog-title">
+                                <a href="/blog/vision-framework-practical-guide">Vision Framework ile Pratik Projeler</a>
+                            </h3>
+                            <p class="blog-excerpt">
+                                Vision Framework kullanarak QR kod okuyucu, text recognition ve face detection uygulamaları.
+                            </p>
+                            <div class="blog-tags">
+                                <span class="tag">Vision</span>
+                                <span class="tag">OCR</span>
+                                <span class="tag">Face Detection</span>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-stats">
+                                    <span class="stat">
+                                        <span class="icon">👁️</span>
+                                        <span>1.9k</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">👍</span>
+                                        <span>156</span>
+                                    </span>
+                                    <span class="stat">
+                                        <span class="icon">💬</span>
+                                        <span>31</span>
+                                    </span>
+                                </div>
+                                <a href="/blog/vision-framework-practical-guide" class="read-more">
+                                    Devamını Oku →
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Load More -->
+                <div class="load-more-container">
+                    <button id="loadMoreBtn" class="load-more-btn">
+                        <span>Daha Fazla Yazı Yükle</span>
+                        <span>↓</span>
+                    </button>
+                </div>
+                
+                <!-- Empty State -->
+                <div id="emptyState" class="blog-empty" style="display: none;">
+                    <div class="empty-icon">📝</div>
+                    <h3>Yazı bulunamadı</h3>
+                    <p>Arama kriterlerinize uygun blog yazısı bulunamadı. Filtreleri değiştirmeyi deneyin.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Newsletter -->
+        <section class="newsletter-section" aria-labelledby="newsletter-title">
+            <div class="container">
+                <div class="newsletter-content" data-animate="fadeInUp">
+                    <div class="newsletter-info">
+                        <h2 id="newsletter-title">iOS Development Newsletter 📬</h2>
+                        <p>
+                            Haftalık iOS development haberleri, yeni yazılarım ve 
+                            exclusive içerikler için e-posta listemize katılın.
+                        </p>
+                        <div class="newsletter-stats">
+                            <div class="stat">
+                                <span class="stat-number">2,500+</span>
+                                <span class="stat-label">Abone</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">Haftalık</span>
+                                <span class="stat-label">Gönderim</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="newsletter-form">
+                        <form id="newsletterForm" class="form">
+                            <div class="form-group">
+                                <input type="email" id="emailInput" class="form-input" 
+                                       placeholder="E-posta adresiniz" required>
+                                <button type="submit" class="btn-primary">
+                                    <span>Abone Ol</span>
+                                    <span>✉️</span>
+                                </button>
+                            </div>
+                            <p class="form-note">
+                                <span>✅</span>
+                                Spam yapmıyoruz. İstediğiniz zaman abonelikten çıkabilirsiniz.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Popular Categories -->
+        <section class="categories-section" aria-labelledby="categories-title">
+            <div class="container">
+                <header class="section-header" data-animate="fadeInUp">
+                    <h2 id="categories-title" class="section-title">Popüler Kategoriler</h2>
+                    <p class="section-subtitle">
+                        En çok okunan konu başlıkları
+                    </p>
+                </header>
+                
+                <div class="categories-grid" data-animate="staggerFadeIn">
+                    <div class="category-item">
+                        <div class="category-icon">🎨</div>
+                        <h3>SwiftUI</h3>
+                        <p>Modern UI geliştirme teknikleri</p>
+                        <span class="category-count">18 yazı</span>
+                    </div>
+                    
+                    <div class="category-item">
+                        <div class="category-icon">🤖</div>
+                        <h3>AI & ML</h3>
+                        <p>Yapay zeka entegrasyonları</p>
+                        <span class="category-count">8 yazı</span>
+                    </div>
+                    
+                    <div class="category-item">
+                        <div class="category-icon">📱</div>
+                        <h3>iOS Development</h3>
+                        <p>Platform geliştirme ipuçları</p>
+                        <span class="category-count">15 yazı</span>
+                    </div>
+                    
+                    <div class="category-item">
+                        <div class="category-icon">📚</div>
+                        <h3>Tutorials</h3>
+                        <p>Adım adım rehberler</p>
+                        <span class="category-count">12 yazı</span>
+                    </div>
+                    
+                    <div class="category-item">
+                        <div class="category-icon">💡</div>
+                        <h3>Tips & Tricks</h3>
+                        <p>Pratik çözümler</p>
+                        <span class="category-count">10 yazı</span>
+                    </div>
+                    
+                    <div class="category-item">
+                        <div class="category-icon">⚡</div>
+                        <h3>Performance</h3>
+                        <p>Optimizasyon teknikleri</p>
+                        <span class="category-count">6 yazı</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- FPS Monitor -->
+    <div id="fpsMonitor" class="fps-monitor">
+        <span id="fpsValue">60</span>
+        <span class="fps-label">FPS</span>
+    </div>
+    
+    <!-- AI Assistant -->
+    <div id="aiAssistant" class="ai-assistant">
+        <div class="ai-header">
+            <h3>AI Asistan</h3>
+            <button class="ai-close">×</button>
+        </div>
+        <div class="ai-content">
+            <p>Blog yazıları hakkında sorularınızı yanıtlayabilirim!</p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script type="module" src="/assets/js/init.js"></script>
+    <script type="module" src="/assets/js/app.js"></script>
+    <script type="module" src="/assets/js/modules/observer.js"></script>
+    <script type="module" src="/assets/js/modules/scroll-animations.js"></script>
+    <script type="module" src="/assets/js/modules/staggered-fade.js"></script>
+    <script type="module" src="/assets/js/modules/blog-manager.js"></script>
+    
+    <script>
+        // Blog filtering and search
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const blogCards = document.querySelectorAll('.blog-card');
+            const searchInput = document.getElementById('blogSearch');
+            const sortSelect = document.getElementById('sortSelect');
+            
+            // Filter functionality
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const filter = tab.dataset.filter;
+                    
+                    // Update active tab
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Filter blog posts
+                    filterBlogPosts(filter);
+                });
+            });
+            
+            // Search functionality
+            searchInput?.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                searchBlogPosts(query);
+            });
+            
+            // Sort functionality
+            sortSelect?.addEventListener('change', (e) => {
+                const sortBy = e.target.value;
+                sortBlogPosts(sortBy);
+            });
+            
+            // Newsletter form
+            const newsletterForm = document.getElementById('newsletterForm');
+            newsletterForm?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('emailInput').value;
+                
+                if (email) {
+                    // Simulate newsletter subscription
+                    if (window.notificationSystem) {
+                        window.notificationSystem.success('Newsletter aboneliği başarılı! 🎉');
+                        newsletterForm.reset();
+                    }
+                }
+            });
+            
+            function filterBlogPosts(filter) {
+                blogCards.forEach(card => {
+                    const categories = card.dataset.category.split(',');
+                    if (filter === 'all' || categories.includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                checkEmptyState();
+            }
+            
+            function searchBlogPosts(query) {
+                blogCards.forEach(card => {
+                    const title = card.querySelector('.blog-title').textContent.toLowerCase();
+                    const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+                    
+                    if (title.includes(query) || excerpt.includes(query)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                checkEmptyState();
+            }
+            
+            function sortBlogPosts(sortBy) {
+                const blogGrid = document.getElementById('blogGrid');
+                const cards = Array.from(blogCards);
+                
+                cards.sort((a, b) => {
+                    switch (sortBy) {
+                        case 'newest':
+                            return new Date(b.querySelector('.blog-date').textContent) - 
+                                   new Date(a.querySelector('.blog-date').textContent);
+                        case 'oldest':
+                            return new Date(a.querySelector('.blog-date').textContent) - 
+                                   new Date(b.querySelector('.blog-date').textContent);
+                        case 'popular':
+                            const aLikes = parseInt(a.querySelector('.stat:nth-child(2) span:last-child').textContent);
+                            const bLikes = parseInt(b.querySelector('.stat:nth-child(2) span:last-child').textContent);
+                            return bLikes - aLikes;
+                        case 'mostRead':
+                            const aViews = parseInt(a.querySelector('.stat:first-child span:last-child').textContent);
+                            const bViews = parseInt(b.querySelector('.stat:first-child span:last-child').textContent);
+                            return bViews - aViews;
+                        case 'alphabetical':
+                            const aTitle = a.querySelector('.blog-title').textContent;
+                            const bTitle = b.querySelector('.blog-title').textContent;
+                            return aTitle.localeCompare(bTitle, 'tr');
+                        default:
+                            return 0;
+                    }
+                });
+                
+                // Re-append sorted cards
+                cards.forEach(card => blogGrid.appendChild(card));
+            }
+            
+            function checkEmptyState() {
+                const visibleCards = Array.from(blogCards).filter(card => 
+                    card.style.display !== 'none'
+                );
+                
+                const emptyState = document.getElementById('emptyState');
+                if (visibleCards.length === 0) {
+                    emptyState.style.display = 'block';
+                } else {
+                    emptyState.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
