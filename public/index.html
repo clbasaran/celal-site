@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Portfolio OS V6 • Celal Başaran • Modern iOS Developer Platform</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfolio OS V6 - Apple Design Language V6 ile tasarlanmış modern iOS developer platformu. JSON-based CMS, admin dashboard ve gelişmiş bileşen sistemi.">
+    <meta name="keywords" content="Portfolio OS V6, iOS Developer, SwiftUI, Apple Design V6, JSON CMS, Modern Web Platform">
+    <meta name="author" content="Celal Başaran">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Portfolio OS V6 • Modern Developer Platform">
+    <meta property="og:description" content="Apple Design V6 ile tasarlanmış, JSON-based CMS ve admin dashboard içeren modern developer portfolyo platformu">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://celalbasaran.com/">
+    <meta property="og:image" content="https://celalbasaran.com/assets/images/portfolio-os-v6-og.jpg">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Portfolio OS V6">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="manifest" href="/pwa/manifest.json">
+    
+    <!-- Critical CSS -->
+    <link rel="preload" href="/assets/css/reset.css" as="style">
+    <link rel="preload" href="/assets/css/themes/variables.css" as="style">
+    <link rel="preload" href="/assets/css/main.css" as="style">
+    
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/themes/variables.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/components/buttons.css">
+    <link rel="stylesheet" href="/assets/css/components/cards.css">
+    <link rel="stylesheet" href="/assets/css/components/navigation.css">
+    <link rel="stylesheet" href="/assets/css/components/hero.css">
+    <link rel="stylesheet" href="/assets/css/components/modals.css">
+    
+    <!-- Module Preloads -->
+    <link rel="modulepreload" href="/assets/js/app.js">
+    <link rel="modulepreload" href="/assets/js/components/theme-manager.js">
+    <link rel="modulepreload" href="/assets/js/components/navigation.js">
+    <link rel="modulepreload" href="/assets/js/components/modal-manager.js">
+    
+    <style>
+        /* Critical inline CSS for above-the-fold content */
+        .hero-section {
+            background: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-accent-secondary) 60%, var(--color-accent-tertiary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: var(--weight-heavy);
+            line-height: var(--leading-tight);
+            margin-bottom: var(--space-6);
+            background: linear-gradient(45deg, #fff, #e0f2fe);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: var(--weight-medium);
+            margin-bottom: var(--space-8);
+            opacity: 0.9;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: var(--z-maximum);
+            transition: opacity var(--duration-slow) var(--ease-out);
+        }
+        
+        .loading-screen.loaded {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Links -->
+    <div class="skip-links">
+        <a href="#main" class="skip-link">Ana içeriğe geç</a>
+        <a href="#navigation" class="skip-link">Navigasyona geç</a>
+        <a href="#features" class="skip-link">Özelliklere geç</a>
+    </div>
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">💻</div>
+            <div class="loading-text">Portfolio OS V6 Yükleniyor</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loading-stats">
+                <div class="stat">
+                    <span class="label">Modüller</span>
+                    <span class="value" id="moduleCount">0/15</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Durum</span>
+                    <span class="value" id="systemStatus">Başlatılıyor</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav id="navigation" class="navbar" role="navigation" aria-label="Ana navigasyon">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">💻</span>
+                    <span class="brand-text">Portfolio OS V6</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link active" aria-current="page">Ana Sayfa</a>
+                <a href="/about.html" class="nav-link">Hakkımda</a>
+                <a href="/projects.html" class="nav-link">Projeler</a>
+                <a href="/blog.html" class="nav-link">Blog</a>
+                <a href="/contact.html" class="nav-link">İletişim</a>
+                
+                <!-- Admin Link (protected) -->
+                <div class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false">
+                        Sistem <span class="dropdown-icon">▾</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="/admin/dashboard.html" class="dropdown-link admin-only">
+                            <span class="link-icon">⚙️</span>
+                            <span class="link-text">Admin Dashboard</span>
+                        </a>
+                        <a href="/admin/analytics.html" class="dropdown-link admin-only">
+                            <span class="link-icon">📊</span>
+                            <span class="link-text">Analytics</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button id="themeToggleNav" class="dropdown-link btn-tertiary">
+                            <span class="link-icon">🌙</span>
+                            <span class="link-text">Tema Değiştir</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-controls">
+                <button id="themeToggle" class="btn-icon btn-secondary" aria-label="Tema değiştir">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="searchToggle" class="btn-icon btn-secondary" aria-label="Arama">
+                    <span class="search-icon">🔍</span>
+                </button>
+                <button id="menuToggle" class="menu-toggle btn-icon btn-ghost" aria-label="Menü">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main" role="main">
+        <!-- Hero Section -->
+        <section class="hero-section" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="hero-content" data-aos="fade-up">
+                    <h1 id="hero-title" class="hero-title">
+                        Portfolio OS V6
+                    </h1>
+                    <p class="hero-subtitle">
+                        Apple Design Language V6 ile tasarlanmış modern developer platformu. 
+                        JSON-based CMS, admin dashboard ve 80+ modüler bileşen sistemi.
+                    </p>
+                    
+                    <div class="hero-actions" data-aos="fade-up" data-aos-delay="200">
+                        <a href="/projects.html" class="btn btn-lg btn-primary">
+                            <span class="btn-text">Projeleri Keşfet</span>
+                            <span class="btn-icon">🚀</span>
+                        </a>
+                        <a href="/about.html" class="btn btn-lg btn-secondary">
+                            <span class="btn-text">Hakkımda</span>
+                            <span class="btn-icon">👨‍💻</span>
+                        </a>
+                    </div>
+                    
+                    <!-- System Status Indicators -->
+                    <div class="system-status" data-aos="fade-up" data-aos-delay="400">
+                        <div class="status-item" id="v6Status">
+                            <span class="status-dot status-dot--success"></span>
+                            <span class="status-text">Apple Design V6: Aktif</span>
+                        </div>
+                        <div class="status-item" id="cmsStatus">
+                            <span class="status-dot status-dot--success"></span>
+                            <span class="status-text">JSON CMS: Çalışıyor</span>
+                        </div>
+                        <div class="status-item" id="adminStatus">
+                            <span class="status-dot status-dot--success"></span>
+                            <span class="status-text">Admin Dashboard: Hazır</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="features-section" aria-labelledby="features-title">
+            <div class="container">
+                <header class="section-header" data-aos="fade-up">
+                    <h2 id="features-title" class="section-title">V6 Sistem Özellikleri</h2>
+                    <p class="section-subtitle">
+                        Apple Design V6 standartları ile geliştirilmiş modern bileşenler ve gelişmiş yönetim sistemi
+                    </p>
+                </header>
+                
+                <div class="card-grid" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Feature Card 1: Design System -->
+                    <div class="card card-elevated feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3 class="card-title">Apple Design V6</h3>
+                        <p class="feature-description">
+                            En son Apple HIG standartları ile tasarlanmış modern arayüz bileşenleri, 
+                            glassmorphism efektleri ve gelişmiş animasyon sistemi.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">80+ Bileşen</span>
+                            <span class="metric">Glassmorphism</span>
+                            <span class="metric">Dark Mode</span>
+                        </div>
+                        <a href="/about.html#design-system" class="btn btn-sm btn-tertiary">
+                            Detayları Gör →
+                        </a>
+                    </div>
+                    
+                    <!-- Feature Card 2: JSON CMS -->
+                    <div class="card card-elevated feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="card-title">JSON-Based CMS</h3>
+                        <p class="feature-description">
+                            Geleneksel veritabanı gerektirmeyen, dosya tabanlı içerik yönetim sistemi. 
+                            Projeler, blog yazıları ve portfolio içeriği için merkezi kontrol.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">Headless CMS</span>
+                            <span class="metric">Real-time</span>
+                            <span class="metric">Git Friendly</span>
+                        </div>
+                        <a href="/admin/dashboard.html" class="btn btn-sm btn-tertiary">
+                            CMS'i Gör →
+                        </a>
+                    </div>
+                    
+                    <!-- Feature Card 3: Admin Dashboard -->
+                    <div class="card card-elevated feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <h3 class="card-title">Admin Dashboard</h3>
+                        <p class="feature-description">
+                            Tüm içerik yönetimi, analytics ve sistem ayarları için gelişmiş admin paneli. 
+                            Blog yazıları, projeler ve site ayarlarını tek yerden yönetin.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">Content Editor</span>
+                            <span class="metric">Analytics</span>
+                            <span class="metric">User Management</span>
+                        </div>
+                        <a href="/admin/login.html" class="btn btn-sm btn-tertiary">
+                            Admin Girişi →
+                        </a>
+                    </div>
+                    
+                    <!-- Feature Card 4: Performance -->
+                    <div class="card card-elevated feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="card-title">Performance First</h3>
+                        <p class="feature-description">
+                            Lighthouse 98+ skorları, PWA desteği, lazy loading ve modern web standartları 
+                            ile optimize edilmiş yüksek performanslı platform.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">98+ Lighthouse</span>
+                            <span class="metric">PWA Ready</span>
+                            <span class="metric">< 2s Load</span>
+                        </div>
+                        <a href="/analytics.html" class="btn btn-sm btn-tertiary">
+                            Metrikleri Gör →
+                        </a>
+                    </div>
+                    
+                    <!-- Feature Card 5: Modular System -->
+                    <div class="card card-elevated feature-card">
+                        <div class="feature-icon">🧩</div>
+                        <h3 class="card-title">Modüler Mimari</h3>
+                        <p class="feature-description">
+                            Component-based architecture ile kolayca genişletilebilir sistem. 
+                            Her bileşen bağımsız olarak test edilebilir ve güncellenebilir.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">Component Based</span>
+                            <span class="metric">Type Safe</span>
+                            <span class="metric">Scalable</span>
+                        </div>
+                        <a href="/docs.html" class="btn btn-sm btn-tertiary">
+                            Dokümantasyon →
+                        </a>
+                    </div>
+                    
+                    <!-- Feature Card 6: Accessibility -->
+                    <div class="card card-elevated feature-card">
+                        <div class="feature-icon">♿</div>
+                        <h3 class="card-title">Accessibility First</h3>
+                        <p class="feature-description">
+                            WCAG 2.1 AA uyumlu, keyboard navigation desteği ve ekran okuyucu 
+                            uyumluluğu ile herkes için erişilebilir deneyim.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">WCAG 2.1 AA</span>
+                            <span class="metric">Keyboard Nav</span>
+                            <span class="metric">Screen Reader</span>
+                        </div>
+                        <a href="/accessibility.html" class="btn btn-sm btn-tertiary">
+                            Erişilebilirlik →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Stats Section -->
+        <section class="stats-section" aria-labelledby="stats-title">
+            <div class="container">
+                <header class="section-header" data-aos="fade-up">
+                    <h2 id="stats-title" class="section-title">V6 Platform İstatistikleri</h2>
+                    <p class="section-subtitle">Gerçek zamanlı sistem metrikleri ve performans verileri</p>
+                </header>
+                
+                <div class="card-grid card-grid-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card stats-card">
+                        <div class="stats-number" id="componentCount">80+</div>
+                        <div class="stats-label">Modüler Bileşen</div>
+                        <div class="stats-change positive">
+                            <span class="change-icon">↗</span>
+                            <span class="change-text">V5'ten %200 artış</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card stats-card">
+                        <div class="stats-number" id="performanceScore">98</div>
+                        <div class="stats-label">Lighthouse Skoru</div>
+                        <div class="stats-change positive">
+                            <span class="change-icon">↗</span>
+                            <span class="change-text">V5'ten +5 puan</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card stats-card">
+                        <div class="stats-number" id="loadTime">1.8s</div>
+                        <div class="stats-label">Ortalama Yükleme</div>
+                        <div class="stats-change positive">
+                            <span class="change-icon">↗</span>
+                            <span class="change-text">%40 daha hızlı</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card stats-card">
+                        <div class="stats-number" id="accessibilityScore">100</div>
+                        <div class="stats-label">Accessibility Skoru</div>
+                        <div class="stats-change positive">
+                            <span class="change-icon">✓</span>
+                            <span class="change-text">WCAG 2.1 AA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Latest Projects Preview -->
+        <section class="projects-preview-section" aria-labelledby="projects-preview-title">
+            <div class="container">
+                <header class="section-header" data-aos="fade-up">
+                    <h2 id="projects-preview-title" class="section-title">Son Projeler</h2>
+                    <p class="section-subtitle">Portfolio OS V6 ile geliştirilen güncel çalışmalar</p>
+                </header>
+                
+                <div class="card-grid" id="projectsPreview" data-aos="fade-up" data-aos-delay="200">
+                    <!-- Projects will be dynamically loaded -->
+                </div>
+                
+                <div class="section-actions" data-aos="fade-up" data-aos-delay="400">
+                    <a href="/projects.html" class="btn btn-lg btn-primary">
+                        <span class="btn-text">Tüm Projeleri Gör</span>
+                        <span class="btn-icon">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Portfolio OS V6</h3>
+                    <p>Apple Design Language V6 ile tasarlanmış modern developer platformu</p>
+                    <div class="footer-version">
+                        <span>Version 6.0.0</span>
+                        <span>•</span>
+                        <span id="buildInfo">Build 2024.02.15</span>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Platform</h4>
+                        <a href="/projects.html">Projeler</a>
+                        <a href="/blog.html">Blog</a>
+                        <a href="/about.html">Hakkımda</a>
+                        <a href="/contact.html">İletişim</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Sistem</h4>
+                        <a href="/admin/dashboard.html">Admin Dashboard</a>
+                        <a href="/admin/analytics.html">Analytics</a>
+                        <a href="/docs.html">Dokümantasyon</a>
+                        <a href="/changelog.html">Değişiklik Geçmişi</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Sosyal</h4>
+                        <a href="https://github.com/celalbasaran" target="_blank">GitHub</a>
+                        <a href="https://linkedin.com/in/celalbasaran" target="_blank">LinkedIn</a>
+                        <a href="https://twitter.com/celalbasaran" target="_blank">Twitter</a>
+                        <a href="mailto:hello@celalbasaran.com">Email</a>
+                    </div>
+                </div>
+                
+                <div class="footer-status">
+                    <h4>Sistem Durumu</h4>
+                    <div class="status-indicators">
+                        <div class="status-item">
+                            <span class="status-dot status-dot--success"></span>
+                            <span>Tüm Sistemler Operasyonel</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-dot status-dot--success"></span>
+                            <span>JSON CMS: Aktif</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-dot status-dot--success"></span>
+                            <span>Admin Dashboard: Çalışıyor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Celal Başaran. Tüm hakları saklıdır.</p>
+                <div class="footer-tech">
+                    <span>Portfolio OS V6</span>
+                    <span>•</span>
+                    <span>Apple Design Language V6</span>
+                    <span>•</span>
+                    <span id="systemUptime">Uptime: Hesaplanıyor...</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ARIA Live Regions -->
+    <div id="polite-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    <div id="assertive-announcements" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+    
+    <!-- Scripts -->
+    <script type="module" src="/assets/js/app.js"></script>
+</body>
+</html> 

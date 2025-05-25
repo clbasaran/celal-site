@@ -185,227 +185,204 @@
   
   "posts": [
     {
-      "id": "swiftui-modern-ios-development",
-      "title": "SwiftUI ile Modern iOS Uygulaması Geliştirme Rehberi",
-      "slug": "swiftui-modern-ios-development",
-      "excerpt": "SwiftUI'ın son güncellemeleri ile birlikte iOS 18'de neler değişti? Modern uygulama geliştirme teknikleri, best practice'ler ve performans optimizasyonları.",
-      "content": "",
+      "id": "apple-design-v6-evolution",
+      "title": "Apple Design Language V6: Tasarımın Geleceği", 
+      "subtitle": "HIG'den V6'ya: Modern arayüz tasarımının yeni standartları",
+      "excerpt": "Apple'ın Design Language V6 ile getirdiği yenilikler, glassmorphism efektleri ve gelişmiş animasyon sistemleri üzerine detaylı bir inceleme.",
+      "content": "<!-- Markdown içerik buraya gelecek -->",
+      "author": {
+        "name": "Celal Başaran",
+        "avatar": "/assets/images/author-avatar.jpg",
+        "bio": "iOS Developer & Design Enthusiast"
+      },
+      "meta": {
+        "published_date": "2024-02-10T09:00:00Z",
+        "updated_date": "2024-02-10T09:00:00Z",
+        "read_time": 8,
+        "word_count": 1850,
+        "language": "tr"
+      },
+      "status": "published",
       "featured": true,
-      "published": true,
-      "publishedAt": "2024-12-15T08:00:00Z",
-      "updatedAt": "2024-12-15T08:00:00Z",
-      "readingTime": 8,
-      "views": 2500,
-      "likes": 180,
-      "comments": 24,
-      "author": "celal-basaran",
-      "categories": ["swiftui", "ios"],
-      "tags": ["swiftui", "ios18", "performance", "swift"],
-      "featuredImage": "/assets/images/blog/swiftui-featured.jpg",
-      "images": [
-        "/assets/images/blog/swiftui-1.jpg",
-        "/assets/images/blog/swiftui-2.jpg"
+      "category": "Design",
+      "tags": [
+        "Apple Design",
+        "UI/UX",
+        "Design System", 
+        "V6",
+        "Glassmorphism",
+        "Animation"
       ],
       "seo": {
-        "title": "SwiftUI Modern iOS Development Guide 2024",
-        "description": "Complete guide to modern iOS app development with SwiftUI, including iOS 18 features and performance optimization.",
-        "keywords": ["SwiftUI", "iOS Development", "iOS 18", "Swift", "Mobile App"]
+        "meta_description": "Apple Design Language V6'nın getirdiği yenilikler ve modern tasarım prensipleri hakkında kapsamlı rehber.",
+        "keywords": ["apple design v6", "ui design", "glassmorphism", "design system"],
+        "og_image": "/assets/images/blog/apple-design-v6-og.jpg"
+      },
+      "engagement": {
+        "views": 2450,
+        "likes": 89,
+        "comments": 12,
+        "shares": 23
       }
     },
     {
-      "id": "swiftui-advanced-animations",
-      "title": "SwiftUI ile Gelişmiş Animasyonlar",
-      "slug": "swiftui-advanced-animations",
-      "excerpt": "SwiftUI'da hero animasyonları, custom transitions ve physics-based animasyonları nasıl oluşturulur?",
-      "content": "",
-      "featured": false,
-      "published": true,
-      "publishedAt": "2024-12-10T10:00:00Z",
-      "updatedAt": "2024-12-10T10:00:00Z",
-      "readingTime": 6,
-      "views": 1800,
-      "likes": 142,
-      "comments": 28,
-      "author": "celal-basaran",
-      "categories": ["swiftui", "tutorial"],
-      "tags": ["swiftui", "animation", "tutorial"],
-      "featuredImage": "/assets/images/blog/swiftui-animations.jpg",
-      "images": [
-        "/assets/images/blog/animation-1.jpg",
-        "/assets/images/blog/animation-2.jpg"
+      "id": "swiftui-performance-optimization",
+      "title": "SwiftUI Performance: İleri Seviye Optimizasyon Teknikleri",
+      "subtitle": "View hierarchies, lazy loading ve state management ile performance artırma",
+      "excerpt": "SwiftUI uygulamalarında performans sorunlarını tespit etme ve çözme konusunda pratik yaklaşımlar ve gerçek örnekler.",
+      "content": "<!-- Markdown içerik buraya gelecek -->",
+      "author": {
+        "name": "Celal Başaran",
+        "avatar": "/assets/images/author-avatar.jpg",
+        "bio": "iOS Developer & Design Enthusiast"
+      },
+      "meta": {
+        "published_date": "2024-02-05T14:30:00Z",
+        "updated_date": "2024-02-05T14:30:00Z",
+        "read_time": 12,
+        "word_count": 2800,
+        "language": "tr"
+      },
+      "status": "published",
+      "featured": true,
+      "category": "Development",
+      "tags": [
+        "SwiftUI",
+        "Performance",
+        "iOS Development",
+        "Optimization",
+        "State Management"
       ],
       "seo": {
-        "title": "Advanced SwiftUI Animations Tutorial",
-        "description": "Learn to create advanced animations in SwiftUI including hero animations and custom transitions.",
-        "keywords": ["SwiftUI", "Animation", "iOS", "Tutorial", "Hero Animation"]
+        "meta_description": "SwiftUI uygulamalarında performance optimizasyonu için ileri seviye teknikler ve best practices.",
+        "keywords": ["swiftui performance", "ios optimization", "swift development"],
+        "og_image": "/assets/images/blog/swiftui-performance-og.jpg"
+      },
+      "engagement": {
+        "views": 1890,
+        "likes": 76,
+        "comments": 8,
+        "shares": 15
       }
     },
     {
-      "id": "core-ml-real-world-applications",
-      "title": "Core ML ile Gerçek Dünya Uygulamaları",
-      "slug": "core-ml-real-world-applications",
-      "excerpt": "Core ML modellerini iOS uygulamalarına entegre etme, optimizasyon teknikleri ve performance ipuçları.",
-      "content": "",
+      "id": "modern-css-architecture",
+      "title": "Modern CSS Architecture: V6 Sisteminde Modüler Yaklaşım",
+      "subtitle": "Scalable CSS architecture ve Apple Design V6 implementation",
+      "excerpt": "Büyük ölçekli web projelerinde sürdürülebilir CSS mimarisi kurma, modüler yapılar ve Apple tasarım prensiplerini uygulama rehberi.",
+      "content": "<!-- Markdown içerik buraya gelecek -->",
+      "author": {
+        "name": "Celal Başaran",
+        "avatar": "/assets/images/author-avatar.jpg",
+        "bio": "iOS Developer & Design Enthusiast"
+      },
+      "meta": {
+        "published_date": "2024-01-28T10:15:00Z",
+        "updated_date": "2024-01-28T10:15:00Z",
+        "read_time": 10,
+        "word_count": 2200,
+        "language": "tr"
+      },
+      "status": "published",
       "featured": false,
-      "published": true,
-      "publishedAt": "2024-12-05T14:00:00Z",
-      "updatedAt": "2024-12-05T14:00:00Z",
-      "readingTime": 12,
-      "views": 2100,
-      "likes": 165,
-      "comments": 34,
-      "author": "celal-basaran",
-      "categories": ["ai-ml", "ios"],
-      "tags": ["coreml", "ai", "performance"],
-      "featuredImage": "/assets/images/blog/core-ml-integration.jpg",
-      "images": [
-        "/assets/images/blog/coreml-1.jpg",
-        "/assets/images/blog/coreml-2.jpg"
+      "category": "Web Development",
+      "tags": [
+        "CSS Architecture",
+        "Modular CSS",
+        "Design Tokens",
+        "Apple Design",
+        "Scalability"
       ],
       "seo": {
-        "title": "Core ML Real World Applications in iOS",
-        "description": "Complete guide to integrating Core ML models in iOS apps with optimization techniques.",
-        "keywords": ["Core ML", "AI", "iOS", "Machine Learning", "Performance"]
+        "meta_description": "Modern CSS architecture yaklaşımları ve Apple Design V6 sisteminde implementasyon stratejileri.",
+        "keywords": ["css architecture", "modular css", "design tokens", "scalable css"],
+        "og_image": "/assets/images/blog/css-architecture-og.jpg"
+      },
+      "engagement": {
+        "views": 1456,
+        "likes": 64,
+        "comments": 5,
+        "shares": 11
       }
     },
     {
-      "id": "ios-18-hidden-features",
-      "title": "iOS 18'de Gizli Kalmış 10 Özellik",
-      "slug": "ios-18-hidden-features",
-      "excerpt": "iOS 18 ile gelen yeni API'lar, developer araçları ve kullanıcı deneyimi iyileştirmeleri.",
-      "content": "",
+      "id": "json-based-cms-approach",
+      "title": "JSON-Based CMS: Headless İçerik Yönetiminin Geleceği",
+      "subtitle": "Geleneksel CMS'lerden JSON-based sistemlere geçiş rehberi",
+      "excerpt": "JSON-based CMS yaklaşımının avantajları, implementation detayları ve geleneksel sistemlerle karşılaştırmalı analiz.",
+      "content": "<!-- Markdown içerik buraya gelecek -->",
+      "author": {
+        "name": "Celal Başaran",
+        "avatar": "/assets/images/author-avatar.jpg",
+        "bio": "iOS Developer & Design Enthusiast"
+      },
+      "meta": {
+        "published_date": "2024-01-22T16:45:00Z",
+        "updated_date": "2024-01-22T16:45:00Z",
+        "read_time": 9,
+        "word_count": 2100,
+        "language": "tr"
+      },
+      "status": "published",
       "featured": false,
-      "published": true,
-      "publishedAt": "2024-12-01T12:00:00Z",
-      "updatedAt": "2024-12-01T12:00:00Z",
-      "readingTime": 5,
-      "views": 3200,
-      "likes": 248,
-      "comments": 52,
-      "author": "celal-basaran",
-      "categories": ["ios", "tips"],
-      "tags": ["ios18", "tips", "api"],
-      "featuredImage": "/assets/images/blog/ios-18-features.jpg",
-      "images": [
-        "/assets/images/blog/ios18-1.jpg",
-        "/assets/images/blog/ios18-2.jpg"
+      "category": "Backend",
+      "tags": [
+        "JSON CMS",
+        "Headless CMS",
+        "Content Management",
+        "API Design",
+        "Modern Architecture"
       ],
       "seo": {
-        "title": "iOS 18 Hidden Features for Developers",
-        "description": "Discover 10 hidden features and improvements in iOS 18 for better app development.",
-        "keywords": ["iOS 18", "iOS Development", "New Features", "Apple", "API"]
+        "meta_description": "JSON-based CMS sistemlerinin avantajları ve modern web development'ta kullanım stratejileri.",
+        "keywords": ["json cms", "headless cms", "content management", "api design"],
+        "og_image": "/assets/images/blog/json-cms-og.jpg"
+      },
+      "engagement": {
+        "views": 987,
+        "likes": 45,
+        "comments": 3,
+        "shares": 8
       }
     },
     {
-      "id": "swiftui-navigation-complete-guide",
-      "title": "SwiftUI Navigation: Kapsamlı Rehber",
-      "slug": "swiftui-navigation-complete-guide",
-      "excerpt": "SwiftUI'da navigation sistem, deep linking, state management ve navigation pattern'ları.",
-      "content": "",
-      "featured": false,
-      "published": true,
-      "publishedAt": "2024-11-28T09:00:00Z",
-      "updatedAt": "2024-11-28T09:00:00Z",
-      "readingTime": 15,
-      "views": 1600,
-      "likes": 128,
-      "comments": 23,
-      "author": "celal-basaran",
-      "categories": ["tutorial", "swiftui"],
-      "tags": ["swiftui", "navigation", "tutorial", "deeplink"],
-      "featuredImage": "/assets/images/blog/swiftui-navigation.jpg",
-      "images": [
-        "/assets/images/blog/navigation-1.jpg",
-        "/assets/images/blog/navigation-2.jpg"
+      "id": "accessibility-first-development",
+      "title": "Accessibility-First Development: WCAG 2.1 AA Compliance",
+      "subtitle": "Herkes için erişilebilir web deneyimleri tasarlama",
+      "excerpt": "Web accessibility standartlarını karşılayan, inclusive design prensipleriyle uyumlu modern web uygulamaları geliştirme rehberi.",
+      "content": "<!-- Markdown içerik buraya gelecek -->",
+      "author": {
+        "name": "Celal Başaran",
+        "avatar": "/assets/images/author-avatar.jpg",
+        "bio": "iOS Developer & Design Enthusiast"
+      },
+      "meta": {
+        "published_date": "2024-01-15T11:20:00Z",
+        "updated_date": "2024-01-15T11:20:00Z",
+        "read_time": 11,
+        "word_count": 2650,
+        "language": "tr"
+      },
+      "status": "published",
+      "featured": true,
+      "category": "Accessibility",
+      "tags": [
+        "Accessibility",
+        "WCAG 2.1",
+        "Inclusive Design",
+        "Web Standards",
+        "User Experience"
       ],
       "seo": {
-        "title": "Complete SwiftUI Navigation Guide",
-        "description": "Master SwiftUI navigation with deep linking, state management and best practices.",
-        "keywords": ["SwiftUI", "Navigation", "Deep Linking", "State Management", "Tutorial"]
-      }
-    },
-    {
-      "id": "ios-app-performance-optimization",
-      "title": "iOS Uygulama Performance Optimizasyonu",
-      "slug": "ios-app-performance-optimization",
-      "excerpt": "Memory management, CPU optimizasyonu, lazy loading ve performance profiling teknikleri.",
-      "content": "",
-      "featured": false,
-      "published": true,
-      "publishedAt": "2024-11-25T11:00:00Z",
-      "updatedAt": "2024-11-25T11:00:00Z",
-      "readingTime": 10,
-      "views": 2800,
-      "likes": 201,
-      "comments": 41,
-      "author": "celal-basaran",
-      "categories": ["ios", "performance"],
-      "tags": ["performance", "optimization", "memory"],
-      "featuredImage": "/assets/images/blog/ios-performance.jpg",
-      "images": [
-        "/assets/images/blog/performance-1.jpg",
-        "/assets/images/blog/performance-2.jpg"
-      ],
-      "seo": {
-        "title": "iOS App Performance Optimization Guide",
-        "description": "Complete guide to iOS app performance optimization including memory management and profiling.",
-        "keywords": ["iOS Performance", "Optimization", "Memory Management", "Profiling", "iOS"]
-      }
-    },
-    {
-      "id": "vision-framework-practical-guide",
-      "title": "Vision Framework ile Pratik Projeler",
-      "slug": "vision-framework-practical-guide",
-      "excerpt": "Vision Framework kullanarak QR kod okuyucu, text recognition ve face detection uygulamaları.",
-      "content": "",
-      "featured": false,
-      "published": true,
-      "publishedAt": "2024-11-20T13:00:00Z",
-      "updatedAt": "2024-11-20T13:00:00Z",
-      "readingTime": 8,
-      "views": 1900,
-      "likes": 156,
-      "comments": 31,
-      "author": "celal-basaran",
-      "categories": ["ai-ml", "tutorial"],
-      "tags": ["vision", "ocr", "facedetection"],
-      "featuredImage": "/assets/images/blog/vision-framework.jpg",
-      "images": [
-        "/assets/images/blog/vision-1.jpg",
-        "/assets/images/blog/vision-2.jpg"
-      ],
-      "seo": {
-        "title": "Vision Framework Practical Projects Guide",
-        "description": "Build practical projects with Vision Framework including QR reader and face detection.",
-        "keywords": ["Vision Framework", "Computer Vision", "iOS", "Face Detection", "OCR"]
-      }
-    },
-    {
-      "id": "combine-async-await-migration",
-      "title": "Combine'dan Async/Await'e Geçiş",
-      "slug": "combine-async-await-migration",
-      "excerpt": "Modern Swift concurrency modeline geçiş için pratik rehber ve migration stratejileri.",
-      "content": "",
-      "featured": false,
-      "published": true,
-      "publishedAt": "2024-11-15T16:00:00Z",
-      "updatedAt": "2024-11-15T16:00:00Z",
-      "readingTime": 7,
-      "views": 1400,
-      "likes": 98,
-      "comments": 19,
-      "author": "celal-basaran",
-      "categories": ["ios", "tutorial"],
-      "tags": ["combine", "async", "swift", "concurrency"],
-      "featuredImage": "/assets/images/blog/combine-async.jpg",
-      "images": [
-        "/assets/images/blog/async-1.jpg",
-        "/assets/images/blog/async-2.jpg"
-      ],
-      "seo": {
-        "title": "Migrating from Combine to Async/Await in Swift",
-        "description": "Practical guide to migrating from Combine to modern Swift concurrency with async/await.",
-        "keywords": ["Combine", "Async Await", "Swift", "Concurrency", "Migration"]
+        "meta_description": "WCAG 2.1 AA standardlarına uygun accessibility-first development yaklaşımları ve implementation teknikleri.",
+        "keywords": ["web accessibility", "wcag 2.1", "inclusive design", "a11y"],
+        "og_image": "/assets/images/blog/accessibility-og.jpg"
+      },
+      "engagement": {
+        "views": 1234,
+        "likes": 58,
+        "comments": 7,
+        "shares": 14
       }
     }
   ],
