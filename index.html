@@ -43,12 +43,14 @@
     <link rel="stylesheet" href="/assets/css/components/assistant.chat.css">
     <link rel="stylesheet" href="/assets/css/components/accessibility.panel.css">
     <link rel="stylesheet" href="/assets/css/components/stats.grid.css">
+    <link rel="stylesheet" href="/assets/css/components/assistant.modal.css">
     
     <!-- Module Preloads -->
     <link rel="modulepreload" href="/assets/js/init.js">
     <link rel="modulepreload" href="/assets/js/app.js">
     <link rel="modulepreload" href="/assets/js/script.js">
     <link rel="modulepreload" href="/assets/js/modules/assistant.js">
+    <link rel="modulepreload" href="/assets/js/modules/assistant.modal.js">
     <link rel="modulepreload" href="/assets/js/modules/accessibility.js">
     <link rel="modulepreload" href="/assets/js/modules/session-manager.js">
     <link rel="modulepreload" href="/assets/js/modules/config-loader.js">
@@ -167,10 +169,6 @@
                         Sistem <span class="dropdown-icon">▾</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a href="/assistant.html" class="dropdown-link">
-                            <span class="link-icon">🤖</span>
-                            <span class="link-text">AI Assistant</span>
-                        </a>
                         <a href="/accessibility.html" class="dropdown-link">
                             <span class="link-icon">♿</span>
                             <span class="link-text">Erişilebilirlik</span>
@@ -268,7 +266,7 @@
                             <span class="stat">Sesli Komut</span>
                             <span class="stat">Çok Dilli</span>
                         </div>
-                        <a href="/assistant.html" class="feature-link">Keşfet →</a>
+                        <button id="featureAIAssistant" class="feature-link">Başlat →</button>
                     </div>
                     
                     <div class="feature-card" data-feature="accessibility">
@@ -390,7 +388,7 @@
                 <div class="footer-links">
                     <div class="link-group">
                         <h4>Platform</h4>
-                        <a href="/assistant.html">AI Assistant</a>
+                        <button id="footerAIAssistant" class="footer-link-btn">AI Assistant</button>
                         <a href="/accessibility.html">Erişilebilirlik</a>
                         <a href="/stats.html">Analytics</a>
                     </div>
@@ -441,6 +439,176 @@
             </div>
         </div>
     </footer>
+    
+    <!-- AI Assistant Modal -->
+    <div id="assistantModal" class="assistant-modal" role="dialog" aria-labelledby="assistantModalTitle" aria-hidden="true">
+        <div class="assistant-modal__backdrop" aria-hidden="true"></div>
+        <div class="assistant-modal__container">
+            <div class="assistant-modal__header">
+                <div class="assistant-modal__title-section">
+                    <div class="assistant-modal__avatar">
+                        <div class="avatar-icon">🤖</div>
+                        <div class="avatar-status" id="assistantStatus">
+                            <span class="status-dot"></span>
+                        </div>
+                    </div>
+                    <div class="assistant-modal__title-text">
+                        <h2 id="assistantModalTitle" class="modal-title">AI Assistant</h2>
+                        <p class="modal-subtitle">Portfolio OS ile sohbet edin</p>
+                    </div>
+                </div>
+                
+                <div class="assistant-modal__controls">
+                    <button id="assistantModalMinimize" class="control-btn" aria-label="Küçült" title="Küçült">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="12" x2="18" y2="12"></line>
+                        </svg>
+                    </button>
+                    <button id="assistantModalClose" class="control-btn control-btn--close" aria-label="Kapat" title="Kapat (ESC)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="assistant-modal__body">
+                <!-- Welcome Message -->
+                <div id="assistantWelcome" class="assistant-welcome">
+                    <div class="welcome-content">
+                        <div class="welcome-icon">👋</div>
+                        <h3>AI Assistant'a Hoş Geldiniz!</h3>
+                        <p>Portfolio OS hakkında soru sorun, projeler hakkında bilgi alın veya genel yardım isteyin.</p>
+                        
+                        <div class="quick-suggestions">
+                            <h4>Örnek sorular:</h4>
+                            <div class="suggestion-chips">
+                                <button class="suggestion-chip" data-suggestion="Hangi projeler yapıldı?">
+                                    <span class="chip-icon">💼</span>
+                                    <span class="chip-text">Hangi projeler yapıldı?</span>
+                                </button>
+                                <button class="suggestion-chip" data-suggestion="Yetenekler nelerdir?">
+                                    <span class="chip-icon">🛠️</span>
+                                    <span class="chip-text">Yetenekler nelerdir?</span>
+                                </button>
+                                <button class="suggestion-chip" data-suggestion="İletişim bilgileri nedir?">
+                                    <span class="chip-icon">📧</span>
+                                    <span class="chip-text">İletişim bilgileri</span>
+                                </button>
+                                <button class="suggestion-chip" data-suggestion="Sistem durumu nasıl?">
+                                    <span class="chip-icon">📊</span>
+                                    <span class="chip-text">Sistem durumu</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Messages Container -->
+                <div id="assistantChatLog" class="assistant-chat-log" role="log" aria-live="polite" aria-label="Sohbet geçmişi">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+                
+                <!-- Typing Indicator -->
+                <div id="assistantTyping" class="assistant-typing" aria-hidden="true">
+                    <div class="typing-avatar">🤖</div>
+                    <div class="typing-content">
+                        <div class="typing-bubble">
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="assistant-modal__footer">
+                <form id="assistantChatForm" class="chat-form" role="form">
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <textarea 
+                                id="assistantChatInput" 
+                                class="chat-input" 
+                                placeholder="AI Assistant'a mesaj yazın... (⌘+Enter ile gönder)"
+                                rows="1"
+                                maxlength="1000"
+                                aria-label="Mesaj yazın"
+                                aria-describedby="chatInputHelp"
+                            ></textarea>
+                            <div id="chatInputHelp" class="sr-only">
+                                Enter tuşuna basarak mesaj gönderin. Shift+Enter ile yeni satır ekleyin.
+                            </div>
+                        </div>
+                        
+                        <div class="chat-actions">
+                            <button 
+                                id="assistantVoiceBtn" 
+                                type="button" 
+                                class="action-btn voice-btn" 
+                                aria-label="Sesli mesaj"
+                                title="Sesli mesaj (şu an desteklenmiyor)"
+                                disabled
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                                </svg>
+                            </button>
+                            
+                            <button 
+                                id="assistantSendBtn" 
+                                type="submit" 
+                                class="action-btn send-btn" 
+                                aria-label="Mesaj gönder"
+                                title="Mesaj gönder (⌘+Enter)"
+                                disabled
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-footer-info">
+                        <div class="info-left">
+                            <span class="char-count">
+                                <span id="chatCharCount">0</span>/1000
+                            </span>
+                        </div>
+                        <div class="info-right">
+                            <span class="shortcut-hint">⌘+/ ile aç/kapat</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Action Button -->
+    <div id="assistantFAB" class="assistant-fab" role="button" tabindex="0" aria-label="AI Assistant'ı aç" title="AI Assistant'ı aç (⌘+/)">
+        <div class="fab-icon">
+            <svg class="fab-icon-default" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                <path d="M8 9h8"></path>
+                <path d="M8 13h6"></path>
+            </svg>
+            <svg class="fab-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </div>
+        <div class="fab-status" id="fabStatus">
+            <span class="status-dot"></span>
+        </div>
+        <div class="fab-tooltip">AI Assistant</div>
+    </div>
     
     <!-- ARIA Live Regions -->
     <div id="polite-announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>

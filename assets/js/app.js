@@ -28,7 +28,7 @@ class PortfolioApp {
             { name: 'accessibility', path: '/assets/js/modules/accessibility.js' },
             { name: 'animation-orchestrator', path: '/assets/js/modules/animation-orchestrator.js' },
             { name: 'scroll-persistence', path: '/assets/js/modules/scroll-persistence.js' },
-            { name: 'assistant', path: '/assets/js/modules/assistant.js' }
+            { name: 'assistant-modal', path: '/assets/js/modules/assistant.modal.js' }
         ];
         
         this.init();
@@ -181,6 +181,86 @@ class PortfolioApp {
                 }
             });
         });
+
+        // Quick access buttons
+        const quickLaunchAI = document.getElementById('quickLaunchAI');
+        const quickAccessibility = document.getElementById('quickAccessibility');
+        const quickStats = document.getElementById('quickStats');
+        const quickTheme = document.getElementById('quickTheme');
+        
+        if (quickLaunchAI) {
+            quickLaunchAI.addEventListener('click', () => {
+                const assistant = this.orchestrator.getModule('assistant-modal');
+                if (assistant && assistant.toggle) {
+                    assistant.toggle();
+                }
+            });
+        }
+        
+        if (quickAccessibility) {
+            quickAccessibility.addEventListener('click', () => {
+                const accessibility = this.orchestrator.getModule('accessibility');
+                if (accessibility && accessibility.showPanel) {
+                    accessibility.showPanel();
+                }
+            });
+        }
+        
+        if (quickStats) {
+            quickStats.addEventListener('click', () => {
+                window.open('/stats.html', '_blank');
+            });
+        }
+        
+        if (quickTheme) {
+            quickTheme.addEventListener('click', () => {
+                this.orchestrator.emit('theme:toggle');
+            });
+        }
+        
+        // Navigation AI Assistant button
+        const aiAssistantToggle = document.getElementById('aiAssistantToggle');
+        if (aiAssistantToggle) {
+            aiAssistantToggle.addEventListener('click', () => {
+                const assistant = this.orchestrator.getModule('assistant-modal');
+                if (assistant && assistant.toggle) {
+                    assistant.toggle();
+                }
+            });
+        }
+        
+        // Hero section launch assistant button
+        const launchAssistant = document.getElementById('launchAssistant');
+        if (launchAssistant) {
+            launchAssistant.addEventListener('click', () => {
+                const assistant = this.orchestrator.getModule('assistant-modal');
+                if (assistant && assistant.open) {
+                    assistant.open();
+                }
+            });
+        }
+        
+        // Feature AI Assistant button
+        const featureAIAssistant = document.getElementById('featureAIAssistant');
+        if (featureAIAssistant) {
+            featureAIAssistant.addEventListener('click', () => {
+                const assistant = this.orchestrator.getModule('assistant-modal');
+                if (assistant && assistant.open) {
+                    assistant.open();
+                }
+            });
+        }
+        
+        // Footer AI Assistant button
+        const footerAIAssistant = document.getElementById('footerAIAssistant');
+        if (footerAIAssistant) {
+            footerAIAssistant.addEventListener('click', () => {
+                const assistant = this.orchestrator.getModule('assistant-modal');
+                if (assistant && assistant.open) {
+                    assistant.open();
+                }
+            });
+        }
     }
     
     toggleMobileMenu() {
@@ -518,7 +598,7 @@ class PortfolioApp {
     enableCrossModuleCommunication() {
         // Set up any additional cross-module event handlers
         const sessionManager = this.orchestrator.getModule('session-manager');
-        const assistant = this.orchestrator.getModule('assistant');
+        const assistant = this.orchestrator.getModule('assistant-modal');
         
         if (sessionManager && assistant) {
             console.log('🔗 Cross-module communication enabled');
@@ -563,19 +643,19 @@ class PortfolioApp {
                     accessibility.closePanel();
                 }
                 
-                const assistant = this.orchestrator.getModule('assistant');
+                const assistant = this.orchestrator.getModule('assistant-modal');
                 if (assistant && assistant.close) {
                     assistant.close();
                 }
                 break;
                 
             case '/':
-                if (e.ctrlKey || e.metaKey) {
+                if ((e.ctrlKey || e.metaKey) && e.key === '/') {
                     e.preventDefault();
                     // Open assistant with keyboard shortcut
-                    const assistant = this.orchestrator.getModule('assistant');
-                    if (assistant && assistant.show) {
-                        assistant.show();
+                    const assistant = this.orchestrator.getModule('assistant-modal');
+                    if (assistant && assistant.toggle) {
+                        assistant.toggle();
                     }
                 }
                 break;
