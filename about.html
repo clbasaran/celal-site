@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımda - Portfolio OS V6</title>
+    
+    <!-- CSS Framework -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="iOS & macOS Developer - Portfolio ve deneyimlerim hakkında bilgi edinin">
+    <meta name="keywords" content="iOS, macOS, Swift, SwiftUI, Developer, Portfolio">
+    <meta name="author" content="Celal Başaran">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hakkımda - Portfolio OS V6">
+    <meta property="og:description" content="iOS & macOS Developer - Portfolio ve deneyimlerim hakkında bilgi edinin">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/images/celal-avatar.jpg">
+    
+    <!-- Custom About Page Styles -->
+    <style>
+        /* About Page Specific Styles */
+        .about-page {
+            min-height: 100vh;
+            background: var(--color-bg-primary);
+        }
+        
+        /* Navigation */
+        .about-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: var(--z-header);
+            background: rgba(var(--color-bg-elevated-rgb), 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-separator);
+            transition: all var(--duration-base) var(--ease-out);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            text-decoration: none;
+            color: var(--color-text-primary);
+            font-weight: var(--weight-semibold);
+            font-size: var(--text-lg);
+        }
+        
+        .nav-logo:hover {
+            color: var(--color-accent-primary);
+            transform: translateY(-1px);
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+        }
+        
+        .nav-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: var(--weight-medium);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-lg);
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+        
+        .nav-link:hover {
+            color: var(--color-accent-primary);
+            background: var(--color-fill-secondary);
+            transform: translateY(-1px);
+        }
+        
+        .nav-link.active {
+            color: var(--color-accent-primary);
+            background: var(--color-fill-tertiary);
+        }
+        
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--color-fill-secondary);
+            border-radius: var(--radius-full);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+        
+        .theme-toggle:hover {
+            background: var(--color-fill-tertiary);
+            color: var(--color-text-primary);
+            transform: scale(1.05);
+        }
+        
+        /* Main Content */
+        .about-content {
+            padding-top: 120px; /* 64px nav + 56px spacing */
+            padding-bottom: var(--space-8);
+        }
+        
+        .content-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+        
+        /* Section Styling */
+        .about-section {
+            margin-bottom: var(--space-8);
+        }
+        
+        .about-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 64px; /* 8 * 8pt = 64px */
+        }
+        
+        .hero-title {
+            font-size: var(--text-5xl);
+            font-weight: var(--weight-bold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-6);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-subtitle {
+            font-size: var(--text-xl);
+            color: var(--color-text-secondary);
+            font-weight: var(--weight-medium);
+            margin-bottom: var(--space-4);
+        }
+        
+        .hero-bio {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Profile Avatar */
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-6) auto;
+            background: var(--color-fill-secondary);
+            border: 4px solid var(--color-bg-elevated);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: all var(--duration-base) var(--ease-out);
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            margin-bottom: var(--space-6);
+        }
+        
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--weight-bold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+            line-height: 1.2;
+        }
+        
+        .section-subtitle {
+            font-size: var(--text-base);
+            color: var(--color-text-secondary);
+            line-height: var(--leading-relaxed);
+        }
+        
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .skill-item {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            transition: all var(--duration-fast) var(--ease-out);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .skill-item:hover {
+            background: var(--color-fill-secondary);
+            border-color: var(--color-border-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .skill-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-lg);
+            background: var(--color-accent-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-lg);
+            flex-shrink: 0;
+        }
+        
+        .skill-info {
+            flex: 1;
+        }
+        
+        .skill-name {
+            font-weight: var(--weight-semibold);
+            color: var(--color-text-primary);
+            font-size: var(--text-base);
+            margin-bottom: var(--space-1);
+        }
+        
+        .skill-level {
+            font-size: var(--text-sm);
+            color: var(--color-text-tertiary);
+        }
+        
+        /* Highlights Timeline */
+        .highlights-list {
+            space-y: var(--space-4);
+        }
+        
+        .highlight-item {
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-5);
+            margin-bottom: var(--space-4);
+            position: relative;
+            transition: all var(--duration-fast) var(--ease-out);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .highlight-item:hover {
+            background: var(--color-fill-secondary);
+            border-color: var(--color-border-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .highlight-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+        }
+        
+        .highlight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            background: var(--color-accent-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xl);
+        }
+        
+        .highlight-info {
+            flex: 1;
+        }
+        
+        .highlight-title {
+            font-weight: var(--weight-semibold);
+            color: var(--color-text-primary);
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-1);
+        }
+        
+        .highlight-organization {
+            color: var(--color-text-secondary);
+            font-size: var(--text-base);
+        }
+        
+        .highlight-year {
+            color: var(--color-accent-primary);
+            font-size: var(--text-sm);
+            font-weight: var(--weight-medium);
+            background: var(--color-fill-tertiary);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-md);
+        }
+        
+        /* Loading States */
+        .loading-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            color: var(--color-text-secondary);
+        }
+        
+        .loading-spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--color-fill-tertiary);
+            border-top: 3px solid var(--color-accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: var(--space-3);
+        }
+        
+        /* Error States */
+        .error-state {
+            text-align: center;
+            padding: var(--space-6);
+            color: var(--color-text-secondary);
+        }
+        
+        .error-icon {
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-4);
+        }
+        
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s var(--ease-spring) forwards;
+        }
+        
+        .fade-in-up.delay-1 { animation-delay: 0.1s; }
+        .fade-in-up.delay-2 { animation-delay: 0.2s; }
+        .fade-in-up.delay-3 { animation-delay: 0.3s; }
+        .fade-in-up.delay-4 { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 var(--space-4);
+            }
+            
+            .nav-links {
+                gap: var(--space-4);
+            }
+            
+            .nav-link {
+                font-size: var(--text-sm);
+                padding: var(--space-2);
+            }
+            
+            .content-container {
+                padding: 0 var(--space-4);
+            }
+            
+            .about-content {
+                padding-top: 100px; /* Reduce top spacing on mobile */
+            }
+            
+            .hero-title {
+                font-size: var(--text-4xl);
+            }
+            
+            .hero-subtitle {
+                font-size: var(--text-lg);
+            }
+            
+            .hero-bio {
+                font-size: var(--text-base);
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-3);
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 var(--space-3);
+                height: 56px;
+            }
+            
+            .nav-logo {
+                font-size: var(--text-base);
+            }
+            
+            .content-container {
+                padding: 0 var(--space-3);
+            }
+            
+            .about-content {
+                padding-top: 80px;
+            }
+            
+            .hero-title {
+                font-size: var(--text-3xl);
+            }
+            
+            .section-title {
+                font-size: var(--text-xl);
+            }
+            
+            .skill-item,
+            .highlight-item {
+                padding: var(--space-3);
+            }
+        }
+        
+        /* Dark Mode Optimizations */
+        [data-theme="dark"] .about-nav {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="dark"] .skill-item,
+        [data-theme="dark"] .highlight-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        [data-theme="dark"] .skill-item:hover,
+        [data-theme="dark"] .highlight-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in-up,
+            .skill-item,
+            .highlight-item,
+            .profile-avatar {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        
+        @media (prefers-contrast: high) {
+            .skill-item,
+            .highlight-item {
+                border: 2px solid var(--color-border-primary);
+            }
+        }
+        
+        /* Focus States */
+        .nav-link:focus,
+        .theme-toggle:focus {
+            outline: 2px solid var(--color-accent-primary);
+            outline-offset: 2px;
+        }
+        
+        .skill-item:focus-within,
+        .highlight-item:focus-within {
+            outline: 2px solid var(--color-accent-primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="about-page">
+    <!-- Navigation -->
+    <nav class="about-nav" role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="Ana sayfaya dön">
+                <span>🚀</span>
+                Portfolio OS
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Ana Sayfa</a>
+                <a href="about.html" class="nav-link active" aria-current="page">Hakkımda</a>
+                <a href="projects.html" class="nav-link">Projeler</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir" type="button">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="about-content" role="main">
+        <div class="content-container">
+            
+            <!-- Hero Section -->
+            <section class="hero-section fade-in-up" aria-labelledby="hero-title">
+                <div class="profile-avatar" id="profileAvatar">
+                    <!-- Avatar will be loaded dynamically -->
+                </div>
+                <h1 class="hero-title" id="heroTitle">About Me</h1>
+                <p class="hero-subtitle" id="heroSubtitle">Loading...</p>
+                <p class="hero-bio" id="heroBio">Loading profile information...</p>
+            </section>
+            
+            <!-- Skills Section -->
+            <section class="about-section fade-in-up delay-1" aria-labelledby="skills-title">
+                <div class="section-header">
+                    <h2 class="section-title" id="skills-title">Technical Skills</h2>
+                    <p class="section-subtitle">Technologies and tools I work with to create amazing experiences</p>
+                </div>
+                
+                <div class="skills-grid" id="skillsGrid">
+                    <!-- Skills will be loaded dynamically -->
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <span>Loading skills...</span>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Highlights Section -->
+            <section class="about-section fade-in-up delay-2" aria-labelledby="highlights-title">
+                <div class="section-header">
+                    <h2 class="section-title" id="highlights-title">Career Highlights</h2>
+                    <p class="section-subtitle">Key milestones in my journey as a developer</p>
+                </div>
+                
+                <div class="highlights-list" id="highlightsList">
+                    <!-- Highlights will be loaded dynamically -->
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <span>Loading highlights...</span>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module" src="assets/js/components/theme-manager.js"></script>
+    <script type="module" src="assets/js/components/data-manager.js"></script>
+    
+    <script type="module">
+        import { DataManager } from './assets/js/components/data-manager.js';
+        import { ThemeManager } from './assets/js/components/theme-manager.js';
+        
+        class AboutPage {
+            constructor() {
+                this.dataManager = null;
+                this.themeManager = null;
+                this.profileData = null;
+                
+                // Bind methods
+                this.init = this.init.bind(this);
+                this.loadProfile = this.loadProfile.bind(this);
+                this.renderProfile = this.renderProfile.bind(this);
+                this.renderSkills = this.renderSkills.bind(this);
+                this.renderHighlights = this.renderHighlights.bind(this);
+                this.handleError = this.handleError.bind(this);
+            }
+            
+            async init() {
+                try {
+                    console.log('🚀 About Page initializing...');
+                    
+                    // Initialize managers
+                    this.dataManager = new DataManager();
+                    this.themeManager = new ThemeManager();
+                    
+                    await Promise.all([
+                        this.dataManager.init(),
+                        this.themeManager.init()
+                    ]);
+                    
+                    // Setup theme toggle
+                    this.setupThemeToggle();
+                    
+                    // Load and render profile data
+                    await this.loadProfile();
+                    
+                    console.log('✅ About Page initialized');
+                    
+                } catch (error) {
+                    console.error('❌ About Page initialization failed:', error);
+                    this.handleError(error);
+                }
+            }
+            
+            setupThemeToggle() {
+                const themeToggle = document.getElementById('themeToggle');
+                const themeIcon = document.getElementById('themeIcon');
+                
+                if (themeToggle && this.themeManager) {
+                    themeToggle.addEventListener('click', () => {
+                        this.themeManager.toggle();
+                    });
+                    
+                    // Listen for theme changes
+                    document.addEventListener('themechange', (event) => {
+                        const theme = event.detail.actualTheme;
+                        if (themeIcon) {
+                            themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+                        }
+                    });
+                    
+                    // Set initial icon
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    if (themeIcon) {
+                        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+                    }
+                }
+            }
+            
+            async loadProfile() {
+                try {
+                    this.profileData = await this.dataManager.loadProfile();
+                    
+                    if (!this.profileData) {
+                        throw new Error('Profile data not available');
+                    }
+                    
+                    // Render all sections
+                    this.renderProfile();
+                    this.renderSkills();
+                    this.renderHighlights();
+                    
+                } catch (error) {
+                    console.error('Failed to load profile:', error);
+                    this.handleError(error);
+                }
+            }
+            
+            renderProfile() {
+                const { name, title, bio, avatar } = this.profileData;
+                
+                // Update hero section
+                const heroTitle = document.getElementById('heroTitle');
+                const heroSubtitle = document.getElementById('heroSubtitle');
+                const heroBio = document.getElementById('heroBio');
+                const profileAvatar = document.getElementById('profileAvatar');
+                
+                if (heroTitle) heroTitle.textContent = `About ${name}`;
+                if (heroSubtitle) heroSubtitle.textContent = title;
+                if (heroBio) heroBio.textContent = bio;
+                
+                // Update avatar
+                if (profileAvatar && avatar) {
+                    profileAvatar.innerHTML = `
+                        <img src="${avatar}" alt="${name} profile photo" loading="lazy">
+                    `;
+                } else if (profileAvatar) {
+                    // Fallback avatar
+                    profileAvatar.innerHTML = `
+                        <div style="
+                            width: 100%; 
+                            height: 100%; 
+                            background: var(--color-accent-primary); 
+                            display: flex; 
+                            align-items: center; 
+                            justify-content: center; 
+                            font-size: var(--text-4xl);
+                            color: white;
+                        ">
+                            ${name ? name.charAt(0).toUpperCase() : '👤'}
+                        </div>
+                    `;
+                }
+            }
+            
+            renderSkills() {
+                const skillsGrid = document.getElementById('skillsGrid');
+                if (!skillsGrid || !this.profileData.skills) return;
+                
+                const { primary = [], secondary = [] } = this.profileData.skills;
+                const allSkills = [...primary, ...secondary];
+                
+                if (allSkills.length === 0) {
+                    skillsGrid.innerHTML = `
+                        <div class="error-state">
+                            <div class="error-icon">🎯</div>
+                            <p>No skills data available</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const skillsHTML = allSkills.map(skill => {
+                    const iconMap = {
+                        swift: '🔥',
+                        swiftui: '🎨',
+                        uikit: '📱',
+                        xcode: '🔨',
+                        javascript: '💛',
+                        nodejs: '🟢',
+                        react: '⚛️',
+                        firebase: '🔥'
+                    };
+                    
+                    const icon = iconMap[skill.icon] || '⚡';
+                    
+                    return `
+                        <div class="skill-item" role="listitem">
+                            <div class="skill-icon" aria-hidden="true">${icon}</div>
+                            <div class="skill-info">
+                                <div class="skill-name">${skill.name}</div>
+                                <div class="skill-level">${skill.level}% proficiency</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                skillsGrid.innerHTML = skillsHTML;
+                skillsGrid.setAttribute('role', 'list');
+                skillsGrid.setAttribute('aria-label', 'Technical skills');
+            }
+            
+            renderHighlights() {
+                const highlightsList = document.getElementById('highlightsList');
+                if (!highlightsList || !this.profileData.highlights) return;
+                
+                const highlights = this.profileData.highlights;
+                
+                if (highlights.length === 0) {
+                    highlightsList.innerHTML = `
+                        <div class="error-state">
+                            <div class="error-icon">🏆</div>
+                            <p>No highlights data available</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const highlightsHTML = highlights.map(highlight => `
+                    <div class="highlight-item" role="listitem">
+                        <div class="highlight-header">
+                            <div class="highlight-icon" aria-hidden="true">${highlight.icon}</div>
+                            <div class="highlight-info">
+                                <h3 class="highlight-title">${highlight.title}</h3>
+                                <p class="highlight-organization">${highlight.organization}</p>
+                            </div>
+                            <div class="highlight-year">${highlight.year}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                highlightsList.innerHTML = highlightsHTML;
+                highlightsList.setAttribute('role', 'list');
+                highlightsList.setAttribute('aria-label', 'Career highlights');
+            }
+            
+            handleError(error) {
+                console.error('About Page Error:', error);
+                
+                // Show error in hero section
+                const heroSubtitle = document.getElementById('heroSubtitle');
+                const heroBio = document.getElementById('heroBio');
+                
+                if (heroSubtitle) heroSubtitle.textContent = 'Error Loading Profile';
+                if (heroBio) heroBio.textContent = 'Unable to load profile information. Please try again later.';
+                
+                // Show error in skills section
+                const skillsGrid = document.getElementById('skillsGrid');
+                if (skillsGrid) {
+                    skillsGrid.innerHTML = `
+                        <div class="error-state">
+                            <div class="error-icon">❌</div>
+                            <p>Unable to load skills</p>
+                        </div>
+                    `;
+                }
+                
+                // Show error in highlights section
+                const highlightsList = document.getElementById('highlightsList');
+                if (highlightsList) {
+                    highlightsList.innerHTML = `
+                        <div class="error-state">
+                            <div class="error-icon">❌</div>
+                            <p>Unable to load highlights</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // Initialize page when DOM is ready
+        document.addEventListener('DOMContentLoaded', async () => {
+            const aboutPage = new AboutPage();
+            await aboutPage.init();
+            
+            // Make available globally for debugging
+            window.aboutPage = aboutPage;
+        });
+        
+        // Handle page visibility changes for performance
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                // Page became visible, could refresh data if needed
+                console.log('📖 About page visible');
+            }
+        });
+    </script>
+</body>
+</html> 

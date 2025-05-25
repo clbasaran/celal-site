@@ -1,0 +1,48 @@
+{
+  "version": "6.0",
+  "title": "Portfolio OS V6 - Admin Dashboard",
+  "description": "Modern portfolio yönetim sistemi",
+  "author": "Portfolio OS Team",
+  "language": "tr",
+  "theme": {
+    "default": "auto",
+    "available": ["light", "dark", "auto"]
+  },
+  "admin": {
+    "enabled": true,
+    "debug": false,
+    "autoSave": true,
+    "backupInterval": 24,
+    "maxLogEntries": 100
+  },
+  "features": {
+    "jsonEditor": true,
+    "realTimeValidation": true,
+    "backupDownload": true,
+    "activityLogs": true,
+    "keyboardShortcuts": true
+  },
+  "security": {
+    "sessionTimeout": 3600,
+    "requireConfirmation": true,
+    "unsavedChangesWarning": true
+  },
+  "ui": {
+    "sidebarCollapsed": false,
+    "editorTheme": "auto",
+    "lineNumbers": true,
+    "wordWrap": true,
+    "fontSize": 14
+  },
+  "notifications": {
+    "enabled": true,
+    "autoHide": true,
+    "duration": 5000,
+    "position": "top-right"
+  },
+  "meta": {
+    "lastModified": "2024-01-15T10:30:00Z",
+    "modifiedBy": "admin",
+    "configVersion": "1.0.0"
+  }
+} 
