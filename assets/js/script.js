@@ -368,17 +368,6 @@ class ModuleOrchestrator {
      * Sets up navigation button handlers
      */
     setupNavigationHandlers() {
-        // AI Assistant toggle
-        const aiToggle = document.getElementById('aiAssistantToggle');
-        if (aiToggle) {
-            aiToggle.addEventListener('click', () => {
-                const assistant = this.getModule('assistant');
-                if (assistant && assistant.toggle) {
-                    assistant.toggle();
-                }
-            });
-        }
-        
         // Accessibility toggle
         const accessibilityToggle = document.getElementById('accessibilityToggle');
         if (accessibilityToggle) {
@@ -403,17 +392,6 @@ class ModuleOrchestrator {
      * Sets up quick access button handlers
      */
     setupQuickAccessHandlers() {
-        // Quick launch AI
-        const quickLaunchAI = document.getElementById('quickLaunchAI');
-        if (quickLaunchAI) {
-            quickLaunchAI.addEventListener('click', () => {
-                const assistant = this.getModule('assistant');
-                if (assistant && assistant.show) {
-                    assistant.show();
-                }
-            });
-        }
-        
         // Quick accessibility
         const quickAccessibility = document.getElementById('quickAccessibility');
         if (quickAccessibility) {
@@ -438,19 +416,6 @@ class ModuleOrchestrator {
         if (quickTheme) {
             quickTheme.addEventListener('click', () => {
                 this.toggleTheme();
-            });
-        }
-        
-        // Launch assistant from hero
-        const launchAssistant = document.getElementById('launchAssistant');
-        if (launchAssistant) {
-            launchAssistant.addEventListener('click', () => {
-                const assistant = this.getModule('assistant');
-                if (assistant && assistant.show) {
-                    assistant.show();
-                } else {
-                    window.location.href = '/assistant.html';
-                }
             });
         }
     }

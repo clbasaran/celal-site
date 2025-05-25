@@ -16,7 +16,6 @@ class PortfolioApp {
             currentPage: 'home',
             theme: 'auto',
             isMenuOpen: false,
-            aiAssistantOpen: false,
             scrollPosition: 0,
             user: null,
             systemReady: false
