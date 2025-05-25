@@ -106,7 +106,7 @@
         }
     </style>
 </head>
-<body>
+<body class="nav-spacing-top">
     <!-- Skip Links -->
     <div class="skip-links">
         <a href="#main" class="skip-link">Ana içeriğe geç</a>
@@ -136,55 +136,222 @@
     </div>
     
     <!-- Navigation -->
-    <nav id="navigation" class="navbar" role="navigation" aria-label="Ana navigasyon">
-        <div class="container">
+    <nav id="navigation" class="nav-header" role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <!-- Brand/Logo -->
             <div class="nav-brand">
-                <a href="/" class="brand-link">
-                    <span class="brand-icon">💻</span>
+                <a href="/" class="brand-link" aria-label="Portfolio OS V6 Ana Sayfa">
+                    <span class="brand-icon" aria-hidden="true">💻</span>
                     <span class="brand-text">Portfolio OS V6</span>
                 </a>
             </div>
             
-            <div class="nav-menu" id="navMenu">
-                <a href="/" class="nav-link active" aria-current="page">Ana Sayfa</a>
-                <a href="/about.html" class="nav-link">Hakkımda</a>
-                <a href="/projects.html" class="nav-link">Projeler</a>
-                <a href="/blog.html" class="nav-link">Blog</a>
-                <a href="/contact.html" class="nav-link">İletişim</a>
+            <!-- Desktop Navigation Links -->
+            <div class="nav-center" id="navCenter">
+                <ul class="nav-menu" role="menubar">
+                    <li role="none">
+                        <a href="/" class="nav-link" role="menuitem" aria-current="page">
+                            <span class="nav-link-text">Ana Sayfa</span>
+                            <span class="nav-link-indicator" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/about.html" class="nav-link" role="menuitem">
+                            <span class="nav-link-text">Hakkımda</span>
+                            <span class="nav-link-indicator" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/projects.html" class="nav-link" role="menuitem">
+                            <span class="nav-link-text">Projeler</span>
+                            <span class="nav-link-indicator" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/blog.html" class="nav-link" role="menuitem">
+                            <span class="nav-link-text">Blog</span>
+                            <span class="nav-link-indicator" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/contact.html" class="nav-link" role="menuitem">
+                            <span class="nav-link-text">İletişim</span>
+                            <span class="nav-link-indicator" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Action Controls -->
+            <div class="nav-actions">
+                <!-- Theme Toggle -->
+                <button 
+                    id="themeToggle" 
+                    class="nav-action-btn theme-toggle" 
+                    aria-label="Tema değiştir" 
+                    data-tooltip="Tema değiştir"
+                >
+                    <span class="action-icon theme-icon" aria-hidden="true">
+                        <svg class="icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                        <svg class="icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </span>
+                </button>
                 
-                <!-- Admin Link (protected) -->
-                <div class="nav-dropdown">
-                    <button class="nav-link dropdown-toggle" aria-expanded="false">
-                        Sistem <span class="dropdown-icon">▾</span>
+                <!-- Search Toggle -->
+                <button 
+                    id="searchToggle" 
+                    class="nav-action-btn search-toggle" 
+                    aria-label="Arama" 
+                    data-tooltip="Arama"
+                >
+                    <span class="action-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                    </span>
+                </button>
+                
+                <!-- Admin Dropdown -->
+                <div class="nav-dropdown" id="adminDropdown">
+                    <button 
+                        class="nav-action-btn dropdown-toggle admin-toggle" 
+                        aria-label="Sistem menüsü" 
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        data-tooltip="Sistem"
+                    >
+                        <span class="action-icon" aria-hidden="true">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                        </span>
                     </button>
-                    <div class="dropdown-menu">
-                        <a href="/admin/dashboard.html" class="dropdown-link admin-only">
-                            <span class="link-icon">⚙️</span>
-                            <span class="link-text">Admin Dashboard</span>
+                    
+                    <div class="dropdown-menu" role="menu" aria-labelledby="adminDropdown">
+                        <a href="/admin/dashboard.html" class="dropdown-link admin-only" role="menuitem">
+                            <span class="dropdown-icon" aria-hidden="true">⚙️</span>
+                            <span class="dropdown-text">Admin Dashboard</span>
                         </a>
-                        <a href="/admin/analytics.html" class="dropdown-link admin-only">
-                            <span class="link-icon">📊</span>
-                            <span class="link-text">Analytics</span>
+                        <a href="/admin/analytics.html" class="dropdown-link admin-only" role="menuitem">
+                            <span class="dropdown-icon" aria-hidden="true">📊</span>
+                            <span class="dropdown-text">Analytics</span>
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <button id="themeToggleNav" class="dropdown-link btn-tertiary">
-                            <span class="link-icon">🌙</span>
-                            <span class="link-text">Tema Değiştir</span>
+                        <div class="dropdown-divider" role="separator"></div>
+                        <button class="dropdown-link theme-toggle-dropdown" role="menuitem">
+                            <span class="dropdown-icon theme-dropdown-icon" aria-hidden="true">🌙</span>
+                            <span class="dropdown-text">Tema Değiştir</span>
                         </button>
                     </div>
                 </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button 
+                    id="mobileMenuToggle" 
+                    class="nav-action-btn mobile-menu-toggle" 
+                    aria-label="Menü" 
+                    aria-expanded="false"
+                    aria-controls="mobileNavMenu"
+                >
+                    <span class="hamburger-icon" aria-hidden="true">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </span>
+                </button>
             </div>
-            
-            <div class="nav-controls">
-                <button id="themeToggle" class="btn-icon btn-secondary" aria-label="Tema değiştir">
-                    <span class="theme-icon">🌙</span>
-                </button>
-                <button id="searchToggle" class="btn-icon btn-secondary" aria-label="Arama">
-                    <span class="search-icon">🔍</span>
-                </button>
-                <button id="menuToggle" class="menu-toggle btn-icon btn-ghost" aria-label="Menü">
-                    <span class="hamburger"></span>
-                </button>
+        </div>
+        
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true">
+            <div class="mobile-nav-content" id="mobileNavMenu" role="dialog" aria-modal="true" aria-label="Navigasyon menüsü">
+                <div class="mobile-nav-header">
+                    <div class="mobile-brand">
+                        <span class="mobile-brand-icon" aria-hidden="true">💻</span>
+                        <span class="mobile-brand-text">Portfolio OS V6</span>
+                    </div>
+                    <button 
+                        class="mobile-nav-close" 
+                        aria-label="Menüyü kapat"
+                        id="mobileNavClose"
+                    >
+                        <span class="close-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                
+                <nav class="mobile-nav-links" role="navigation">
+                    <ul class="mobile-nav-menu" role="menu">
+                        <li role="none">
+                            <a href="/" class="mobile-nav-link" role="menuitem">
+                                <span class="mobile-nav-icon" aria-hidden="true">🏠</span>
+                                <span class="mobile-nav-text">Ana Sayfa</span>
+                                <span class="mobile-nav-arrow" aria-hidden="true">→</span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/about.html" class="mobile-nav-link" role="menuitem">
+                                <span class="mobile-nav-icon" aria-hidden="true">👨‍💻</span>
+                                <span class="mobile-nav-text">Hakkımda</span>
+                                <span class="mobile-nav-arrow" aria-hidden="true">→</span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/projects.html" class="mobile-nav-link" role="menuitem">
+                                <span class="mobile-nav-icon" aria-hidden="true">🚀</span>
+                                <span class="mobile-nav-text">Projeler</span>
+                                <span class="mobile-nav-arrow" aria-hidden="true">→</span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/blog.html" class="mobile-nav-link" role="menuitem">
+                                <span class="mobile-nav-icon" aria-hidden="true">📝</span>
+                                <span class="mobile-nav-text">Blog</span>
+                                <span class="mobile-nav-arrow" aria-hidden="true">→</span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/contact.html" class="mobile-nav-link" role="menuitem">
+                                <span class="mobile-nav-icon" aria-hidden="true">📧</span>
+                                <span class="mobile-nav-text">İletişim</span>
+                                <span class="mobile-nav-arrow" aria-hidden="true">→</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="mobile-nav-actions">
+                        <button class="mobile-action-btn theme-toggle-mobile">
+                            <span class="mobile-action-icon theme-mobile-icon" aria-hidden="true">🌙</span>
+                            <span class="mobile-action-text">Tema Değiştir</span>
+                        </button>
+                        
+                        <button class="mobile-action-btn search-toggle-mobile">
+                            <span class="mobile-action-icon" aria-hidden="true">🔍</span>
+                            <span class="mobile-action-text">Arama</span>
+                        </button>
+                        
+                        <div class="mobile-admin-links admin-only">
+                            <a href="/admin/dashboard.html" class="mobile-action-btn">
+                                <span class="mobile-action-icon" aria-hidden="true">⚙️</span>
+                                <span class="mobile-action-text">Admin Dashboard</span>
+                            </a>
+                            <a href="/admin/analytics.html" class="mobile-action-btn">
+                                <span class="mobile-action-icon" aria-hidden="true">📊</span>
+                                <span class="mobile-action-text">Analytics</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
             </div>
         </div>
     </nav>
