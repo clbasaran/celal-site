@@ -183,19 +183,9 @@ class PortfolioApp {
         });
 
         // Quick access buttons
-        const quickLaunchAI = document.getElementById('quickLaunchAI');
         const quickAccessibility = document.getElementById('quickAccessibility');
         const quickStats = document.getElementById('quickStats');
         const quickTheme = document.getElementById('quickTheme');
-        
-        if (quickLaunchAI) {
-            quickLaunchAI.addEventListener('click', () => {
-                const assistant = this.orchestrator.getModule('assistant-modal');
-                if (assistant && assistant.toggle) {
-                    assistant.toggle();
-                }
-            });
-        }
         
         if (quickAccessibility) {
             quickAccessibility.addEventListener('click', () => {
@@ -215,50 +205,6 @@ class PortfolioApp {
         if (quickTheme) {
             quickTheme.addEventListener('click', () => {
                 this.orchestrator.emit('theme:toggle');
-            });
-        }
-        
-        // Navigation AI Assistant button
-        const aiAssistantToggle = document.getElementById('aiAssistantToggle');
-        if (aiAssistantToggle) {
-            aiAssistantToggle.addEventListener('click', () => {
-                const assistant = this.orchestrator.getModule('assistant-modal');
-                if (assistant && assistant.toggle) {
-                    assistant.toggle();
-                }
-            });
-        }
-        
-        // Hero section launch assistant button
-        const launchAssistant = document.getElementById('launchAssistant');
-        if (launchAssistant) {
-            launchAssistant.addEventListener('click', () => {
-                const assistant = this.orchestrator.getModule('assistant-modal');
-                if (assistant && assistant.open) {
-                    assistant.open();
-                }
-            });
-        }
-        
-        // Feature AI Assistant button
-        const featureAIAssistant = document.getElementById('featureAIAssistant');
-        if (featureAIAssistant) {
-            featureAIAssistant.addEventListener('click', () => {
-                const assistant = this.orchestrator.getModule('assistant-modal');
-                if (assistant && assistant.open) {
-                    assistant.open();
-                }
-            });
-        }
-        
-        // Footer AI Assistant button
-        const footerAIAssistant = document.getElementById('footerAIAssistant');
-        if (footerAIAssistant) {
-            footerAIAssistant.addEventListener('click', () => {
-                const assistant = this.orchestrator.getModule('assistant-modal');
-                if (assistant && assistant.open) {
-                    assistant.open();
-                }
             });
         }
     }

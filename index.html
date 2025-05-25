@@ -188,9 +188,6 @@
                 <button id="themeToggle" class="control-btn" aria-label="Tema değiştir">
                     <span class="theme-icon">🌙</span>
                 </button>
-                <button id="aiAssistantToggle" class="control-btn" aria-label="AI Asistan">
-                    <span class="ai-icon">🤖</span>
-                </button>
                 <button id="accessibilityToggle" class="control-btn" aria-label="Erişilebilirlik Ayarları">
                     <span class="accessibility-icon">♿</span>
                 </button>
@@ -215,22 +212,18 @@
                     </p>
                     
                     <div class="hero-actions" data-anim="staggerFadeIn">
-                        <button id="launchAssistant" class="btn-primary btn-large">
-                            <span class="btn-text">AI Assistant'ı Başlat</span>
-                            <span class="btn-icon">🚀</span>
-                        </button>
-                        <a href="/about.html" class="btn-secondary btn-large">
+                        <a href="/about.html" class="btn-primary btn-large">
                             <span class="btn-text">Hakkımda</span>
                             <span class="btn-icon">👨‍💻</span>
+                        </a>
+                        <a href="/projects.html" class="btn-secondary btn-large">
+                            <span class="btn-text">Projeler</span>
+                            <span class="btn-icon">💼</span>
                         </a>
                     </div>
                     
                     <!-- System Status Indicators -->
                     <div class="system-indicators" data-anim="fadeInUp" data-anim-delay="600">
-                        <div class="indicator" id="aiStatus">
-                            <span class="indicator-icon">🤖</span>
-                            <span class="indicator-text">AI Assistant: Hazır</span>
-                        </div>
                         <div class="indicator" id="accessibilityStatus">
                             <span class="indicator-icon">♿</span>
                             <span class="indicator-text">Erişilebilirlik: Aktif</span>
@@ -255,20 +248,6 @@
                 </header>
                 
                 <div class="feature-grid" data-anim="staggerFadeIn">
-                    <div class="feature-card" data-feature="ai-assistant">
-                        <div class="feature-icon">🤖</div>
-                        <h3 class="feature-title">AI Assistant</h3>
-                        <p class="feature-description">
-                            Doğal dil işleme ile portfolyo hakkında sorular sorun, session verilerinizi analiz edin
-                        </p>
-                        <div class="feature-stats">
-                            <span class="stat">NLP Destekli</span>
-                            <span class="stat">Sesli Komut</span>
-                            <span class="stat">Çok Dilli</span>
-                        </div>
-                        <button id="featureAIAssistant" class="feature-link">Başlat →</button>
-                    </div>
-                    
                     <div class="feature-card" data-feature="accessibility">
                         <div class="feature-icon">♿</div>
                         <h3 class="feature-title">Erişilebilirlik</h3>
@@ -348,12 +327,6 @@
                 </header>
                 
                 <div class="quick-access-grid" data-anim="staggerFadeIn">
-                    <button class="quick-access-card" id="quickLaunchAI">
-                        <div class="quick-icon">🤖</div>
-                        <div class="quick-title">AI Assistant</div>
-                        <div class="quick-status" id="aiQuickStatus">Hazır</div>
-                    </button>
-                    
                     <button class="quick-access-card" id="quickAccessibility">
                         <div class="quick-icon">♿</div>
                         <div class="quick-title">Erişilebilirlik</div>
@@ -388,7 +361,6 @@
                 <div class="footer-links">
                     <div class="link-group">
                         <h4>Platform</h4>
-                        <button id="footerAIAssistant" class="footer-link-btn">AI Assistant</button>
                         <a href="/accessibility.html">Erişilebilirlik</a>
                         <a href="/stats.html">Analytics</a>
                     </div>
@@ -414,10 +386,6 @@
                         <div class="status-item">
                             <span class="status-dot status-dot--success"></span>
                             <span>Tüm Sistemler Çalışıyor</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="status-dot status-dot--success"></span>
-                            <span>AI Assistant: Online</span>
                         </div>
                         <div class="status-item">
                             <span class="status-dot status-dot--success"></span>
