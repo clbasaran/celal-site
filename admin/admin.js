@@ -205,7 +205,7 @@ class AdminPanel {
                                 <p>Panel ayarları ve konfigürasyon</p>
                             </div>
                             <div id="settings-content">
-                                <!-- Settings içeriği buraya gelecek -->
+                                <!-- Settings içeriği dinamik olarak yüklenecek -->
                             </div>
                         </section>
                     </div>
@@ -404,7 +404,15 @@ class AdminPanel {
                         break;
                     case '4':
                         e.preventDefault();
+                        this.showSection('editor');
+                        break;
+                    case '5':
+                        e.preventDefault();
                         this.showSection('preview');
+                        break;
+                    case '6':
+                        e.preventDefault();
+                        this.showSection('settings');
                         break;
                 }
             }
