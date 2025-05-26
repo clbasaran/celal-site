@@ -18,7 +18,9 @@ class DataSyncManager {
         this.defaultData = {
             projects: [],
             skills: {
-                categories: [],
+                skills: {
+                    categories: []
+                },
                 stats: {
                     totalSkills: 0,
                     averageLevel: 0,
@@ -436,8 +438,9 @@ class DataSyncManager {
                 case 'skills':
                     return (
                         typeof data === 'object' &&
-                        Array.isArray(data.categories) &&
-                        typeof data.stats === 'object'
+                        data.skills &&
+                        typeof data.skills === 'object' &&
+                        Array.isArray(data.skills.categories)
                     );
                     
                 default:
