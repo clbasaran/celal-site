@@ -449,10 +449,14 @@ class AdminPanel {
             this.updateDashboardStats();
         } else if (sectionName === 'editor') {
             // EditorPanel'i mount et
-            if (this.modules.editorPanel && !this.modules.editorPanel.isInitialized) {
+            if (this.modules.editorPanel) {
                 const editorContainer = document.getElementById('editor-panel');
                 if (editorContainer && editorContainer.children.length === 0) {
                     console.log('🔄 EditorPanel mount ediliyor...');
+                    this.modules.editorPanel.mount?.(editorContainer);
+                } else if (editorContainer && !this.modules.editorPanel.isInitialized) {
+                    // Container dolu ama EditorPanel initialize değilse yeniden mount et
+                    console.log('🔄 EditorPanel yeniden mount ediliyor...');
                     this.modules.editorPanel.mount?.(editorContainer);
                 }
             }
