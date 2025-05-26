@@ -431,10 +431,141 @@ document.head.appendChild(style);
 // Global instance
 let adminManager;
 
+// Keyboard Shortcuts Manager
+class KeyboardShortcuts {
+    constructor() {
+        this.shortcuts = new Map();
+        this.init();
+    }
+
+    init() {
+        this.registerShortcuts();
+        this.setupEventListeners();
+    }
+
+    registerShortcuts() {
+        // Section navigation
+        this.shortcuts.set('Digit1', () => this.navigateToSection('dashboard'));
+        this.shortcuts.set('Digit2', () => this.navigateToSection('projects'));
+        this.shortcuts.set('Digit3', () => this.navigateToSection('skills'));
+        this.shortcuts.set('Digit4', () => this.navigateToSection('settings'));
+        
+        // JSON editor actions
+        this.shortcuts.set('KeyS', () => this.saveJSON());
+        this.shortcuts.set('KeyF', () => this.formatJSON());
+        
+        // Theme toggle
+        this.shortcuts.set('KeyT', () => this.toggleTheme());
+        
+        // Modal close
+        this.shortcuts.set('Escape', () => this.closeModals());
+        
+        // Refresh components
+        this.shortcuts.set('KeyR', (e) => {
+            if (e.shiftKey) this.refreshComponents();
+        });
+    }
+
+    setupEventListeners() {
+        document.addEventListener('keydown', (e) => {
+            const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+            
+            // ESC tuşu için özel durum (modifier gerekmez)
+            if (e.key === 'Escape') {
+                this.shortcuts.get('Escape')?.();
+                return;
+            }
+            
+            // Diğer kısayollar için Ctrl/Cmd gerekli
+            if (!isCtrlOrCmd) return;
+            
+            const shortcut = this.shortcuts.get(e.code);
+            if (shortcut) {
+                e.preventDefault();
+                shortcut(e);
+            }
+        });
+    }
+
+    navigateToSection(section) {
+        if (window.adminNav) {
+            window.adminNav.showSection(section);
+        } else if (window.adminManager) {
+            window.adminManager.showSection(section);
+        }
+        
+        if (window.toast) {
+            const sectionNames = {
+                dashboard: 'Dashboard',
+                projects: 'Projeler',
+                skills: 'Yetenekler',
+                settings: 'Ayarlar'
+            };
+            window.toast.info(`${sectionNames[section]} bölümüne geçildi`, { duration: 1500 });
+        }
+    }
+
+    saveJSON() {
+        if (window.jsonEditor && window.jsonEditor.currentFile) {
+            window.jsonEditor.saveJSON();
+        } else {
+            if (window.toast) {
+                window.toast.warning('JSON editör aktif değil');
+            }
+        }
+    }
+
+    formatJSON() {
+        if (window.jsonEditor && window.jsonEditor.currentFile) {
+            window.jsonEditor.formatJSON();
+        }
+    }
+
+    toggleTheme() {
+        const themeToggle = document.querySelector('.theme-toggle');
+        if (themeToggle) {
+            themeToggle.click();
+        }
+    }
+
+    closeModals() {
+        const activeModals = document.querySelectorAll('.modal.active');
+        activeModals.forEach(modal => {
+            modal.classList.remove('active');
+        });
+    }
+
+    async refreshComponents() {
+        if (window.componentLoader) {
+            await window.componentLoader.reloadComponents();
+        }
+    }
+
+    // Public API
+    addShortcut(key, handler) {
+        this.shortcuts.set(key, handler);
+    }
+
+    removeShortcut(key) {
+        this.shortcuts.delete(key);
+    }
+}
+
 // DOM yüklendiğinde başlat
 document.addEventListener('DOMContentLoaded', async () => {
     // Global instances oluştur
     window.adminManager = new AdminManager();
+    window.keyboardShortcuts = new KeyboardShortcuts();
+    
+    // Component loader'ı başlat
+    try {
+        const { default: ComponentLoader } = await import('./components/component-loader.js');
+        // Component loader otomatik olarak init oluyor
+        
+        console.log('✅ Component loader başlatıldı');
+    } catch (error) {
+        console.error('❌ Component loader yüklenemedi:', error);
+    }
     
     // Navigation ve Editor'ı modül olarak import et
     try {
@@ -445,8 +576,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.adminNav = new AdminNavigation();
         window.jsonEditor = new JSONEditor();
         
-        console.log('Admin modülleri başarıyla yüklendi');
+        console.log('✅ Admin modülleri başarıyla yüklendi');
     } catch (error) {
-        console.error('Admin modülleri yüklenirken hata:', error);
+        console.error('❌ Admin modülleri yüklenirken hata:', error);
     }
+    
+    // Sayfa yüklendikten sonra toast mesajı
+    setTimeout(() => {
+        if (window.toast) {
+            window.toast.success('Admin panel hazır! Kısayollar için Ctrl+1-4 kullanabilirsiniz.', { duration: 3000 });
+        }
+    }, 1000);
 }); 

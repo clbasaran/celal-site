@@ -10,20 +10,7 @@
 </head>
 <body>
     <div class="admin-layout">
-        <nav class="admin-sidebar">
-            <div class="admin-logo">
-                <h2>Admin Panel</h2>
-            </div>
-            <ul class="admin-menu">
-                <li><a href="#dashboard" class="admin-menu-item active" data-section="dashboard">📊 Dashboard</a></li>
-                <li><a href="#projects" class="admin-menu-item" data-section="projects">📱 Projeler</a></li>
-                <li><a href="#skills" class="admin-menu-item" data-section="skills">🛠️ Yetenekler</a></li>
-                <li><a href="#settings" class="admin-menu-item" data-section="settings">⚙️ Ayarlar</a></li>
-            </ul>
-            <div class="admin-logout">
-                <a href="../index.html">🏠 Ana Sayfaya Dön</a>
-            </div>
-        </nav>
+        <!-- Navbar component buraya yüklenecek -->
 
         <main class="admin-main">
             <header class="admin-header">
@@ -140,6 +127,7 @@
                 </section>
             </div>
         </main>
+        <!-- Footer component buraya yüklenecek -->
     </div>
 
     <!-- Modals -->
@@ -226,8 +214,8 @@
 
     <!-- Scripts -->
     <script type="module" src="../assets/js/modules/theme.js"></script>
-    <script type="module" src="../assets/js/modules/footer-loader.js"></script>
     <script type="module" src="toast.js"></script>
+    <script type="module" src="components/component-loader.js"></script>
     <script type="module" src="admin-nav.js"></script>
     <script type="module" src="admin-editor.js"></script>
     <script type="module" src="admin.js"></script>
