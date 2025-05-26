@@ -10,6 +10,7 @@ import LivePreview from './modules/live-preview.js';
 import DataSyncManager from './modules/data-sync.js';
 import EditorPanel from './modules/editor-panel.js';
 import PreviewPanel from './modules/preview-panel.js';
+import AddItemModal from './modules/add-item-modal.js';
 
 /**
  * Admin Panel Ana Sınıfı
@@ -216,7 +217,7 @@ class AdminPanel {
         let attempts = 0;
         
         while (attempts < maxAttempts) {
-            if (window.projectEditor && window.skillTags && window.livePreview && window.previewPanel) {
+            if (window.projectEditor && window.skillTags && window.livePreview && window.previewPanel && window.addItemModal) {
                 break;
             }
             await new Promise(resolve => setTimeout(resolve, 100));
@@ -234,7 +235,8 @@ class AdminPanel {
             livePreview: window.livePreview,
             dataSyncManager: window.dataSyncManager,
             editorPanel: window.editorPanel,
-            previewPanel: window.previewPanel
+            previewPanel: window.previewPanel,
+            addItemModal: window.addItemModal
         };
         
         // Dashboard içeriğini oluştur
@@ -289,10 +291,10 @@ class AdminPanel {
                 <div class="quick-actions">
                     <h3>🚀 Hızlı İşlemler</h3>
                     <div class="action-buttons">
-                        <button class="action-btn" onclick="adminPanel.quickAddProject()">
+                        <button class="action-btn" onclick="window.addItemModal.open('projects')">
                             ➕ Yeni Proje
                         </button>
-                        <button class="action-btn" onclick="adminPanel.quickAddSkill()">
+                        <button class="action-btn" onclick="window.addItemModal.open('skills')">
                             🛠️ Yeni Yetenek
                         </button>
                         <button class="action-btn" onclick="adminPanel.openPreview()">
