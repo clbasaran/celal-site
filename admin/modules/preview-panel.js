@@ -91,9 +91,18 @@ class PreviewPanel {
         if (!targetContainer) {
             targetContainer = document.getElementById('preview-wrapper');
         }
+        if (!targetContainer) {
+            targetContainer = document.getElementById('preview-section');
+        }
 
         if (!targetContainer) {
-            throw new Error('Preview container bulunamadı');
+            console.warn('Preview container bulunamadı, yeni container oluşturuluyor...');
+            targetContainer = document.createElement('div');
+            targetContainer.id = 'preview-panel';
+            
+            // Admin content içinde uygun bir yere ekle
+            const adminContent = document.getElementById('admin-content') || document.body;
+            adminContent.appendChild(targetContainer);
         }
 
         // Ana preview UI'sini oluştur
