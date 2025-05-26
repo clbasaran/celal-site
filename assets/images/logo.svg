@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  
+  <!-- CB Letters in SF Pro style -->
+  <g font-family="SF Pro Display, -apple-system, system-ui, sans-serif" 
+     font-weight="500" 
+     font-size="200" 
+     fill="#1d1d1f"
+     text-anchor="middle"
+     dominant-baseline="central">
+    
+    <!-- Letter C -->
+    <text x="210" y="276" letter-spacing="-8px">C</text>
+    
+    <!-- Letter B -->
+    <text x="330" y="276" letter-spacing="-8px">B</text>
+  </g>
+  
+</svg> 

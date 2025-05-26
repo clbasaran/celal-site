@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  
+  <!-- Single Letter C - Clean and centered -->
+  <g font-family="SF Pro Display, -apple-system, system-ui, sans-serif" 
+     font-weight="500" 
+     font-size="280" 
+     fill="#1d1d1f"
+     text-anchor="middle"
+     dominant-baseline="central">
+    
+    <text x="256" y="286">C</text>
+  </g>
+  
+</svg> 
