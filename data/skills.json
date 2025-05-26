@@ -126,5 +126,10 @@
     "expert": "Uzman",
     "advanced": "İleri",
     "intermediate": "Orta"
+  },
+  "stats": {
+    "totalSkills": 5,
+    "averageLevel": 3.2,
+    "lastUpdated": "2024-01-15T10:30:00.000Z"
   }
 } 

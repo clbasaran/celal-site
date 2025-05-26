@@ -756,7 +756,14 @@ class AddItemModal {
         }
         
         // DataSyncManager ile kaydet
-        return await this.dataSyncManager.save(this.currentType, updatedData);
+        const result = await this.dataSyncManager.save(this.currentType, updatedData);
+        
+        // Undo sistemi ile toast göster
+        if (window.dataUndoManager) {
+            window.dataUndoManager.showUndoToast(this.currentType, itemData);
+        }
+        
+        return result;
     }
 
     /**

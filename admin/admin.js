@@ -8,6 +8,7 @@ import ProjectEditor from './modules/project-editor.js';
 import SkillTags from './modules/skill-tags.js';
 import LivePreview from './modules/live-preview.js';
 import DataSyncManager from './modules/data-sync.js';
+import DataUndoManager from './modules/data-undo.js';
 import EditorPanel from './modules/editor-panel.js';
 import PreviewPanel from './modules/preview-panel.js';
 import AddItemModal from './modules/add-item-modal.js';
@@ -122,6 +123,11 @@ class AdminPanel {
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="#editor" class="nav-link" data-section="editor">
+                                📝 JSON Editor
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="#preview" class="nav-link" data-section="preview">
                                 👁️ Canlı Önizleme
                             </a>
@@ -173,6 +179,16 @@ class AdminPanel {
                             </div>
                         </section>
                         
+                        <section id="editor-section" class="content-section">
+                            <div class="section-header">
+                                <h1>📝 JSON Editor</h1>
+                                <p>Verileri doğrudan JSON formatında düzenleyin</p>
+                            </div>
+                            <div id="editor-panel">
+                                <!-- Editor Panel buraya yüklenecek -->
+                            </div>
+                        </section>
+                        
                         <section id="preview-section" class="content-section">
                             <div class="section-header">
                                 <h1>👁️ Canlı Önizleme</h1>
@@ -217,7 +233,7 @@ class AdminPanel {
         let attempts = 0;
         
         while (attempts < maxAttempts) {
-            if (window.projectEditor && window.skillTags && window.livePreview && window.previewPanel && window.addItemModal) {
+            if (window.projectEditor && window.skillTags && window.livePreview && window.previewPanel && window.addItemModal && window.dataUndoManager) {
                 break;
             }
             await new Promise(resolve => setTimeout(resolve, 100));
@@ -234,6 +250,7 @@ class AdminPanel {
             skillTags: window.skillTags,
             livePreview: window.livePreview,
             dataSyncManager: window.dataSyncManager,
+            dataUndoManager: window.dataUndoManager,
             editorPanel: window.editorPanel,
             previewPanel: window.previewPanel,
             addItemModal: window.addItemModal

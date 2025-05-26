@@ -200,6 +200,12 @@ class EditorPanel {
                         <span class="tip-item">Tab: Girinti</span>
                     </div>
                     
+                    <div class="editor-actions-extra">
+                        <button class="editor-btn btn-backup" id="show-backups-btn" title="Backup geçmişini göster">
+                            🗂️ Backup Listesi
+                        </button>
+                    </div>
+                    
                     <div class="auto-save-status" id="auto-save-status">
                         <span class="auto-save-indicator">⏱️ Otomatik kayıt kapalı</span>
                     </div>
@@ -222,7 +228,8 @@ class EditorPanel {
                 save: document.getElementById('save-btn'),
                 reset: document.getElementById('reset-btn'),
                 export: document.getElementById('export-btn')
-            }
+            },
+            showBackupsBtn: document.getElementById('show-backups-btn')
         };
 
         // Auto-resize için textarea ayarları
@@ -257,6 +264,11 @@ class EditorPanel {
 
         this.elements.actionButtons.export.addEventListener('click', () => {
             this.exportData(this.currentType);
+        });
+
+        // Backup butonu
+        this.elements.showBackupsBtn.addEventListener('click', () => {
+            this.showBackupModal(this.currentType);
         });
 
         // Textarea event'leri
@@ -747,6 +759,290 @@ class EditorPanel {
             await this.loadFromStorage(type);
         } else {
             this.showToast(`❌ Geçersiz veri tipi: ${type}`, 'error');
+        }
+    }
+
+    /**
+     * Backup modal'ını gösterir
+     */
+    showBackupModal(type) {
+        try {
+            if (!this.dataSyncManager) {
+                this.showToast('❌ DataSyncManager bulunamadı', 'error');
+                return;
+            }
+
+            const backups = this.dataSyncManager.getBackups(type);
+            const stats = this.dataSyncManager.getBackupStats(type);
+            
+            if (backups.length === 0) {
+                this.showToast(`⚠️ ${type} için backup bulunamadı`, 'warning');
+                return;
+            }
+
+            this.createBackupModal(type, backups, stats);
+
+        } catch (error) {
+            console.error('Backup modal hatası:', error);
+            this.showToast('❌ Backup modal açılamadı: ' + error.message, 'error');
+        }
+    }
+
+    /**
+     * Backup modal'ını oluşturur
+     */
+    createBackupModal(type, backups, stats) {
+        // Mevcut modal'ı temizle
+        const existingModal = document.getElementById('backup-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+
+        const modal = document.createElement('div');
+        modal.id = 'backup-modal';
+        modal.className = 'modal-overlay backup-modal';
+        
+        const displayName = type === 'projects' ? 'Proje' : 'Yetenek';
+        
+        modal.innerHTML = `
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3>📦 ${displayName} Backup Geçmişi</h3>
+                    <button class="modal-close" id="backup-modal-close">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="backup-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Toplam Backup:</span>
+                            <span class="stat-value">${stats.total}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Toplam Boyut:</span>
+                            <span class="stat-value">${stats.formattedSize}</span>
+                        </div>
+                        ${stats.newest ? `
+                        <div class="stat-item">
+                            <span class="stat-label">En Yeni:</span>
+                            <span class="stat-value">${new Date(stats.newest.timestamp).toLocaleString('tr-TR')}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="backup-list">
+                        <div class="backup-list-header">
+                            <span class="backup-col-date">Tarih</span>
+                            <span class="backup-col-size">Boyut</span>
+                            <span class="backup-col-actions">İşlemler</span>
+                        </div>
+                        
+                        <div class="backup-items">
+                            ${backups.map(backup => `
+                                <div class="backup-item" data-timestamp="${backup.timestamp}">
+                                    <div class="backup-col-date">
+                                        <span class="backup-date">${new Date(backup.timestamp).toLocaleDateString('tr-TR')}</span>
+                                        <span class="backup-time">${new Date(backup.timestamp).toLocaleTimeString('tr-TR')}</span>
+                                    </div>
+                                    <div class="backup-col-size">
+                                        ${this.dataSyncManager.formatBytes(backup.size)}
+                                    </div>
+                                    <div class="backup-col-actions">
+                                        <button class="btn-backup-action btn-restore" 
+                                                data-type="${type}" 
+                                                data-timestamp="${backup.timestamp}"
+                                                title="Bu backup'ı restore et">
+                                            🔄 Restore
+                                        </button>
+                                        <button class="btn-backup-action btn-delete" 
+                                                data-key="${backup.key}"
+                                                title="Bu backup'ı sil">
+                                            🗑️ Sil
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="backup-clear-all" data-type="${type}">
+                        🧹 Tümünü Temizle
+                    </button>
+                    <button class="btn btn-primary" id="backup-export" data-type="${type}">
+                        📤 Listeyi Export Et
+                    </button>
+                    <button class="btn btn-secondary" id="backup-modal-cancel">
+                        İptal
+                    </button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        
+        // Event listener'ları ekle
+        this.setupBackupModalEvents(modal, type);
+        
+        // Modal'ı göster
+        requestAnimationFrame(() => {
+            modal.classList.add('active');
+        });
+    }
+
+    /**
+     * Backup modal event listener'larını kurar
+     */
+    setupBackupModalEvents(modal, type) {
+        // Close butonları
+        const closeBtn = modal.querySelector('#backup-modal-close');
+        const cancelBtn = modal.querySelector('#backup-modal-cancel');
+        
+        [closeBtn, cancelBtn].forEach(btn => {
+            btn.addEventListener('click', () => {
+                modal.classList.remove('active');
+                setTimeout(() => modal.remove(), 300);
+            });
+        });
+
+        // Modal dışına tıklama
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.remove(), 300);
+            }
+        });
+
+        // Restore butonları
+        modal.querySelectorAll('.btn-restore').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const timestamp = parseInt(e.target.dataset.timestamp);
+                const type = e.target.dataset.type;
+                
+                if (confirm('Bu backup restore edilecek. Mevcut veri backup alınacak. Devam edilsin mi?')) {
+                    await this.restoreBackup(type, timestamp);
+                    modal.classList.remove('active');
+                    setTimeout(() => modal.remove(), 300);
+                }
+            });
+        });
+
+        // Delete butonları
+        modal.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const key = e.target.dataset.key;
+                
+                if (confirm('Bu backup silinecek. Bu işlem geri alınamaz. Devam edilsin mi?')) {
+                    localStorage.removeItem(key);
+                    e.target.closest('.backup-item').remove();
+                    this.showToast('✅ Backup silindi', 'success');
+                }
+            });
+        });
+
+        // Clear all butonu
+        const clearAllBtn = modal.querySelector('#backup-clear-all');
+        clearAllBtn.addEventListener('click', () => {
+            if (confirm('Tüm backup\'lar silinecek. Bu işlem geri alınamaz. Devam edilsin mi?')) {
+                this.dataSyncManager.clearAllBackups(type);
+                modal.classList.remove('active');
+                setTimeout(() => modal.remove(), 300);
+                this.showToast('🧹 Tüm backup\'lar temizlendi', 'info');
+            }
+        });
+
+        // Export butonu
+        const exportBtn = modal.querySelector('#backup-export');
+        exportBtn.addEventListener('click', () => {
+            this.exportBackupList(type);
+        });
+
+        // ESC tuşu ile kapatma
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') {
+                modal.classList.remove('active');
+                setTimeout(() => modal.remove(), 300);
+                document.removeEventListener('keydown', handleEsc);
+            }
+        };
+        document.addEventListener('keydown', handleEsc);
+    }
+
+    /**
+     * Backup restore işlemi
+     */
+    async restoreBackup(type, timestamp) {
+        try {
+            this.showToast(`🔄 ${type} backup restore ediliyor...`, 'info');
+            
+            const success = await this.dataSyncManager.restoreBackup(type, timestamp);
+            
+            if (success) {
+                // Editor'ı yenile
+                await this.loadFromStorage(type);
+                
+                // Preview Panel'i yenile
+                if (window.previewPanel && typeof window.previewPanel.forceRefresh === 'function') {
+                    await window.previewPanel.forceRefresh();
+                }
+                
+                this.showToast('✅ Backup başarıyla restore edildi', 'warning');
+            } else {
+                this.showToast('❌ Backup restore edilemedi', 'error');
+            }
+
+        } catch (error) {
+            console.error('Backup restore hatası:', error);
+            this.showToast('❌ Backup restore hatası: ' + error.message, 'error');
+        }
+    }
+
+    /**
+     * Backup listesini export eder
+     */
+    exportBackupList(type) {
+        try {
+            const exportData = this.dataSyncManager.exportBackupList(type);
+            
+            if (!exportData) {
+                this.showToast('❌ Backup listesi export edilemedi', 'error');
+                return;
+            }
+            
+            const timestamp = new Date().toISOString().split('T')[0];
+            const filename = `${type}-backups-${timestamp}.json`;
+            
+            const blob = new Blob([exportData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            this.showToast(`📤 Backup listesi export edildi: ${filename}`, 'success');
+            
+        } catch (error) {
+            console.error('Backup export hatası:', error);
+            this.showToast('❌ Backup export hatası: ' + error.message, 'error');
+        }
+    }
+
+    /**
+     * Editor'ı yeniler (undo sistemden çağrılabilir)
+     */
+    async refreshEditor() {
+        try {
+            await this.loadFromStorage(this.currentType);
+            console.log('✅ Editor yenilendi');
+        } catch (error) {
+            console.error('Editor yenileme hatası:', error);
         }
     }
 }

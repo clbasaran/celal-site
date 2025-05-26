@@ -1,223 +1,667 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<html lang="tr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Celal Başaran</title>
-    <meta name="description" content="İçerik yönetim paneli">
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="admin.css">
+    <title>Admin Panel - Celal Başaran Portfolio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    
+    <!-- CSS Variables (Apple Design System) -->
+    <style>
+        :root {
+            /* Colors */
+            --primary: #007AFF;
+            --primary-rgb: 0, 122, 255;
+            --secondary: #5856D6;
+            --secondary-rgb: 88, 86, 214;
+            --accent: #FF3B30;
+            --accent-rgb: 255, 59, 48;
+            
+            /* Background Colors */
+            --background: #F2F2F7;
+            --surface: #FFFFFF;
+            --surface-elevated: #FFFFFF;
+            --surface-secondary: #F2F2F7;
+            
+            /* Text Colors */
+            --text-primary: #000000;
+            --text-secondary: #3C3C43;
+            --text-tertiary: #48484A;
+            
+            /* Border */
+            --border: #C6C6C8;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        [data-theme="dark"] {
+            /* Dark mode colors */
+            --background: #000000;
+            --surface: #1C1C1E;
+            --surface-elevated: #2C2C2E;
+            --surface-secondary: #38383A;
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #EBEBF5;
+            --text-tertiary: #EBEBF5;
+            
+            --border: #38383A;
+        }
+        
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--background);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--surface-secondary);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            margin-top: 16px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        /* Admin Layout */
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            width: 280px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0 0 4px 0;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .sidebar-header p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin: 0;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-link:hover {
+            background: var(--surface-secondary);
+            color: var(--text-primary);
+        }
+        
+        .nav-link.active {
+            background: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .admin-info p {
+            margin: 2px 0;
+            font-size: 0.875rem;
+        }
+        
+        .admin-info p:first-child {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .admin-info p:last-child {
+            color: var(--text-secondary);
+        }
+        
+        .admin-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            margin-bottom: 32px;
+        }
+        
+        .section-header h1 {
+            margin: 0 0 8px 0;
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .section-header p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        /* Button Styles */
+        .btn-primary, .btn-secondary, .action-btn, .setting-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: rgba(var(--primary-rgb), 0.8);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--surface-secondary);
+            transform: translateY(-1px);
+        }
+        
+        .btn-danger {
+            background: rgba(255, 59, 48, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(255, 59, 48, 0.2);
+        }
+        
+        .btn-danger:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard-grid {
+            display: grid;
+            gap: 24px;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+        
+        .stat-content h3 {
+            margin: 0 0 4px 0;
+            color: var(--primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+        
+        .stat-content p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .quick-actions, .recent-activity {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .quick-actions h3, .recent-activity h3 {
+            margin: 0 0 16px 0;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .action-btn {
+            justify-content: center;
+            padding: 12px 16px;
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .activity-item {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        /* Settings Styles */
+        .settings-sections {
+            display: grid;
+            gap: 24px;
+        }
+        
+        .setting-group {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .setting-group h3 {
+            margin: 0 0 16px 0;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .setting-item {
+            margin-bottom: 12px;
+        }
+        
+        .setting-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+        
+        .setting-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .setting-btn {
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .setting-btn:hover {
+            background: var(--surface-secondary);
+        }
+        
+        .system-info p {
+            margin: 4px 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 400px;
+            animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .toast-success {
+            border-left: 4px solid #34C759;
+        }
+        
+        .toast-error {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .toast-warning {
+            border-left: 4px solid #FF9500;
+        }
+        
+        .toast-info {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .toast-message {
+            flex: 1;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.25rem;
+            padding: 4px;
+            border-radius: 4px;
+        }
+        
+        .toast-close:hover {
+            background: var(--surface-secondary);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+            
+            .admin-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .setting-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="../assets/css/components/editor.css">
 </head>
 <body>
-    <div class="admin-layout">
-        <!-- Navbar component buraya yüklenecek -->
-
-        <main class="admin-main">
-            <header class="admin-header">
-                <h1 id="admin-title">Dashboard</h1>
-                <div class="admin-header-actions">
-                    <button class="theme-toggle" aria-label="Tema değiştir">
-                        <span class="theme-icon">🌙</span>
-                    </button>
-                </div>
-            </header>
-
-            <div class="admin-content">
-                <!-- Dashboard Section -->
-                <section id="dashboard-section" class="admin-section active">
-                    <div class="dashboard-stats">
-                        <div class="stat-card">
-                            <div class="stat-icon">📱</div>
-                            <div class="stat-content">
-                                <h3 id="projects-count">0</h3>
-                                <p>Toplam Proje</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🛠️</div>
-                            <div class="stat-content">
-                                <h3 id="skills-count">0</h3>
-                                <p>Toplam Yetenek</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📊</div>
-                            <div class="stat-content">
-                                <h3>Dark</h3>
-                                <p>Aktif Tema</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-recent">
-                        <h3>Son Güncellenen Projeler</h3>
-                        <div id="recent-projects" class="recent-list">
-                            <!-- JavaScript ile doldurulacak -->
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Projects Section -->
-                <section id="projects-section" class="admin-section">
-                    <div class="section-header">
-                        <h2>Projeler</h2>
-                        <button class="btn-primary" id="add-project-btn">➕ Yeni Proje</button>
-                    </div>
-                    
-                    <div class="admin-table-container">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Başlık</th>
-                                    <th>Durum</th>
-                                    <th>Yıl</th>
-                                    <th>Teknolojiler</th>
-                                    <th>İşlemler</th>
-                                </tr>
-                            </thead>
-                            <tbody id="projects-table">
-                                <!-- JavaScript ile doldurulacak -->
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- Skills Section -->
-                <section id="skills-section" class="admin-section">
-                    <div class="section-header">
-                        <h2>Yetenekler</h2>
-                        <button class="btn-primary" id="add-skill-btn">➕ Yeni Yetenek</button>
-                    </div>
-                    
-                    <div id="skills-categories" class="skills-admin-grid">
-                        <!-- JavaScript ile doldurulacak -->
-                    </div>
-                </section>
-
-                <!-- Settings Section -->
-                <section id="settings-section" class="admin-section">
-                    <div class="section-header">
-                        <h2>Ayarlar</h2>
-                    </div>
-                    
-                    <div class="settings-grid">
-                        <div class="setting-card">
-                            <h3>Tema Ayarları</h3>
-                            <div class="form-group">
-                                <label for="default-theme">Varsayılan Tema</label>
-                                <select id="default-theme">
-                                    <option value="dark">Koyu</option>
-                                    <option value="light">Açık</option>
-                                    <option value="auto">Otomatik</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="setting-card">
-                            <h3>İçerik Yönetimi</h3>
-                            <div class="form-group">
-                                <button class="btn-primary" id="export-data-btn">📥 Verileri Dışa Aktar</button>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn-secondary" id="import-data-btn">📤 Verileri İçe Aktar</button>
-                                <input type="file" id="import-file" accept=".json" style="display: none;">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-        <!-- Footer component buraya yüklenecek -->
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Admin Panel Yükleniyor...</div>
     </div>
-
-    <!-- Modals -->
-    <div id="project-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="project-modal-title">Proje Ekle</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <form id="project-form" class="modal-body">
-                <div class="form-group">
-                    <label for="project-title">Başlık</label>
-                    <input type="text" id="project-title" required>
-                </div>
-                <div class="form-group">
-                    <label for="project-description">Açıklama</label>
-                    <textarea id="project-description" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="project-icon">İkon (Emoji)</label>
-                    <input type="text" id="project-icon" placeholder="📱">
-                </div>
-                <div class="form-group">
-                    <label for="project-technologies">Teknolojiler (virgülle ayırın)</label>
-                    <input type="text" id="project-technologies" placeholder="SwiftUI, Core Data">
-                </div>
-                <div class="form-group">
-                    <label for="project-year">Yıl</label>
-                    <input type="number" id="project-year" min="2020" max="2030">
-                </div>
-                <div class="form-group">
-                    <label for="project-status">Durum</label>
-                    <select id="project-status">
-                        <option value="completed">Tamamlandı</option>
-                        <option value="in-progress">Devam Ediyor</option>
-                        <option value="planned">Planlandı</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary modal-close">İptal</button>
-                    <button type="submit" class="btn-primary">Kaydet</button>
-                </div>
-            </form>
-        </div>
+    
+    <!-- Admin Container -->
+    <div id="admin-container">
+        <!-- Content will be injected by JavaScript -->
     </div>
-
-    <div id="skill-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="skill-modal-title">Yetenek Ekle</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <form id="skill-form" class="modal-body">
-                <div class="form-group">
-                    <label for="skill-category">Kategori</label>
-                    <select id="skill-category" required>
-                        <option value="">Kategori Seçin</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="skill-name">Yetenek Adı</label>
-                    <input type="text" id="skill-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="skill-level">Seviye</label>
-                    <select id="skill-level" required>
-                        <option value="">Seviye Seçin</option>
-                        <option value="expert">Uzman</option>
-                        <option value="advanced">İleri</option>
-                        <option value="intermediate">Orta</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="skill-years">Deneyim Yılı</label>
-                    <input type="number" id="skill-years" min="1" max="20">
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary modal-close">İptal</button>
-                    <button type="submit" class="btn-primary">Kaydet</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
+    
     <!-- Scripts -->
-    <script type="module" src="../assets/js/modules/theme.js"></script>
-    <script type="module" src="toast.js"></script>
-    <script type="module" src="components/component-loader.js"></script>
-    <script type="module" src="admin-nav.js"></script>
-    <script type="module" src="admin-editor.js"></script>
-    <script type="module" src="admin.js"></script>
+    <script type="module">
+        // Loading screen management
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1000);
+        });
+        
+        // Error handling
+        window.addEventListener('error', (e) => {
+            console.error('JavaScript Hatası:', e.error);
+            if (window.toast) {
+                window.toast.error('Bir hata oluştu: ' + e.error.message);
+            }
+        });
+        
+        // Unhandled promise rejections
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Promise Hatası:', e.reason);
+            if (window.toast) {
+                window.toast.error('Async hata: ' + e.reason);
+            }
+        });
+        
+        // Module import with error handling
+        async function loadModules() {
+            try {
+                console.log('🔄 Modüller yükleniyor...');
+                
+                // Ana admin.js modülünü import et
+                const { default: AdminPanel } = await import('./admin.js');
+                
+                console.log('✅ Admin Panel modülü yüklendi');
+                
+            } catch (error) {
+                console.error('❌ Modül yükleme hatası:', error);
+                
+                // Fallback error display
+                document.getElementById('admin-container').innerHTML = `
+                    <div style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 100vh;
+                        padding: 40px;
+                        text-align: center;
+                        color: var(--text-primary);
+                    ">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
+                        <h1 style="margin-bottom: 12px; color: var(--accent);">Modül Yükleme Hatası</h1>
+                        <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                            Admin panel modülleri yüklenirken bir hata oluştu.
+                        </p>
+                        <pre style="
+                            background: var(--surface-secondary);
+                            padding: 16px;
+                            border-radius: 8px;
+                            font-size: 0.875rem;
+                            color: var(--accent);
+                            max-width: 600px;
+                            overflow: auto;
+                        ">${error.message}</pre>
+                        <button onclick="location.reload()" style="
+                            margin-top: 20px;
+                            padding: 12px 24px;
+                            background: var(--primary);
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                        ">🔄 Sayfayı Yenile</button>
+                    </div>
+                `;
+                
+                // Loading screen'i gizle
+                document.getElementById('loading-screen').classList.add('hidden');
+            }
+        }
+        
+        // DOM hazır olduğunda modülleri yükle
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadModules);
+        } else {
+            loadModules();
+        }
+        
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('admin-theme', newTheme);
+            
+            if (window.toast) {
+                window.toast.info(`${newTheme === 'dark' ? 'Karanlık' : 'Aydınlık'} tema aktif`);
+            }
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('admin-theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+        
+        // Make theme toggle available globally
+        window.toggleTheme = toggleTheme;
+    </script>
+    
+    <!-- Performance monitoring -->
+    <script>
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if (performance.getEntriesByType) {
+                const navigationEntry = performance.getEntriesByType('navigation')[0];
+                if (navigationEntry) {
+                    console.log('📊 Sayfa Yükleme Performansı:');
+                    console.log(`   DOM Hazır: ${Math.round(navigationEntry.domContentLoadedEventEnd)}ms`);
+                    console.log(`   Sayfa Yüklendi: ${Math.round(navigationEntry.loadEventEnd)}ms`);
+                    console.log(`   İlk Byte: ${Math.round(navigationEntry.responseStart)}ms`);
+                }
+            }
+        });
+        
+        // Memory usage monitoring (Chrome only)
+        if (performance.memory) {
+            setInterval(() => {
+                const memory = performance.memory;
+                if (memory.usedJSHeapSize > 50 * 1024 * 1024) { // 50MB threshold
+                    console.warn('⚠️  Yüksek bellek kullanımı:', Math.round(memory.usedJSHeapSize / 1024 / 1024) + 'MB');
+                }
+            }, 30000); // Check every 30 seconds
+        }
+    </script>
 </body>
 </html> 
