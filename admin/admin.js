@@ -9,6 +9,7 @@ import SkillTags from './modules/skill-tags.js';
 import LivePreview from './modules/live-preview.js';
 import DataSyncManager from './modules/data-sync.js';
 import EditorPanel from './modules/editor-panel.js';
+import PreviewPanel from './modules/preview-panel.js';
 
 /**
  * Admin Panel Ana Sınıfı
@@ -215,7 +216,7 @@ class AdminPanel {
         let attempts = 0;
         
         while (attempts < maxAttempts) {
-            if (window.projectEditor && window.skillTags && window.livePreview) {
+            if (window.projectEditor && window.skillTags && window.livePreview && window.previewPanel) {
                 break;
             }
             await new Promise(resolve => setTimeout(resolve, 100));
@@ -232,7 +233,8 @@ class AdminPanel {
             skillTags: window.skillTags,
             livePreview: window.livePreview,
             dataSyncManager: window.dataSyncManager,
-            editorPanel: window.editorPanel
+            editorPanel: window.editorPanel,
+            previewPanel: window.previewPanel
         };
         
         // Dashboard içeriğini oluştur
