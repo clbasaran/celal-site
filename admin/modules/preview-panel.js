@@ -384,8 +384,24 @@ class PreviewPanel {
      * Yetenek önizlemesini render eder
      */
     renderSkillsPreview(skillsData, container) {
-        if (!skillsData || !skillsData.skills || !Array.isArray(skillsData.skills.categories)) {
-            this.renderEmptyState('Henüz yetenek kategorisi eklenmemiş');
+        console.log('🔍 Skills verisi kontrol ediliyor:', skillsData);
+        
+        // Veri formatı kontrolü
+        if (!skillsData) {
+            console.error('❌ Skills verisi null veya undefined');
+            this.renderEmptyState('Skills verisi bulunamadı');
+            return;
+        }
+        
+        if (!skillsData.skills) {
+            console.error('❌ Skills.skills objesi bulunamadı:', skillsData);
+            this.renderEmptyState('Skills objesi hatalı format');
+            return;
+        }
+        
+        if (!Array.isArray(skillsData.skills.categories)) {
+            console.error('❌ Skills.skills.categories array değil:', skillsData.skills);
+            this.renderEmptyState('Skills kategorileri hatalı format');
             return;
         }
 
@@ -396,28 +412,35 @@ class PreviewPanel {
             return;
         }
 
-        const categoriesHtml = categories.map(category => `
-            <div class="preview-skill-category" data-searchable="${(category.name + ' ' + category.skills.map(s => s.name).join(' ')).toLowerCase()}">
+        const categoriesHtml = categories.map(category => {
+            // Güvenli veri erişimi
+            const categoryName = category.title || category.name || 'İsimsiz Kategori';
+            const categoryIcon = category.icon || '🛠️';
+            const categorySkills = Array.isArray(category.skills) ? category.skills : [];
+            const searchableText = (categoryName + ' ' + categorySkills.map(s => s.name || '').join(' ')).toLowerCase();
+            
+            return `
+            <div class="preview-skill-category" data-searchable="${searchableText}">
                 <div class="category-header">
-                    <h3 class="category-title">${category.icon || '🛠️'} ${category.name}</h3>
+                    <h3 class="category-title">${categoryIcon} ${categoryName}</h3>
                     <div class="category-stats">
-                        <span class="skill-count">${category.skills.length} yetenek</span>
+                        <span class="skill-count">${categorySkills.length} yetenek</span>
                     </div>
                 </div>
                 
                 <div class="skills-list">
-                    ${category.skills.map(skill => `
+                    ${categorySkills.map(skill => `
                         <div class="preview-skill-item">
                             <div class="skill-header">
-                                <span class="skill-name">${skill.name}</span>
-                                <span class="skill-level-badge level-${skill.level}">${this.getLevelText(skill.level)}</span>
+                                <span class="skill-name">${skill.name || 'İsimsiz Yetenek'}</span>
+                                <span class="skill-level-badge level-${skill.level || 'beginner'}">${this.getLevelText(skill.level || 'beginner')}</span>
                             </div>
                             
                             <div class="skill-progress">
                                 <div class="progress-bar">
-                                    <div class="progress-fill level-${skill.level}" style="width: ${this.getLevelPercentage(skill.level)}%"></div>
+                                    <div class="progress-fill level-${skill.level || 'beginner'}" style="width: ${this.getLevelPercentage(skill.level || 'beginner')}%"></div>
                                 </div>
-                                <span class="progress-text">${this.getLevelPercentage(skill.level)}%</span>
+                                <span class="progress-text">${this.getLevelPercentage(skill.level || 'beginner')}%</span>
                             </div>
                             
                             ${skill.experience ? `<div class="skill-experience">${skill.experience}</div>` : ''}
@@ -425,7 +448,8 @@ class PreviewPanel {
                     `).join('')}
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
 
         container.innerHTML = `
             <div class="preview-grid skills-grid">
@@ -818,6 +842,50 @@ class PreviewPanel {
     }
 
     /**
+     * Skills veri formatını validate eder
+     */
+    validateSkillsData(skillsData) {
+        const errors = [];
+        const warnings = [];
+        
+        if (!skillsData) {
+            errors.push('Skills verisi null/undefined');
+            return { errors, warnings };
+        }
+        
+        if (!skillsData.skills) {
+            errors.push('skills objesi eksik');
+            return { errors, warnings };
+        }
+        
+        if (!Array.isArray(skillsData.skills.categories)) {
+            errors.push('skills.categories array değil');
+            return { errors, warnings };
+        }
+        
+        skillsData.skills.categories.forEach((category, index) => {
+            if (!category.title && !category.name) {
+                warnings.push(`Kategori ${index + 1}: title/name eksik`);
+            }
+            
+            if (!Array.isArray(category.skills)) {
+                errors.push(`Kategori ${index + 1}: skills array değil`);
+            } else {
+                category.skills.forEach((skill, skillIndex) => {
+                    if (!skill.name) {
+                        warnings.push(`Kategori ${index + 1}, Yetenek ${skillIndex + 1}: name eksik`);
+                    }
+                    if (!skill.level) {
+                        warnings.push(`Kategori ${index + 1}, Yetenek ${skillIndex + 1}: level eksik`);
+                    }
+                });
+            }
+        });
+        
+        return { errors, warnings };
+    }
+
+    /**
      * Toplu veri validation
      */
     validateAllProjectData(projects) {
@@ -852,16 +920,31 @@ class PreviewPanel {
      */
     async testPreviewPanel() {
         try {
-            // Veri yükleme testi
-            const data = await this.dataSyncManager.load('projects');
+            // Projects veri yükleme testi
+            const projectsData = await this.dataSyncManager.load('projects');
             
-            if (!data || !Array.isArray(data)) {
+            if (!projectsData || !Array.isArray(projectsData)) {
                 this.showToast('❌ Projects verisi geçersiz format', 'error');
                 return false;
             }
             
-            // Kapsamlı validation
-            const validation = this.validateAllProjectData(data);
+            // Skills veri yükleme testi
+            const skillsData = await this.dataSyncManager.load('skills');
+            const skillsValidation = this.validateSkillsData(skillsData);
+            
+            if (skillsValidation.errors.length > 0) {
+                console.error('❌ Skills validation hatası:', skillsValidation.errors);
+                this.showToast(`❌ Skills verisi hatalı: ${skillsValidation.errors.join(', ')}`, 'error');
+                return false;
+            }
+            
+            if (skillsValidation.warnings.length > 0) {
+                console.warn('⚠️ Skills validation uyarısı:', skillsValidation.warnings);
+                this.showToast(`⚠️ Skills uyarıları: ${skillsValidation.warnings.length} uyarı`, 'warning');
+            }
+            
+            // Kapsamlı project validation
+            const validation = this.validateAllProjectData(projectsData);
             
             // Sonuçları logla
             if (validation.projectIssues.length > 0) {
@@ -889,8 +972,9 @@ class PreviewPanel {
                 this.showToast(`⚠️ ${validation.totalWarnings} uyarı var`, 'warning');
             }
             
-            // Render testi
+            // Render testleri
             await this.render('projects');
+            await this.render('skills');
             
             this.showToast('✅ Preview Panel data render başarılı', 'success');
             return true;
