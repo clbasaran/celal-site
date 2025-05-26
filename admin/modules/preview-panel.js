@@ -36,8 +36,6 @@ class PreviewPanel {
      */
     async init() {
         try {
-            console.log('🔄 Preview Panel başlatılıyor...');
-            
             // DataSyncManager'ın hazır olmasını bekle
             await this.waitForDataSyncManager();
             
@@ -54,7 +52,6 @@ class PreviewPanel {
             this.startAutoRefresh();
             
             this.isInitialized = true;
-            console.log('✅ Preview Panel hazır');
             
             this.showToast('Preview Panel hazır! 👁️', 'success');
             
@@ -273,9 +270,10 @@ class PreviewPanel {
             }
             
         } catch (error) {
-            console.error('Preview refresh hatası:', error);
+            console.error('❌ Preview refresh hatası:', error);
             this.renderErrorState(error);
             this.updateStatus('error', 'Hata: ' + error.message);
+            this.showToast('Preview güncellenirken hata oluştu: ' + error.message, 'error');
         }
     }
 
@@ -305,13 +303,29 @@ class PreviewPanel {
             this.renderEmptyState('Henüz proje eklenmemiş');
             return;
         }
+        
+        // Veri formatı doğrulaması
+        const invalidProjects = projects.filter(project => 
+            !project.id || !project.title || !project.description || 
+            !project.status || !project.tech || typeof project.featured !== 'boolean'
+        );
+        
+        if (invalidProjects.length > 0) {
+            console.error('❌ Geçersiz proje verileri:', invalidProjects);
+            this.showToast(`Proje veri formatı hatalı: ${invalidProjects.length} geçersiz proje`, 'error');
+            // Sadece geçerli projeleri göster
+            projects = projects.filter(project => 
+                project.id && project.title && project.description && 
+                project.status && project.tech && typeof project.featured === 'boolean'
+            );
+        }
 
         const projectsHtml = projects.map(project => `
-            <div class="preview-project-card" data-searchable="${(project.title + ' ' + project.description + ' ' + (project.technologies || []).join(' ')).toLowerCase()}">
+            <div class="preview-project-card" data-searchable="${(project.title + ' ' + project.description + ' ' + (Array.isArray(project.tech) ? project.tech.join(' ') : '')).toLowerCase()}">
                 <div class="project-header">
                     <div class="project-icon">${project.icon || '📱'}</div>
                     <div class="project-status">
-                        <span class="status-badge status-${project.status || 'planned'}">${this.getStatusText(project.status)}</span>
+                        <span class="status-badge status-${this.getStatusClass(project.status)}">${this.getStatusText(project.status)}</span>
                     </div>
                 </div>
                 
@@ -319,9 +333,9 @@ class PreviewPanel {
                     <h3 class="project-title">${project.title || 'Başlıksız Proje'}</h3>
                     <p class="project-description">${project.description || 'Açıklama bulunmuyor.'}</p>
                     
-                    ${project.technologies && project.technologies.length > 0 ? `
+                    ${Array.isArray(project.tech) && project.tech.length > 0 ? `
                         <div class="project-technologies">
-                            ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                            ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                         </div>
                     ` : ''}
                     
@@ -335,9 +349,8 @@ class PreviewPanel {
                     </div>
                     
                     <div class="project-links">
-                        ${project.githubUrl ? `<a href="${project.githubUrl}" class="project-link" target="_blank">🔗 GitHub</a>` : ''}
-                        ${project.appStoreUrl ? `<a href="${project.appStoreUrl}" class="project-link" target="_blank">📱 App Store</a>` : ''}
-                        ${project.liveUrl ? `<a href="${project.liveUrl}" class="project-link" target="_blank">🌐 Canlı</a>` : ''}
+                        ${project.github ? `<a href="${project.github}" class="project-link" target="_blank">🔗 GitHub</a>` : ''}
+                        ${project.live ? `<a href="${project.live}" class="project-link" target="_blank">🌐 Canlı</a>` : ''}
                     </div>
                 </div>
             </div>
@@ -583,9 +596,25 @@ class PreviewPanel {
             'completed': 'Tamamlandı',
             'in-progress': 'Devam Ediyor',
             'planned': 'Planlandı',
-            'on-hold': 'Beklemede'
+            'on-hold': 'Beklemede',
+            'Tamamlandı': 'Tamamlandı',
+            'Devam Ediyor': 'Devam Ediyor',
+            'Planlandı': 'Planlandı'
         };
         return statusMap[status] || 'Belirsiz';
+    }
+
+    getStatusClass(status) {
+        const classMap = {
+            'completed': 'completed',
+            'in-progress': 'in-progress',
+            'planned': 'planned',
+            'on-hold': 'on-hold',
+            'Tamamlandı': 'completed',
+            'Devam Ediyor': 'in-progress',
+            'Planlandı': 'planned'
+        };
+        return classMap[status] || 'planned';
     }
 
     getLevelText(level) {
@@ -659,6 +688,88 @@ class PreviewPanel {
     async forceRefresh() {
         await this.refreshPreview();
         this.showToast('🔄 Preview yenilendi', 'success');
+    }
+
+    /**
+     * Manuel render fonksiyonu
+     */
+    async render(type = 'projects') {
+        await this.switchType(type);
+        await this.refreshPreview();
+        this.showToast(`📊 ${type} önizlemesi yenilendi`, 'info');
+    }
+
+    /**
+     * Toast modülünü test eder
+     */
+    testToast() {
+        console.log('🧪 Toast modülü test ediliyor...');
+        
+        this.showToast('Preview Panel başarıyla güncellendi!', 'success');
+        
+        setTimeout(() => {
+            this.showToast('Veri eksik: id/title/description eksik', 'error');
+        }, 1000);
+        
+        setTimeout(() => {
+            this.showToast('Bazı projelerde bilinmeyen status', 'warning');
+        }, 2000);
+        
+        setTimeout(() => {
+            this.showToast('Toast modülü testi tamamlandı', 'info');
+        }, 3000);
+    }
+
+    /**
+     * Preview Panel'ı test eder
+     */
+    async testPreviewPanel() {
+        try {
+            // Veri yükleme testi
+            const data = await this.dataSyncManager.load('projects');
+            
+            if (!data || !Array.isArray(data)) {
+                this.showToast('❌ Projects verisi geçersiz format', 'error');
+                return false;
+            }
+            
+            // Her proje için format kontrolü
+            let hasErrors = false;
+            let invalidStatusCount = 0;
+            
+            data.forEach((project, index) => {
+                const requiredFields = ['id', 'title', 'description', 'status', 'tech', 'featured'];
+                const missingFields = requiredFields.filter(field => !project.hasOwnProperty(field));
+                
+                if (missingFields.length > 0) {
+                    console.error(`❌ Proje ${project.id || index + 1} eksik alanlar:`, missingFields);
+                    hasErrors = true;
+                }
+                
+                // Status değer kontrolü
+                const validStatuses = ['Tamamlandı', 'Devam Ediyor', 'Planlandı'];
+                if (project.status && !validStatuses.includes(project.status)) {
+                    invalidStatusCount++;
+                }
+            });
+            
+            if (hasErrors) {
+                this.showToast('❌ Bazı projelerde format hataları var', 'error');
+                return false;
+            }
+            
+            if (invalidStatusCount > 0) {
+                this.showToast(`⚠️ ${invalidStatusCount} projede bilinmeyen status`, 'warning');
+            }
+            
+            this.showToast('✅ Preview Panel data render başarılı', 'success');
+            return true;
+            
+        } catch (error) {
+            console.error('❌ Preview Panel test hatası:', error);
+            this.showToast('❌ Preview Panel test başarısız: ' + error.message, 'error');
+            return false;
+        }
     }
 }
 
