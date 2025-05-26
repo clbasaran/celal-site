@@ -88,7 +88,7 @@ class EditorPanel {
      * Editor Panel'i belirtilen container'a mount eder
      * @param {HTMLElement} container - Mount edilecek container
      */
-    mount(container) {
+    async mount(container) {
         if (!container) {
             console.error('❌ Mount container bulunamadı');
             return;
@@ -97,11 +97,17 @@ class EditorPanel {
         try {
             console.log('🔄 EditorPanel mount ediliyor...');
             this.container = container;
+            
+            // DataSyncManager'ın hazır olmasını bekle
+            if (!this.dataSyncManager) {
+                await this.waitForDataSyncManager();
+            }
+            
             this.createUIForContainer(container);
             
             if (!this.isInitialized) {
                 this.setupEventListeners();
-                this.loadFromStorage(this.currentType);
+                await this.loadFromStorage(this.currentType);
                 this.isInitialized = true;
                 console.log('✅ EditorPanel mount edildi');
             }
