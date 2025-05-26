@@ -1,15 +1,117 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="auto">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Celal Başaran</title>
+  <meta name="description" content="Celal Başaran - Muğla Sıtkı Koçman Üniversitesi öğrencisi. Kişisel portföy ve projeler." />
+  <meta name="author" content="Celal Başaran" />
+  <meta name="theme-color" content="#007AFF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0A84FF" media="(prefers-color-scheme: dark)" />
+  
+  <title>Celal Başaran - Öğrenci Portföyü</title>
+  
+  <!-- Apple Design Language V6 CSS -->
   <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/themes.css" />
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 </head>
 <body>
-  <main>
-    <h1>Merhaba, ben Celal</h1>
-    <p>Bu site şu anda geliştiriliyor. Çok yakında buradayım!</p>
+  <!-- Skip to main content for accessibility -->
+  <a href="#main" class="skip-link" aria-label="Ana içeriğe atla">Ana içeriğe atla</a>
+  
+  <!-- Header Navigation -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Ana navigasyon">
+      <div class="nav-container">
+        <a href="#" class="nav-logo" aria-label="Ana sayfa">
+          <span class="nav-logo-text">CB</span>
+        </a>
+        
+        <ul class="nav-menu" role="menubar">
+          <li role="none">
+            <a href="#about" class="nav-link" role="menuitem">Hakkımda</a>
+          </li>
+          <li role="none">
+            <a href="#projects" class="nav-link" role="menuitem">Projeler</a>
+          </li>
+          <li role="none">
+            <a href="#contact" class="nav-link" role="menuitem">İletişim</a>
+          </li>
+        </ul>
+        
+        <button 
+          class="theme-toggle" 
+          type="button" 
+          aria-label="Tema değiştir"
+          aria-pressed="false"
+          data-theme-toggle
+        >
+          <span class="theme-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main" class="main" role="main">
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-container">
+        <div class="hero-content">
+          <h1 id="hero-title" class="hero-title">
+            Merhaba, ben <span class="hero-name">Celal</span>
+          </h1>
+          <p class="hero-subtitle">
+            Muğla Sıtkı Koçman Üniversitesi öğrencisi. 
+            Gerçek projeler, gerçek deneyimler.
+          </p>
+          <div class="hero-status">
+            <span class="status-indicator" aria-label="Aktif durum"></span>
+            <span class="status-text">Şu anda öğreniyorum ve geliştiriyorum</span>
+          </div>
+        </div>
+        
+        <div class="hero-image" aria-hidden="true">
+          <div class="avatar-placeholder">
+            <span class="avatar-initial">C</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Development Notice -->
+    <section class="notice" aria-labelledby="notice-title">
+      <div class="notice-container">
+        <h2 id="notice-title" class="notice-title">🚧 Geliştirme Aşamasında</h2>
+        <p class="notice-text">
+          Bu site aktif olarak geliştirilmektedir. 
+          İçerikler gerçek projeler ve deneyimler eklendikçe güncellenecektir.
+        </p>
+        <div class="notice-progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="Proje ilerleme durumu">
+            <div class="progress-fill" style="width: 25%"></div>
+          </div>
+          <span class="progress-text">%25 tamamlandı</span>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-container">
+      <p class="footer-text">
+        © 2024 Celal Başaran. Apple Design V6 ile tasarlandı.
+      </p>
+      <p class="footer-university">
+        Muğla Sıtkı Koçman Üniversitesi
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="assets/js/app.js" type="module"></script>
 </body>
 </html>
