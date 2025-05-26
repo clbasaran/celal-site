@@ -233,7 +233,7 @@ class AdminPanel {
         let attempts = 0;
         
         while (attempts < maxAttempts) {
-            if (window.projectEditor && window.skillTags && window.livePreview && window.previewPanel && window.addItemModal && window.dataUndoManager) {
+            if (window.projectEditor && window.skillTags && window.livePreview && window.previewPanel && window.addItemModal && window.dataUndoManager && window.editorPanel) {
                 break;
             }
             await new Promise(resolve => setTimeout(resolve, 100));
@@ -447,6 +447,15 @@ class AdminPanel {
         // Section'a göre özel işlemler
         if (sectionName === 'dashboard') {
             this.updateDashboardStats();
+        } else if (sectionName === 'editor') {
+            // EditorPanel'i mount et
+            if (this.modules.editorPanel && !this.modules.editorPanel.isInitialized) {
+                const editorContainer = document.getElementById('editor-panel');
+                if (editorContainer && editorContainer.children.length === 0) {
+                    console.log('🔄 EditorPanel mount ediliyor...');
+                    this.modules.editorPanel.mount?.(editorContainer);
+                }
+            }
         }
         
         console.log(`📍 Section değişti: ${sectionName}`);

@@ -85,6 +85,125 @@ class EditorPanel {
     }
 
     /**
+     * Editor Panel'i belirtilen container'a mount eder
+     * @param {HTMLElement} container - Mount edilecek container
+     */
+    mount(container) {
+        if (!container) {
+            console.error('❌ Mount container bulunamadı');
+            return;
+        }
+        
+        try {
+            console.log('🔄 EditorPanel mount ediliyor...');
+            this.container = container;
+            this.createUIForContainer(container);
+            
+            if (!this.isInitialized) {
+                this.setupEventListeners();
+                this.loadFromStorage(this.currentType);
+                this.isInitialized = true;
+                console.log('✅ EditorPanel mount edildi');
+            }
+        } catch (error) {
+            console.error('❌ EditorPanel mount hatası:', error);
+        }
+    }
+
+    /**
+     * Belirtilen container için UI oluşturur
+     */
+    createUIForContainer(container) {
+        container.innerHTML = `
+            <div class="json-editor-panel" id="json-editor">
+                <div class="editor-header">
+                    <div class="editor-controls">
+                        <div class="type-selector-group">
+                            <label for="data-type-selector" class="control-label">
+                                📊 Veri Tipi:
+                            </label>
+                            <select id="data-type-selector" class="type-selector">
+                                <option value="projects">📱 Projeler</option>
+                                <option value="skills">🛠️ Yetenekler</option>
+                            </select>
+                        </div>
+                        
+                        <div class="editor-actions">
+                            <button id="load-btn" class="editor-btn btn-secondary" title="Veriyi Yükle (Ctrl+L)">
+                                📥 Yükle
+                            </button>
+                            <button id="save-btn" class="editor-btn btn-primary" title="Kaydet (Ctrl+S)">
+                                💾 Kaydet
+                            </button>
+                            <button id="reset-btn" class="editor-btn btn-danger" title="Sıfırla">
+                                🔄 Sıfırla
+                            </button>
+                            <button id="export-btn" class="editor-btn btn-secondary" title="Dışa Aktar (Ctrl+E)">
+                                📤 Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-status">
+                        <div class="validation-status" id="validation-status">
+                            <span class="status-indicator valid">✅</span>
+                            <span class="status-text">Geçerli JSON</span>
+                        </div>
+                        
+                        <div class="editor-counters">
+                            <span class="counter" id="char-counter">0 karakter</span>
+                            <span class="counter" id="line-counter">0 satır</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="editor-content">
+                    <div class="editor-wrapper">
+                        <textarea 
+                            id="json-textarea" 
+                            class="json-editor-textarea"
+                            placeholder="JSON verisi buraya yüklenecek..."
+                            spellcheck="false"
+                            autocomplete="off"
+                        ></textarea>
+                        
+                        <div class="editor-overlay">
+                            <div class="line-numbers" id="line-numbers"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="editor-footer">
+                    <div class="editor-tips">
+                        <span class="tip">💡 <strong>İpuçları:</strong></span>
+                        <span class="tip-item">Ctrl+S: Kaydet</span>
+                        <span class="tip-item">Ctrl+E: Export</span>
+                        <span class="tip-item">Tab: Girinti</span>
+                        <span class="tip-item">Auto-save: 3 saniye</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Element referanslarını kaydet
+        this.elements = {
+            container: container,
+            typeSelector: container.querySelector('#data-type-selector'),
+            textarea: container.querySelector('#json-textarea'),
+            statusBar: container.querySelector('#validation-status'),
+            charCounter: container.querySelector('#char-counter'),
+            lineCounter: container.querySelector('#line-counter'),
+            actionButtons: {
+                load: container.querySelector('#load-btn'),
+                save: container.querySelector('#save-btn'),
+                reset: container.querySelector('#reset-btn'),
+                export: container.querySelector('#export-btn')
+            },
+            validationStatus: container.querySelector('#validation-status')
+        };
+    }
+
+    /**
      * UI'yi oluşturur ve DOM'a ekler
      */
     createUI() {
