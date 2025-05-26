@@ -232,24 +232,7 @@ class EditorPanel {
                 adminContent.querySelector('.content-sections').appendChild(editorSection);
                 targetContainer = document.getElementById('editor-wrapper');
                 
-                // Navigation'a ekle
-                const sidebar = document.getElementById('sidebar-nav');
-                if (sidebar) {
-                    const navItem = document.createElement('li');
-                    navItem.className = 'nav-item';
-                    navItem.innerHTML = `
-                        <a href="#editor" class="nav-link" data-section="editor">
-                            📝 JSON Editor
-                        </a>
-                    `;
-                    sidebar.appendChild(navItem);
-                    
-                    // Click event ekle
-                    navItem.querySelector('.nav-link').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        this.showEditorSection();
-                    });
-                }
+
             }
         }
 
