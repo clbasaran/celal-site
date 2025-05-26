@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Celal Başaran</title>
+    <meta name="description" content="İçerik yönetim paneli">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <nav class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <ul class="admin-menu">
+                <li><a href="#dashboard" class="admin-menu-item active" data-section="dashboard">📊 Dashboard</a></li>
+                <li><a href="#projects" class="admin-menu-item" data-section="projects">📱 Projeler</a></li>
+                <li><a href="#skills" class="admin-menu-item" data-section="skills">🛠️ Yetenekler</a></li>
+                <li><a href="#settings" class="admin-menu-item" data-section="settings">⚙️ Ayarlar</a></li>
+            </ul>
+            <div class="admin-logout">
+                <a href="../index.html">🏠 Ana Sayfaya Dön</a>
+            </div>
+        </nav>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1 id="admin-title">Dashboard</h1>
+                <div class="admin-header-actions">
+                    <button class="theme-toggle" aria-label="Tema değiştir">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="admin-section active">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">📱</div>
+                            <div class="stat-content">
+                                <h3 id="projects-count">0</h3>
+                                <p>Toplam Proje</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🛠️</div>
+                            <div class="stat-content">
+                                <h3 id="skills-count">0</h3>
+                                <p>Toplam Yetenek</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-content">
+                                <h3>Dark</h3>
+                                <p>Aktif Tema</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-recent">
+                        <h3>Son Güncellenen Projeler</h3>
+                        <div id="recent-projects" class="recent-list">
+                            <!-- JavaScript ile doldurulacak -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects Section -->
+                <section id="projects-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Projeler</h2>
+                        <button class="btn-primary" id="add-project-btn">➕ Yeni Proje</button>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Başlık</th>
+                                    <th>Durum</th>
+                                    <th>Yıl</th>
+                                    <th>Teknolojiler</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projects-table">
+                                <!-- JavaScript ile doldurulacak -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Skills Section -->
+                <section id="skills-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Yetenekler</h2>
+                        <button class="btn-primary" id="add-skill-btn">➕ Yeni Yetenek</button>
+                    </div>
+                    
+                    <div id="skills-categories" class="skills-admin-grid">
+                        <!-- JavaScript ile doldurulacak -->
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Ayarlar</h2>
+                    </div>
+                    
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <h3>Tema Ayarları</h3>
+                            <div class="form-group">
+                                <label for="default-theme">Varsayılan Tema</label>
+                                <select id="default-theme">
+                                    <option value="dark">Koyu</option>
+                                    <option value="light">Açık</option>
+                                    <option value="auto">Otomatik</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <h3>İçerik Yönetimi</h3>
+                            <div class="form-group">
+                                <button class="btn-primary" id="export-data-btn">📥 Verileri Dışa Aktar</button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn-secondary" id="import-data-btn">📤 Verileri İçe Aktar</button>
+                                <input type="file" id="import-file" accept=".json" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="project-modal-title">Proje Ekle</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="project-form" class="modal-body">
+                <div class="form-group">
+                    <label for="project-title">Başlık</label>
+                    <input type="text" id="project-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Açıklama</label>
+                    <textarea id="project-description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-icon">İkon (Emoji)</label>
+                    <input type="text" id="project-icon" placeholder="📱">
+                </div>
+                <div class="form-group">
+                    <label for="project-technologies">Teknolojiler (virgülle ayırın)</label>
+                    <input type="text" id="project-technologies" placeholder="SwiftUI, Core Data">
+                </div>
+                <div class="form-group">
+                    <label for="project-year">Yıl</label>
+                    <input type="number" id="project-year" min="2020" max="2030">
+                </div>
+                <div class="form-group">
+                    <label for="project-status">Durum</label>
+                    <select id="project-status">
+                        <option value="completed">Tamamlandı</option>
+                        <option value="in-progress">Devam Ediyor</option>
+                        <option value="planned">Planlandı</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-close">İptal</button>
+                    <button type="submit" class="btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="skill-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="skill-modal-title">Yetenek Ekle</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="skill-form" class="modal-body">
+                <div class="form-group">
+                    <label for="skill-category">Kategori</label>
+                    <select id="skill-category" required>
+                        <option value="">Kategori Seçin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="skill-name">Yetenek Adı</label>
+                    <input type="text" id="skill-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="skill-level">Seviye</label>
+                    <select id="skill-level" required>
+                        <option value="">Seviye Seçin</option>
+                        <option value="expert">Uzman</option>
+                        <option value="advanced">İleri</option>
+                        <option value="intermediate">Orta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="skill-years">Deneyim Yılı</label>
+                    <input type="number" id="skill-years" min="1" max="20">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary modal-close">İptal</button>
+                    <button type="submit" class="btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="../assets/js/modules/theme.js"></script>
+    <script type="module" src="../assets/js/modules/footer-loader.js"></script>
+    <script type="module" src="toast.js"></script>
+    <script type="module" src="admin-nav.js"></script>
+    <script type="module" src="admin-editor.js"></script>
+    <script type="module" src="admin.js"></script>
+</body>
+</html> 

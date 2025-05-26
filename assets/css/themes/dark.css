@@ -1,0 +1,21 @@
+:root[data-theme="dark"] {
+    --primary: #007aff;
+    --primary-dark: #0056cc;
+    --secondary: #5856d6;
+    --accent: #ff3b30;
+    --success: #34c759;
+    --warning: #ff9500;
+    --background: #000000;
+    --surface: #1c1c1e;
+    --surface-elevated: #2c2c2e;
+    --surface-secondary: #3a3a3c;
+    --text-primary: #ffffff;
+    --text-secondary: #8e8e93;
+    --text-tertiary: #636366;
+    --border: #38383a;
+    --border-secondary: #48484a;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-elevated: rgba(0, 0, 0, 0.5);
+} 
