@@ -304,10 +304,15 @@ class PreviewPanel {
             return;
         }
         
-        // Veri formatı doğrulaması
+        // Veri formatı doğrulaması ve tech array fallback
+        projects = projects.map(project => ({
+            ...project,
+            tech: Array.isArray(project.tech) ? project.tech : []
+        }));
+        
         const invalidProjects = projects.filter(project => 
             !project.id || !project.title || !project.description || 
-            !project.status || !project.tech || typeof project.featured !== 'boolean'
+            !project.status || typeof project.featured !== 'boolean'
         );
         
         if (invalidProjects.length > 0) {
@@ -316,7 +321,7 @@ class PreviewPanel {
             // Sadece geçerli projeleri göster
             projects = projects.filter(project => 
                 project.id && project.title && project.description && 
-                project.status && project.tech && typeof project.featured === 'boolean'
+                project.status && typeof project.featured === 'boolean'
             );
         }
 
@@ -325,7 +330,7 @@ class PreviewPanel {
                 <div class="project-header">
                     <div class="project-icon">${project.icon || '📱'}</div>
                     <div class="project-status">
-                        <span class="status-badge status-${this.getStatusClass(project.status)}">${this.getStatusText(project.status)}</span>
+                        <span class="status-badge ${this.getStatusClass(project.status)}">${this.getStatusText(project.status)}</span>
                     </div>
                 </div>
                 
@@ -606,15 +611,16 @@ class PreviewPanel {
 
     getStatusClass(status) {
         const classMap = {
-            'completed': 'completed',
-            'in-progress': 'in-progress',
-            'planned': 'planned',
-            'on-hold': 'on-hold',
-            'Tamamlandı': 'completed',
-            'Devam Ediyor': 'in-progress',
-            'Planlandı': 'planned'
+            'completed': 'status-completed',
+            'in-progress': 'status-in-progress',
+            'planned': 'status-planned',
+            'on-hold': 'status-on-hold',
+            'Tamamlandı': 'status-completed',
+            'Devam Ediyor': 'status-in-progress',
+            'Planlandı': 'status-planned',
+            'Beklemede': 'status-on-hold'
         };
-        return classMap[status] || 'planned';
+        return classMap[status] || 'status-planned';
     }
 
     getLevelText(level) {
@@ -694,30 +700,38 @@ class PreviewPanel {
      * Manuel render fonksiyonu
      */
     async render(type = 'projects') {
-        await this.switchType(type);
-        await this.refreshPreview();
-        this.showToast(`📊 ${type} önizlemesi yenilendi`, 'info');
+        try {
+            const data = await this.dataSyncManager.load(type);
+            
+            if (type === 'projects') {
+                this.renderProjectsPreview(data, this.elements.previewContent);
+            } else if (type === 'skills') {
+                this.renderSkillsPreview(data, this.elements.previewContent);
+            }
+            
+            this.currentType = type;
+            this.updateStatus('success', 'Güncel');
+            this.showToast(`📊 ${type} önizlemesi yenilendi`, 'info');
+            
+        } catch (error) {
+            console.error('❌ Render hatası:', error);
+            this.showToast('❌ Render hatası: ' + error.message, 'error');
+        }
     }
 
     /**
      * Toast modülünü test eder
      */
     testToast() {
-        console.log('🧪 Toast modülü test ediliyor...');
-        
-        this.showToast('Preview Panel başarıyla güncellendi!', 'success');
+        this.showToast('Preview Panel başarıyla yüklendi!', 'success');
         
         setTimeout(() => {
-            this.showToast('Veri eksik: id/title/description eksik', 'error');
+            this.showToast('Demo uyarı!', 'warning');
         }, 1000);
         
         setTimeout(() => {
-            this.showToast('Bazı projelerde bilinmeyen status', 'warning');
+            this.showToast('Demo hata mesajı!', 'error');
         }, 2000);
-        
-        setTimeout(() => {
-            this.showToast('Toast modülü testi tamamlandı', 'info');
-        }, 3000);
     }
 
     /**
