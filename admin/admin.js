@@ -1,590 +1,560 @@
-class AdminManager {
+/**
+ * Admin Panel Main Controller
+ * Modül entegrasyonu ve global yönetim
+ */
+
+// Import modülleri
+import ProjectEditor from './modules/project-editor.js';
+import SkillTags from './modules/skill-tags.js';
+import LivePreview from './modules/live-preview.js';
+import DataSyncManager from './modules/data-sync.js';
+import EditorPanel from './modules/editor-panel.js';
+
+/**
+ * Admin Panel Ana Sınıfı
+ */
+class AdminPanel {
     constructor() {
-        this.projectsData = null;
-        this.skillsData = null;
-        this.currentEditingData = null;
+        this.modules = {};
         this.currentSection = 'dashboard';
+        this.isInitialized = false;
+        this.toast = null;
         this.init();
     }
 
     async init() {
-        await this.loadData();
-        this.setupNavigation();
-        this.setupModals();
-        this.setupForms();
-        this.setupDataEditor();
-        this.updateDashboard();
-        this.renderProjects();
-        this.renderSkills();
-    }
-
-    async loadData() {
+        console.log('🚀 Admin Panel başlatılıyor...');
+        
         try {
-            // Gerçek zamanlı JSON verilerini yükle
-            const [projectsResponse, skillsResponse] = await Promise.all([
-                fetch('../data/projects.json'),
-                fetch('../data/skills.json')
-            ]);
+            // Toast sistemini başlat
+            this.initToastSystem();
             
-            this.projectsData = await projectsResponse.json();
-            this.skillsData = await skillsResponse.json();
+            // Ana container'ı hazırla
+            this.setupMainContainer();
             
-            console.log('Veriler başarıyla yüklendi');
+            // Navigasyon sistemini kur
+            this.setupNavigation();
+            
+            // Modülleri başlat
+            await this.initializeModules();
+            
+            // Event listener'ları kur
+            this.setupEventListeners();
+            
+            // Başlangıç section'ını göster
+            this.showSection('dashboard');
+            
+            this.isInitialized = true;
+            console.log('✅ Admin Panel başarıyla başlatıldı');
+            
+            this.toast.success('Admin Panel hazır! 🎉');
+            
         } catch (error) {
-            console.error('Veri yükleme hatası:', error);
-            // Fallback veriler
-            this.projectsData = { projects: [] };
-            this.skillsData = { skills: { categories: [] } };
+            console.error('❌ Admin Panel başlatma hatası:', error);
+            this.toast?.error('Admin Panel başlatılamadı: ' + error.message);
         }
     }
 
+    initToastSystem() {
+        // Basit toast sistemi
+        this.toast = {
+            show: (message, type = 'info', duration = 3000) => {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <span class="toast-message">${message}</span>
+                    <button class="toast-close">&times;</button>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // Otomatik kaldırma
+                setTimeout(() => {
+                    toast.remove();
+                }, duration);
+                
+                // Manuel kaldırma
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    toast.remove();
+                });
+            },
+            success: (message) => this.toast.show(message, 'success'),
+            error: (message) => this.toast.show(message, 'error'),
+            warning: (message) => this.toast.show(message, 'warning'),
+            info: (message) => this.toast.show(message, 'info')
+        };
+        
+        // Global window objesine ekle
+        window.toast = this.toast;
+    }
+
+    setupMainContainer() {
+        const adminContainer = document.getElementById('admin-container');
+        if (!adminContainer) {
+            console.error('Admin container bulunamadı!');
+            return;
+        }
+
+        adminContainer.innerHTML = `
+            <div class="admin-layout">
+                <nav class="admin-sidebar" id="admin-sidebar">
+                    <div class="sidebar-header">
+                        <h2>🛠️ Admin Panel</h2>
+                        <p>Portfolio Yönetimi</p>
+                    </div>
+                    
+                    <ul class="sidebar-nav" id="sidebar-nav">
+                        <li class="nav-item">
+                            <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                                📊 Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#projects" class="nav-link" data-section="projects">
+                                📱 Proje Yönetimi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#skills" class="nav-link" data-section="skills">
+                                🛠️ Yetenek Yönetimi
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#preview" class="nav-link" data-section="preview">
+                                👁️ Canlı Önizleme
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#settings" class="nav-link" data-section="settings">
+                                ⚙️ Ayarlar
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="sidebar-footer">
+                        <div class="admin-info">
+                            <p><strong>Celal Başaran</strong></p>
+                            <p>Admin</p>
+                        </div>
+                    </div>
+                </nav>
+                
+                <main class="admin-content" id="admin-content">
+                    <div class="content-sections">
+                        <section id="dashboard-section" class="content-section active">
+                            <div class="section-header">
+                                <h1>📊 Dashboard</h1>
+                                <p>Portfolio istatistikleri ve hızlı erişim</p>
+                            </div>
+                            <div id="dashboard-content">
+                                <!-- Dashboard içeriği dinamik olarak yüklenecek -->
+                            </div>
+                        </section>
+                        
+                        <section id="projects-section" class="content-section">
+                            <div class="section-header">
+                                <h1>📱 Proje Yönetimi</h1>
+                                <p>Projelerinizi ekleyin, düzenleyin ve yönetin</p>
+                            </div>
+                            <div id="project-editor">
+                                <!-- Project Editor buraya yüklenecek -->
+                            </div>
+                        </section>
+                        
+                        <section id="skills-section" class="content-section">
+                            <div class="section-header">
+                                <h1>🛠️ Yetenek Yönetimi</h1>
+                                <p>Teknik yeteneklerinizi kategorize edin</p>
+                            </div>
+                            <div id="skill-tags">
+                                <!-- Skill Tags buraya yüklenecek -->
+                            </div>
+                        </section>
+                        
+                        <section id="preview-section" class="content-section">
+                            <div class="section-header">
+                                <h1>👁️ Canlı Önizleme</h1>
+                                <p>Değişikliklerinizi gerçek zamanlı görün</p>
+                            </div>
+                            <div id="preview-panel">
+                                <!-- Live Preview buraya yüklenecek -->
+                            </div>
+                        </section>
+                        
+                        <section id="settings-section" class="content-section">
+                            <div class="section-header">
+                                <h1>⚙️ Ayarlar</h1>
+                                <p>Panel ayarları ve konfigürasyon</p>
+                            </div>
+                            <div id="settings-content">
+                                <!-- Settings içeriği buraya gelecek -->
+                            </div>
+                        </section>
+                    </div>
+                </main>
+            </div>
+        `;
+    }
+
     setupNavigation() {
-        const menuItems = document.querySelectorAll('.admin-menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', (e) => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const section = item.dataset.section;
+                const section = link.dataset.section;
                 this.showSection(section);
             });
         });
     }
 
-    showSection(section) {
-        // Aktif menü öğesini güncelle
-        document.querySelectorAll('.admin-menu-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        document.querySelector(`[data-section="${section}"]`).classList.add('active');
-
-        // Bölümleri gizle/göster
-        document.querySelectorAll('.admin-section').forEach(sec => {
-            sec.classList.remove('active');
-        });
-        document.getElementById(`${section}-section`).classList.add('active');
-
-        // Başlığı güncelle
-        const titles = {
-            dashboard: 'Dashboard',
-            projects: 'Projeler',
-            skills: 'Yetenekler',
-            settings: 'Ayarlar'
-        };
-        document.getElementById('admin-title').textContent = titles[section];
-        this.currentSection = section;
-    }
-
-    setupModals() {
-        // Modal kapatma işlemleri
-        document.querySelectorAll('.modal-close').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.target.closest('.modal').classList.remove('active');
-            });
-        });
-
-        // Modal dışına tıklama ile kapatma
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
-    }
-
-    setupForms() {
-        // Proje formu
-        document.getElementById('add-project-btn').addEventListener('click', () => {
-            this.openProjectModal();
-        });
-
-        document.getElementById('project-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.saveProject();
-        });
-
-        // Yetenek formu
-        document.getElementById('add-skill-btn').addEventListener('click', () => {
-            this.openSkillModal();
-        });
-
-        document.getElementById('skill-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.saveSkill();
-        });
-
-        // Ayarlar
-        document.getElementById('export-data-btn').addEventListener('click', () => {
-            this.exportData();
-        });
-
-        document.getElementById('import-data-btn').addEventListener('click', () => {
-            document.getElementById('import-file').click();
-        });
-
-        document.getElementById('import-file').addEventListener('change', (e) => {
-            this.importData(e.target.files[0]);
-        });
-    }
-
-    setupDataEditor() {
-        // JSON editör alanını oluştur
-        const settingsSection = document.getElementById('settings-section');
-        const settingsGrid = settingsSection.querySelector('.settings-grid');
+    async initializeModules() {
+        console.log('📦 Modüller yükleniyor...');
         
-        const editorCard = document.createElement('div');
-        editorCard.className = 'setting-card';
-        editorCard.innerHTML = `
-            <h3>JSON Veri Editörü</h3>
-            <div class="form-group">
-                <label for="data-type-select">Düzenlenecek Veri</label>
-                <select id="data-type-select">
-                    <option value="projects">Projeler</option>
-                    <option value="skills">Yetenekler</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="json-editor">JSON Verisi</label>
-                <textarea id="json-editor" rows="15" placeholder="JSON verisi burada görünecek..."></textarea>
-            </div>
-            <div class="form-group">
-                <button class="btn-primary" id="save-json-btn">💾 JSON'u Kaydet</button>
-                <button class="btn-secondary" id="refresh-json-btn">🔄 Yenile</button>
-            </div>
-            <div id="json-error" class="json-error" style="display: none;"></div>
-        `;
+        // Modüllerin global instance'larının hazır olmasını bekle
+        const maxAttempts = 20;
+        let attempts = 0;
         
-        settingsGrid.appendChild(editorCard);
-
-        // JSON editör event listeners
-        document.getElementById('data-type-select').addEventListener('change', (e) => {
-            this.loadJSONEditor(e.target.value);
-        });
-
-        document.getElementById('save-json-btn').addEventListener('click', () => {
-            this.saveJSONData();
-        });
-
-        document.getElementById('refresh-json-btn').addEventListener('click', () => {
-            const dataType = document.getElementById('data-type-select').value;
-            this.loadJSONEditor(dataType);
-        });
-
-        // İlk yükleme
-        this.loadJSONEditor('projects');
-    }
-
-    loadJSONEditor(dataType) {
-        const editor = document.getElementById('json-editor');
-        const data = dataType === 'projects' ? this.projectsData : this.skillsData;
-        editor.value = JSON.stringify(data, null, 2);
-        this.currentEditingData = dataType;
-    }
-
-    saveJSONData() {
-        const editor = document.getElementById('json-editor');
-        const errorDiv = document.getElementById('json-error');
-        
-        try {
-            const jsonData = JSON.parse(editor.value);
-            
-            if (this.currentEditingData === 'projects') {
-                this.projectsData = jsonData;
-                this.renderProjects();
-            } else {
-                this.skillsData = jsonData;
-                this.renderSkills();
+        while (attempts < maxAttempts) {
+            if (window.projectEditor && window.skillTags && window.livePreview) {
+                break;
             }
-            
-            this.updateDashboard();
-            errorDiv.style.display = 'none';
-            
-            // Başarı mesajı
-            this.showNotification('JSON verisi başarıyla güncellendi!', 'success');
-            
-        } catch (error) {
-            errorDiv.style.display = 'block';
-            errorDiv.textContent = `JSON Hatası: ${error.message}`;
-            errorDiv.style.color = 'var(--accent)';
-            errorDiv.style.padding = '1rem';
-            errorDiv.style.background = 'rgba(255, 59, 48, 0.1)';
-            errorDiv.style.borderRadius = '8px';
-            errorDiv.style.marginTop = '1rem';
+            await new Promise(resolve => setTimeout(resolve, 100));
+            attempts++;
         }
-    }
-
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            z-index: 10000;
-            animation: slideIn 0.3s ease;
-        `;
         
-        document.body.appendChild(notification);
+        if (attempts >= maxAttempts) {
+            throw new Error('Modüller yüklenemedi - timeout');
+        }
         
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    updateDashboard() {
-        // İstatistikleri güncelle
-        const projectsCount = this.projectsData.projects.length;
-        const skillsCount = this.skillsData.skills.categories.reduce((total, cat) => total + cat.skills.length, 0);
+        // Modül referanslarını kaydet
+        this.modules = {
+            projectEditor: window.projectEditor,
+            skillTags: window.skillTags,
+            livePreview: window.livePreview,
+            dataSyncManager: window.dataSyncManager,
+            editorPanel: window.editorPanel
+        };
         
-        document.getElementById('projects-count').textContent = projectsCount;
-        document.getElementById('skills-count').textContent = skillsCount;
-
-        // Son projeleri göster
-        const recentProjects = this.projectsData.projects.slice(0, 3);
-        const recentContainer = document.getElementById('recent-projects');
-        recentContainer.innerHTML = recentProjects.map(project => `
-            <div class="recent-item">
-                <h4>${project.icon} ${project.title}</h4>
-                <p>${project.description.slice(0, 100)}...</p>
-            </div>
-        `).join('');
+        // Dashboard içeriğini oluştur
+        this.initializeDashboard();
+        
+        // Settings içeriğini oluştur
+        this.initializeSettings();
+        
+        console.log('✅ Tüm modüller yüklendi');
     }
 
-    renderProjects() {
-        const tbody = document.getElementById('projects-table');
-        tbody.innerHTML = this.projectsData.projects.map(project => `
-            <tr>
-                <td>${project.icon} ${project.title}</td>
-                <td><span class="status-badge status-${project.status}">${this.getStatusText(project.status)}</span></td>
-                <td>${project.year}</td>
-                <td>
-                    <div class="tech-tags">
-                        ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-                    </div>
-                </td>
-                <td>
-                    <button class="btn-edit" onclick="adminManager.editProject('${project.id}')">✏️ Düzenle</button>
-                    <button class="btn-danger" onclick="adminManager.deleteProject('${project.id}')">🗑️ Sil</button>
-                </td>
-            </tr>
-        `).join('');
-    }
+    initializeDashboard() {
+        const dashboardContent = document.getElementById('dashboard-content');
+        if (!dashboardContent) return;
 
-    renderSkills() {
-        const container = document.getElementById('skills-categories');
-        container.innerHTML = this.skillsData.skills.categories.map(category => `
-            <div class="skill-category-admin">
-                <h3>
-                    ${category.title}
-                    <button class="btn-primary" onclick="adminManager.addSkillToCategory('${category.id}')">➕ Yetenek Ekle</button>
-                </h3>
-                <div class="skills-list">
-                    ${category.skills.map(skill => `
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <h4>${skill.name}</h4>
-                                <p>${this.skillsData.levelLabels[skill.level]} - ${skill.years} yıl</p>
-                            </div>
-                            <div class="skill-actions">
-                                <button class="btn-edit" onclick="adminManager.editSkill('${category.id}', '${skill.name}')">✏️</button>
-                                <button class="btn-danger" onclick="adminManager.deleteSkill('${category.id}', '${skill.name}')">🗑️</button>
-                            </div>
+        dashboardContent.innerHTML = `
+            <div class="dashboard-grid">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">📱</div>
+                        <div class="stat-content">
+                            <h3 id="total-projects">-</h3>
+                            <p>Toplam Proje</p>
                         </div>
-                    `).join('')}
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <h3 id="completed-projects">-</h3>
+                            <p>Tamamlanan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🛠️</div>
+                        <div class="stat-content">
+                            <h3 id="total-skills">-</h3>
+                            <p>Toplam Yetenek</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-content">
+                            <h3 id="skill-categories">-</h3>
+                            <p>Kategori</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <h3>🚀 Hızlı İşlemler</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="adminPanel.quickAddProject()">
+                            ➕ Yeni Proje
+                        </button>
+                        <button class="action-btn" onclick="adminPanel.quickAddSkill()">
+                            🛠️ Yeni Yetenek
+                        </button>
+                        <button class="action-btn" onclick="adminPanel.openPreview()">
+                            👁️ Önizleme Aç
+                        </button>
+                        <button class="action-btn" onclick="adminPanel.exportData()">
+                            📤 Verileri Dışa Aktar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="recent-activity">
+                    <h3>📋 Son Aktiviteler</h3>
+                    <div id="activity-log">
+                        <p class="activity-item">✅ Admin Panel başlatıldı</p>
+                    </div>
                 </div>
             </div>
-        `).join('');
-
-        // Skill modal category select'ini güncelle
-        const categorySelect = document.getElementById('skill-category');
-        categorySelect.innerHTML = '<option value="">Kategori Seçin</option>' +
-            this.skillsData.skills.categories.map(cat => 
-                `<option value="${cat.id}">${cat.title}</option>`
-            ).join('');
-    }
-
-    getStatusText(status) {
-        const statusMap = {
-            'completed': 'Tamamlandı',
-            'in-progress': 'Devam Ediyor',
-            'planned': 'Planlandı'
-        };
-        return statusMap[status] || status;
-    }
-
-    openProjectModal(projectId = null) {
-        const modal = document.getElementById('project-modal');
-        const title = document.getElementById('project-modal-title');
+        `;
         
-        if (projectId) {
-            title.textContent = 'Proje Düzenle';
-            // Proje verilerini forma yükle
-            const project = this.projectsData.projects.find(p => p.id === projectId);
-            if (project) {
-                document.getElementById('project-title').value = project.title;
-                document.getElementById('project-description').value = project.description;
-                document.getElementById('project-icon').value = project.icon;
-                document.getElementById('project-technologies').value = project.technologies.join(', ');
-                document.getElementById('project-year').value = project.year;
-                document.getElementById('project-status').value = project.status;
-            }
-        } else {
-            title.textContent = 'Yeni Proje Ekle';
-            document.getElementById('project-form').reset();
-        }
-        
-        modal.classList.add('active');
+        // İstatistikleri güncelle
+        this.updateDashboardStats();
     }
 
-    saveProject() {
-        const formData = {
-            id: Date.now().toString(),
-            title: document.getElementById('project-title').value,
-            description: document.getElementById('project-description').value,
-            icon: document.getElementById('project-icon').value || '📱',
-            technologies: document.getElementById('project-technologies').value.split(',').map(t => t.trim()),
-            year: parseInt(document.getElementById('project-year').value),
-            status: document.getElementById('project-status').value,
-            featured: true,
-            links: {
-                details: "#",
-                github: "#"
-            }
-        };
+    initializeSettings() {
+        const settingsContent = document.getElementById('settings-content');
+        if (!settingsContent) return;
 
-        this.projectsData.projects.push(formData);
-        this.renderProjects();
-        this.updateDashboard();
-        document.getElementById('project-modal').classList.remove('active');
-        this.showNotification('Proje başarıyla eklendi!', 'success');
-    }
-
-    editProject(projectId) {
-        this.openProjectModal(projectId);
-    }
-
-    deleteProject(projectId) {
-        if (confirm('Bu projeyi silmek istediğinizden emin misiniz?')) {
-            this.projectsData.projects = this.projectsData.projects.filter(p => p.id !== projectId);
-            this.renderProjects();
-            this.updateDashboard();
-            this.showNotification('Proje silindi!', 'success');
-        }
-    }
-
-    exportData() {
-        const data = {
-            projects: this.projectsData,
-            skills: this.skillsData,
-            exportDate: new Date().toISOString()
-        };
-        
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `portfolio-data-${new Date().toISOString().split('T')[0]}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    async importData(file) {
-        if (!file) return;
-        
-        try {
-            const text = await file.text();
-            const data = JSON.parse(text);
-            
-            if (data.projects) this.projectsData = data.projects;
-            if (data.skills) this.skillsData = data.skills;
-            
-            this.renderProjects();
-            this.renderSkills();
-            this.updateDashboard();
-            this.showNotification('Veriler başarıyla içe aktarıldı!', 'success');
-        } catch (error) {
-            alert('Dosya okuma hatası: ' + error.message);
-        }
-    }
-}
-
-// CSS animation ekle
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Global instance
-let adminManager;
-
-// Keyboard Shortcuts Manager
-class KeyboardShortcuts {
-    constructor() {
-        this.shortcuts = new Map();
-        this.init();
-    }
-
-    init() {
-        this.registerShortcuts();
-        this.setupEventListeners();
-    }
-
-    registerShortcuts() {
-        // Section navigation
-        this.shortcuts.set('Digit1', () => this.navigateToSection('dashboard'));
-        this.shortcuts.set('Digit2', () => this.navigateToSection('projects'));
-        this.shortcuts.set('Digit3', () => this.navigateToSection('skills'));
-        this.shortcuts.set('Digit4', () => this.navigateToSection('settings'));
-        
-        // JSON editor actions
-        this.shortcuts.set('KeyS', () => this.saveJSON());
-        this.shortcuts.set('KeyF', () => this.formatJSON());
-        
-        // Theme toggle
-        this.shortcuts.set('KeyT', () => this.toggleTheme());
-        
-        // Modal close
-        this.shortcuts.set('Escape', () => this.closeModals());
-        
-        // Refresh components
-        this.shortcuts.set('KeyR', (e) => {
-            if (e.shiftKey) this.refreshComponents();
-        });
+        settingsContent.innerHTML = `
+            <div class="settings-sections">
+                <div class="setting-group">
+                    <h3>🎨 Görünüm Ayarları</h3>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <span>Dark Mode</span>
+                            <input type="checkbox" id="dark-mode-toggle">
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <span>Animasyonları Azalt</span>
+                            <input type="checkbox" id="reduce-motion-toggle">
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>💾 Veri Yönetimi</h3>
+                    <div class="setting-actions">
+                        <button class="setting-btn" onclick="adminPanel.clearLocalStorage()">
+                            🗑️ Local Storage Temizle
+                        </button>
+                        <button class="setting-btn" onclick="adminPanel.exportAllData()">
+                            📤 Tüm Verileri Dışa Aktar
+                        </button>
+                        <button class="setting-btn" onclick="adminPanel.importData()">
+                            📥 Veri İçe Aktar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>ℹ️ Sistem Bilgisi</h3>
+                    <div class="system-info">
+                        <p><strong>Versiyon:</strong> 1.0.0</p>
+                        <p><strong>Son Güncelleme:</strong> ${new Date().toLocaleDateString('tr-TR')}</p>
+                        <p><strong>Tarayıcı:</strong> ${navigator.userAgent.split(' ').slice(-1)[0]}</p>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     setupEventListeners() {
+        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            const isCtrlOrCmd = e.ctrlKey || e.metaKey;
-            
-            // ESC tuşu için özel durum (modifier gerekmez)
-            if (e.key === 'Escape') {
-                this.shortcuts.get('Escape')?.();
-                return;
-            }
-            
-            // Diğer kısayollar için Ctrl/Cmd gerekli
-            if (!isCtrlOrCmd) return;
-            
-            const shortcut = this.shortcuts.get(e.code);
-            if (shortcut) {
-                e.preventDefault();
-                shortcut(e);
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case '1':
+                        e.preventDefault();
+                        this.showSection('dashboard');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        this.showSection('projects');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        this.showSection('skills');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        this.showSection('preview');
+                        break;
+                }
             }
         });
     }
 
-    navigateToSection(section) {
-        if (window.adminNav) {
-            window.adminNav.showSection(section);
-        } else if (window.adminManager) {
-            window.adminManager.showSection(section);
+    showSection(sectionName) {
+        // Tüm section'ları gizle
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Tüm nav link'leri pasif yap
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Seçili section'ı göster
+        const targetSection = document.getElementById(`${sectionName}-section`);
+        const targetNav = document.querySelector(`[data-section="${sectionName}"]`);
+        
+        if (targetSection) {
+            targetSection.classList.add('active');
         }
         
-        if (window.toast) {
-            const sectionNames = {
-                dashboard: 'Dashboard',
-                projects: 'Projeler',
-                skills: 'Yetenekler',
-                settings: 'Ayarlar'
-            };
-            window.toast.info(`${sectionNames[section]} bölümüne geçildi`, { duration: 1500 });
+        if (targetNav) {
+            targetNav.classList.add('active');
         }
+        
+        this.currentSection = sectionName;
+        
+        // Section'a göre özel işlemler
+        if (sectionName === 'dashboard') {
+            this.updateDashboardStats();
+        }
+        
+        console.log(`📍 Section değişti: ${sectionName}`);
     }
 
-    saveJSON() {
-        if (window.jsonEditor && window.jsonEditor.currentFile) {
-            window.jsonEditor.saveJSON();
-        } else {
-            if (window.toast) {
-                window.toast.warning('JSON editör aktif değil');
+    updateDashboardStats() {
+        try {
+            const projects = this.modules.projectEditor?.getProjects() || [];
+            const skillsData = this.modules.skillTags?.getSkillsData();
+            
+            document.getElementById('total-projects').textContent = projects.length;
+            document.getElementById('completed-projects').textContent = 
+                projects.filter(p => p.status === 'completed').length;
+                
+            if (skillsData?.skills?.categories) {
+                const totalSkills = skillsData.skills.categories.reduce(
+                    (total, cat) => total + cat.skills.length, 0
+                );
+                document.getElementById('total-skills').textContent = totalSkills;
+                document.getElementById('skill-categories').textContent = skillsData.skills.categories.length;
+            } else {
+                document.getElementById('total-skills').textContent = '0';
+                document.getElementById('skill-categories').textContent = '0';
             }
+        } catch (error) {
+            console.warn('Dashboard stats güncellenirken hata:', error);
         }
     }
 
-    formatJSON() {
-        if (window.jsonEditor && window.jsonEditor.currentFile) {
-            window.jsonEditor.formatJSON();
+    // Hızlı işlem metotları
+    quickAddProject() {
+        this.showSection('projects');
+        setTimeout(() => {
+            if (this.modules.projectEditor?.openModal) {
+                this.modules.projectEditor.openModal();
+            }
+        }, 100);
+    }
+
+    quickAddSkill() {
+        this.showSection('skills');
+        setTimeout(() => {
+            if (this.modules.skillTags?.openSkillModal) {
+                this.modules.skillTags.openSkillModal();
+            }
+        }, 100);
+    }
+
+    openPreview() {
+        this.showSection('preview');
+        setTimeout(() => {
+            if (this.modules.livePreview?.togglePreview) {
+                this.modules.livePreview.isVisible = true;
+                this.modules.livePreview.render();
+            }
+        }, 100);
+    }
+
+    exportData() {
+        try {
+            const data = {
+                projects: this.modules.projectEditor?.getProjects() || [],
+                skills: this.modules.skillTags?.getSkillsData() || {},
+                exportDate: new Date().toISOString(),
+                version: '1.0.0'
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { 
+                type: 'application/json' 
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `portfolio-data-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            this.toast.success('Veriler dışa aktarıldı');
+            
+        } catch (error) {
+            console.error('Export hatası:', error);
+            this.toast.error('Export hatası: ' + error.message);
         }
     }
 
-    toggleTheme() {
-        const themeToggle = document.querySelector('.theme-toggle');
-        if (themeToggle) {
-            themeToggle.click();
+    // Settings metotları
+    clearLocalStorage() {
+        if (confirm('Tüm yerel veriler silinecek. Emin misiniz?')) {
+            localStorage.clear();
+            this.toast.success('Local Storage temizlendi');
+            location.reload();
         }
     }
 
-    closeModals() {
-        const activeModals = document.querySelectorAll('.modal.active');
-        activeModals.forEach(modal => {
-            modal.classList.remove('active');
-        });
+    exportAllData() {
+        this.exportData();
     }
 
-    async refreshComponents() {
-        if (window.componentLoader) {
-            await window.componentLoader.reloadComponents();
-        }
-    }
-
-    // Public API
-    addShortcut(key, handler) {
-        this.shortcuts.set(key, handler);
-    }
-
-    removeShortcut(key) {
-        this.shortcuts.delete(key);
+    importData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    
+                    if (data.projects) {
+                        localStorage.setItem('projects-backup', JSON.stringify(data.projects));
+                    }
+                    
+                    if (data.skills) {
+                        localStorage.setItem('skills-backup', JSON.stringify(data.skills));
+                    }
+                    
+                    this.toast.success('Veriler içe aktarıldı. Sayfa yenileniyor...');
+                    
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                    
+                } catch (error) {
+                    this.toast.error('Dosya formatı hatalı: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
     }
 }
 
-// DOM yüklendiğinde başlat
-document.addEventListener('DOMContentLoaded', async () => {
-    // Global instances oluştur
-    window.adminManager = new AdminManager();
-    window.keyboardShortcuts = new KeyboardShortcuts();
-    
-    // Component loader'ı başlat
-    try {
-        const { default: ComponentLoader } = await import('./components/component-loader.js');
-        // Component loader otomatik olarak init oluyor
-        
-        console.log('✅ Component loader başlatıldı');
-    } catch (error) {
-        console.error('❌ Component loader yüklenemedi:', error);
-    }
-    
-    // Navigation ve Editor'ı modül olarak import et
-    try {
-        const { default: AdminNavigation } = await import('./admin-nav.js');
-        const { default: JSONEditor } = await import('./admin-editor.js');
-        
-        // Global instances
-        window.adminNav = new AdminNavigation();
-        window.jsonEditor = new JSONEditor();
-        
-        console.log('✅ Admin modülleri başarıyla yüklendi');
-    } catch (error) {
-        console.error('❌ Admin modülleri yüklenirken hata:', error);
-    }
-    
-    // Sayfa yüklendikten sonra toast mesajı
-    setTimeout(() => {
-        if (window.toast) {
-            window.toast.success('Admin panel hazır! Kısayollar için Ctrl+1-4 kullanabilirsiniz.', { duration: 3000 });
-        }
-    }, 1000);
-}); 
+// Global instance oluştur
+window.adminPanel = new AdminPanel();
+
+export default AdminPanel; 
