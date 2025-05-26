@@ -598,27 +598,52 @@ class PreviewPanel {
      */
     getStatusText(status) {
         const statusMap = {
+            // İngilizce mappings
             'completed': 'Tamamlandı',
             'in-progress': 'Devam Ediyor',
             'planned': 'Planlandı',
             'on-hold': 'Beklemede',
+            'cancelled': 'İptal Edildi',
+            'paused': 'Duraklatıldı',
+            
+            // Türkçe mappings  
             'Tamamlandı': 'Tamamlandı',
             'Devam Ediyor': 'Devam Ediyor',
-            'Planlandı': 'Planlandı'
+            'Planlandı': 'Planlandı',
+            'Beklemede': 'Beklemede',
+            'İptal Edildi': 'İptal Edildi',
+            'Duraklatıldı': 'Duraklatıldı',
+            
+            // Fallback variants
+            'tamamlandı': 'Tamamlandı',
+            'devam ediyor': 'Devam Ediyor',
+            'planlandı': 'Planlandı'
         };
         return statusMap[status] || 'Belirsiz';
     }
 
     getStatusClass(status) {
         const classMap = {
+            // İngilizce mappings
             'completed': 'status-completed',
             'in-progress': 'status-in-progress',
             'planned': 'status-planned',
             'on-hold': 'status-on-hold',
+            'cancelled': 'status-cancelled',
+            'paused': 'status-paused',
+            
+            // Türkçe mappings
             'Tamamlandı': 'status-completed',
             'Devam Ediyor': 'status-in-progress',
             'Planlandı': 'status-planned',
-            'Beklemede': 'status-on-hold'
+            'Beklemede': 'status-on-hold',
+            'İptal Edildi': 'status-cancelled',
+            'Duraklatıldı': 'status-paused',
+            
+            // Fallback variants
+            'tamamlandı': 'status-completed',
+            'devam ediyor': 'status-in-progress',
+            'planlandı': 'status-planned'
         };
         return classMap[status] || 'status-planned';
     }
@@ -735,6 +760,85 @@ class PreviewPanel {
     }
 
     /**
+     * Proje veri formatını validate eder
+     */
+    validateProjectData(project, index) {
+        const errors = [];
+        const warnings = [];
+        
+        // Zorunlu alanlar kontrolü
+        const requiredFields = ['id', 'title', 'description', 'status', 'tech', 'featured'];
+        requiredFields.forEach(field => {
+            if (!project.hasOwnProperty(field) || project[field] === null || project[field] === undefined) {
+                errors.push(`Eksik alan: ${field}`);
+            }
+        });
+        
+        // Tip kontrolü
+        if (project.id && typeof project.id !== 'string') {
+            errors.push('id string olmalı');
+        }
+        if (project.title && typeof project.title !== 'string') {
+            errors.push('title string olmalı');
+        }
+        if (project.description && typeof project.description !== 'string') {
+            errors.push('description string olmalı');
+        }
+        if (project.featured !== undefined && typeof project.featured !== 'boolean') {
+            errors.push('featured boolean olmalı');
+        }
+        if (project.tech && !Array.isArray(project.tech)) {
+            errors.push('tech array olmalı');
+        }
+        
+        // Status değer kontrolü
+        const validStatuses = ['Tamamlandı', 'Devam Ediyor', 'Planlandı', 'Beklemede', 'İptal Edildi', 'Duraklatıldı'];
+        if (project.status && !validStatuses.includes(project.status)) {
+            warnings.push(`Bilinmeyen status: "${project.status}"`);
+        }
+        
+        // URL kontrolü
+        if (project.github && typeof project.github !== 'string') {
+            warnings.push('github string olmalı');
+        }
+        if (project.live && typeof project.live !== 'string') {
+            warnings.push('live string olmalı');
+        }
+        
+        return { errors, warnings };
+    }
+
+    /**
+     * Toplu veri validation
+     */
+    validateAllProjectData(projects) {
+        let totalErrors = 0;
+        let totalWarnings = 0;
+        const projectIssues = [];
+        
+        projects.forEach((project, index) => {
+            const validation = this.validateProjectData(project, index);
+            if (validation.errors.length > 0 || validation.warnings.length > 0) {
+                projectIssues.push({
+                    index: index + 1,
+                    id: project.id || `Proje ${index + 1}`,
+                    errors: validation.errors,
+                    warnings: validation.warnings
+                });
+                totalErrors += validation.errors.length;
+                totalWarnings += validation.warnings.length;
+            }
+        });
+        
+        return {
+            totalErrors,
+            totalWarnings,
+            projectIssues,
+            isValid: totalErrors === 0
+        };
+    }
+
+    /**
      * Preview Panel'ı test eder
      */
     async testPreviewPanel() {
@@ -747,34 +851,37 @@ class PreviewPanel {
                 return false;
             }
             
-            // Her proje için format kontrolü
-            let hasErrors = false;
-            let invalidStatusCount = 0;
+            // Kapsamlı validation
+            const validation = this.validateAllProjectData(data);
             
-            data.forEach((project, index) => {
-                const requiredFields = ['id', 'title', 'description', 'status', 'tech', 'featured'];
-                const missingFields = requiredFields.filter(field => !project.hasOwnProperty(field));
-                
-                if (missingFields.length > 0) {
-                    console.error(`❌ Proje ${project.id || index + 1} eksik alanlar:`, missingFields);
-                    hasErrors = true;
-                }
-                
-                // Status değer kontrolü
-                const validStatuses = ['Tamamlandı', 'Devam Ediyor', 'Planlandı'];
-                if (project.status && !validStatuses.includes(project.status)) {
-                    invalidStatusCount++;
-                }
-            });
+            // Sonuçları logla
+            if (validation.projectIssues.length > 0) {
+                console.group('📋 Proje Validation Raporu');
+                validation.projectIssues.forEach(issue => {
+                    console.group(`❗ ${issue.id}`);
+                    if (issue.errors.length > 0) {
+                        console.error('🔴 Hatalar:', issue.errors);
+                    }
+                    if (issue.warnings.length > 0) {
+                        console.warn('🟡 Uyarılar:', issue.warnings);
+                    }
+                    console.groupEnd();
+                });
+                console.groupEnd();
+            }
             
-            if (hasErrors) {
-                this.showToast('❌ Bazı projelerde format hataları var', 'error');
+            // Toast mesajları
+            if (validation.totalErrors > 0) {
+                this.showToast(`❌ ${validation.totalErrors} kritik hata bulundu`, 'error');
                 return false;
             }
             
-            if (invalidStatusCount > 0) {
-                this.showToast(`⚠️ ${invalidStatusCount} projede bilinmeyen status`, 'warning');
+            if (validation.totalWarnings > 0) {
+                this.showToast(`⚠️ ${validation.totalWarnings} uyarı var`, 'warning');
             }
+            
+            // Render testi
+            await this.render('projects');
             
             this.showToast('✅ Preview Panel data render başarılı', 'success');
             return true;
@@ -784,6 +891,93 @@ class PreviewPanel {
             this.showToast('❌ Preview Panel test başarısız: ' + error.message, 'error');
             return false;
         }
+    }
+
+    /**
+     * Stress test - Büyük veri ile test
+     */
+    async testLargeData() {
+        try {
+            const data = await this.dataSyncManager.load('projects');
+            console.time('📊 Large Data Render');
+            
+            // 100 kopya oluştur
+            const largeData = [];
+            for (let i = 0; i < 10; i++) {
+                data.forEach((project, index) => {
+                    largeData.push({
+                        ...project,
+                        id: `${project.id}-copy-${i}-${index}`,
+                        title: `${project.title} (Kopya ${i})`
+                    });
+                });
+            }
+            
+            this.renderProjectsPreview(largeData, this.elements.previewContent);
+            console.timeEnd('📊 Large Data Render');
+            
+            this.showToast(`✅ ${largeData.length} proje render edildi`, 'success');
+            
+        } catch (error) {
+            console.error('❌ Large data test hatası:', error);
+            this.showToast('❌ Large data test başarısız', 'error');
+        }
+    }
+
+    /**
+     * Hata toleransı testi - Bozuk veri ile test
+     */
+    async testErrorTolerance() {
+        const brokenData = [
+            { id: 'test-1', title: 'Normal Proje', description: 'Normal açıklama', status: 'Tamamlandı', tech: ['React'], featured: true },
+            { id: null, title: 'Broken ID', description: 'ID null', status: 'Tamamlandı', tech: ['Vue'], featured: true },
+            { title: 'Missing ID', description: 'ID eksik', status: 'Devam Ediyor', tech: ['Angular'], featured: false },
+            { id: 'test-3', description: 'Title eksik', status: 'Planlandı', tech: [], featured: true },
+            { id: 'test-4', title: 'Tech broken', description: 'Tech string', status: 'Beklemede', tech: 'Not an array', featured: true },
+            { id: 'test-5', title: 'Featured broken', description: 'Featured string', status: 'Tamamlandı', tech: ['Node.js'], featured: 'yes' }
+        ];
+        
+        try {
+            console.group('🧪 Error Tolerance Test');
+            const validation = this.validateAllProjectData(brokenData);
+            
+            console.log(`📊 Test Sonuçları:`);
+            console.log(`   • Total Errors: ${validation.totalErrors}`);
+            console.log(`   • Total Warnings: ${validation.totalWarnings}`);
+            console.log(`   • Problematic Projects: ${validation.projectIssues.length}`);
+            
+            this.renderProjectsPreview(brokenData, this.elements.previewContent);
+            console.groupEnd();
+            
+            this.showToast(`🧪 Error tolerance test: ${validation.totalErrors} hata, ${validation.totalWarnings} uyarı`, 'info');
+            
+        } catch (error) {
+            console.error('❌ Error tolerance test hatası:', error);
+            this.showToast('❌ Error tolerance test başarısız', 'error');
+        }
+    }
+
+    /**
+     * Tüm testleri çalıştır
+     */
+    async runAllTests() {
+        console.group('🚀 Preview Panel Full Test Suite');
+        
+        this.showToast('🧪 Test paketi başlatıldı...', 'info');
+        
+        await this.testPreviewPanel();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        await this.testErrorTolerance();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        await this.testLargeData();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        this.testToast();
+        
+        console.groupEnd();
+        this.showToast('✅ Tüm testler tamamlandı!', 'success');
     }
 }
 
