@@ -37,7 +37,11 @@ struct HomeView: View {
             .navigationTitle("Celal Başaran")
             .navigationBarTitleDisplayMode(.large)
             .refreshable {
-                dataLoader.refreshData()
+                // Try web sync first, fallback to local refresh
+                await dataLoader.updateFromWeb()
+                if dataLoader.errorMessage != nil {
+                    dataLoader.refreshData()
+                }
             }
         }
         .sheet(item: $showingProjectDetail) { project in

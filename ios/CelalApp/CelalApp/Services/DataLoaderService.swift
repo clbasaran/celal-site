@@ -35,34 +35,36 @@ class DataLoaderService: ObservableObject {
         loadData()
     }
     
-    // Future web sync method (commented for now)
-    /*
+    // Web sync method - Uses Cloudflare Pages API endpoints
     func updateFromWeb() async {
         isLoading = true
         errorMessage = nil
         
         do {
-            // Fetch projects from web
-            if let projectsURL = URL(string: "https://celalbasaran.dev/data/projects.json") {
+            // Fetch projects from web API
+            if let projectsURL = URL(string: "https://celalbasaran.dev/api/projects") {
                 let (projectsData, _) = try await URLSession.shared.data(from: projectsURL)
                 let webProjects = try JSONDecoder().decode([Project].self, from: projectsData)
                 await MainActor.run {
                     self.projects = webProjects
+                    print("✅ Successfully updated \(webProjects.count) projects from web API")
                 }
             }
             
-            // Fetch skills from web
-            if let skillsURL = URL(string: "https://celalbasaran.dev/data/skills.json") {
+            // Fetch skills from web API
+            if let skillsURL = URL(string: "https://celalbasaran.dev/api/skills") {
                 let (skillsData, _) = try await URLSession.shared.data(from: skillsURL)
                 let webSkills = try JSONDecoder().decode(SkillsData.self, from: skillsData)
                 await MainActor.run {
                     self.skillsData = webSkills
+                    print("✅ Successfully updated skills data from web API")
                 }
             }
             
         } catch {
             await MainActor.run {
                 self.errorMessage = "Web'den veri alınamadı: \(error.localizedDescription)"
+                print("❌ Web API sync failed: \(error.localizedDescription)")
             }
         }
         
@@ -70,7 +72,6 @@ class DataLoaderService: ObservableObject {
             self.isLoading = false
         }
     }
-    */
     
     // MARK: - Private Methods
     
