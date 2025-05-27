@@ -134,5 +134,21 @@ secrets.json
 private.env
 
 # ============================================================================
+# iOS XCODE PROJECT EXCLUSIONS
+# ============================================================================
+
+# iOS Xcode Project (celal-site/ios/)
+ios/build/
+ios/DerivedData/
+ios/*.xcworkspace
+ios/*.xcuserstate
+ios/*.xcuserdata
+ios/*.xcassets
+ios/Pods/
+ios/.DS_Store
+ios/CelalApp.xcodeproj/project.xcworkspace/
+ios/CelalApp.xcodeproj/xcuserdata/
+
+# ============================================================================
 # END OF GITIGNORE
 # ============================================================================ 

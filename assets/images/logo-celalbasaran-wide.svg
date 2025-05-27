@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="256" viewBox="0 0 1024 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Celal Başaran - Wide Format Logo -->
+  
+  <!-- Background container (optional, transparent) -->
+  <rect x="0" y="0" width="1024" height="256" 
+        fill="none" 
+        rx="32" ry="32"/>
+  
+  <!-- Typography optimized for wide format -->
+  <g font-family="-apple-system, SF Pro Display, system-ui, sans-serif" 
+     text-anchor="middle" 
+     dominant-baseline="central">
+    
+    <!-- First Name: Celal -->
+    <text x="420" y="128" 
+          font-size="72" 
+          font-weight="600" 
+          letter-spacing="-0.02em"
+          fill="#1d1d1f">Celal</text>
+    
+    <!-- Last Name: Başaran -->
+    <text x="640" y="128" 
+          font-size="72" 
+          font-weight="300" 
+          letter-spacing="-0.01em"
+          fill="#1d1d1f">Başaran</text>
+  </g>
+  
+  <!-- Premium brand accent -->
+  <circle cx="980" cy="128" r="6" 
+          fill="#8e8e93" 
+          opacity="0.3"/>
+          
+</svg> 

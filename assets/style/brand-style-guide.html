@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celal Başaran - Brand Design System</title>
+    <link rel="stylesheet" href="brand-style.css">
+    <style>
+        /* Additional styles for the style guide showcase */
+        .showcase-section {
+            margin-bottom: var(--space-16);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+        }
+        
+        .section-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-4);
+        }
+        
+        .section-subtitle {
+            font-size: var(--text-lg);
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+        }
+        
+        .color-card {
+            text-align: center;
+        }
+        
+        .color-swatch {
+            width: 100%;
+            height: 120px;
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--space-4);
+            border: 1px solid var(--color-border-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .color-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: var(--space-2);
+            font-size: var(--text-sm);
+            font-family: var(--font-mono);
+        }
+        
+        .typography-demo {
+            margin-bottom: var(--space-8);
+        }
+        
+        .typography-sample {
+            margin-bottom: var(--space-6);
+            padding: var(--space-4);
+            border: 1px solid var(--color-border-light);
+            border-radius: var(--radius-lg);
+        }
+        
+        .sample-label {
+            font-size: var(--text-xs);
+            color: var(--color-text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: var(--tracking-wide);
+            margin-bottom: var(--space-2);
+        }
+        
+        .component-showcase {
+            display: grid;
+            gap: var(--space-6);
+        }
+        
+        .component-group {
+            padding: var(--space-6);
+            border: 1px solid var(--color-border-light);
+            border-radius: var(--radius-xl);
+            background: var(--color-bg-secondary);
+        }
+        
+        .component-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            margin-bottom: var(--space-4);
+        }
+        
+        .button-grid {
+            display: flex;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-6);
+        }
+        
+        .badge-showcase {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-6);
+        }
+        
+        .dark-mode-preview {
+            background: #1c1c1e;
+            color: white;
+            padding: var(--space-8);
+            border-radius: var(--radius-2xl);
+            margin-top: var(--space-8);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: var(--space-6);
+            right: var(--space-6);
+            z-index: 1000;
+        }
+        
+        .layout-demo {
+            border: 2px dashed var(--color-border-medium);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .grid-demo {
+            background: var(--color-bg-secondary);
+            padding: var(--space-3);
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-size: var(--text-sm);
+            color: var(--color-text-secondary);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+            padding: var(--space-20) 0;
+            text-align: center;
+            margin-bottom: var(--space-16);
+        }
+        
+        .hero-logo {
+            max-width: 400px;
+            margin: 0 auto var(--space-8);
+        }
+        
+        .hero-title {
+            font-size: var(--text-6xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-4);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: var(--text-xl);
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Force dark mode styles for preview */
+        .dark-preview {
+            --color-bg-primary: #1c1c1e;
+            --color-bg-secondary: #2c2c2e;
+            --color-bg-tertiary: #3a3a3c;
+            --color-bg-elevated: #2c2c2e;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #ebebf5;
+            --color-text-tertiary: #8e8e93;
+            --color-text-inverse: #1d1d1f;
+            --color-border-light: rgba(255, 255, 255, 0.04);
+            --color-border-medium: rgba(255, 255, 255, 0.08);
+            --color-border-strong: rgba(255, 255, 255, 0.12);
+            --color-primary: #f5f5f7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="btn btn-secondary theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+    </button>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-logo">
+                <img src="../images/logo-celalbasaran.svg" alt="Celal Başaran" class="brand-logo">
+            </div>
+            <h1 class="hero-title">Brand Design System</h1>
+            <p class="hero-subtitle">Apple Design Language 2025 standardlarında modern personal brand kimliği</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Color System -->
+        <section class="showcase-section">
+            <div class="section-header">
+                <h2 class="section-title">Color Palette</h2>
+                <p class="section-subtitle">Apple 2025 color system ile uyumlu marka renkleri ve semantic color hierarchy</p>
+            </div>
+            
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #1d1d1f;">
+                        <div class="color-info">
+                            <div>Primary</div>
+                            <div>#1d1d1f</div>
+                        </div>
+                    </div>
+                    <h3>Apple Noir</h3>
+                    <p class="text-secondary">Ana marka rengi</p>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #8e8e93;">
+                        <div class="color-info">
+                            <div>Secondary</div>
+                            <div>#8e8e93</div>
+                        </div>
+                    </div>
+                    <h3>Apple Gray</h3>
+                    <p class="text-secondary">İkincil metin rengi</p>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #007aff;">
+                        <div class="color-info">
+                            <div>Accent</div>
+                            <div>#007aff</div>
+                        </div>
+                    </div>
+                    <h3>Apple Blue</h3>
+                    <p class="text-secondary">Accent ve link rengi</p>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #34c759;">
+                        <div class="color-info">
+                            <div>Success</div>
+                            <div>#34c759</div>
+                        </div>
+                    </div>
+                    <h3>Apple Green</h3>
+                    <p class="text-secondary">Başarı durumu</p>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #ff9500;">
+                        <div class="color-info">
+                            <div>Warning</div>
+                            <div>#ff9500</div>
+                        </div>
+                    </div>
+                    <h3>Apple Orange</h3>
+                    <p class="text-secondary">Uyarı durumu</p>
+                </div>
+                
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #ff3b30;">
+                        <div class="color-info">
+                            <div>Error</div>
+                            <div>#ff3b30</div>
+                        </div>
+                    </div>
+                    <h3>Apple Red</h3>
+                    <p class="text-secondary">Hata durumu</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography System -->
+        <section class="showcase-section">
+            <div class="section-header">
+                <h2 class="section-title">Typography</h2>
+                <p class="section-subtitle">SF Pro Display system fonts ile optimized hierarchy ve perfect letter spacing</p>
+            </div>
+            
+            <div class="typography-demo">
+                <div class="typography-sample">
+                    <div class="sample-label">Heading 1 - text-6xl font-bold</div>
+                    <h1 class="text-6xl font-bold">Premium Portfolio Design</h1>
+                </div>
+                
+                <div class="typography-sample">
+                    <div class="sample-label">Heading 2 - text-4xl font-semibold</div>
+                    <h2 class="text-4xl font-semibold">Modern Web Development</h2>
+                </div>
+                
+                <div class="typography-sample">
+                    <div class="sample-label">Heading 3 - text-2xl font-medium</div>
+                    <h3 class="text-2xl font-medium">Apple Design Language</h3>
+                </div>
+                
+                <div class="typography-sample">
+                    <div class="sample-label">Body Text - text-base leading-relaxed</div>
+                    <p class="text-base leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                
+                <div class="typography-sample">
+                    <div class="sample-label">Small Text - text-sm text-secondary</div>
+                    <p class="text-sm text-secondary">Bu küçük metin Apple'ın secondary text hierarchy standardlarına uyumludur.</p>
+                </div>
+                
+                <div class="typography-sample">
+                    <div class="sample-label">Code Text - font-mono text-sm</div>
+                    <code class="font-mono text-sm">const brandSystem = { font: 'SF Pro', spacing: '8pt-grid' }</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Component System -->
+        <section class="showcase-section">
+            <div class="section-header">
+                <h2 class="section-title">Component Library</h2>
+                <p class="section-subtitle">Modern UI components Apple Design System principles ile tutarlı kullanım</p>
+            </div>
+            
+            <div class="component-showcase">
+                <!-- Buttons -->
+                <div class="component-group">
+                    <h3 class="component-title">Buttons</h3>
+                    <div class="button-grid">
+                        <button class="btn btn-primary">Primary Button</button>
+                        <button class="btn btn-secondary">Secondary Button</button>
+                        <button class="btn btn-accent">Accent Button</button>
+                    </div>
+                    <div class="button-grid">
+                        <button class="btn btn-primary btn-sm">Small Primary</button>
+                        <button class="btn btn-secondary btn-lg">Large Secondary</button>
+                    </div>
+                </div>
+                
+                <!-- Badges -->
+                <div class="component-group">
+                    <h3 class="component-title">Badges</h3>
+                    <div class="badge-showcase">
+                        <span class="badge badge-primary">Primary</span>
+                        <span class="badge badge-secondary">Secondary</span>
+                        <span class="badge badge-accent">Accent</span>
+                        <span class="badge badge-success">Success</span>
+                        <span class="badge badge-warning">Warning</span>
+                        <span class="badge badge-error">Error</span>
+                    </div>
+                </div>
+                
+                <!-- Cards -->
+                <div class="component-group">
+                    <h3 class="component-title">Cards</h3>
+                    <div class="grid grid-cols-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Standard Card</div>
+                                <div class="card-subtitle">Subtle shadow ve border</div>
+                            </div>
+                            <div class="card-content">
+                                Bu standart card component Apple'ın card design pattern'larına uyumludur.
+                            </div>
+                        </div>
+                        <div class="card card-elevated">
+                            <div class="card-header">
+                                <div class="card-title">Elevated Card</div>
+                                <div class="card-subtitle">Blur effect ve yüksek shadow</div>
+                            </div>
+                            <div class="card-content">
+                                Elevated card premium content için optimize edilmiştir.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Form Elements -->
+                <div class="component-group">
+                    <h3 class="component-title">Form Elements</h3>
+                    <div class="grid grid-cols-1">
+                        <input type="text" class="input" placeholder="Standard input field">
+                        <input type="email" class="input" placeholder="Email input with focus state">
+                        <textarea class="input textarea" placeholder="Textarea for longer content"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid System -->
+        <section class="showcase-section">
+            <div class="section-header">
+                <h2 class="section-title">Grid System</h2>
+                <p class="section-subtitle">8pt spacing grid ile responsive layout patterns</p>
+            </div>
+            
+            <div class="layout-demo">
+                <h4 class="mb-4">4 Column Grid</h4>
+                <div class="grid grid-cols-4">
+                    <div class="grid-demo">Col 1</div>
+                    <div class="grid-demo">Col 2</div>
+                    <div class="grid-demo">Col 3</div>
+                    <div class="grid-demo">Col 4</div>
+                </div>
+            </div>
+            
+            <div class="layout-demo">
+                <h4 class="mb-4">3 Column Grid</h4>
+                <div class="grid grid-cols-3">
+                    <div class="grid-demo">Column 1</div>
+                    <div class="grid-demo">Column 2</div>
+                    <div class="grid-demo">Column 3</div>
+                </div>
+            </div>
+            
+            <div class="layout-demo">
+                <h4 class="mb-4">2 Column Grid</h4>
+                <div class="grid grid-cols-2">
+                    <div class="grid-demo">Left Column</div>
+                    <div class="grid-demo">Right Column</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dark Mode Preview -->
+        <section class="showcase-section">
+            <div class="section-header">
+                <h2 class="section-title">Dark Mode Support</h2>
+                <p class="section-subtitle">Automatic @media (prefers-color-scheme) detection ve manuel toggle support</p>
+            </div>
+            
+            <div class="dark-preview p-8 rounded-2xl">
+                <div class="mb-6">
+                    <img src="../images/logo-celalbasaran.svg" alt="Celal Başaran" class="brand-logo" style="max-width: 300px; filter: brightness(0) invert(1);">
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Dark Mode Typography</h3>
+                <p class="text-secondary mb-6">Apple'ın dark mode color palette ile optimize edilmiş typography hierarchy.</p>
+                <div class="flex gap-4 mb-6">
+                    <button class="btn" style="background: #f5f5f7; color: #1d1d1f;">Dark Primary</button>
+                    <button class="btn" style="background: #2c2c2e; color: #ffffff; border: 1px solid rgba(255,255,255,0.1);">Dark Secondary</button>
+                    <button class="btn btn-accent">Accent Unchanged</button>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div style="background: #2c2c2e; padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04);">
+                        <h4>Dark Card</h4>
+                        <p style="color: #ebebf5; font-size: 0.875rem;">Elevated background</p>
+                    </div>
+                    <div style="background: #3a3a3c; padding: 1rem; border-radius: 12px;">
+                        <h4>Tertiary BG</h4>
+                        <p style="color: #ebebf5; font-size: 0.875rem;">Tertiary background</p>
+                    </div>
+                    <div style="background: #1c1c1e; padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                        <h4>Primary BG</h4>
+                        <p style="color: #ebebf5; font-size: 0.875rem;">Primary background</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Guidelines -->
+        <section class="showcase-section">
+            <div class="section-header">
+                <h2 class="section-title">Brand Guidelines</h2>
+                <p class="section-subtitle">Apple Design Language 2025 implementation standartları</p>
+            </div>
+            
+            <div class="grid grid-cols-2">
+                <div class="card">
+                    <h3 class="card-title">✅ Best Practices</h3>
+                    <ul class="card-content" style="list-style: none; padding: 0;">
+                        <li class="mb-2">• SF Pro font stack kullanımı</li>
+                        <li class="mb-2">• 8pt grid system ile spacing</li>
+                        <li class="mb-2">• Semantic color usage</li>
+                        <li class="mb-2">• Consistent border radius (8px, 12px, 16px)</li>
+                        <li class="mb-2">• Apple motion principles (0.15s, 0.25s, 0.4s)</li>
+                        <li class="mb-2">• Dark/light mode support</li>
+                        <li class="mb-2">• Accessibility compliance</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">❌ Avoid</h3>
+                    <ul class="card-content" style="list-style: none; padding: 0;">
+                        <li class="mb-2">• Custom fonts dışında font kullanımı</li>
+                        <li class="mb-2">• 8pt grid dışında spacing</li>
+                        <li class="mb-2">• Gradients, shadows, 3D effects</li>
+                        <li class="mb-2">• Inconsistent border radius</li>
+                        <li class="mb-2">• Çok hızlı veya yavaş transitions</li>
+                        <li class="mb-2">• Hard-coded colors</li>
+                        <li class="mb-2">• Mobile-first design ihmal</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation -->
+        <section class="showcase-section">
+            <div class="section-header">
+                <h2 class="section-title">Implementation</h2>
+                <p class="section-subtitle">CSS custom properties ile modern, maintainable code structure</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title">CSS Usage</h3>
+                <div class="card-content">
+                    <pre class="font-mono text-sm p-4 rounded-lg" style="background: var(--color-bg-secondary); overflow-x: auto;"><code>/* Import brand design system */
+@import 'assets/style/brand-style.css';
+
+/* Usage examples */
+.my-component {
+  padding: var(--space-4);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  font-family: var(--font-system);
+}
+
+/* Button implementation */
+.custom-button {
+  @extend .btn, .btn-primary;
+  font-size: var(--text-lg);
+}</code></pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.style.colorScheme === 'dark') {
+                body.style.colorScheme = 'light';
+                themeIcon.textContent = '🌙';
+            } else {
+                body.style.colorScheme = 'dark';
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        // Initialize theme based on system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.getElementById('theme-icon').textContent = '☀️';
+        }
+    </script>
+</body>
+</html> 

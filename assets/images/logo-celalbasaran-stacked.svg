@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Celal Başaran - Stacked Logo -->
+  
+  <!-- Background container (optional, transparent) -->
+  <rect x="0" y="0" width="200" height="120" 
+        fill="none" 
+        rx="16" ry="16"/>
+  
+  <!-- Stacked Typography Layout -->
+  <g font-family="-apple-system, SF Pro Display, system-ui, sans-serif" 
+     text-anchor="middle" 
+     dominant-baseline="central">
+    
+    <!-- First Name: Celal (top) -->
+    <text x="100" y="45" 
+          font-size="24" 
+          font-weight="600" 
+          letter-spacing="-0.02em"
+          fill="#1d1d1f">Celal</text>
+    
+    <!-- Last Name: Başaran (bottom) -->
+    <text x="100" y="75" 
+          font-size="24" 
+          font-weight="300" 
+          letter-spacing="-0.01em"
+          fill="#1d1d1f">Başaran</text>
+  </g>
+  
+  <!-- Minimal brand mark -->
+  <circle cx="100" cy="105" r="1.5" 
+          fill="#8e8e93" 
+          opacity="0.5"/>
+          
+</svg> 

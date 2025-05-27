@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern C Logo with Apple Design Language -->
+  
+  <!-- Optional rounded container -->
+  <rect x="56" y="56" width="400" height="400" 
+        rx="100" ry="100" 
+        fill="none" 
+        stroke="#1d1d1f" 
+        stroke-width="3" 
+        opacity="0"/>
+  
+  <!-- Letter C with perfect Apple geometry -->
+  <g text-anchor="middle" dominant-baseline="central">
+    
+    <!-- Letter C - Optimized path for perfect curves -->
+    <path d="M 300 140
+             C 220 140, 156 204, 156 256
+             C 156 308, 220 372, 300 372
+             C 344 372, 380 356, 380 356
+             L 380 324
+             C 380 324, 344 340, 300 340
+             C 240 340, 188 288, 188 256
+             C 188 224, 240 172, 300 172
+             C 344 172, 380 188, 380 188
+             L 380 156
+             C 380 156, 344 140, 300 140 Z"
+          fill="#1d1d1f"
+          stroke="none"/>
+  </g>
+  
+  <!-- Ultra-subtle brand accent -->
+  <circle cx="256" cy="416" r="2.5" 
+          fill="#1d1d1f" 
+          opacity="0.2"/>
+          
+</svg> 
