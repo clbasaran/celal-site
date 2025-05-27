@@ -114,7 +114,7 @@ struct AdminDashboardView: View {
                 
                 // Management Sections
                 VStack(spacing: 16) {
-                    SectionHeader(title: "İçerik Yönetimi")
+                    AdminSectionHeader(title: "İçerik Yönetimi")
                     
                     VStack(spacing: 12) {
                         AdminMenuItem(
@@ -149,7 +149,7 @@ struct AdminDashboardView: View {
                 
                 // Logout Section
                 VStack(spacing: 16) {
-                    SectionHeader(title: "Hesap")
+                    AdminSectionHeader(title: "Hesap")
                     
                     Button(action: logout) {
                         HStack {
@@ -258,7 +258,7 @@ struct AdminMenuItem: View {
     }
 }
 
-struct SectionHeader: View {
+struct AdminSectionHeader: View {
     let title: String
     
     var body: some View {

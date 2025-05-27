@@ -1,0 +1,135 @@
+{
+  "skills": {
+    "categories": [
+      {
+        "id": "programming-languages",
+        "title": "Programlama Dilleri",
+        "skills": [
+          {
+            "name": "Swift",
+            "level": "advanced",
+            "years": 2
+          },
+          {
+            "name": "Objective-C",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "Python",
+            "level": "intermediate",
+            "years": 3
+          },
+          {
+            "name": "JavaScript",
+            "level": "intermediate",
+            "years": 2
+          }
+        ]
+      },
+      {
+        "id": "ios-frameworks",
+        "title": "iOS Framework'ler",
+        "skills": [
+          {
+            "name": "SwiftUI",
+            "level": "advanced",
+            "years": 2
+          },
+          {
+            "name": "UIKit",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "Core Data",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "CloudKit",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "Core Animation",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "Foundation",
+            "level": "advanced",
+            "years": 2
+          }
+        ]
+      },
+      {
+        "id": "architecture-patterns",
+        "title": "Mimari & Pattern",
+        "skills": [
+          {
+            "name": "MVVM",
+            "level": "advanced",
+            "years": 1
+          },
+          {
+            "name": "Clean Architecture",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "Combine",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "Coordinator Pattern",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "VIPER",
+            "level": "intermediate",
+            "years": 2
+          }
+        ]
+      },
+      {
+        "id": "tools-version-control",
+        "title": "Araçlar & Versiyon Kontrolü",
+        "skills": [
+          {
+            "name": "Firebase",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "RESTful API",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "GraphQL",
+            "level": "intermediate",
+            "years": 1
+          },
+          {
+            "name": "Git & GitHub",
+            "level": "advanced",
+            "years": 2
+          }
+        ]
+      }
+    ]
+  },
+  "levelLabels": {
+    "expert": "Uzman",
+    "advanced": "İleri",
+    "intermediate": "Orta"
+  },
+  "stats": {
+    "totalSkills": 5,
+    "averageLevel": 3.2,
+    "lastUpdated": "2024-01-15T10:30:00.000Z"
+  }
+} 
