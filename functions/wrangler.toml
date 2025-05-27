@@ -1,0 +1,23 @@
+# Cloudflare Pages Configuration
+# This file configures KV storage and environment variables for the API
+
+[[kv_namespaces]]
+binding = "PORTFOLIO_KV"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+[env.production]
+vars = { API_KEY = "your-production-api-key" }
+
+[env.preview]
+vars = { API_KEY = "your-preview-api-key" }
+
+# Build configuration
+[build]
+command = ""
+cwd = ""
+watch_dir = "functions"
+
+# Compatibility settings
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"] 

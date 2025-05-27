@@ -73,6 +73,131 @@ class DataLoaderService: ObservableObject {
         }
     }
     
+    // MARK: - Write Operations (Admin Features)
+    
+    // Add new project to web API (requires API key)
+    func addProject(_ project: Project, apiKey: String) async -> Bool {
+        do {
+            guard let url = URL(string: "https://celalbasaran.dev/api/projects") else {
+                await MainActor.run {
+                    self.errorMessage = "Geçersiz URL"
+                }
+                return false
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(apiKey, forHTTPHeaderField: "X-API-Key")
+            
+            let encoder = JSONEncoder()
+            request.httpBody = try encoder.encode(project)
+            
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 201 {
+                    await updateFromWeb() // Refresh data
+                    print("✅ Successfully added project: \(project.title)")
+                    return true
+                } else {
+                    await MainActor.run {
+                        self.errorMessage = "Proje eklenemedi (Status: \(httpResponse.statusCode))"
+                    }
+                }
+            }
+            
+        } catch {
+            await MainActor.run {
+                self.errorMessage = "Proje eklenirken hata: \(error.localizedDescription)"
+            }
+        }
+        
+        return false
+    }
+    
+    // Update all projects via web API (requires API key)
+    func updateAllProjects(_ projects: [Project], apiKey: String) async -> Bool {
+        do {
+            guard let url = URL(string: "https://celalbasaran.dev/api/projects") else {
+                await MainActor.run {
+                    self.errorMessage = "Geçersiz URL"
+                }
+                return false
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(apiKey, forHTTPHeaderField: "X-API-Key")
+            
+            let encoder = JSONEncoder()
+            request.httpBody = try encoder.encode(projects)
+            
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    await updateFromWeb() // Refresh data
+                    print("✅ Successfully updated all projects")
+                    return true
+                } else {
+                    await MainActor.run {
+                        self.errorMessage = "Projeler güncellenemedi (Status: \(httpResponse.statusCode))"
+                    }
+                }
+            }
+            
+        } catch {
+            await MainActor.run {
+                self.errorMessage = "Projeler güncellenirken hata: \(error.localizedDescription)"
+            }
+        }
+        
+        return false
+    }
+    
+    // Update skills data via web API (requires API key)
+    func updateSkillsData(_ skillsData: SkillsData, apiKey: String) async -> Bool {
+        do {
+            guard let url = URL(string: "https://celalbasaran.dev/api/skills") else {
+                await MainActor.run {
+                    self.errorMessage = "Geçersiz URL"
+                }
+                return false
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue(apiKey, forHTTPHeaderField: "X-API-Key")
+            
+            let encoder = JSONEncoder()
+            request.httpBody = try encoder.encode(skillsData)
+            
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    await updateFromWeb() // Refresh data
+                    print("✅ Successfully updated skills data")
+                    return true
+                } else {
+                    await MainActor.run {
+                        self.errorMessage = "Yetenekler güncellenemedi (Status: \(httpResponse.statusCode))"
+                    }
+                }
+            }
+            
+        } catch {
+            await MainActor.run {
+                self.errorMessage = "Yetenekler güncellenirken hata: \(error.localizedDescription)"
+            }
+        }
+        
+        return false
+    }
+    
     // MARK: - Private Methods
     
     private func loadProjects() async {

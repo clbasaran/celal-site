@@ -27,7 +27,70 @@ Returns the latest projects data from the repository.
 - `Content-Type: application/json`
 - `Access-Control-Allow-Origin: *`
 - `X-Projects-Count: {number}`
-- `Cache-Control: public, max-age=300`
+- `Cache-Control: public, max-age=60`
+
+### `POST /api/projects`
+Adds a new project to the repository. **Requires authentication.**
+
+**Request Headers:**
+- `Content-Type: application/json`
+- `X-API-Key: {your-api-key}`
+
+**Request Body:**
+```json
+{
+  "id": "new-project",
+  "title": "New Project",
+  "description": "Project description",
+  "status": "Devam Ediyor",
+  "tech": ["React", "TypeScript"],
+  "featured": false,
+  "github": "https://github.com/username/repo",
+  "live": "https://demo.example.com"
+}
+```
+
+**Success Response (201):**
+```json
+{
+  "success": true,
+  "message": "Project added successfully",
+  "project": { /* newly added project */ },
+  "totalProjects": 5
+}
+```
+
+### `PUT /api/projects`
+Replaces all projects with the provided array. **Requires authentication.**
+
+**Request Headers:**
+- `Content-Type: application/json`
+- `X-API-Key: {your-api-key}`
+
+**Request Body:**
+```json
+[
+  {
+    "id": "project-001",
+    "title": "Updated Project",
+    "description": "Updated description",
+    "status": "Tamamlandı",
+    "tech": ["SwiftUI", "Core Data"],
+    "featured": true,
+    "github": "https://github.com/...",
+    "live": "https://example.com"
+  }
+]
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Projects updated successfully",
+  "totalProjects": 1
+}
+```
 
 ### `GET /api/skills`
 Returns the latest skills data from the repository.
@@ -68,15 +131,64 @@ Returns the latest skills data from the repository.
 - `Access-Control-Allow-Origin: *`
 - `X-Skills-Count: {number}`
 - `X-Categories-Count: {number}`
-- `Cache-Control: public, max-age=300`
+- `Cache-Control: public, max-age=60`
+
+### `PUT /api/skills`
+Replaces the entire skills data. **Requires authentication.**
+
+**Request Headers:**
+- `Content-Type: application/json`
+- `X-API-Key: {your-api-key}`
+
+**Request Body:**
+```json
+{
+  "skills": {
+    "categories": [
+      {
+        "id": "programming-languages",
+        "title": "Programlama Dilleri",
+        "skills": [
+          {
+            "name": "Swift",
+            "level": "advanced",
+            "years": 2
+          }
+        ]
+      }
+    ]
+  },
+  "levelLabels": {
+    "expert": "Uzman",
+    "advanced": "İleri",
+    "intermediate": "Orta"
+  },
+  "stats": {
+    "totalSkills": 15,
+    "averageLevel": 3.2,
+    "lastUpdated": "2024-01-15T10:30:00.000Z"
+  }
+}
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Skills updated successfully",
+  "totalSkills": 15,
+  "totalCategories": 4
+}
+```
 
 ## 🔧 Technical Details
 
 ### Architecture
 - **Runtime**: Cloudflare Pages Functions (V8 isolates)
-- **Data Source**: Static JSON files in `/data/` directory
+- **Data Storage**: Cloudflare KV (primary) + Static JSON fallback
+- **Authentication**: API key-based authentication for write operations
 - **CORS**: Enabled for cross-origin requests (iOS app integration)
-- **Caching**: 5-minute cache for better performance
+- **Caching**: 1-minute cache for better performance (shorter for dynamic data)
 - **Error Handling**: Comprehensive error responses with logging
 
 ### Error Responses
@@ -90,18 +202,26 @@ All endpoints return structured error responses:
 ```
 
 **HTTP Status Codes:**
-- `200`: Success
+- `200`: Success (GET, PUT)
+- `201`: Created (POST)
+- `400`: Bad request (invalid data, missing fields)
+- `401`: Unauthorized (invalid/missing API key)
 - `404`: Data not found
-- `405`: Method not allowed (only GET supported)
+- `405`: Method not allowed
 - `500`: Internal server error
 
 ### CORS Support
 All endpoints support CORS with:
 - `Access-Control-Allow-Origin: *`
-- `Access-Control-Allow-Methods: GET, OPTIONS`
-- `Access-Control-Allow-Headers: Content-Type, Authorization`
+- `Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS`
+- `Access-Control-Allow-Headers: Content-Type, Authorization, X-API-Key`
 
 OPTIONS requests are handled for preflight checks.
+
+### Authentication
+Write operations (POST, PUT) require API key authentication:
+- Header: `X-API-Key: {your-secret-key}`
+- Set up via Cloudflare Pages environment variable: `API_KEY`
 
 ## 📱 iOS App Integration
 
