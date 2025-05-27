@@ -62,7 +62,7 @@ struct AdminDashboardView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(.accent, in: RoundedRectangle(cornerRadius: 12))
+                    .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 12))
                     .foregroundColor(.white)
                     .font(.system(.headline, design: .default, weight: .semibold))
                 }
@@ -75,7 +75,7 @@ struct AdminDashboardView: View {
             // Footer
             Text("CelalSite Admin v1.0")
                 .font(.system(.caption, design: .default, weight: .regular))
-                .foregroundColor(.tertiary)
+                .foregroundStyle(.tertiary)
         }
         .navigationTitle("Admin")
         .navigationBarTitleDisplayMode(.inline)
@@ -251,7 +251,7 @@ struct AdminMenuItem: View {
             
             Image(systemName: "chevron.right")
                 .font(.system(size: 12, weight: .medium))
-                .foregroundColor(.tertiary)
+                .foregroundStyle(.tertiary)
         }
         .padding(16)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
