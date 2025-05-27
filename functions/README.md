@@ -54,6 +54,31 @@ Bu dizin, Celal Başaran'ın portföy sitesi için Cloudflare Pages API fonksiyo
   }
   ```
 
+#### `POST /api/refresh`
+- **Açıklama:** Access token'ı refresh token kullanarak yeniler
+- **Request Body:**
+  ```json
+  {
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+  ```
+- **Success Response (200):**
+  ```json
+  {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+  }
+  ```
+- **Error Response (401):**
+  ```json
+  {
+    "error": "Invalid Refresh Token",
+    "message": "Refresh token is invalid or expired"
+  }
+  ```
+
 ### 📋 Projects Endpoints
 
 #### `GET /api/projects`
@@ -116,10 +141,12 @@ Bu dizin, Celal Başaran'ın portföy sitesi için Cloudflare Pages API fonksiyo
 ## 🔑 Authentication
 
 ### JWT Token System
-- **Login:** `/api/login` endpoint'i ile kullanıcı adı/şifre ile token alın
-- **Usage:** `Authorization: Bearer <your-jwt-token>` header'ı ile korumalı endpoint'lere erişin
-- **Expiration:** Token'lar 1 saat süreyle geçerlidir
-- **Refresh:** Token süresi dolduğunda yeniden giriş yapmanız gerekir
+- **Login:** `/api/login` endpoint'i ile kullanıcı adı/şifre ile token çifti alın
+- **Access Token:** API erişimi için kullanılır (1 saat geçerli)
+- **Refresh Token:** Access token yenilemek için kullanılır (7 gün geçerli)
+- **Usage:** `Authorization: Bearer <access-token>` header'ı ile korumalı endpoint'lere erişin
+- **Auto-refresh:** Access token süresi dolduğunda refresh token ile otomatik yenileme
+- **Session Management:** Refresh token süresi dolduğunda yeniden giriş gerekir
 
 ### Legacy API Key (Deprecated)
 - **Note:** API key authentication sistem JWT sistemine dönüştürülmüştür
@@ -133,7 +160,8 @@ Cloudflare Pages dashboard'da aşağıdaki environment variable'ları ayarlayın
 
 ```bash
 # JWT Authentication
-JWT_SECRET=your-strong-random-jwt-secret-here
+JWT_SECRET=your-strong-random-jwt-secret-here  # Access token signing (32+ chars)
+JWT_REFRESH_SECRET=your-strong-random-refresh-secret-here  # Refresh token signing (32+ chars, different from JWT_SECRET)
 
 # Legacy (Backward Compatibility)
 API_KEY=your-legacy-api-key-here
@@ -151,20 +179,24 @@ id = "your-kv-namespace-id"
 
 ## 📱 iOS App Integration
 
-iOS uygulaması JWT authentication kullanır:
+iOS uygulaması modern JWT refresh token sistemi kullanır:
 
-1. **Login:** `/api/login` ile JWT token alır
-2. **Storage:** Token'ı UserDefaults'ta saklar
-3. **Requests:** Tüm API isteklerinde `Authorization: Bearer <token>` header'ı kullanır
-4. **Auto-refresh:** Uygulama açılışında stored token'ı kontrol eder
+1. **Login:** `/api/login` ile access ve refresh token çifti alır
+2. **Storage:** Token çiftini güvenli olarak AuthTokenManager ile saklar
+3. **Requests:** Tüm API isteklerinde `Authorization: Bearer <access-token>` header'ı kullanır
+4. **Auto-refresh:** Access token süresi dolduğunda otomatik olarak refresh eder
+5. **Session Management:** Refresh token süresi dolduğunda kullanıcıyı logout eder
+6. **Background Refresh:** Uygulama açılışında token durumunu kontrol eder
 
 ### iOS Admin Features
-- ✅ JWT tabanlı giriş sistemi
+- ✅ JWT refresh token tabanlı giriş sistemi (`AuthTokenManager`)
+- ✅ Otomatik token yenileme ve session yönetimi
 - ✅ Proje ekleme (`AddProjectView`)
 - ✅ Proje düzenleme (`EditProjectView`)
 - ✅ Proje silme (`DeleteProjectButton`)
 - ✅ Proje listesi yönetimi (`AdminProjectListView`)
 - ✅ Admin dashboard (`AdminDashboardView`)
+- ✅ Güvenli logout ve credential temizleme
 
 ## 🔧 Technical Details
 
@@ -174,6 +206,8 @@ functions/
 ├── api/
 │   ├── login.ts                 # JWT authentication
 │   ├── verify-jwt.ts           # JWT verification middleware
+│   ├── me.ts                   # User profile endpoint
+│   ├── refresh.ts              # Token refresh endpoint
 │   ├── projects.ts             # Bulk project operations
 │   └── projects/
 │       └── [id].ts             # Individual project operations
@@ -207,7 +241,14 @@ curl -X POST https://celal-site.pages.dev/api/login \
 #### Get User Profile (Authenticated)
 ```bash
 curl https://celal-site.pages.dev/api/me \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+#### Refresh Token (Authenticated)
+```bash
+curl -X POST https://celal-site.pages.dev/api/refresh \
+  -H "Content-Type: application/json" \
+  -d '{"refresh_token":"YOUR_REFRESH_TOKEN"}'
 ```
 
 #### Get Projects (Public)
@@ -219,14 +260,14 @@ curl https://celal-site.pages.dev/api/projects
 ```bash
 curl -X POST https://celal-site.pages.dev/api/projects \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -d '{"id":"test","title":"Test Project","description":"Test","status":"active","tech":"Test","featured":false,"github":"","live":""}'
 ```
 
 #### Delete Project (Authenticated)
 ```bash
 curl -X DELETE https://celal-site.pages.dev/api/projects/test \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 ## 🔒 Security Notes
@@ -251,4 +292,4 @@ curl -X DELETE https://celal-site.pages.dev/api/projects/test \
 ---
 
 **Last Updated:** 27 Aralık 2024  
-**Version:** 2.0 (JWT Authentication) 
+**Version:** 2.1 (JWT Refresh Token System) 

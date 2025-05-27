@@ -9,26 +9,26 @@
 import SwiftUI
 
 struct AdminDashboardView: View {
-    @State private var isAuthenticated = false
+    @StateObject private var authManager = AuthTokenManager.shared
     @State private var username = ""
     @State private var password = ""
     @State private var showingAlert = false
     @State private var showingAddProject = false
     @State private var showingProjectList = false
     @State private var isLoggingIn = false
-    @State private var jwtToken: String = ""
-    @State private var currentUser: String = ""
     
     var body: some View {
         NavigationView {
-            if isAuthenticated {
+            if authManager.isAuthenticated {
                 adminDashboard
             } else {
                 loginView
             }
         }
         .onAppear {
-            checkStoredLogin()
+            Task {
+                await checkAuthenticationStatus()
+            }
         }
     }
     
@@ -106,10 +106,10 @@ struct AdminDashboardView: View {
             VStack(spacing: 24) {
                 // Welcome Header
                 VStack(spacing: 8) {
-                    Text("Hoş Geldiniz, Admin")
+                    Text("Hoş Geldiniz, \(authManager.currentUser.isEmpty ? "Admin" : authManager.currentUser)")
                         .font(.system(.title, design: .default, weight: .bold))
                     
-                    Text("Site yönetim paneli")
+                    Text("Site yönetim paneli • \(authManager.currentRole)")
                         .font(.system(.callout, design: .default, weight: .regular))
                         .foregroundColor(.secondary)
                 }
@@ -147,6 +147,16 @@ struct AdminDashboardView: View {
                                 subtitle: "JWT token ile kullanıcı bilgilerini test et",
                                 icon: "person.crop.circle.badge.checkmark",
                                 color: .teal
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Button(action: { testTokenRefresh() }) {
+                            AdminMenuItem(
+                                title: "🔄 Token Yenile",
+                                subtitle: "Refresh token ile oturumu yenile",
+                                icon: "arrow.clockwise.circle",
+                                color: .mint
                             )
                         }
                         .buttonStyle(.plain)
@@ -247,22 +257,18 @@ struct AdminDashboardView: View {
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
                 case 200:
-                    // Parse success response
-                    let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
+                    // Parse success response with refresh token support
+                    let loginResponse = try JSONDecoder().decode(NewLoginResponse.self, from: data)
                     
-                    // Store JWT token and user info
-                    jwtToken = loginResponse.token
-                    currentUser = loginResponse.user.username
+                    // Save tokens using AuthTokenManager
+                    authManager.saveTokens(
+                        accessToken: loginResponse.access_token,
+                        refreshToken: loginResponse.refresh_token,
+                        username: loginResponse.user.username,
+                        role: loginResponse.user.role
+                    )
                     
-                    // Save token to UserDefaults for persistence
-                    UserDefaults.standard.set(jwtToken, forKey: "jwt_token")
-                    UserDefaults.standard.set(currentUser, forKey: "current_user")
-                    
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isAuthenticated = true
-                    }
-                    
-                    print("✅ Login successful for user: \(currentUser)")
+                    print("✅ Login successful for user: \(loginResponse.user.username)")
                     
                 case 401:
                     // Invalid credentials
@@ -287,26 +293,20 @@ struct AdminDashboardView: View {
     }
     
     private func logout() {
-        // Clear stored credentials
-        UserDefaults.standard.removeObject(forKey: "jwt_token")
-        UserDefaults.standard.removeObject(forKey: "current_user")
+        Task {
+            await authManager.logout()
+        }
         
         withAnimation(.easeInOut(duration: 0.3)) {
-            isAuthenticated = false
             username = ""
             password = ""
-            jwtToken = ""
-            currentUser = ""
         }
     }
     
-    private func checkStoredLogin() {
-        if let storedToken = UserDefaults.standard.string(forKey: "jwt_token"),
-           let storedUser = UserDefaults.standard.string(forKey: "current_user"),
-           !storedToken.isEmpty {
-            jwtToken = storedToken
-            currentUser = storedUser
-            isAuthenticated = true
+    private func checkAuthenticationStatus() async {
+        let isValid = await authManager.checkAuthenticationStatus()
+        if !isValid {
+            print("❌ Stored tokens are invalid or expired")
         }
     }
     
@@ -318,24 +318,14 @@ struct AdminDashboardView: View {
     
     @MainActor
     private func performUserProfileTest() async {
-        guard !jwtToken.isEmpty else {
-            print("❌ No JWT token available for testing")
-            return
-        }
-        
         do {
-            // Prepare request to /api/me endpoint
+            // Use AuthTokenManager for authenticated request
             guard let url = URL(string: "https://celal-site.pages.dev/api/me") else {
                 print("❌ Invalid URL for /api/me")
                 return
             }
             
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.setValue("Bearer \(jwtToken)", forHTTPHeaderField: "Authorization")
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await authManager.makeAuthenticatedRequest(to: url)
             
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
@@ -354,7 +344,6 @@ struct AdminDashboardView: View {
                     
                 case 401:
                     print("❌ User Profile Test Failed: Unauthorized")
-                    print("   Token might be expired or invalid")
                     
                 default:
                     print("❌ User Profile Test Failed with status: \(httpResponse.statusCode)")
@@ -362,7 +351,29 @@ struct AdminDashboardView: View {
             }
             
         } catch {
-            print("❌ User Profile Test Error: \(error)")
+            if let authError = error as? AuthError {
+                print("❌ Authentication Error: \(authError.localizedDescription)")
+            } else {
+                print("❌ User Profile Test Error: \(error)")
+            }
+        }
+    }
+    
+    private func testTokenRefresh() {
+        Task {
+            await performTokenRefreshTest()
+        }
+    }
+    
+    @MainActor
+    private func performTokenRefreshTest() async {
+        print("🔄 Starting token refresh test...")
+        
+        let success = await authManager.refreshAccessToken()
+        if success {
+            print("✅ Token refresh test successful!")
+        } else {
+            print("❌ Token refresh test failed!")
         }
     }
 }
@@ -449,10 +460,12 @@ enum LoginError: Error {
     case unauthorized
 }
 
-struct LoginResponse: Codable {
-    let token: String
+struct NewLoginResponse: Codable {
+    let access_token: String
+    let refresh_token: String
     let user: UserInfo
-    let expiresIn: Int
+    let expires_in: Int
+    let token_type: String
 }
 
 struct UserInfo: Codable {

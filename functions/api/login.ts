@@ -20,6 +20,7 @@ interface Env {
   ASSETS: any;
   PORTFOLIO_KV?: KVNamespace; // Optional KV storage for user credentials
   JWT_SECRET: string; // JWT signing secret
+  JWT_REFRESH_SECRET: string; // JWT refresh token secret
 }
 
 interface EventContext<Env = any> {
@@ -36,12 +37,14 @@ interface LoginRequest {
 }
 
 interface LoginResponse {
-  token: string;
+  access_token: string;
+  refresh_token: string;
   user: {
     username: string;
     role: string;
   };
-  expiresIn: number;
+  expires_in: number;
+  token_type: string;
 }
 
 interface LoginErrorResponse {
@@ -105,20 +108,28 @@ export async function onRequestPost(context: EventContext<Env>): Promise<Respons
       });
     }
 
-    // Generate JWT token
-    const token = await generateJWT({
+    // Generate access token (1 hour)
+    const accessToken = await generateJWT({
       username: body.username.trim(),
       role: ADMIN_CREDENTIALS.role
     }, env.JWT_SECRET);
 
+    // Generate refresh token (7 days)
+    const refreshToken = await generateRefreshToken({
+      username: body.username.trim(),
+      role: ADMIN_CREDENTIALS.role
+    }, env.JWT_REFRESH_SECRET);
+
     // Return success response
     const response: LoginResponse = {
-      token,
+      access_token: accessToken,
+      refresh_token: refreshToken,
       user: {
         username: body.username.trim(),
         role: ADMIN_CREDENTIALS.role
       },
-      expiresIn: 3600 // 1 hour in seconds
+      expires_in: 3600, // 1 hour in seconds
+      token_type: "Bearer"
     };
 
     return new Response(JSON.stringify(response), {
@@ -187,7 +198,7 @@ async function validateCredentials(username: string, password: string, env: Env)
 }
 
 /**
- * Generates a JWT token using Web Crypto API (Cloudflare Workers compatible)
+ * Generates a JWT access token using Web Crypto API (Cloudflare Workers compatible)
  */
 async function generateJWT(payload: any, secret: string): Promise<string> {
   const header = {
@@ -201,6 +212,34 @@ async function generateJWT(payload: any, secret: string): Promise<string> {
     iat: now,
     exp: now + 3600, // 1 hour expiration
     iss: 'celal-site-api'
+  };
+
+  // Encode header and payload
+  const encodedHeader = base64UrlEncode(JSON.stringify(header));
+  const encodedPayload = base64UrlEncode(JSON.stringify(jwtPayload));
+  
+  // Create signature using Web Crypto API
+  const data = `${encodedHeader}.${encodedPayload}`;
+  const signature = await signHMAC(data, secret);
+  
+  return `${data}.${signature}`;
+}
+
+/**
+ * Generates a JWT refresh token using Web Crypto API (7 days validity)
+ */
+async function generateRefreshToken(payload: any, secret: string): Promise<string> {
+  const header = {
+    alg: 'HS256',
+    typ: 'JWT'
+  };
+
+  const now = Math.floor(Date.now() / 1000);
+  const jwtPayload = {
+    ...payload,
+    iat: now,
+    exp: now + (7 * 24 * 3600), // 7 days expiration
+    iss: 'celal-site-refresh'
   };
 
   // Encode header and payload
