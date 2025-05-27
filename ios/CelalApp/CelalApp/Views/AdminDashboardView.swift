@@ -279,7 +279,9 @@ struct AdminDashboardView: View {
         do {
             // Prepare login request
             guard let url = URL(string: "https://celal-site.pages.dev/api/login") else {
-                throw LoginError.invalidURL
+                showingAlert = true
+                print("❌ Invalid URL for login endpoint")
+                return
             }
             
             let loginData = [
@@ -494,11 +496,7 @@ struct AdminSectionHeader: View {
 
 // MARK: - Supporting Types
 
-enum LoginError: Error {
-    case invalidURL
-    case invalidResponse
-    case unauthorized
-}
+
 
 struct NewLoginResponse: Codable {
     let access_token: String
