@@ -15,6 +15,7 @@ struct AdminDashboardView: View {
     @State private var showingAlert = false
     @State private var showingAddProject = false
     @State private var showingProjectList = false
+    @State private var showingUserRegistration = false
     @State private var isLoggingIn = false
     
     var body: some View {
@@ -86,10 +87,18 @@ struct AdminDashboardView: View {
             
             Spacer()
             
-            // Footer
-            Text("CelalSite Admin v1.0")
-                .font(.system(.caption, design: .default, weight: .regular))
-                .foregroundStyle(.tertiary)
+            // Footer with registration link
+            VStack(spacing: 8) {
+                Button("Henüz hesabınız yok mu? Kayıt olun") {
+                    showingUserRegistration = true
+                }
+                .font(.system(.callout, design: .default, weight: .medium))
+                .foregroundColor(.accentColor)
+                
+                Text("CelalSite Admin v1.0")
+                    .font(.system(.caption, design: .default, weight: .regular))
+                    .foregroundStyle(.tertiary)
+            }
         }
         .navigationTitle("Admin")
         .navigationBarTitleDisplayMode(.inline)
@@ -109,9 +118,24 @@ struct AdminDashboardView: View {
                     Text("Hoş Geldiniz, \(authManager.currentUser.isEmpty ? "Admin" : authManager.currentUser)")
                         .font(.system(.title, design: .default, weight: .bold))
                     
-                    Text("Site yönetim paneli • \(authManager.currentRole)")
-                        .font(.system(.callout, design: .default, weight: .regular))
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("Site yönetim paneli")
+                            .font(.system(.callout, design: .default, weight: .regular))
+                            .foregroundColor(.secondary)
+                        
+                        // Role badge
+                        Text(authManager.currentRole.uppercased())
+                            .font(.system(.caption, design: .default, weight: .bold))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 2)
+                            .background(
+                                authManager.currentRole == "admin" ? Color.red.opacity(0.1) : Color.blue.opacity(0.1),
+                                in: RoundedRectangle(cornerRadius: 4)
+                            )
+                            .foregroundColor(
+                                authManager.currentRole == "admin" ? .red : .blue
+                            )
+                    }
                 }
                 .padding(.top, 20)
                 
@@ -171,6 +195,19 @@ struct AdminDashboardView: View {
                         }
                         .buttonStyle(.plain)
                         
+                        // Admin-only features
+                        if authManager.currentRole == "admin" {
+                            Button(action: { showingUserRegistration = true }) {
+                                AdminMenuItem(
+                                    title: "👥 Kullanıcı Yönetimi",
+                                    subtitle: "Yeni kullanıcı hesapları oluştur",
+                                    icon: "person.badge.plus",
+                                    color: .indigo
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        
                         AdminMenuItem(
                             title: "Blog Yönetimi",
                             subtitle: "Blog yazılarını yönet",
@@ -222,6 +259,9 @@ struct AdminDashboardView: View {
         }
         .sheet(isPresented: $showingProjectList) {
             AdminProjectListView()
+        }
+        .sheet(isPresented: $showingUserRegistration) {
+            UserRegistrationView()
         }
     }
     

@@ -196,6 +196,56 @@ class AuthTokenManager: ObservableObject {
         return validToken != nil
     }
     
+    /**
+     * Register a new user account
+     */
+    func registerUser(username: String, password: String, role: String = "editor") async -> RegisterResult {
+        do {
+            guard let url = URL(string: "https://celal-site.pages.dev/api/register") else {
+                return .failure("Invalid registration URL")
+            }
+            
+            let requestBody = [
+                "username": username.lowercased().trimmingCharacters(in: .whitespacesAndNewlines),
+                "password": password,
+                "role": role
+            ]
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 201:
+                    let registrationResponse = try JSONDecoder().decode(UserRegistrationResponse.self, from: data)
+                    print("✅ User registration successful: \(registrationResponse.user.username)")
+                    return .success(registrationResponse)
+                    
+                case 409:
+                    let errorResponse = try JSONDecoder().decode(RegistrationErrorResponse.self, from: data)
+                    return .failure(errorResponse.message)
+                    
+                case 400:
+                    let errorResponse = try JSONDecoder().decode(RegistrationErrorResponse.self, from: data)
+                    return .failure(errorResponse.message)
+                    
+                default:
+                    return .failure("Registration failed with status: \(httpResponse.statusCode)")
+                }
+            }
+            
+            return .failure("Invalid response from server")
+            
+        } catch {
+            print("❌ Registration error: \(error)")
+            return .failure("Registration failed: \(error.localizedDescription)")
+        }
+    }
+    
     // MARK: - Private Methods
     
     /**
@@ -293,6 +343,26 @@ struct RefreshTokenResponse: Codable {
     let refresh_token: String
     let expires_in: Int
     let token_type: String
+}
+
+struct UserRegistrationResponse: Codable {
+    let message: String
+    let user: RegisteredUser
+}
+
+struct RegisteredUser: Codable {
+    let username: String
+    let role: String
+}
+
+struct RegistrationErrorResponse: Codable {
+    let error: String
+    let message: String
+}
+
+enum RegisterResult {
+    case success(UserRegistrationResponse)
+    case failure(String)
 }
 
 // MARK: - Extensions
