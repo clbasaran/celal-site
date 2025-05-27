@@ -2,10 +2,12 @@
  * Cloudflare Pages API Route: /api/projects/[id]
  * 
  * Handles individual project operations by ID
- * Supports PUT for updating specific projects
+ * Supports GET, PUT, DELETE with JWT authentication
  * 
  * @returns JSON response with operation result
  */
+
+import { verifyJWT, createUnauthorizedResponse, getCorsHeaders } from '../verify-jwt';
 
 // Cloudflare Pages function types
 declare global {
@@ -19,7 +21,8 @@ declare global {
 interface Env {
   ASSETS: any;
   PORTFOLIO_KV: KVNamespace; // KV storage for read/write operations
-  API_KEY: string; // API key for authentication
+  API_KEY: string; // Legacy API key for backward compatibility
+  JWT_SECRET: string; // JWT secret for token verification
 }
 
 interface EventContext<Env = any> {
@@ -146,16 +149,10 @@ async function handleGetProject(projectId: string, env: Env, corsHeaders: Record
 
 // PUT handler - Update specific project
 async function handlePutProject(projectId: string, request: Request, env: Env, corsHeaders: Record<string, string>) {
-  // Authenticate request
-  const authResult = authenticateProjectRequest(request, env);
-  if (!authResult.success) {
-    return new Response(JSON.stringify({
-      error: 'Unauthorized',
-      message: authResult.message
-    }), { 
-      status: 401,
-      headers: corsHeaders
-    });
+  // Authenticate request with JWT
+  const authResult = await verifyJWT(request, env.JWT_SECRET);
+  if (!authResult.isValid) {
+    return createUnauthorizedResponse(authResult.error || 'Authentication required for PUT operations');
   }
 
   // Parse request body
@@ -260,16 +257,10 @@ async function handlePutProject(projectId: string, request: Request, env: Env, c
 
 // DELETE handler - Delete specific project
 async function handleDeleteProject(projectId: string, request: Request, env: Env, corsHeaders: Record<string, string>) {
-  // Authenticate request
-  const authResult = authenticateProjectRequest(request, env);
-  if (!authResult.success) {
-    return new Response(JSON.stringify({
-      error: 'Unauthorized',
-      message: authResult.message
-    }), { 
-      status: 401,
-      headers: corsHeaders
-    });
+  // Authenticate request with JWT
+  const authResult = await verifyJWT(request, env.JWT_SECRET);
+  if (!authResult.isValid) {
+    return createUnauthorizedResponse(authResult.error || 'Authentication required for DELETE operations');
   }
 
   try {

@@ -15,6 +15,9 @@ struct AdminDashboardView: View {
     @State private var showingAlert = false
     @State private var showingAddProject = false
     @State private var showingProjectList = false
+    @State private var isLoggingIn = false
+    @State private var jwtToken: String = ""
+    @State private var currentUser: String = ""
     
     var body: some View {
         NavigationView {
@@ -23,6 +26,9 @@ struct AdminDashboardView: View {
             } else {
                 loginView
             }
+        }
+        .onAppear {
+            checkStoredLogin()
         }
     }
     
@@ -59,8 +65,14 @@ struct AdminDashboardView: View {
                 
                 Button(action: authenticateUser) {
                     HStack {
-                        Image(systemName: "key.fill")
-                        Text("Giriş Yap")
+                        if isLoggingIn {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                                .foregroundColor(.white)
+                        } else {
+                            Image(systemName: "key.fill")
+                        }
+                        Text(isLoggingIn ? "Giriş Yapılıyor..." : "Giriş Yap")
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -68,7 +80,7 @@ struct AdminDashboardView: View {
                     .foregroundColor(.white)
                     .font(.system(.headline, design: .default, weight: .semibold))
                 }
-                .disabled(username.isEmpty || password.isEmpty)
+                .disabled(username.isEmpty || password.isEmpty || isLoggingIn)
             }
             .padding(.horizontal, 32)
             
@@ -195,24 +207,96 @@ struct AdminDashboardView: View {
     
     // MARK: - Actions
     private func authenticateUser() {
-        // Simple demo authentication
-        if username.lowercased() == "admin" && password == "admin123" {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                isAuthenticated = true
+        Task {
+            await performLogin()
+        }
+    }
+    
+    @MainActor
+    private func performLogin() async {
+        isLoggingIn = true
+        
+        do {
+            // Prepare login request
+            guard let url = URL(string: "https://celal-site.pages.dev/api/login") else {
+                throw LoginError.invalidURL
             }
-        } else {
+            
+            let loginData = [
+                "username": username.trimmingCharacters(in: .whitespacesAndNewlines),
+                "password": password
+            ]
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try JSONSerialization.data(withJSONObject: loginData)
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200:
+                    // Parse success response
+                    let loginResponse = try JSONDecoder().decode(LoginResponse.self, from: data)
+                    
+                    // Store JWT token and user info
+                    jwtToken = loginResponse.token
+                    currentUser = loginResponse.user.username
+                    
+                    // Save token to UserDefaults for persistence
+                    UserDefaults.standard.set(jwtToken, forKey: "jwt_token")
+                    UserDefaults.standard.set(currentUser, forKey: "current_user")
+                    
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        isAuthenticated = true
+                    }
+                    
+                    print("✅ Login successful for user: \(currentUser)")
+                    
+                case 401:
+                    // Invalid credentials
+                    showingAlert = true
+                    print("❌ Invalid credentials")
+                    
+                default:
+                    // Other errors
+                    showingAlert = true
+                    print("❌ Login failed with status: \(httpResponse.statusCode)")
+                }
+            }
+            
+        } catch {
             showingAlert = true
+            print("❌ Login error: \(error)")
         }
         
         // Clear password for security
         password = ""
+        isLoggingIn = false
     }
     
     private func logout() {
+        // Clear stored credentials
+        UserDefaults.standard.removeObject(forKey: "jwt_token")
+        UserDefaults.standard.removeObject(forKey: "current_user")
+        
         withAnimation(.easeInOut(duration: 0.3)) {
             isAuthenticated = false
             username = ""
             password = ""
+            jwtToken = ""
+            currentUser = ""
+        }
+    }
+    
+    private func checkStoredLogin() {
+        if let storedToken = UserDefaults.standard.string(forKey: "jwt_token"),
+           let storedUser = UserDefaults.standard.string(forKey: "current_user"),
+           !storedToken.isEmpty {
+            jwtToken = storedToken
+            currentUser = storedUser
+            isAuthenticated = true
         }
     }
 }
@@ -289,6 +373,25 @@ struct AdminSectionHeader: View {
             Spacer()
         }
     }
+}
+
+// MARK: - Supporting Types
+
+enum LoginError: Error {
+    case invalidURL
+    case invalidResponse
+    case unauthorized
+}
+
+struct LoginResponse: Codable {
+    let token: String
+    let user: UserInfo
+    let expiresIn: Int
+}
+
+struct UserInfo: Codable {
+    let username: String
+    let role: String
 }
 
 #Preview("Login") {

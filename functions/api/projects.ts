@@ -1,11 +1,13 @@
 /**
  * Cloudflare Pages API Route: /api/projects
  * 
- * Serves the latest projects.json data from the repository
- * Supports CORS for cross-origin requests (iOS app integration)
+ * Handles CRUD operations for portfolio projects
+ * Supports GET (public), POST (JWT authenticated), PUT (JWT authenticated)
  * 
- * @returns JSON response with projects data
+ * @returns JSON response with projects data or operation result
  */
+
+import { verifyJWT, createUnauthorizedResponse, getCorsHeaders } from './verify-jwt';
 
 // Cloudflare Pages function types
 declare global {
@@ -19,7 +21,8 @@ declare global {
 interface Env {
   ASSETS: any;
   PORTFOLIO_KV: KVNamespace; // KV storage for read/write operations
-  API_KEY: string; // API key for authentication
+  API_KEY: string; // Legacy API key for backward compatibility
+  JWT_SECRET: string; // JWT secret for token verification
 }
 
 interface EventContext<Env = any> {
@@ -137,16 +140,10 @@ async function handleGet(env: Env, corsHeaders: Record<string, string>) {
 
 // POST handler - Add new project
 async function handlePost(request: Request, env: Env, corsHeaders: Record<string, string>) {
-  // Authenticate request
-  const authResult = authenticateRequest(request, env);
-  if (!authResult.success) {
-    return new Response(JSON.stringify({
-      error: 'Unauthorized',
-      message: authResult.message
-    }), { 
-      status: 401,
-      headers: corsHeaders
-    });
+  // Authenticate request with JWT
+  const authResult = await verifyJWT(request, env.JWT_SECRET);
+  if (!authResult.isValid) {
+    return createUnauthorizedResponse(authResult.error || 'Authentication required for POST operations');
   }
 
   // Parse request body
@@ -235,16 +232,10 @@ async function handlePost(request: Request, env: Env, corsHeaders: Record<string
 
 // PUT handler - Replace all projects
 async function handlePut(request: Request, env: Env, corsHeaders: Record<string, string>) {
-  // Authenticate request
-  const authResult = authenticateRequest(request, env);
-  if (!authResult.success) {
-    return new Response(JSON.stringify({
-      error: 'Unauthorized',
-      message: authResult.message
-    }), { 
-      status: 401,
-      headers: corsHeaders
-    });
+  // Authenticate request with JWT
+  const authResult = await verifyJWT(request, env.JWT_SECRET);
+  if (!authResult.isValid) {
+    return createUnauthorizedResponse(authResult.error || 'Authentication required for PUT operations');
   }
 
   // Parse request body
@@ -316,20 +307,24 @@ async function handlePut(request: Request, env: Env, corsHeaders: Record<string,
   }
 }
 
-// Authentication helper
-function authenticateRequest(request: Request, env: Env): { success: boolean; message: string } {
-  const apiKey = request.headers.get('X-API-Key');
-  
-  if (!apiKey) {
-    return { success: false, message: 'API key required in X-API-Key header' };
-  }
-  
-  if (apiKey !== env.API_KEY) {
-    return { success: false, message: 'Invalid API key' };
-  }
-  
-  return { success: true, message: 'Authenticated' };
-}
+// MARK: - Legacy Authentication (Deprecated)
+// 
+// Note: This function is kept for backward compatibility with API key authentication
+// New implementations should use JWT authentication via the verifyJWT function
+// 
+// function authenticateRequest(request: Request, env: Env): { success: boolean; message: string } {
+//   const apiKey = request.headers.get('X-API-Key');
+//   
+//   if (!apiKey) {
+//     return { success: false, message: 'API key required in X-API-Key header' };
+//   }
+//   
+//   if (apiKey !== env.API_KEY) {
+//     return { success: false, message: 'Invalid API key' };
+//   }
+//   
+//   return { success: true, message: 'Authenticated' };
+// }
 
 // Handle OPTIONS requests for CORS preflight
 export const onRequestOptions: PagesFunction = async () => {

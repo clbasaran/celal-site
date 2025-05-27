@@ -1,371 +1,228 @@
 # Cloudflare Pages API Functions
 
-This directory contains serverless API functions for the Celal Başaran portfolio website, deployed on Cloudflare Pages.
+Bu dizin, Celal Başaran'ın portföy sitesi için Cloudflare Pages API fonksiyonlarını içerir.
 
-## 📡 API Endpoints
+## 🔧 API Endpoints
 
-### `GET /api/projects`
-Returns the latest projects data from the repository.
+### 🔐 Authentication Endpoints
 
-**Response Format:**
-```json
-[
+#### `POST /api/login`
+- **Açıklama:** JWT tabanlı kullanıcı girişi
+- **Request Body:**
+  ```json
   {
-    "id": "project-001",
-    "title": "Project Title",
-    "description": "Project description",
-    "status": "Tamamlandı",
-    "tech": ["SwiftUI", "Core Data"],
-    "featured": true,
-    "github": "https://github.com/...",
-    "live": "https://example.com"
+    "username": "admin",
+    "password": "admin123"
   }
-]
-```
-
-**Headers:**
-- `Content-Type: application/json`
-- `Access-Control-Allow-Origin: *`
-- `X-Projects-Count: {number}`
-- `Cache-Control: public, max-age=60`
-
-### `POST /api/projects`
-Adds a new project to the repository. **Requires authentication.**
-
-**Request Headers:**
-- `Content-Type: application/json`
-- `X-API-Key: {your-api-key}`
-
-**Request Body:**
-```json
-{
-  "id": "new-project",
-  "title": "New Project",
-  "description": "Project description",
-  "status": "Devam Ediyor",
-  "tech": ["React", "TypeScript"],
-  "featured": false,
-  "github": "https://github.com/username/repo",
-  "live": "https://demo.example.com"
-}
-```
-
-**Success Response (201):**
-```json
-{
-  "success": true,
-  "message": "Project added successfully",
-  "project": { /* newly added project */ },
-  "totalProjects": 5
-}
-```
-
-### `PUT /api/projects`
-Replaces all projects with the provided array. **Requires authentication.**
-
-**Request Headers:**
-- `Content-Type: application/json`
-- `X-API-Key: {your-api-key}`
-
-**Request Body:**
-```json
-[
+  ```
+- **Success Response (200):**
+  ```json
   {
-    "id": "project-001",
-    "title": "Updated Project",
-    "description": "Updated description",
-    "status": "Tamamlandı",
-    "tech": ["SwiftUI", "Core Data"],
-    "featured": true,
-    "github": "https://github.com/...",
-    "live": "https://example.com"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "user": {
+      "username": "admin",
+      "role": "admin"
+    },
+    "expiresIn": 3600
   }
-]
-```
-
-**Success Response (200):**
-```json
-{
-  "success": true,
-  "message": "Projects updated successfully",
-  "totalProjects": 1
-}
-```
-
-## 🔧 Individual Project Operations
-
-### `GET /api/projects/{id}`
-Retrieves a specific project by ID.
-
-**Response Format:**
-```json
-{
-  "id": "project-001",
-  "title": "Portfolio Website",
-  "description": "Modern portfolio built with latest tech",
-  "status": "Tamamlandı",
-  "tech": ["React", "TypeScript", "Tailwind CSS"],
-  "featured": true,
-  "github": "https://github.com/username/portfolio",
-  "live": "https://portfolio.example.com"
-}
-```
-
-**Headers:**
-- `Content-Type: application/json`
-- `Access-Control-Allow-Origin: *`
-- `X-Project-ID: {project-id}`
-- `Cache-Control: public, max-age=60`
-
-### `PUT /api/projects/{id}`
-Updates a specific project by ID. **Requires authentication.**
-
-**Request Headers:**
-- `Content-Type: application/json`
-- `X-API-Key: {your-api-key}`
-
-**Request Body:**
-```json
-{
-  "id": "project-001",
-  "title": "Updated Project Title",
-  "description": "Updated project description",
-  "status": "Tamamlandı",
-  "tech": ["React", "Next.js", "TypeScript"],
-  "featured": true,
-  "github": "https://github.com/username/updated-repo",
-  "live": "https://updated-demo.example.com"
-}
-```
-
-**Success Response (200):**
-```json
-{
-  "success": true,
-  "message": "Project updated successfully",
-  "project": { /* updated project data */ }
-}
-```
-
-### `DELETE /api/projects/{id}`
-Deletes a specific project by ID. **Requires authentication.**
-
-**Request Headers:**
-- `X-API-Key: {your-api-key}`
-
-**Success Response (200):**
-```json
-{
-  "success": true,
-  "message": "Project deleted successfully",
-  "deletedProject": { /* deleted project data */ },
-  "totalProjects": 4
-}
-```
-
-### `GET /api/skills`
-Returns the latest skills data from the repository.
-
-**Response Format:**
-```json
-{
-  "skills": {
-    "categories": [
-      {
-        "id": "programming-languages",
-        "title": "Programlama Dilleri",
-        "skills": [
-          {
-            "name": "Swift",
-            "level": "advanced",
-            "years": 2
-          }
-        ]
-      }
-    ]
-  },
-  "levelLabels": {
-    "expert": "Uzman",
-    "advanced": "İleri",
-    "intermediate": "Orta"
-  },
-  "stats": {
-    "totalSkills": 15,
-    "averageLevel": 3.2,
-    "lastUpdated": "2024-01-15T10:30:00.000Z"
+  ```
+- **Error Response (401):**
+  ```json
+  {
+    "error": "Authentication Failed",
+    "message": "Invalid username or password"
   }
-}
-```
+  ```
 
-**Headers:**
-- `Content-Type: application/json`
-- `Access-Control-Allow-Origin: *`
-- `X-Skills-Count: {number}`
-- `X-Categories-Count: {number}`
-- `Cache-Control: public, max-age=60`
+### 📋 Projects Endpoints
 
-### `PUT /api/skills`
-Replaces the entire skills data. **Requires authentication.**
+#### `GET /api/projects`
+- **Açıklama:** Tüm projeleri listeler (public endpoint)
+- **Auth:** Gerekli değil
+- **Response:**
+  ```json
+  [
+    {
+      "id": "project-1",
+      "title": "Proje Başlığı",
+      "description": "Proje açıklaması",
+      "status": "active",
+      "tech": "React, TypeScript",
+      "featured": true,
+      "github": "https://github.com/user/repo",
+      "live": "https://project.com"
+    }
+  ]
+  ```
 
-**Request Headers:**
-- `Content-Type: application/json`
-- `X-API-Key: {your-api-key}`
-
-**Request Body:**
-```json
-{
-  "skills": {
-    "categories": [
-      {
-        "id": "programming-languages",
-        "title": "Programlama Dilleri",
-        "skills": [
-          {
-            "name": "Swift",
-            "level": "advanced",
-            "years": 2
-          }
-        ]
-      }
-    ]
-  },
-  "levelLabels": {
-    "expert": "Uzman",
-    "advanced": "İleri",
-    "intermediate": "Orta"
-  },
-  "stats": {
-    "totalSkills": 15,
-    "averageLevel": 3.2,
-    "lastUpdated": "2024-01-15T10:30:00.000Z"
+#### `POST /api/projects`
+- **Açıklama:** Yeni proje ekler
+- **Auth:** JWT token gerekli (`Authorization: Bearer <token>`)
+- **Request Body:**
+  ```json
+  {
+    "id": "unique-project-id",
+    "title": "Yeni Proje",
+    "description": "Proje açıklaması",
+    "status": "active",
+    "tech": "Technology stack",
+    "featured": false,
+    "github": "https://github.com/user/repo",
+    "live": "https://project.com"
   }
-}
-```
+  ```
 
-**Success Response (200):**
-```json
-{
-  "success": true,
-  "message": "Skills updated successfully",
-  "totalSkills": 15,
-  "totalCategories": 4
-}
-```
+#### `PUT /api/projects`
+- **Açıklama:** Tüm projeleri değiştirir (bulk replacement)
+- **Auth:** JWT token gerekli (`Authorization: Bearer <token>`)
+- **Request Body:** Proje array'i
 
-## 🔧 Technical Details
+#### `GET /api/projects/:id`
+- **Açıklama:** Belirli bir projeyi getirir
+- **Auth:** Gerekli değil
+- **URL Params:** `id` - Project ID
 
-### Architecture
-- **Runtime**: Cloudflare Pages Functions (V8 isolates)
-- **Data Storage**: Cloudflare KV (primary) + Static JSON fallback
-- **Authentication**: API key-based authentication for write operations
-- **CORS**: Enabled for cross-origin requests (iOS app integration)
-- **Caching**: 1-minute cache for better performance (shorter for dynamic data)
-- **Error Handling**: Comprehensive error responses with logging
+#### `PUT /api/projects/:id`
+- **Açıklama:** Belirli bir projeyi günceller
+- **Auth:** JWT token gerekli (`Authorization: Bearer <token>`)
+- **URL Params:** `id` - Project ID
+- **Request Body:** Updated project object
 
-### Error Responses
-All endpoints return structured error responses:
+#### `DELETE /api/projects/:id`
+- **Açıklama:** Belirli bir projeyi siler
+- **Auth:** JWT token gerekli (`Authorization: Bearer <token>`)
+- **URL Params:** `id` - Project ID
 
-```json
-{
-  "error": "Error type",
-  "message": "Human-readable error description"
-}
-```
+## 🔑 Authentication
 
-**HTTP Status Codes:**
-- `200`: Success (GET, PUT)
-- `201`: Created (POST)
-- `400`: Bad request (invalid data, missing fields)
-- `401`: Unauthorized (invalid/missing API key)
-- `404`: Data not found
-- `405`: Method not allowed
-- `500`: Internal server error
+### JWT Token System
+- **Login:** `/api/login` endpoint'i ile kullanıcı adı/şifre ile token alın
+- **Usage:** `Authorization: Bearer <your-jwt-token>` header'ı ile korumalı endpoint'lere erişin
+- **Expiration:** Token'lar 1 saat süreyle geçerlidir
+- **Refresh:** Token süresi dolduğunda yeniden giriş yapmanız gerekir
 
-### CORS Support
-All endpoints support CORS with:
-- `Access-Control-Allow-Origin: *`
-- `Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS`
-- `Access-Control-Allow-Headers: Content-Type, Authorization, X-API-Key`
-
-OPTIONS requests are handled for preflight checks.
-
-### Authentication
-Write operations (POST, PUT) require API key authentication:
-- Header: `X-API-Key: {your-secret-key}`
-- Set up via Cloudflare Pages environment variable: `API_KEY`
-
-## 📱 iOS App Integration
-
-The iOS SwiftUI app automatically synchronizes with these API endpoints:
-
-```swift
-// iOS DataLoaderService.swift
-func updateFromWeb() async {
-    // Fetch from /api/projects
-    let projectsURL = URL(string: "https://celalbasaran.dev/api/projects")
-    
-    // Fetch from /api/skills
-    let skillsURL = URL(string: "https://celalbasaran.dev/api/skills")
-}
-```
-
-### Pull-to-Refresh
-The iOS app implements pull-to-refresh that:
-1. First tries to sync from web API
-2. Falls back to local JSON if API fails
-3. Shows appropriate error messages
+### Legacy API Key (Deprecated)
+- **Note:** API key authentication sistem JWT sistemine dönüştürülmüştür
+- **Migration:** Yeni uygulamalar JWT authentication kullanmalıdır
 
 ## 🚀 Deployment
 
-Functions are automatically deployed with Cloudflare Pages:
+### Environment Variables
 
-1. **Automatic**: On every push to main branch
-2. **Build Command**: Not required (static functions)
-3. **Output Directory**: `functions/`
-4. **Environment**: Production functions run in global edge locations
+Cloudflare Pages dashboard'da aşağıdaki environment variable'ları ayarlayın:
 
-### Local Development
 ```bash
-# Install Wrangler CLI
-npm install -g wrangler
+# JWT Authentication
+JWT_SECRET=your-strong-random-jwt-secret-here
 
-# Run locally
-wrangler pages dev . --compatibility-flags=nodejs_compat
-
-# Test endpoints
-curl http://localhost:8788/api/projects
-curl http://localhost:8788/api/skills
+# Legacy (Backward Compatibility)
+API_KEY=your-legacy-api-key-here
 ```
 
-## 📊 Monitoring
+### KV Storage
 
-### Logs
-Function logs are available in Cloudflare Dashboard:
-- Success: `Successfully loaded X projects/skills`
-- Errors: Full error stack traces
-- Performance: Response times and memory usage
+Cloudflare KV namespace oluşturun ve `wrangler.toml`'da yapılandırın:
 
-### Analytics
-Cloudflare Pages provides:
-- Request counts and success rates
-- Geographic distribution
-- Cache hit ratios
-- Error rate monitoring
+```toml
+[[kv_namespaces]]
+binding = "PORTFOLIO_KV"
+id = "your-kv-namespace-id"
+```
 
-## 🔮 Future Enhancements
+## 📱 iOS App Integration
 
-- [ ] **Authentication**: JWT-based auth for write operations
-- [ ] **Blog API**: `/api/blog` endpoint for blog posts
-- [ ] **Admin API**: CRUD operations for content management
-- [ ] **Webhooks**: GitHub webhook for automatic content updates
-- [ ] **Rate Limiting**: Request throttling for abuse prevention
-- [ ] **GraphQL**: Alternative query interface
-- [ ] **Real-time**: WebSocket support for live updates
+iOS uygulaması JWT authentication kullanır:
 
-## 🛡️ Security
+1. **Login:** `/api/login` ile JWT token alır
+2. **Storage:** Token'ı UserDefaults'ta saklar
+3. **Requests:** Tüm API isteklerinde `Authorization: Bearer <token>` header'ı kullanır
+4. **Auto-refresh:** Uygulama açılışında stored token'ı kontrol eder
 
-- **Input Validation**: All JSON data is validated
-- **CORS**: Properly configured for cross-origin requests
-- **Headers**: Security headers included (`X-Content-Type-Options`)
-- **Error Handling**: No sensitive information in error responses
-- **Logging**: Errors logged for debugging without exposing internals 
+### iOS Admin Features
+- ✅ JWT tabanlı giriş sistemi
+- ✅ Proje ekleme (`AddProjectView`)
+- ✅ Proje düzenleme (`EditProjectView`)
+- ✅ Proje silme (`DeleteProjectButton`)
+- ✅ Proje listesi yönetimi (`AdminProjectListView`)
+- ✅ Admin dashboard (`AdminDashboardView`)
+
+## 🔧 Technical Details
+
+### File Structure
+```
+functions/
+├── api/
+│   ├── login.ts                 # JWT authentication
+│   ├── verify-jwt.ts           # JWT verification middleware
+│   ├── projects.ts             # Bulk project operations
+│   └── projects/
+│       └── [id].ts             # Individual project operations
+├── wrangler.toml               # Cloudflare configuration
+└── README.md                   # This file
+```
+
+### JWT Implementation
+- **Algorithm:** HMAC-SHA256 (HS256)
+- **Claims:** username, role, iat, exp, iss
+- **Verification:** Web Crypto API for Cloudflare Workers compatibility
+- **Security:** Strong random JWT_SECRET required
+
+### CORS Configuration
+Tüm endpoint'ler cross-origin requests'i destekler:
+- `Access-Control-Allow-Origin: *`
+- `Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS`
+- `Access-Control-Allow-Headers: Content-Type, Authorization`
+
+## 📋 Testing
+
+### Using cURL
+
+#### Login
+```bash
+curl -X POST https://celal-site.pages.dev/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
+#### Get Projects (Public)
+```bash
+curl https://celal-site.pages.dev/api/projects
+```
+
+#### Add Project (Authenticated)
+```bash
+curl -X POST https://celal-site.pages.dev/api/projects \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"id":"test","title":"Test Project","description":"Test","status":"active","tech":"Test","featured":false,"github":"","live":""}'
+```
+
+#### Delete Project (Authenticated)
+```bash
+curl -X DELETE https://celal-site.pages.dev/api/projects/test \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+## 🔒 Security Notes
+
+1. **JWT Secret:** Strong, random secret kullanın (minimum 32 karakter)
+2. **HTTPS:** Production'da sadece HTTPS kullanın
+3. **Token Storage:** Client-side'da güvenli storage kullanın
+4. **Token Expiration:** Short-lived token'lar ve refresh mechanism
+5. **Input Validation:** API endpoint'lerinde input validation var
+6. **Rate Limiting:** Cloudflare'in built-in rate limiting kullanın
+
+## 📈 Future Enhancements
+
+- [ ] JWT token refresh endpoint
+- [ ] User management endpoints
+- [ ] Role-based access control (RBAC)
+- [ ] Password hashing with bcrypt
+- [ ] Account lockout after failed attempts
+- [ ] Audit logging
+- [ ] API rate limiting per user
+
+---
+
+**Last Updated:** 27 Aralık 2024  
+**Version:** 2.0 (JWT Authentication) 
