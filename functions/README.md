@@ -92,6 +92,77 @@ Replaces all projects with the provided array. **Requires authentication.**
 }
 ```
 
+## 🔧 Individual Project Operations
+
+### `GET /api/projects/{id}`
+Retrieves a specific project by ID.
+
+**Response Format:**
+```json
+{
+  "id": "project-001",
+  "title": "Portfolio Website",
+  "description": "Modern portfolio built with latest tech",
+  "status": "Tamamlandı",
+  "tech": ["React", "TypeScript", "Tailwind CSS"],
+  "featured": true,
+  "github": "https://github.com/username/portfolio",
+  "live": "https://portfolio.example.com"
+}
+```
+
+**Headers:**
+- `Content-Type: application/json`
+- `Access-Control-Allow-Origin: *`
+- `X-Project-ID: {project-id}`
+- `Cache-Control: public, max-age=60`
+
+### `PUT /api/projects/{id}`
+Updates a specific project by ID. **Requires authentication.**
+
+**Request Headers:**
+- `Content-Type: application/json`
+- `X-API-Key: {your-api-key}`
+
+**Request Body:**
+```json
+{
+  "id": "project-001",
+  "title": "Updated Project Title",
+  "description": "Updated project description",
+  "status": "Tamamlandı",
+  "tech": ["React", "Next.js", "TypeScript"],
+  "featured": true,
+  "github": "https://github.com/username/updated-repo",
+  "live": "https://updated-demo.example.com"
+}
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Project updated successfully",
+  "project": { /* updated project data */ }
+}
+```
+
+### `DELETE /api/projects/{id}`
+Deletes a specific project by ID. **Requires authentication.**
+
+**Request Headers:**
+- `X-API-Key: {your-api-key}`
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Project deleted successfully",
+  "deletedProject": { /* deleted project data */ },
+  "totalProjects": 4
+}
+```
+
 ### `GET /api/skills`
 Returns the latest skills data from the repository.
 
