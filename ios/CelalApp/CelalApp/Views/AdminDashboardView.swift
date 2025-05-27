@@ -14,6 +14,7 @@ struct AdminDashboardView: View {
     @State private var password = ""
     @State private var showingAlert = false
     @State private var showingAddProject = false
+    @State private var showingProjectList = false
     
     var body: some View {
         NavigationView {
@@ -128,12 +129,15 @@ struct AdminDashboardView: View {
                         }
                         .buttonStyle(.plain)
                         
-                        AdminMenuItem(
-                            title: "Proje Yönetimi",
-                            subtitle: "Projeleri düzenle, ekle, sil",
-                            icon: "folder.badge.gearshape",
-                            color: .purple
-                        )
+                        Button(action: { showingProjectList = true }) {
+                            AdminMenuItem(
+                                title: "Proje Yönetimi",
+                                subtitle: "Projeleri düzenle, ekle, sil",
+                                icon: "folder.badge.gearshape",
+                                color: .purple
+                            )
+                        }
+                        .buttonStyle(.plain)
                         
                         AdminMenuItem(
                             title: "Blog Yönetimi",
@@ -183,6 +187,9 @@ struct AdminDashboardView: View {
         .navigationBarTitleDisplayMode(.large)
         .sheet(isPresented: $showingAddProject) {
             AddProjectView()
+        }
+        .sheet(isPresented: $showingProjectList) {
+            AdminProjectListView()
         }
     }
     
