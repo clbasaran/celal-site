@@ -13,6 +13,7 @@ struct AdminDashboardView: View {
     @State private var username = ""
     @State private var password = ""
     @State private var showingAlert = false
+    @State private var showingAddProject = false
     
     var body: some View {
         NavigationView {
@@ -117,11 +118,21 @@ struct AdminDashboardView: View {
                     AdminSectionHeader(title: "İçerik Yönetimi")
                     
                     VStack(spacing: 12) {
+                        Button(action: { showingAddProject = true }) {
+                            AdminMenuItem(
+                                title: "➕ Yeni Proje Ekle",
+                                subtitle: "API ile yeni proje oluştur",
+                                icon: "plus.square.fill",
+                                color: .blue
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        
                         AdminMenuItem(
                             title: "Proje Yönetimi",
                             subtitle: "Projeleri düzenle, ekle, sil",
                             icon: "folder.badge.gearshape",
-                            color: .blue
+                            color: .purple
                         )
                         
                         AdminMenuItem(
@@ -170,6 +181,9 @@ struct AdminDashboardView: View {
         }
         .navigationTitle("Admin Panel")
         .navigationBarTitleDisplayMode(.large)
+        .sheet(isPresented: $showingAddProject) {
+            AddProjectView()
+        }
     }
     
     // MARK: - Actions
