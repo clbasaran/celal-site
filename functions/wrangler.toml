@@ -3,8 +3,13 @@
 
 [[kv_namespaces]]
 binding = "PORTFOLIO_KV"
-id = "your-kv-namespace-id"
-preview_id = "your-preview-kv-namespace-id"
+id = "your-portfolio-kv-namespace-id"
+preview_id = "your-portfolio-preview-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "USER_KV"
+id = "your-user-kv-namespace-id"
+preview_id = "your-user-preview-kv-namespace-id"
 
 [env.production]
 vars = { 

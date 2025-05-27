@@ -6,24 +6,61 @@ Bu dizin, Celal Başaran'ın portföy sitesi için Cloudflare Pages API fonksiyo
 
 ### 🔐 Authentication Endpoints
 
-#### `POST /api/login`
-- **Açıklama:** JWT tabanlı kullanıcı girişi
+#### `POST /api/register`
+- **Açıklama:** Yeni kullanıcı hesabı oluşturma
 - **Request Body:**
   ```json
   {
-    "username": "admin",
-    "password": "admin123"
+    "username": "example_user",
+    "password": "example123",
+    "role": "editor"
+  }
+  ```
+- **Success Response (201):**
+  ```json
+  {
+    "message": "User registered successfully",
+    "user": {
+      "username": "example_user",
+      "role": "editor"
+    }
+  }
+  ```
+- **Error Response (409 - Username Taken):**
+  ```json
+  {
+    "error": "Conflict",
+    "message": "Username is already taken"
+  }
+  ```
+- **Error Response (400 - Validation Error):**
+  ```json
+  {
+    "error": "Validation Error", 
+    "message": "Username must be between 3 and 20 characters"
+  }
+  ```
+
+#### `POST /api/login`
+- **Açıklama:** JWT tabanlı kullanıcı girişi (KV storage + legacy admin support)
+- **Request Body:**
+  ```json
+  {
+    "username": "example_user",
+    "password": "example123"
   }
   ```
 - **Success Response (200):**
   ```json
   {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "user": {
-      "username": "admin",
-      "role": "admin"
+      "username": "example_user",
+      "role": "editor"
     },
-    "expiresIn": 3600
+    "expires_in": 3600,
+    "token_type": "Bearer"
   }
   ```
 - **Error Response (401):**
@@ -140,6 +177,14 @@ Bu dizin, Celal Başaran'ın portföy sitesi için Cloudflare Pages API fonksiyo
 
 ## 🔑 Authentication
 
+### User Account System
+- **Registration:** `/api/register` endpoint'i ile yeni hesap oluşturun
+- **Roles:** `admin` (tam yetki) ve `editor` (sınırlı yetki) rolleri desteklenir
+- **Username Rules:** 3-20 karakter, sadece harf, rakam ve underscore
+- **Password Rules:** Minimum 6 karakter
+- **Password Hashing:** SHA-256 with salt using Web Crypto API
+- **Storage:** Cloudflare KV'de güvenli depolama
+
 ### JWT Token System
 - **Login:** `/api/login` endpoint'i ile kullanıcı adı/şifre ile token çifti alın
 - **Access Token:** API erişimi için kullanılır (1 saat geçerli)
@@ -147,6 +192,7 @@ Bu dizin, Celal Başaran'ın portföy sitesi için Cloudflare Pages API fonksiyo
 - **Usage:** `Authorization: Bearer <access-token>` header'ı ile korumalı endpoint'lere erişin
 - **Auto-refresh:** Access token süresi dolduğunda refresh token ile otomatik yenileme
 - **Session Management:** Refresh token süresi dolduğunda yeniden giriş gerekir
+- **Role-based Access:** JWT token'ında kullanıcı rolü bulunur
 
 ### Legacy API Key (Deprecated)
 - **Note:** API key authentication sistem JWT sistemine dönüştürülmüştür
@@ -169,12 +215,18 @@ API_KEY=your-legacy-api-key-here
 
 ### KV Storage
 
-Cloudflare KV namespace oluşturun ve `wrangler.toml`'da yapılandırın:
+İki Cloudflare KV namespace oluşturun ve `wrangler.toml`'da yapılandırın:
 
 ```toml
+# Project data storage
 [[kv_namespaces]]
 binding = "PORTFOLIO_KV"
-id = "your-kv-namespace-id"
+id = "your-portfolio-kv-namespace-id"
+
+# User account storage
+[[kv_namespaces]]
+binding = "USER_KV"
+id = "your-user-kv-namespace-id"
 ```
 
 ## 📱 iOS App Integration
@@ -231,11 +283,18 @@ Tüm endpoint'ler cross-origin requests'i destekler:
 
 ### Using cURL
 
+#### Register User
+```bash
+curl -X POST https://celal-site.pages.dev/api/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"testpass123","role":"editor"}'
+```
+
 #### Login
 ```bash
 curl -X POST https://celal-site.pages.dev/api/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"admin123"}'
+  -d '{"username":"testuser","password":"testpass123"}'
 ```
 
 #### Get User Profile (Authenticated)
@@ -292,4 +351,4 @@ curl -X DELETE https://celal-site.pages.dev/api/projects/test \
 ---
 
 **Last Updated:** 27 Aralık 2024  
-**Version:** 2.1 (JWT Refresh Token System) 
+**Version:** 2.2 (User Registration & Account System) 

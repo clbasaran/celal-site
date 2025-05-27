@@ -7,6 +7,9 @@
  * @returns JSON response with JWT token or error
  */
 
+// Import user management functions
+import { getUserFromKV, verifyPassword } from './register';
+
 // Cloudflare Pages function types
 declare global {
   interface KVNamespace {
@@ -18,7 +21,8 @@ declare global {
 
 interface Env {
   ASSETS: any;
-  PORTFOLIO_KV?: KVNamespace; // Optional KV storage for user credentials
+  PORTFOLIO_KV?: KVNamespace; // Optional KV storage for project data
+  USER_KV?: KVNamespace; // User account storage
   JWT_SECRET: string; // JWT signing secret
   JWT_REFRESH_SECRET: string; // JWT refresh token secret
 }
@@ -52,8 +56,8 @@ interface LoginErrorResponse {
   message: string;
 }
 
-// Hardcoded admin credentials (for demo - move to KV in production)
-const ADMIN_CREDENTIALS = {
+// Legacy hardcoded admin credentials (for backward compatibility)
+const LEGACY_ADMIN_CREDENTIALS = {
   username: "admin",
   password: "admin123", // In production, use hashed passwords
   role: "admin"
@@ -89,13 +93,13 @@ export async function onRequestPost(context: EventContext<Env>): Promise<Respons
     }
 
     // Validate credentials
-    const isValidCredentials = await validateCredentials(
+    const authResult = await validateCredentials(
       body.username.trim(), 
       body.password.trim(), 
       env
     );
 
-    if (!isValidCredentials) {
+    if (!authResult.isValid || !authResult.user) {
       return new Response(JSON.stringify({
         error: "Authentication Failed",
         message: "Invalid username or password"
@@ -110,14 +114,14 @@ export async function onRequestPost(context: EventContext<Env>): Promise<Respons
 
     // Generate access token (1 hour)
     const accessToken = await generateJWT({
-      username: body.username.trim(),
-      role: ADMIN_CREDENTIALS.role
+      username: authResult.user.username,
+      role: authResult.user.role
     }, env.JWT_SECRET);
 
     // Generate refresh token (7 days)
     const refreshToken = await generateRefreshToken({
-      username: body.username.trim(),
-      role: ADMIN_CREDENTIALS.role
+      username: authResult.user.username,
+      role: authResult.user.role
     }, env.JWT_REFRESH_SECRET);
 
     // Return success response
@@ -125,8 +129,8 @@ export async function onRequestPost(context: EventContext<Env>): Promise<Respons
       access_token: accessToken,
       refresh_token: refreshToken,
       user: {
-        username: body.username.trim(),
-        role: ADMIN_CREDENTIALS.role
+        username: authResult.user.username,
+        role: authResult.user.role
       },
       expires_in: 3600, // 1 hour in seconds
       token_type: "Bearer"
@@ -172,28 +176,49 @@ export async function onRequestOptions(context: EventContext<Env>): Promise<Resp
 // MARK: - Helper Functions
 
 /**
- * Validates user credentials against hardcoded admin or KV storage
+ * Validates user credentials against KV storage or legacy admin credentials
  */
-async function validateCredentials(username: string, password: string, env: Env): Promise<boolean> {
+async function validateCredentials(username: string, password: string, env: Env): Promise<{ isValid: boolean; user?: { username: string; role: string } }> {
   try {
-    // For demo: use hardcoded credentials
-    if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-      return true;
+    const normalizedUsername = username.toLowerCase();
+
+    // First, try to authenticate with USER_KV (new system)
+    if (env.USER_KV) {
+      const storedUser = await getUserFromKV(normalizedUsername, env.USER_KV);
+      if (storedUser) {
+        const isPasswordValid = await verifyPassword(password, storedUser.hashedPassword);
+        if (isPasswordValid) {
+          // Update last login timestamp
+          storedUser.lastLogin = new Date().toISOString();
+          await env.USER_KV.put(`user:${normalizedUsername}`, JSON.stringify(storedUser));
+          
+          return {
+            isValid: true,
+            user: {
+              username: storedUser.username,
+              role: storedUser.role
+            }
+          };
+        }
+      }
     }
 
-    // Future: KV-based user validation
-    // if (env.PORTFOLIO_KV) {
-    //   const storedUser = await env.PORTFOLIO_KV.get(`user:${username}`);
-    //   if (storedUser) {
-    //     const userData = JSON.parse(storedUser);
-    //     return await verifyPassword(password, userData.hashedPassword);
-    //   }
-    // }
+    // Fallback to legacy hardcoded admin credentials (for backward compatibility)
+    if (normalizedUsername === LEGACY_ADMIN_CREDENTIALS.username && password === LEGACY_ADMIN_CREDENTIALS.password) {
+      console.log('⚠️ Using legacy admin credentials - consider migrating to USER_KV');
+      return {
+        isValid: true,
+        user: {
+          username: LEGACY_ADMIN_CREDENTIALS.username,
+          role: LEGACY_ADMIN_CREDENTIALS.role
+        }
+      };
+    }
 
-    return false;
+    return { isValid: false };
   } catch (error) {
     console.error('❌ Credential validation error:', error);
-    return false;
+    return { isValid: false };
   }
 }
 
@@ -291,16 +316,46 @@ function base64UrlEncode(data: string | number[]): string {
 }
 
 /**
- * Future: Password hashing with bcrypt-like functionality
- * For production use, implement proper password hashing
+ * Verify password against stored hash
  */
-// async function hashPassword(password: string): Promise<string> {
-//   // Implementation would use Web Crypto API for password hashing
-//   // Or use a Cloudflare Workers compatible bcrypt alternative
-//   return password; // Placeholder
-// }
+async function verifyPassword(password: string, storedHash: string): Promise<boolean> {
+  try {
+    // Extract salt (first 32 characters) and hash (remaining)
+    const salt = storedHash.substring(0, 32);
+    const hash = storedHash.substring(32);
+    
+    // Hash the provided password with the same salt
+    const saltedPassword = password + salt;
+    const encoder = new TextEncoder();
+    const data = encoder.encode(saltedPassword);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    
+    // Convert hash to hex string
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const newHashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+    
+    // Compare hashes
+    return newHashHex === hash;
+    
+  } catch (error) {
+    console.error('❌ Password verification error:', error);
+    return false;
+  }
+}
 
-// async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {
-//   // Implementation would verify hashed password
-//   return password === hashedPassword; // Placeholder
-// } 
+/**
+ * Get user from KV storage
+ */
+async function getUserFromKV(username: string, userKV: KVNamespace): Promise<any> {
+  try {
+    const userData = await userKV.get(`user:${username.toLowerCase()}`);
+    if (!userData) {
+      return null;
+    }
+    
+    return JSON.parse(userData);
+  } catch (error) {
+    console.error('❌ Error fetching user from KV:', error);
+    return null;
+  }
+} 
