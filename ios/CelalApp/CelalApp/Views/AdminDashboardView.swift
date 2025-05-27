@@ -16,6 +16,8 @@ struct AdminDashboardView: View {
     @State private var showingAddProject = false
     @State private var showingProjectList = false
     @State private var showingUserRegistration = false
+    @State private var showingUserManagement = false
+    @State private var showingAnalytics = false
     @State private var isLoggingIn = false
     
     var body: some View {
@@ -197,12 +199,32 @@ struct AdminDashboardView: View {
                         
                         // Admin-only features
                         if authManager.currentRole == "admin" {
-                            Button(action: { showingUserRegistration = true }) {
+                            Button(action: { showingUserManagement = true }) {
                                 AdminMenuItem(
                                     title: "👥 Kullanıcı Yönetimi",
+                                    subtitle: "Kullanıcıları görüntüle ve düzenle",
+                                    icon: "person.3.fill",
+                                    color: .indigo
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            
+                            Button(action: { showingUserRegistration = true }) {
+                                AdminMenuItem(
+                                    title: "➕ Kullanıcı Kayıt",
                                     subtitle: "Yeni kullanıcı hesapları oluştur",
                                     icon: "person.badge.plus",
-                                    color: .indigo
+                                    color: .mint
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            
+                            Button(action: { showingAnalytics = true }) {
+                                AdminMenuItem(
+                                    title: "📊 Analitik Paneli",
+                                    subtitle: "İstatistikler ve kullanıcı aktivitesi",
+                                    icon: "chart.line.uptrend.xyaxis",
+                                    color: .cyan
                                 )
                             }
                             .buttonStyle(.plain)
@@ -262,6 +284,12 @@ struct AdminDashboardView: View {
         }
         .sheet(isPresented: $showingUserRegistration) {
             UserRegistrationView()
+        }
+        .sheet(isPresented: $showingUserManagement) {
+            UserManagementPanel()
+        }
+        .sheet(isPresented: $showingAnalytics) {
+            AdminAnalyticsPanel()
         }
     }
     
@@ -421,33 +449,6 @@ struct AdminDashboardView: View {
 }
 
 // MARK: - Supporting Views
-struct StatCard: View {
-    let title: String
-    let value: String
-    let icon: String
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Image(systemName: icon)
-                    .foregroundColor(color)
-                Spacer()
-                Text(value)
-                    .font(.system(.title2, design: .default, weight: .bold))
-            }
-            
-            HStack {
-                Text(title)
-                    .font(.system(.caption, design: .default, weight: .medium))
-                    .foregroundColor(.secondary)
-                Spacer()
-            }
-        }
-        .padding(16)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
-    }
-}
 
 struct AdminMenuItem: View {
     let title: String

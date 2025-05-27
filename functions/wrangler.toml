@@ -15,14 +15,16 @@ preview_id = "your-user-preview-kv-namespace-id"
 vars = { 
   API_KEY = "your-production-api-key",  # Legacy - for backward compatibility
   JWT_SECRET = "your-production-jwt-secret",  # Strong, random string for JWT access token signing
-  JWT_REFRESH_SECRET = "your-production-jwt-refresh-secret"  # Different secret for refresh tokens
+  JWT_REFRESH_SECRET = "your-production-jwt-refresh-secret",  # Different secret for refresh tokens
+  RESEND_API_KEY = "your-production-resend-api-key"  # Resend email service API key
 }
 
 [env.preview]
 vars = { 
   API_KEY = "your-preview-api-key",  # Legacy - for backward compatibility
   JWT_SECRET = "your-preview-jwt-secret",  # Strong, random string for JWT access token signing
-  JWT_REFRESH_SECRET = "your-preview-jwt-refresh-secret"  # Different secret for refresh tokens
+  JWT_REFRESH_SECRET = "your-preview-jwt-refresh-secret",  # Different secret for refresh tokens
+  RESEND_API_KEY = "your-preview-resend-api-key"  # Resend email service API key
 }
 
 # Build configuration

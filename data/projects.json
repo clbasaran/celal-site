@@ -1,62 +1,62 @@
 [
-  {
+{
     "id": "project-001",
-    "title": "Portfolio Website",
-    "description": "Modern ve responsive kişisel portfolio websitesi",
+      "title": "Portfolio Website",
+      "description": "Modern ve responsive kişisel portfolio websitesi",
     "status": "Tamamlandı",
     "tech": ["HTML", "CSS", "JavaScript"],
-    "featured": true,
+      "featured": true,
     "github": "https://github.com/celalbasaran/portfolio",
     "live": "https://celalbasaran.dev"
-  },
-  {
+    },
+    {
     "id": "project-002", 
-    "title": "Task Management App",
-    "description": "React tabanlı görev yönetim uygulaması",
+      "title": "Task Management App",
+      "description": "React tabanlı görev yönetim uygulaması",
     "status": "Devam Ediyor",
     "tech": ["React", "Node.js", "MongoDB"],
-    "featured": false,
+      "featured": false,
     "github": "https://github.com/celalbasaran/task-app",
     "live": ""
-  },
-  {
+    },
+    {
     "id": "project-003",
-    "title": "Öğrenci Bütçe Takip",
-    "description": "Üniversite öğrencileri için geliştirilmiş basit ve kullanışlı bütçe takip uygulaması. Harcamaları kategorilere ayırır ve aylık limitleri takip eder.",
+      "title": "Öğrenci Bütçe Takip",
+      "description": "Üniversite öğrencileri için geliştirilmiş basit ve kullanışlı bütçe takip uygulaması. Harcamaları kategorilere ayırır ve aylık limitleri takip eder.",
     "status": "Tamamlandı",
     "tech": ["SwiftUI", "Core Data", "Charts"],
-    "featured": true,
+      "featured": true,
     "github": "https://github.com/celalbasaran/student-budget",
     "live": ""
-  },
-  {
+    },
+    {
     "id": "project-004",
-    "title": "StudyBeats",
-    "description": "Odaklanma müzikleri ve pomodoro tekniği birleştiren çalışma uygulaması. Öğrenciler için özel hazırlanmış müzik listeleri ve verimlilik takibi.",
+      "title": "StudyBeats",
+      "description": "Odaklanma müzikleri ve pomodoro tekniği birleştiren çalışma uygulaması. Öğrenciler için özel hazırlanmış müzik listeleri ve verimlilik takibi.",
     "status": "Tamamlandı", 
     "tech": ["SwiftUI", "AVFoundation", "UserNotifications"],
-    "featured": true,
+      "featured": true,
     "github": "https://github.com/celalbasaran/study-beats",
     "live": ""
-  },
-  {
+    },
+    {
     "id": "project-005",
-    "title": "Kampüs Rehberi", 
-    "description": "Üniversite öğrencileri için geliştirilen kampüs navigasyon uygulaması. Sınıf programları, etkinlik takibi ve kampüs haritası özellikli.",
+      "title": "Kampüs Rehberi",
+      "description": "Üniversite öğrencileri için geliştirilen kampüs navigasyon uygulaması. Sınıf programları, etkinlik takibi ve kampüs haritası özellikli.",
     "status": "Devam Ediyor",
     "tech": ["SwiftUI", "MapKit", "CoreLocation", "EventKit"],
-    "featured": true,
+      "featured": true,
     "github": "https://github.com/celalbasaran/campus-guide",
     "live": ""
-  },
-  {
+    },
+    {
     "id": "project-006",
-    "title": "Swift Learning Lab",
-    "description": "Swift öğrenmek isteyenler için interaktif kod örnekleri ve alıştırmalar içeren eğitim uygulaması. Temel syntax'tan ileri konulara kadar.",
+      "title": "Swift Learning Lab",
+      "description": "Swift öğrenmek isteyenler için interaktif kod örnekleri ve alıştırmalar içeren eğitim uygulaması. Temel syntax'tan ileri konulara kadar.",
     "status": "Tamamlandı",
     "tech": ["SwiftUI", "Playground", "CoreAnimation"],
-    "featured": true,
+      "featured": true,
     "github": "https://github.com/celalbasaran/swift-learning-lab",
     "live": ""
-  }
-] 
+    }
+  ]

@@ -350,5 +350,34 @@ curl -X DELETE https://celal-site.pages.dev/api/projects/test \
 
 ---
 
+#### `POST /api/send-welcome-email`
+- **Açıklama:** Yeni kullanıcılara hoş geldin maili gönderir
+- **Request Body:**
+  ```json
+  {
+    "username": "example_user",
+    "email": "user@example.com",
+    "role": "editor"
+  }
+  ```
+- **Success Response (200):**
+  ```json
+  {
+    "message": "Welcome email sent successfully",
+    "emailId": "email-uuid",
+    "recipient": "user@example.com",
+    "username": "example_user"
+  }
+  ```
+
+### 📧 Email System
+- **Service:** Resend API integration
+- **Features:** Role-based welcome emails with beautiful HTML templates
+- **Automation:** Automatic email sending after user registration
+- **Templates:** Modern responsive design with admin/editor specific content
+- **Security:** Email validation and API key protection
+
+---
+
 **Last Updated:** 27 Aralık 2024  
-**Version:** 2.2 (User Registration & Account System) 
+**Version:** 2.3 (Email Integration & Complete System) 

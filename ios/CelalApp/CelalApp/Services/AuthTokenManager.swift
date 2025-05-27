@@ -347,10 +347,10 @@ struct RefreshTokenResponse: Codable {
 
 struct UserRegistrationResponse: Codable {
     let message: String
-    let user: RegisteredUser
+    let user: UserRegistrationUser
 }
 
-struct RegisteredUser: Codable {
+struct UserRegistrationUser: Codable {
     let username: String
     let role: String
 }

@@ -24,6 +24,7 @@ interface Env {
   USER_KV: KVNamespace; // User account storage
   JWT_SECRET: string;
   JWT_REFRESH_SECRET: string;
+  RESEND_API_KEY?: string; // Email service API key
 }
 
 interface EventContext<Env = any> {
@@ -37,6 +38,7 @@ interface EventContext<Env = any> {
 interface RegisterRequest {
   username: string;
   password: string;
+  email?: string; // Optional email for welcome emails
   role?: 'admin' | 'editor'; // Optional, defaults to 'editor'
 }
 
@@ -183,6 +185,9 @@ export async function onRequestPost(context: EventContext<Env>): Promise<Respons
     // Store user in KV
     await env.USER_KV.put(`user:${username}`, JSON.stringify(newUser));
 
+    // Send welcome email (non-blocking)
+    sendWelcomeEmail(username, body.email || `${username}@example.com`, userRole, env);
+
     // Prepare response (don't include sensitive data)
     const response: RegisterResponse = {
       message: "User registered successfully",
@@ -309,5 +314,52 @@ export async function getUserFromKV(username: string, userKV: KVNamespace): Prom
   } catch (error) {
     console.error('❌ Error fetching user from KV:', error);
     return null;
+  }
+}
+
+/**
+ * Send welcome email (non-blocking)
+ */
+async function sendWelcomeEmail(username: string, email: string, role: string, env: Env): Promise<void> {
+  // Don't block registration if email fails
+  try {
+    if (!env.RESEND_API_KEY) {
+      console.warn('⚠️ RESEND_API_KEY not configured, skipping welcome email');
+      return;
+    }
+
+    // Call the welcome email API
+    const welcomeEmailData = {
+      username,
+      email,
+      role
+    };
+
+    // This could be a fetch to /api/send-welcome-email or direct Resend API call
+    // For simplicity, we'll make a minimal call here
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Celal Başaran Portfolio <noreply@celalbasaran.com>',
+        to: [email],
+        subject: `Hoş Geldin ${username}! 🎉`,
+        text: `Merhaba ${username}, Celal Başaran Portfolio sistemine başarıyla kaydoldun! Role: ${role}`
+      })
+    }).then(response => {
+      if (response.ok) {
+        console.log(`📧 Welcome email sent to ${email}`);
+      } else {
+        console.error('❌ Failed to send welcome email:', response.statusText);
+      }
+    }).catch(error => {
+      console.error('❌ Welcome email error:', error);
+    });
+
+  } catch (error) {
+    console.error('❌ Welcome email error:', error);
   }
 } 
