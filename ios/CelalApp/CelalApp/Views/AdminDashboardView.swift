@@ -141,6 +141,16 @@ struct AdminDashboardView: View {
                         }
                         .buttonStyle(.plain)
                         
+                        Button(action: { testUserProfile() }) {
+                            AdminMenuItem(
+                                title: "👤 Profil Kontrol",
+                                subtitle: "JWT token ile kullanıcı bilgilerini test et",
+                                icon: "person.crop.circle.badge.checkmark",
+                                color: .teal
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        
                         Button(action: { showingProjectList = true }) {
                             AdminMenuItem(
                                 title: "Proje Yönetimi",
@@ -299,6 +309,62 @@ struct AdminDashboardView: View {
             isAuthenticated = true
         }
     }
+    
+    private func testUserProfile() {
+        Task {
+            await performUserProfileTest()
+        }
+    }
+    
+    @MainActor
+    private func performUserProfileTest() async {
+        guard !jwtToken.isEmpty else {
+            print("❌ No JWT token available for testing")
+            return
+        }
+        
+        do {
+            // Prepare request to /api/me endpoint
+            guard let url = URL(string: "https://celal-site.pages.dev/api/me") else {
+                print("❌ Invalid URL for /api/me")
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("Bearer \(jwtToken)", forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200:
+                    // Parse user profile response
+                    let userProfile = try JSONDecoder().decode(UserProfile.self, from: data)
+                    print("✅ User Profile Test Successful:")
+                    print("   Username: \(userProfile.username)")
+                    print("   Role: \(userProfile.role)")
+                    if let iat = userProfile.iat {
+                        print("   Token Issued: \(Date(timeIntervalSince1970: TimeInterval(iat)))")
+                    }
+                    if let exp = userProfile.exp {
+                        print("   Token Expires: \(Date(timeIntervalSince1970: TimeInterval(exp)))")
+                    }
+                    
+                case 401:
+                    print("❌ User Profile Test Failed: Unauthorized")
+                    print("   Token might be expired or invalid")
+                    
+                default:
+                    print("❌ User Profile Test Failed with status: \(httpResponse.statusCode)")
+                }
+            }
+            
+        } catch {
+            print("❌ User Profile Test Error: \(error)")
+        }
+    }
 }
 
 // MARK: - Supporting Views
@@ -392,6 +458,13 @@ struct LoginResponse: Codable {
 struct UserInfo: Codable {
     let username: String
     let role: String
+}
+
+struct UserProfile: Codable {
+    let username: String
+    let role: String
+    let iat: Int?  // Token issued at
+    let exp: Int?  // Token expires at
 }
 
 #Preview("Login") {

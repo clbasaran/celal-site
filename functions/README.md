@@ -34,6 +34,26 @@ Bu dizin, Celal Başaran'ın portföy sitesi için Cloudflare Pages API fonksiyo
   }
   ```
 
+#### `GET /api/me`
+- **Açıklama:** Authenticated kullanıcının profil bilgilerini döndürür
+- **Auth:** JWT token gerekli (`Authorization: Bearer <token>`)
+- **Success Response (200):**
+  ```json
+  {
+    "username": "admin",
+    "role": "admin",
+    "iat": 1703721600,
+    "exp": 1703725200
+  }
+  ```
+- **Error Response (401):**
+  ```json
+  {
+    "error": "Unauthorized",
+    "message": "Authentication required"
+  }
+  ```
+
 ### 📋 Projects Endpoints
 
 #### `GET /api/projects`
@@ -182,6 +202,12 @@ Tüm endpoint'ler cross-origin requests'i destekler:
 curl -X POST https://celal-site.pages.dev/api/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"admin123"}'
+```
+
+#### Get User Profile (Authenticated)
+```bash
+curl https://celal-site.pages.dev/api/me \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
 #### Get Projects (Public)
