@@ -1,154 +1,189 @@
-# Celal Başaran - Personal Portfolio
+# Celal Başaran - Portfolio Website & iOS App
 
-Bu benim kişisel portföy web sitesi. Muğla Sıtkı Koçman Üniversitesi öğrencisiyim ve bu site gerçek projelerimi, gerçek ilerleme durumumu ve gerçek yolculuğumu yansıtıyor. Apple Design Language V6 ile tasarlandı, tam erişilebilir (WCAG 2.1 AA) ve dürüst, yüksek kaliteli olmak üzere tasarlandı.
+Modern portfolio website with synchronized iOS application showcasing projects, skills, and blog content.
 
-## 🎨 Özellikler
+## 🚀 Project Overview
 
-### Design System
-- **Apple Design Language V6** tam uyumluluğu
-- **SF Pro Font Stack** sistemi
-- **8pt Grid System** ile tutarlı spacing
-- **Semantic renkler** ve design tokens
-- **Neumorphism** ilhamlı gölge sistemi
+This project consists of two synchronized parts:
+- **Web Portfolio**: Modern, responsive website with Apple Design Language V6
+- **iOS App**: Native SwiftUI application with real-time data synchronization
 
-### Tema Sistemi
-- **Dinamik tema** (auto/light/dark)
-- **System preference** otomatik algılama
-- **Smooth transitions** tema geçişlerinde
-- **Meta theme-color** mobil tarayıcılar için
+## 📱 iOS Application Features
 
-### Erişilebilirlik (WCAG 2.1 AA)
-- **Semantic HTML** yapısı
-- **ARIA labels** ve roller
-- **Keyboard navigation** tam desteği
-- **Screen reader** optimizasyonu
-- **Focus management** gelişmiş sistem
-- **Reduced motion** kullanıcı tercihine saygı
+### ✅ Completed Features
+- **Home View**: Complete design sync with web version
+  - Hero section with live statistics
+  - Projects carousel with JSON data
+  - Skills categories with progress indicators
+  - Blog preview section
+  - About section with modern cards
+- **Admin Dashboard**: Authentication & management interface
+- **JSON Data Sync**: Real-time synchronization with web data
+- **Apple Design Language V6**: Native iOS design patterns
 
-### Performans
-- **ES6 Modules** modüler yapı
-- **Progressive enhancement**
-- **Intersection Observer** animasyonlar için
-- **Lazy loading** hazır yapı
-- **Web Vitals** monitoring
-
-### Responsive Design
-- **Mobile-first** yaklaşım
-- **Fluid typography** and spacing
-- **Container queries** hazır (desteklendiğinde)
-- **Touch-friendly** etkileşimler
-
-## 📁 Proje Yapısı
-
+### 🏗️ Architecture
 ```
-celal-site/
-├── index.html                   # Ana sayfa - semantic HTML5
-├── README.md                   # Bu dosya
-├── .gitignore                  # Git ignore kuralları
-├── assets/
-│   ├── css/
-│   │   ├── main.css           # Ana CSS - Design System
-│   │   ├── themes.css         # Tema sistemi
-│   │   ├── components/        # Bileşen CSS'leri (gelecek)
-│   │   ├── themes/           # Tema varyasyonları (gelecek)
-│   │   └── utilities/        # Utility CSS'ler (gelecek)
-│   ├── js/
-│   │   ├── app.js            # Ana JavaScript - ES6 modules
-│   │   ├── components/       # UI bileşenleri (gelecek)
-│   │   └── modules/          # Fonksiyon modülleri (gelecek)
-│   ├── images/
-│   │   ├── icons/           # SVG iconlar (gelecek)
-│   │   └── photos/          # Fotoğraflar (gelecek)
-│   └── fonts/               # Custom fontlar (gelecek)
-├── data/                    # JSON içerik dosyaları (gelecek)
-├── admin/                   # Admin panel (gelecek)
-├── pwa/                     # PWA manifest & SW (gelecek)
-├── docs/                    # Belgelendirme (gelecek)
-└── public/                  # Static assets (gelecek)
+ios/CelalApp/CelalApp/
+├── Models/
+│   ├── ProjectModel.swift       # Project data structure
+│   └── SkillModel.swift         # Skills data structure
+├── Services/
+│   └── DataLoaderService.swift  # JSON data management
+├── Views/
+│   ├── HomeView.swift          # Main portfolio view
+│   ├── AdminDashboardView.swift # Admin management
+│   └── MainTabView.swift       # Tab navigation
+├── Resources/
+│   ├── projects.json           # Projects data
+│   └── skills.json             # Skills data
+└── CelalAppApp.swift           # App entry point
 ```
 
-## 🚀 Teknoloji Stack
+## 🌐 Web Portfolio Features
 
-### Frontend
-- **Vanilla JavaScript** (ES6+ modules)
-- **CSS Custom Properties** (CSS Variables)
-- **HTML5 Semantic** markup
-- **Progressive Web App** hazır yapı
+### ✅ Completed Features
+- **Brand Design System**: Comprehensive CSS design system
+- **Apple Design Language V6**: Modern, clean interface
+- **Component Library**: Reusable UI components
+- **Dark/Light Mode**: Automatic theme switching
+- **Responsive Design**: Mobile-first approach
+- **JSON Data Management**: Structured content system
 
-### Design & UX
-- **Apple Design Language V6**
-- **Human Interface Guidelines** uyumlu
-- **Material Design** accessibility principles
-- **WCAG 2.1 AA** compliant
+### 📁 Web Structure
+```
+assets/
+├── style/
+│   ├── brand-style.css         # Design system
+│   └── brand-style-guide.html  # Interactive guide
+└── data/
+    ├── projects.json           # Projects database
+    └── skills.json             # Skills database
+```
 
-### Performance & SEO
-- **Lighthouse** optimized
-- **Core Web Vitals** ready
-- **Semantic markup** for SEO
-- **Meta tags** comprehensive
+## 🔧 Technical Stack
 
-## 🎯 Development Status
+### iOS Application
+- **Framework**: SwiftUI
+- **Architecture**: MVVM + ObservableObject
+- **Data**: JSON + Bundle Resources
+- **UI**: Apple Design Language V6
+- **Deployment**: iOS 18.1+
 
-- ✅ **Project Setup** - Complete
-- ✅ **Design System** - Core complete
-- ✅ **Theme System** - Complete
-- ✅ **Accessibility** - Core complete
-- ✅ **Responsive Layout** - Complete
-- 🚧 **Content Management** - In progress
-- ⏳ **Admin Panel** - Planned
-- ⏳ **PWA Features** - Planned
-- ⏳ **Animation System** - Planned
+### Web Portfolio
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Design System**: Custom CSS with Apple Design principles
+- **Data**: JSON-based content management
+- **Deployment**: Static hosting ready
 
-**Progress: %25 completed**
+## 🚀 Getting Started
 
-## 🔧 Development
-
-### Local Development
+### iOS Development
 ```bash
-# Klonla
-git clone https://github.com/clbasaran/celal-site.git
-cd celal-site
+# Open Xcode project
+cd ios/CelalApp
+open CelalApp.xcodeproj
 
-# Basit HTTP server başlat (Python 3)
-python -m http.server 8000
-
-# Veya Node.js ile
-npx serve .
-
-# Tarayıcıda aç: http://localhost:8000
+# Build and run
+xcodebuild -scheme CelalApp -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
-### Code Style
-- **2 spaces** indentation
-- **Semantic** naming
-- **BEM methodology** for CSS
-- **JSDoc** comments for functions
-- **Turkish** comments and content
+### Web Development
+```bash
+# Start local server
+python3 -m http.server 8080
+# or
+live-server
 
-## 📱 Browser Support
+# Open browser
+open http://localhost:8080
+```
 
-- **Chrome** 90+
-- **Firefox** 88+
-- **Safari** 14+
-- **Edge** 90+
-- **Mobile Safari** iOS 14+
-- **Chrome Mobile** Android 90+
+## 📊 Data Synchronization
 
-## ♿ Accessibility Features
+The iOS app automatically synchronizes with web data through:
 
-- **Semantic HTML5** elements
-- **ARIA landmarks** and labels
-- **Color contrast** WCAG AA compliant
-- **Keyboard navigation** full support
-- **Screen reader** announcements
-- **Focus indicators** visible
-- **Skip links** for main content
-- **Reduced motion** respect
+1. **Bundle Resources**: JSON files copied to iOS project
+2. **DataLoaderService**: Centralized data management
+3. **Model Classes**: Type-safe data structures
+4. **Future Ready**: Prepared for web API integration
+
+### JSON Structure
+```json
+// projects.json
+[
+  {
+    "id": "project-001",
+    "title": "Project Title",
+    "description": "Project description",
+    "status": "Tamamlandı",
+    "tech": ["SwiftUI", "Core Data"],
+    "featured": true,
+    "github": "https://github.com/...",
+    "live": "https://example.com"
+  }
+]
+
+// skills.json
+{
+  "skills": {
+    "categories": [
+      {
+        "id": "programming-languages",
+        "title": "Programlama Dilleri",
+        "skills": [
+          {
+            "name": "Swift",
+            "level": "advanced",
+            "years": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## 🎨 Design System
+
+Both web and iOS follow Apple Design Language V6 principles:
+
+- **Typography**: SF Pro font family
+- **Colors**: Apple Noir (#1d1d1f) + System colors
+- **Spacing**: 8pt grid system
+- **Components**: Modern, accessible UI elements
+- **Motion**: Smooth, purposeful animations
+
+## 📱 Demo Credentials
+
+### iOS Admin Panel
+- **Username**: admin
+- **Password**: admin123
+
+## 🔮 Future Enhancements
+
+- [ ] Real-time web API synchronization
+- [ ] Push notifications for content updates
+- [ ] iPad optimized layouts
+- [ ] Apple Watch companion app
+- [ ] Core Data persistence
+- [ ] CloudKit synchronization
+
+## 🛠️ Development Status
+
+| Feature | Web | iOS | Status |
+|---------|-----|-----|--------|
+| Portfolio Design | ✅ | ✅ | Complete |
+| Data Management | ✅ | ✅ | Complete |
+| Admin Panel | ✅ | ✅ | Complete |
+| JSON Sync | ✅ | ✅ | Complete |
+| Responsive Design | ✅ | ✅ | Complete |
+| Dark Mode | ✅ | ✅ | Complete |
 
 ## 📄 License
 
-© 2024 Celal Başaran. All rights reserved.
+MIT License - feel free to use this project as reference for your own portfolio.
 
 ---
 
-**Not**: Bu site gerçek bir öğrenci portföyüdür. Sahte projeler veya abartılı başarılar içermez. Sadece gerçek deneyimler ve projeler paylaşılır.
+**Celal Başaran** - iOS Developer & Computer Engineering Student  
+📧 celal@example.com | 🌐 [Portfolio](https://celalbasaran.dev) | 📱 iOS App
