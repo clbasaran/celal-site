@@ -222,4 +222,47 @@
 						}
 					});
 				}
+			}
+
+			// Receipts endpoints for admin panel
+			if (pathname === '/api/receipts') {
+				if (request.method === 'GET') {
+					const receipts = await env.DB.prepare(`
+						SELECT r.*, c.name as customer_name
+						FROM receipt_records r
+						LEFT JOIN customers c ON r.customer_id = c.id
+						ORDER BY r.printed_at DESC
+						LIMIT 50
+					`).all();
+					
+					return new Response(JSON.stringify(receipts.results), {
+						headers: {
+							'Content-Type': 'application/json',
+							...corsHeaders
+						}
+					});
+				}
+			}
+
+			// Customer specific receipts
+			if (pathname.match(/^\/api\/receipts\/customer\/(\d+)$/)) {
+				const customerId = pathname.split('/').pop();
+				
+				if (request.method === 'GET') {
+					const receipts = await env.DB.prepare(`
+						SELECT r.*, c.name as customer_name
+						FROM receipt_records r
+						LEFT JOIN customers c ON r.customer_id = c.id
+						WHERE r.customer_id = ?
+						ORDER BY r.printed_at DESC
+						LIMIT 50
+					`).bind(customerId).all();
+					
+					return new Response(JSON.stringify(receipts.results), {
+						headers: {
+							'Content-Type': 'application/json',
+							...corsHeaders
+						}
+					});
+				}
 			} 
