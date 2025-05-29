@@ -6,18 +6,18 @@
 .env.production.local
 
 # Backup files
-backups/
+# backups/  # Backend verilerini Railway'e aktarmak için geçici olarak aktif
 *.backup
 *.bak
 
 # Log files
-logs/
+# logs/     # Backend verilerini Railway'e aktarmak için geçici olarak aktif
 *.log
 npm-debug.log*
 
 # Database files
-*.sqlite
-*.db
+# *.sqlite  # Backend verilerini Railway'e aktarmak için geçici olarak aktif
+# *.db      # Backend verilerini Railway'e aktarmak için geçici olarak aktif
 
 # Node modules
 node_modules/
