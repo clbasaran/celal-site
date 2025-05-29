@@ -76,7 +76,7 @@ temp/
 
 # Build directories (if using build tools)
 dist/
-build/
+# build/  # Build klasörünü public/emanettakip için dahil ediyoruz
 
 # Cache directories
 .cache/
