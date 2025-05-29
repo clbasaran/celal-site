@@ -1,57 +1,57 @@
 {
-  "name": "emanet-takip-backend",
+  "name": "emanet-takip",
   "version": "1.0.0",
-  "description": "Backend API for Emanet Takip sistemi",
-  "main": "server.js",
-  "engines": {
-    "node": ">=18.0.0"
-  },
+  "description": "Yerel tarım malzemeleri işletmesi için müşteri borç ve teslimat takip sistemi",
+  "main": "index.js",
   "scripts": {
     "// === DEVELOPMENT SCRIPTS === //": "",
-    "dev": "nodemon server.js",
-    "// Development modunda server'ı çalıştırır (otomatik restart ile)": "",
-    "// === PRODUCTION SCRIPTS === //": "",
-    "start": "node server.js",
-    "// Production modunda server'ı çalıştırır": "",
+    "dev": "concurrently \"npm run backend:dev\" \"npm run frontend:dev\"",
+    "// Hem backend (port 3001) hem frontend (port 3000) development serverlarını paralel çalıştırır": "",
+    
+    "backend:dev": "cd backend && npm run dev",
+    "// Sadece backend development server'ını çalıştırır (nodemon ile auto-reload)": "",
+    
+    "frontend:dev": "cd frontend && npm run dev", 
+    "// Sadece frontend development server'ını çalıştırır (React dev server)": "",
+
+    "// === INSTALLATION SCRIPTS === //": "",
+    "install:all": "npm install && npm run backend:install && npm run frontend:install",
+    "// Root, backend ve frontend klasörlerindeki tüm bağımlılıkları sırasıyla yükler": "",
+    
+    "backend:install": "cd backend && npm install",
+    "// Sadece backend bağımlılıklarını yükler": "",
+    
+    "frontend:install": "cd frontend && npm install",
+    "// Sadece frontend bağımlılıklarını yükler": "",
+
     "// === DATABASE SCRIPTS === //": "",
-    "init-db": "node db/init.js",
-    "// SQLite veritabanını başlatır, tabloları oluşturur ve örnek verileri ekler": "",
+    "init-db": "cd backend && npm run init-db",
+    "// SQLite veritabanını başlatır, tabloları oluşturur ve örnek veri ekler": "",
+
+    "// === PRODUCTION SCRIPTS === //": "",
+    "build": "cd frontend && npm run build",
+    "// Frontend'i production için build eder (optimized static files)": "",
+    
+    "start": "cd backend && npm start",
+    "// Production server'ını başlatır (backend)": "",
+
     "// === UTILITY SCRIPTS === //": "",
-    "test": "echo \"Backend testleri henüz eklenmedi\" && exit 0",
-    "// Test script'i (gelecekte test framework eklenecek)": "",
-    "db:reset": "rm -f db/database.sqlite && npm run init-db",
-    "// Veritabanını sıfırlar ve yeniden oluşturur": "",
-    "logs": "tail -f logs/app.log",
-    "// Uygulama loglarını canlı olarak takip eder (log dosyası varsa)": ""
+    "clean": "npm run clean:backend && npm run clean:frontend",
+    "// Tüm node_modules ve build dosyalarını temizler": "",
+    
+    "clean:backend": "cd backend && rm -rf node_modules package-lock.json",
+    "// Backend node_modules ve lock dosyalarını temizler": "",
+    
+    "clean:frontend": "cd frontend && rm -rf node_modules package-lock.json build",
+    "// Frontend node_modules, lock ve build dosyalarını temizler": "",
+
+    "reset": "npm run clean && npm run install:all",
+    "// Projeyi sıfırlar: tüm dosyaları temizler ve yeniden yükler": ""
   },
-  "dependencies": {
-    "archiver": "^7.0.1",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^4.18.2",
-    "express-rate-limit": "^7.1.5",
-    "express-validator": "^7.0.1",
-    "fs-extra": "^11.3.0",
-    "googleapis": "^149.0.0",
-    "helmet": "^7.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.0",
-    "node-cron": "^4.0.7",
-    "nodemailer": "^7.0.3",
-    "puppeteer": "^21.5.2",
-    "sqlite3": "^5.1.6"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
-  },
-  "keywords": [
-    "api",
-    "express",
-    "sqlite",
-    "emanet",
-    "takip"
-  ],
+  "keywords": ["tarım", "borç-takip", "müşteri", "teslimat", "emanet"],
   "author": "Celal Başaran",
-  "license": "ISC"
-}
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+} 
