@@ -54,3 +54,36 @@ https://your-app.railway.app/api
 ### Fly.io:
 - Docker-based deployment
 - Persistent volumes destekler 
+
+# Railway Deployment Guide
+
+Bu dosya Emanet Takip backend'inin Railway'e deploy edilmesi için hazırlanmıştır.
+
+## Deployment Status
+- ✅ Railway.json yapılandırıldı
+- ✅ Nixpacks.toml oluşturuldu
+- ✅ Veritabanı dosyaları git'e dahil edildi
+- ✅ Backend kodları hazırlandı
+- 🔄 CLI Deployment tetikleyici: 2025-05-29 18:15
+
+## Build Komutları
+```bash
+npm install
+node server.js
+```
+
+## Environment Variables
+Gerekli env dosyaları server.js içinde default değerlerle ayarlanmıştır.
+
+## Database
+- emanet_takip.db (Ana veritabanı)
+- database.sqlite (Yedek veritabanı)
+
+## Railway URL
+https://celal-site-production.up.railway.app
+
+## Frontend Connection
+Frontend API URL: https://celal-site-production.up.railway.app/api
+
+---
+Last updated: 2025-05-29 
