@@ -15,34 +15,11 @@ struct UserRegistrationView: View {
     @State private var username = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    @State private var selectedRole: UserRole = .editor
+    @State private var selectedRole: User.UserRole = .editor
     @State private var isRegistering = false
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var registrationSuccess = false
-    
-    enum UserRole: String, CaseIterable {
-        case editor = "editor"
-        case admin = "admin"
-        
-        var displayName: String {
-            switch self {
-            case .editor:
-                return "Editor"
-            case .admin:
-                return "Admin"
-            }
-        }
-        
-        var description: String {
-            switch self {
-            case .editor:
-                return "Proje ve blog yönetimi"
-            case .admin:
-                return "Tam yetki (sadece belirli kullanıcılar)"
-            }
-        }
-    }
     
     var body: some View {
         NavigationView {
@@ -132,7 +109,7 @@ struct UserRegistrationView: View {
                                 .foregroundColor(.primary)
                             
                             VStack(spacing: 8) {
-                                ForEach(UserRole.allCases, id: \.self) { role in
+                                ForEach(User.UserRole.allCases, id: \.self) { role in
                                     RoleSelectionCard(
                                         role: role,
                                         isSelected: selectedRole == role,
@@ -278,9 +255,18 @@ struct UserRegistrationView: View {
 // MARK: - Supporting Views
 
 struct RoleSelectionCard: View {
-    let role: UserRegistrationView.UserRole
+    let role: User.UserRole
     let isSelected: Bool
     let onTap: () -> Void
+    
+    private var roleDescription: String {
+        switch role {
+        case .editor:
+            return "Proje ve blog yönetimi"
+        case .admin:
+            return "Tam yetki (sadece belirli kullanıcılar)"
+        }
+    }
     
     var body: some View {
         Button(action: onTap) {
@@ -295,7 +281,7 @@ struct RoleSelectionCard: View {
                         .font(.system(.callout, design: .default, weight: .semibold))
                         .foregroundColor(.primary)
                     
-                    Text(role.description)
+                    Text(roleDescription)
                         .font(.system(.caption, design: .default, weight: .regular))
                         .foregroundColor(.secondary)
                 }

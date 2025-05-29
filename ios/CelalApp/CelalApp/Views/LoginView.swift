@@ -20,8 +20,6 @@ struct LoginView: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var showingRegistration = false
-    @State private var navigateToAdmin = false
-    @State private var navigateToUserHome = false
     
     // Validation states
     @State private var emailError: String?
@@ -75,13 +73,6 @@ struct LoginView: View {
         }
         .onChange(of: password) {
             validatePassword()
-        }
-        // Navigation destinations
-        .navigationDestination(isPresented: $navigateToAdmin) {
-            AdminDashboardView()
-        }
-        .navigationDestination(isPresented: $navigateToUserHome) {
-            UserHomeView()
         }
     }
     
@@ -380,19 +371,13 @@ struct LoginView: View {
         isLoggingIn = false
     }
     
-    private func handleSuccessfulLogin(role: UserRole) {
+    private func handleSuccessfulLogin(role: User.UserRole) {
+        // Session set edildiğinde RootView otomatik olarak doğru view'i gösterecek
+        // Form'u temizle
         withAnimation(.easeInOut(duration: 0.3)) {
-            switch role {
-            case .admin:
-                navigateToAdmin = true
-            case .editor:
-                navigateToUserHome = true
-            }
+            email = ""
+            password = ""
         }
-        
-        // Clear form
-        email = ""
-        password = ""
     }
     
     private func handleLoginError(_ error: LoginError) {
@@ -455,20 +440,6 @@ struct CustomTextFieldStyle: TextFieldStyle {
 
 // MARK: - Supporting Types
 
-enum UserRole: String, CaseIterable {
-    case admin = "admin"
-    case editor = "editor"
-    
-    var displayName: String {
-        switch self {
-        case .admin:
-            return "Admin"
-        case .editor:
-            return "Editor"
-        }
-    }
-}
-
 enum LoginError: Error {
     case invalidCredentials
     case networkError(String)
@@ -493,48 +464,6 @@ struct LoginResponse {
     let accessToken: String
     let refreshToken: String
     let user: User
-}
-
-struct User {
-    let id: String
-    let email: String
-    let role: UserRole
-    let username: String
-}
-
-// MARK: - User Session Manager (Mock)
-
-class UserSessionManager: ObservableObject {
-    static let shared = UserSessionManager()
-    
-    @Published var isLoggedIn = false
-    @Published var currentUser: User?
-    @Published var token: String?
-    
-    private init() {}
-    
-    func setUserSession(token: String, refreshToken: String, user: User) {
-        self.token = token
-        self.currentUser = user
-        self.isLoggedIn = true
-        
-        // Store in secure storage (UserDefaults for demo)
-        UserDefaults.standard.set(token, forKey: "access_token")
-        UserDefaults.standard.set(refreshToken, forKey: "refresh_token")
-        
-        print("✅ User session set for: \(user.username) (\(user.role.rawValue))")
-    }
-    
-    func clearSession() {
-        self.token = nil
-        self.currentUser = nil
-        self.isLoggedIn = false
-        
-        UserDefaults.standard.removeObject(forKey: "access_token")
-        UserDefaults.standard.removeObject(forKey: "refresh_token")
-        
-        print("✅ User session cleared")
-    }
 }
 
 // MARK: - User Home View (Placeholder)
@@ -572,9 +501,10 @@ extension AuthTokenManager {
         if email == "admin@celal.com" && password == "admin123" {
             let user = User(
                 id: "1",
+                username: "admin",
                 email: email,
                 role: .admin,
-                username: "admin"
+                createdAt: "2024-01-01T00:00:00Z"
             )
             let response = LoginResponse(
                 accessToken: "mock_access_token",
@@ -585,9 +515,10 @@ extension AuthTokenManager {
         } else if email == "editor@celal.com" && password == "editor123" {
             let user = User(
                 id: "2",
+                username: "editor",
                 email: email,
                 role: .editor,
-                username: "editor"
+                createdAt: "2024-01-01T00:00:00Z"
             )
             let response = LoginResponse(
                 accessToken: "mock_access_token",

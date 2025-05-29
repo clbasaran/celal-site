@@ -10,9 +10,12 @@ import SwiftUI
 
 @main
 struct CelalSiteApp: App {
+    @StateObject private var sessionManager = UserSessionManager.shared
+    
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            RootView()
+                .environmentObject(sessionManager)
         }
     }
 }

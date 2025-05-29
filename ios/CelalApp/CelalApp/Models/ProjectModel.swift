@@ -17,6 +17,7 @@ struct Project: Codable, Identifiable {
     let featured: Bool
     let github: String
     let live: String
+    let createdBy: String? // Editor/creator username
     
     // Computed properties for UI
     var isCompleted: Bool {
@@ -57,7 +58,8 @@ extension Project {
         tech: ["SwiftUI", "Core Data"],
         featured: true,
         github: "https://github.com/sample",
-        live: ""
+        live: "",
+        createdBy: "editor"
     )
     
     static let sampleProjects = [
@@ -69,7 +71,8 @@ extension Project {
             tech: ["HTML", "CSS", "JavaScript"],
             featured: true,
             github: "https://github.com/celalbasaran/portfolio",
-            live: "https://celalbasaran.dev"
+            live: "https://celalbasaran.dev",
+            createdBy: "celalbasaran"
         ),
         Project(
             id: "project-003",
@@ -79,7 +82,8 @@ extension Project {
             tech: ["SwiftUI", "Core Data", "Charts"],
             featured: true,
             github: "https://github.com/celalbasaran/student-budget",
-            live: ""
+            live: "",
+            createdBy: "editor"
         )
     ]
 } 
