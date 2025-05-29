@@ -1,0 +1,5 @@
+# SPA routing for Emanet Takip
+/emanettakip/* /emanettakip/index.html 200
+
+# Fallback for main site
+/* /index.html 200 

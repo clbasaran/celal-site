@@ -1,7 +1,7 @@
 Options -MultiViews
 RewriteEngine On
 
-# Handle client-side routing - all requests should go to index.html
+# Handle HashRouter - Let client handle routing
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.html [L]
