@@ -1,18 +1,6 @@
-Options -MultiViews
 RewriteEngine On
-
-# Handle HashRouter - Let client handle routing
+RewriteBase /emanettakip/
+RewriteRule ^index\.html$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . index.html [L]
-
-# Security headers
-Header always set X-Content-Type-Options nosniff
-Header always set X-Frame-Options DENY
-Header always set X-XSS-Protection "1; mode=block"
-
-# Cache static assets
-<filesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg)$">
-  ExpiresActive on
-  ExpiresDefault "access plus 1 month"
-</filesMatch> 
+RewriteRule . /emanettakip/index.html [L] 
