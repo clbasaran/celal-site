@@ -1,5 +1,6 @@
 # SPA routing for Emanet Takip
-/emanettakip/* /emanettakip/index.html 200
+/emanettakip/* https://4f88086f.emanet-frontend.pages.dev/:splat 301
+/emanettakip https://4f88086f.emanet-frontend.pages.dev/ 301
 
 # Fallback for main site
 /* /index.html 200 
