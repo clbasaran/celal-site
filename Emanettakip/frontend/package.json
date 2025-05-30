@@ -2,7 +2,7 @@
   "name": "emanet-takip-frontend",
   "version": "1.0.0",
   "private": true,
-  "homepage": "/emanettakip",
+  "homepage": ".",
   "scripts": {
     "// === DEVELOPMENT SCRIPTS === //": "",
     "dev": "react-scripts start",
