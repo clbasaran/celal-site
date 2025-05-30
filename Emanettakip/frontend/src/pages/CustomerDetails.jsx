@@ -3,19 +3,19 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, 
   User, 
-  CreditCard, 
   Phone, 
   MapPin, 
   DollarSign,
   Printer,
   Calendar,
   Truck,
-  FileText
+  FileText,
+  PackagePlus
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { customerAPI, paymentAPI, deliveryAPI, productAPI } from '../utils/api';
 import ReceiptPrint from '../components/ReceiptPrint';
-import AddPaymentForm from '../components/AddPaymentForm';
+import AddStockForm from '../components/AddStockForm';
 import AddDeliveryForm from '../components/AddDeliveryForm';
 import DeliveryPrintButton from '../components/DeliveryPrintButton';
 import DeliveryReceipt from '../components/DeliveryReceipt';
@@ -28,15 +28,15 @@ function CustomerDetails() {
   
   // States
   const [customer, setCustomer] = useState(null);
-  const [payments, setPayments] = useState([]);
+  const [stockEntries, setStockEntries] = useState([]);
   const [deliveries, setDeliveries] = useState([]);
   const [globalProducts, setGlobalProducts] = useState([]);
   const [customerStocks, setCustomerStocks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [submittingPayment, setSubmittingPayment] = useState(false);
+  const [submittingStock, setSubmittingStock] = useState(false);
   const [submittingDelivery, setSubmittingDelivery] = useState(false);
   const [isReceiptOpen, setIsReceiptOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('order'); // 'order', 'delivery', 'receipts'
+  const [activeTab, setActiveTab] = useState('stock');
 
   // Fetch global products
   const fetchGlobalProducts = async () => {
@@ -46,7 +46,7 @@ function CustomerDetails() {
       
       const transformedProducts = response.data.map(product => ({
         id: product.id,
-        productName: product.product_name, // Backend'ten product_name geliyor
+        productName: product.product_name,
         unit: product.unit,
         description: product.description
       }));
@@ -70,7 +70,6 @@ function CustomerDetails() {
       setCustomerStocks(response.data);
     } catch (error) {
       console.error('Müşteri stokları yüklenirken hata:', error);
-      // Stok hatası kritik değil, sessizce geç
       setCustomerStocks([]);
     }
   }, [id]);
@@ -80,19 +79,15 @@ function CustomerDetails() {
     try {
       setLoading(true);
       
-      // Fetch customer details
       const customerResponse = await customerAPI.getById(id);
       setCustomer(customerResponse.data);
       
-      // Fetch customer payments
-      const paymentsResponse = await paymentAPI.getByCustomerId(id);
-      setPayments(paymentsResponse.data);
+      const stockResponse = await paymentAPI.getByCustomerId(id);
+      setStockEntries(stockResponse.data);
       
-      // Fetch customer deliveries
       const deliveriesResponse = await deliveryAPI.getByCustomerId(id);
       setDeliveries(deliveriesResponse.data);
       
-      // Fetch customer stocks
       await fetchCustomerStocks();
       
     } catch (error) {
@@ -109,12 +104,12 @@ function CustomerDetails() {
   useEffect(() => {
     if (id) {
       fetchCustomerData();
-      fetchGlobalProducts(); // Fetch global products on component mount
+      fetchGlobalProducts();
     }
   }, [id, fetchCustomerData]);
 
   // Calculations (simplified - no price tracking)
-  const totalOrders = payments.length;
+  const totalStockEntries = stockEntries.length;
   const totalDeliveries = deliveries.length;
 
   // Date formatter
@@ -145,21 +140,21 @@ function CustomerDetails() {
     return `₺${amount.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}`;
   };
 
-  // Payment form submission handler
-  const handlePaymentSubmit = async (paymentData) => {
-    setSubmittingPayment(true);
+  // Stock form submission handler
+  const handleStockSubmit = async (stockData) => {
+    setSubmittingStock(true);
     
     try {
       const response = await paymentAPI.create({
         customerId: parseInt(id),
-        amount: paymentData.amount,
-        method: paymentData.method,
-        note: paymentData.note,
-        products: paymentData.products
+        amount: stockData.amount,
+        method: stockData.method,
+        note: stockData.note,
+        products: stockData.products
       });
       
-      // Add payment with products to local state
-      const newPayment = {
+      // Add stock entry with products to local state
+      const newStockEntry = {
         id: response.data.payment.id,
         amount: response.data.payment.amount,
         method: response.data.payment.method,
@@ -168,16 +163,16 @@ function CustomerDetails() {
         products: response.data.payment.products || []
       };
       
-      setPayments(prev => [newPayment, ...prev]);
+      setStockEntries(prev => [newStockEntry, ...prev]);
       
       // Stokları yeniden yükle
       await fetchCustomerStocks();
       
     } catch (error) {
-      console.error('Ödeme kaydetme hatası:', error);
-      throw error; // Re-throw to let AddPaymentForm handle the error
+      console.error('Stok kaydetme hatası:', error);
+      throw error;
     } finally {
-      setSubmittingPayment(false);
+      setSubmittingStock(false);
     }
   };
 
@@ -223,7 +218,7 @@ function CustomerDetails() {
         });
       }
       
-      throw error; // Re-throw to let AddDeliveryForm handle the error
+      throw error;
     } finally {
       setSubmittingDelivery(false);
     }
@@ -286,8 +281,8 @@ function CustomerDetails() {
                   <DollarSign className="w-6 h-6 text-primary-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Toplam Sipariş</p>
-                  <p className="text-xl font-bold text-gray-900">{totalOrders}</p>
+                  <p className="text-sm font-medium text-gray-600">Toplam Stok Girişi</p>
+                  <p className="text-xl font-bold text-gray-900">{totalStockEntries}</p>
                 </div>
               </div>
             </div>
@@ -297,7 +292,7 @@ function CustomerDetails() {
             <div className="card-body">
               <div className="flex items-center">
                 <div className="p-2 bg-success-100 rounded-apple mr-3">
-                  <CreditCard className="w-6 h-6 text-success-600" />
+                  <Truck className="w-6 h-6 text-success-600" />
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-600">Toplam Teslimat</p>
@@ -362,7 +357,7 @@ function CustomerDetails() {
                     
                     {customer.taxNumber && (
                       <div className="flex items-center space-x-3">
-                        <CreditCard className="w-4 h-4 text-gray-400" />
+                        <DollarSign className="w-4 h-4 text-gray-400" />
                         <div>
                           <p className="text-sm font-medium text-gray-600">Vergi Numarası</p>
                           <p className="text-gray-900">{customer.taxNumber}</p>
@@ -396,58 +391,58 @@ function CustomerDetails() {
               </div>
             </div>
 
-            {/* Payments Section */}
+            {/* Stock Entries Section */}
             <div className="card">
               <div className="card-header">
                 <div className="flex justify-between items-center">
                   <h2 className="text-lg font-semibold text-gray-900 flex items-center">
-                    <CreditCard className="w-5 h-5 mr-2" />
-                    Ödemeler ({payments.length})
+                    <PackagePlus className="w-5 h-5 mr-2" />
+                    Stok Girişleri ({stockEntries.length})
                   </h2>
                   <button
                     onClick={() => setIsReceiptOpen(true)}
                     className="btn-secondary flex items-center space-x-2"
                   >
                     <Printer size={16} />
-                    <span>Makbuz</span>
+                    <span>Fiş</span>
                   </button>
                 </div>
               </div>
               <div className="card-body">
-                {payments.length === 0 ? (
+                {stockEntries.length === 0 ? (
                   <div className="text-center py-8">
-                    <CreditCard className="mx-auto h-12 w-12 text-gray-400 mb-3" />
-                    <h3 className="text-lg font-medium text-gray-900">Henüz ödeme yok</h3>
-                    <p className="text-gray-500">İlk ödemeyi eklemek için yan paneli kullanın.</p>
+                    <PackagePlus className="mx-auto h-12 w-12 text-gray-400 mb-3" />
+                    <h3 className="text-lg font-medium text-gray-900">Henüz stok girişi yok</h3>
+                    <p className="text-gray-500">İlk stok girişini eklemek için yan paneli kullanın.</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {payments.map((payment) => (
-                      <div key={payment.id} className="bg-gray-50 rounded-apple p-4">
+                    {stockEntries.map((entry) => (
+                      <div key={entry.id} className="bg-gray-50 rounded-apple p-4">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <div className="flex items-center justify-between mb-2">
-                              <span className="text-lg font-semibold text-gray-900">
-                                {formatCurrency(payment.amount)}
+                              <span className="text-lg font-semibold text-green-600">
+                                Stok Girişi #{entry.id}
                               </span>
                               <span className="text-sm text-gray-500">
-                                {formatDate(payment.date)}
+                                {formatDate(entry.date)}
                               </span>
                             </div>
                             <div className="flex items-center justify-between mb-2">
-                              <span className="inline-flex items-center px-2 py-1 rounded-apple text-xs font-medium bg-primary-100 text-primary-800">
-                                {payment.method}
+                              <span className="inline-flex items-center px-2 py-1 rounded-apple text-xs font-medium bg-green-100 text-green-800">
+                                {entry.method || 'stok_girisi'}
                               </span>
-                              {payment.note && (
-                                <span className="text-sm text-gray-600">{payment.note}</span>
+                              {entry.note && (
+                                <span className="text-sm text-gray-600">{entry.note}</span>
                               )}
                             </div>
                             {/* Products section */}
-                            {payment.products && payment.products.length > 0 && (
+                            {entry.products && entry.products.length > 0 && (
                               <div className="mt-3 pt-3 border-t border-gray-200">
                                 <h4 className="text-xs font-medium text-gray-600 mb-2">Ürünler:</h4>
                                 <div className="space-y-1">
-                                  {payment.products.map((product, index) => (
+                                  {entry.products.map((product, index) => (
                                     <div key={index} className="flex justify-between items-center text-sm">
                                       <span className="text-gray-700">
                                         {product.name} - {product.quantity} {product.unit}
@@ -555,7 +550,7 @@ function CustomerDetails() {
                   <div className="text-center py-8">
                     <DollarSign className="mx-auto h-12 w-12 text-gray-400 mb-3" />
                     <h3 className="text-lg font-medium text-gray-900">Stok bulunmuyor</h3>
-                    <p className="text-gray-500">Sipariş vererek stok oluşturabilirsiniz.</p>
+                    <p className="text-gray-500">Stok girişi yaparak müşteri stoğu oluşturabilirsiniz.</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -612,16 +607,16 @@ function CustomerDetails() {
               <div className="card-header">
                 <div className="flex space-x-1 bg-gray-100 rounded-apple p-1 md:flex-row flex-col md:space-y-0 space-y-1 md:space-x-1 space-x-0">
                   <button
-                    onClick={() => setActiveTab('order')}
+                    onClick={() => setActiveTab('stock')}
                     className={`flex-1 md:flex-1 w-full py-2 px-3 rounded-apple text-sm font-medium transition-all duration-200 ${
-                      activeTab === 'order'
+                      activeTab === 'stock'
                         ? 'bg-white text-primary-600 shadow-apple'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
                     <div className="flex items-center justify-center space-x-1">
-                      <CreditCard className="w-4 h-4" />
-                      <span>Sipariş</span>
+                      <PackagePlus className="w-4 h-4" />
+                      <span>Stok Girişi</span>
                     </div>
                   </button>
                   <button
@@ -641,11 +636,11 @@ function CustomerDetails() {
               </div>
               
               <div className="card-body p-0">
-                {activeTab === 'order' ? (
+                {activeTab === 'stock' ? (
                   <div className="p-6">
-                    <AddPaymentForm 
-                      onSubmit={handlePaymentSubmit}
-                      loading={submittingPayment}
+                    <AddStockForm 
+                      onSubmit={handleStockSubmit}
+                      loading={submittingStock}
                       globalProducts={globalProducts}
                     />
                   </div>
@@ -670,7 +665,7 @@ function CustomerDetails() {
         isOpen={isReceiptOpen}
         onClose={() => setIsReceiptOpen(false)}
         customer={customer}
-        payments={payments}
+        payments={stockEntries}
       />
     </div>
   );
