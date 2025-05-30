@@ -145,9 +145,10 @@ function CustomerProductManager({ customerId }) {
   // Edit product (placeholder)
   const handleEdit = (product) => {
     setEditingProduct(product);
-    toast.info('🔧 Düzenleme özelliği yakında eklenecek!', {
+    toast('🔧 Düzenleme özelliği yakında eklenecek!', {
       duration: 3000,
       position: 'top-right',
+      icon: 'ℹ️',
     });
   };
 

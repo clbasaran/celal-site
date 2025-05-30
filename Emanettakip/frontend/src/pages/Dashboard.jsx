@@ -92,9 +92,10 @@ function Dashboard() {
   const handleCustomerDelete = (customerId) => {
     // Henüz uygulanmadı - gelecekte delete API call
     console.log('Müşteri sil:', customerId);
-    toast.info('🔧 Müşteri silme özelliği henüz hazırlanmadı.', {
+    toast('🔧 Müşteri silme özelliği henüz hazırlanmadı.', {
       duration: 3000,
       position: 'top-right',
+      icon: 'ℹ️',
     });
   };
 
