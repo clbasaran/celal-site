@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://celal-site.celalba78.workers.dev/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://emanet-backend.celalba78.workers.dev/api';
 
 // Create axios instance
 const api = axios.create({
