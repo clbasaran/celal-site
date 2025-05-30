@@ -1,0 +1,8 @@
+name = "emanet-backend"
+main = "index.js"
+compatibility_date = "2025-05-30"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "emanet-db"
+database_id = "8c250be0-522f-4b24-8ad9-8221a6cccfae" 
