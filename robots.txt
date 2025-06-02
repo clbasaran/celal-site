@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Ana sayfa ve public sayfaları için izin
+Allow: /index.html
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+Allow: /images/
+
+# Admin paneli ve private dosyalar için yasak
+Disallow: /admin/
+Disallow: /functions/
+Disallow: /.git/
+Disallow: /.wrangler/
+Disallow: /data/
+Disallow: /terminal-*.html
+
+# Emanet takip public ise izin ver
+Allow: /emanettakip/
+
+# Sitemap
+Sitemap: https://celalbasaran.com/sitemap.xml
+
+# Crawl delay (saniye)
+Crawl-delay: 1 

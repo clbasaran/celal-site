@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celal Başaran - Retro Terminal</title>
+    <meta name="description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler ve akıllı uygulamalar.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'retro': ['VT323', 'Share Tech Mono', 'monospace'],
+                    },
+                    colors: {
+                        'phosphor': {
+                            'bg': '#001100',
+                            'dark': '#003300',
+                            'green': '#00ff00',
+                            'bright': '#33ff33',
+                            'dim': '#009900',
+                            'amber': '#ffb000',
+                            'red': '#ff4400'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            font-family: 'VT323', 'Share Tech Mono', monospace !important;
+        }
+
+        /* CRT Effect */
+        .crt-container {
+            background: radial-gradient(ellipse at center, #003300 0%, #001100 70%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crt-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(transparent 50%, rgba(0, 255, 0, 0.03) 50%),
+                radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.3) 100%);
+            background-size: 100% 4px, 100% 100%;
+            pointer-events: none;
+            animation: scanlines 0.1s linear infinite, flicker 3s ease-in-out infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            98% { opacity: 1; }
+            99% { opacity: 0.98; }
+        }
+
+        /* Phosphor glow */
+        .phosphor-text {
+            color: #00ff00;
+            text-shadow: 
+                0 0 5px #00ff00,
+                0 0 10px #00ff00,
+                0 0 15px #00ff00;
+            animation: phosphor-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes phosphor-glow {
+            from {
+                text-shadow: 
+                    0 0 5px #00ff00,
+                    0 0 10px #00ff00,
+                    0 0 15px #00ff00;
+            }
+            to {
+                text-shadow: 
+                    0 0 3px #00ff00,
+                    0 0 8px #00ff00,
+                    0 0 12px #00ff00;
+            }
+        }
+
+        /* Terminal window */
+        .retro-terminal {
+            background: #001100;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 0, 0.5),
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+
+        /* Typewriter effect */
+        .retro-typewriter {
+            overflow: hidden;
+            border-right: 2px solid #00ff00;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: 
+                retro-typing 4s steps(40, end),
+                retro-blink 1s step-end infinite;
+        }
+
+        @keyframes retro-typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes retro-blink {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00; }
+        }
+
+        /* Button effects */
+        .retro-button {
+            background: linear-gradient(45deg, #003300, #004400);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .retro-button:hover {
+            background: linear-gradient(45deg, #004400, #006600);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+            transform: translateY(-2px);
+        }
+
+        /* Retro cursor */
+        .retro-cursor {
+            display: inline-block;
+            background-color: #00ff00;
+            width: 12px;
+            height: 24px;
+            animation: retro-cursor-blink 1.2s infinite;
+        }
+
+        @keyframes retro-cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* ASCII art styling */
+        .ascii-art {
+            font-size: 10px;
+            line-height: 10px;
+            color: #00ff00;
+            white-space: pre;
+            text-shadow: 0 0 8px #00ff00;
+        }
+
+        /* Retro progress bars */
+        .retro-progress {
+            background: #003300;
+            border: 1px solid #00ff00;
+            height: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .retro-progress-fill {
+            background: repeating-linear-gradient(
+                90deg,
+                #00ff00 0px,
+                #00ff00 10px,
+                #33ff33 10px,
+                #33ff33 20px
+            );
+            height: 100%;
+            animation: retro-progress-move 2s linear infinite;
+        }
+
+        @keyframes retro-progress-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 20px 0; }
+        }
+
+        /* Retro table styling */
+        .retro-table {
+            border-collapse: collapse;
+            border: 2px solid #00ff00;
+        }
+
+        .retro-table td,
+        .retro-table th {
+            border: 1px solid #00ff00;
+            padding: 8px 12px;
+            color: #00ff00;
+        }
+
+        /* Boot sequence */
+        .boot-sequence {
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        .boot-line {
+            opacity: 0;
+            animation: boot-fade-in 0.5s ease-in forwards;
+        }
+
+        @keyframes boot-fade-in {
+            to { opacity: 1; }
+        }
+
+        /* CRT noise */
+        .crt-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="noise" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><rect fill="%23000" width="100" height="100"/><circle cx="20" cy="20" r="1" fill="%23fff"/><circle cx="80" cy="40" r="1" fill="%23fff"/><circle cx="40" cy="80" r="1" fill="%23fff"/></pattern></defs><rect fill="url(%23noise)" width="100" height="100"/></svg>');
+            animation: noise-move 0.2s infinite;
+        }
+
+        @keyframes noise-move {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 1px); }
+            50% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, 2px); }
+            100% { transform: translate(0, 0); }
+        }
+    </style>
+</head>
+
+<body class="bg-phosphor-bg text-phosphor-green min-h-screen font-retro antialiased crt-container">
+    <!-- CRT Noise -->
+    <div class="crt-noise"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-phosphor-bg/95 backdrop-blur-sm border-b border-phosphor-green z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="retro-terminal">
+                <div class="p-3 bg-phosphor-bg">
+                    <div class="flex items-center justify-between">
+                        <div class="phosphor-text">
+                            <span class="text-phosphor-amber">SYSTEM:</span>
+                            <span class="retro-typewriter text-lg">CELAL-PORTFOLIO-v1.0</span>
+                        </div>
+                        
+                        <div class="hidden md:flex items-center gap-4 text-sm">
+                            <a href="#about" class="retro-button px-3 py-1 rounded-none">[ABOUT.EXE]</a>
+                            <a href="#skills" class="retro-button px-3 py-1 rounded-none">[SKILLS.BAT]</a>
+                            <a href="#projects" class="retro-button px-3 py-1 rounded-none">[PROJECTS.COM]</a>
+                            <a href="#contact" class="retro-button px-3 py-1 rounded-none">[CONTACT.SYS]</a>
+                            <a href="mailto:celal@celalbasaran.com" class="bg-phosphor-green text-phosphor-bg px-3 py-1 font-bold hover:bg-phosphor-bright transition-colors">
+                                [HIRE.NOW]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-32">
+        <div class="max-w-4xl mx-auto">
+            <!-- ASCII Art Header -->
+            <div class="ascii-art text-center mb-8 hidden md:block">
+   ██████╗███████╗██╗      █████╗ ██╗         ██████╗  █████╗ ███████╗ █████╗ ██████╗  █████╗ ███╗   ██╗
+  ██╔════╝██╔════╝██║     ██╔══██╗██║         ██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗  ██║
+  ██║     █████╗  ██║     ███████║██║         ██████╔╝███████║███████╗███████║██████╔╝███████║██╔██╗ ██║
+  ██║     ██╔══╝  ██║     ██╔══██║██║         ██╔══██╗██╔══██║╚════██║██╔══██║██╔══██╗██╔══██║██║╚██╗██║
+  ╚██████╗███████╗███████╗██║  ██║███████╗    ██████╔╝██║  ██║███████║██║  ██║██║  ██║██║  ██║██║ ╚████║
+   ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+            </div>
+
+            <!-- Boot Sequence -->
+            <div class="retro-terminal mb-8">
+                <div class="p-6 bg-phosphor-bg">
+                    <div class="boot-sequence space-y-2">
+                        <div class="boot-line text-phosphor-green" style="animation-delay: 0s;">
+                            SYSTEM BOOT INITIATED...
+                        </div>
+                        <div class="boot-line text-phosphor-green" style="animation-delay: 0.5s;">
+                            LOADING DEVELOPER PROFILE...
+                        </div>
+                        <div class="boot-line text-phosphor-amber" style="animation-delay: 1s;">
+                            NAME: CELAL BAŞARAN
+                        </div>
+                        <div class="boot-line text-phosphor-amber" style="animation-delay: 1.5s;">
+                            ROLE: AI EXPERT & FULL-STACK DEVELOPER
+                        </div>
+                        <div class="boot-line text-phosphor-green" style="animation-delay: 2s;">
+                            STATUS: [ONLINE] - AVAILABLE FOR PROJECTS
+                        </div>
+                        <div class="boot-line text-phosphor-bright" style="animation-delay: 2.5s;">
+                            SPECIALIZATION: AI, REACT, NODE.JS, PYTHON 🚀
+                        </div>
+                        <div class="boot-line text-phosphor-green" style="animation-delay: 3s;">
+                            SYSTEM READY. PRESS ANY KEY TO CONTINUE...
+                            <span class="retro-cursor"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command Interface -->
+            <div class="retro-terminal">
+                <div class="p-6 bg-phosphor-bg">
+                    <div class="space-y-4">
+                        <div>
+                            <span class="text-phosphor-green">C:\PORTFOLIO></span>
+                            <span class="text-phosphor-amber">DIR *.EXE</span>
+                        </div>
+                        
+                        <div class="text-sm">
+                            <div class="retro-table">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">FILENAME</th>
+                                            <th class="text-left">TYPE</th>
+                                            <th class="text-left">SIZE</th>
+                                            <th class="text-left">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SEND_EMAIL.EXE</td>
+                                            <td>APPLICATION</td>
+                                            <td>2.4KB</td>
+                                            <td>[READY]</td>
+                                        </tr>
+                                        <tr>
+                                            <td>VIEW_LINKEDIN.COM</td>
+                                            <td>LINK</td>
+                                            <td>1.2KB</td>
+                                            <td>[ACTIVE]</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GITHUB_REPO.SYS</td>
+                                            <td>SYSTEM</td>
+                                            <td>3.1KB</td>
+                                            <td>[ONLINE]</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                            <a href="mailto:celal@celalbasaran.com" class="retro-button px-6 py-2 text-center">
+                                RUN SEND_EMAIL.EXE
+                            </a>
+                            <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="retro-button px-6 py-2 text-center">
+                                EXEC VIEW_LINKEDIN.COM
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="retro-terminal">
+                <div class="p-6 bg-phosphor-bg">
+                    <div class="mb-4">
+                        <span class="text-phosphor-green">C:\PORTFOLIO></span>
+                        <span class="text-phosphor-amber">TYPE ABOUT.TXT</span>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Personal Data -->
+                        <div class="space-y-4">
+                            <div class="text-phosphor-bright text-lg">
+                                [PERSONAL_DATA.DAT]
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="text-phosphor-amber">NAME........:</span> CELAL BAŞARAN</div>
+                                <div><span class="text-phosphor-amber">PROFESSION..:</span> AI EXPERT & FULL-STACK DEV</div>
+                                <div><span class="text-phosphor-amber">LOCATION....:</span> TURKEY</div>
+                                <div><span class="text-phosphor-amber">EXPERIENCE..:</span> 3+ YEARS</div>
+                                <div><span class="text-phosphor-amber">AVAILABILITY:</span> <span class="text-phosphor-green phosphor-text">[AVAILABLE]</span></div>
+                                <div><span class="text-phosphor-amber">PASSION.....:</span> AI & MODERN WEB TECH</div>
+                            </div>
+                        </div>
+
+                        <!-- System Stats -->
+                        <div class="space-y-4">
+                            <div class="text-phosphor-bright text-lg">
+                                [SYSTEM_STATS.LOG]
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-phosphor-amber">PROJECTS_COMPLETED</span>
+                                        <span class="text-phosphor-green">50+</span>
+                                    </div>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-phosphor-amber">CLIENT_SATISFACTION</span>
+                                        <span class="text-phosphor-green">100%</span>
+                                    </div>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span class="text-phosphor-amber">SKILL_LEVEL</span>
+                                        <span class="text-phosphor-green">EXPERT</span>
+                                    </div>
+                                    <div class="retro-progress">
+                                        <div class="retro-progress-fill" style="width: 95%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-phosphor-green">
+                        <span class="text-phosphor-green">C:\PORTFOLIO></span>
+                        <span class="text-phosphor-amber">ECHO "READY FOR NEW CHALLENGES!"</span>
+                        <div class="text-phosphor-bright mt-2">
+                            READY FOR NEW CHALLENGES!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-phosphor-dark/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="retro-terminal">
+                <div class="p-6 bg-phosphor-bg">
+                    <div class="mb-4">
+                        <span class="text-phosphor-green">C:\SKILLS></span>
+                        <span class="text-phosphor-amber">SCAN /TECH /VERBOSE</span>
+                    </div>
+                    
+                    <div class="mb-4 text-phosphor-bright">
+                        SCANNING TECHNICAL CAPABILITIES...
+                        <br>ANALYZING SKILL TREE...
+                        <br>GENERATING REPORT...
+                        <br>[SCAN COMPLETE]
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- AI Skills -->
+                        <div class="retro-terminal border border-phosphor-green">
+                            <div class="p-4 bg-phosphor-bg">
+                                <div class="text-phosphor-bright mb-3 text-center">
+                                    [AI_MODULE.SYS]
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <div>CHATGPT_API......[EXPERT]</div>
+                                    <div>OPENAI_TOOLS.....[ADVANCED]</div>
+                                    <div>MACHINE_LEARNING.[SKILLED]</div>
+                                    <div>DATA_ANALYSIS....[EXPERT]</div>
+                                    <div>AUTOMATION.......[ADVANCED]</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Frontend Skills -->
+                        <div class="retro-terminal border border-phosphor-green">
+                            <div class="p-4 bg-phosphor-bg">
+                                <div class="text-phosphor-bright mb-3 text-center">
+                                    [FRONTEND.LIB]
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <div>REACT.JS.........[EXPERT]</div>
+                                    <div>NEXT.JS..........[ADVANCED]</div>
+                                    <div>TYPESCRIPT.......[SKILLED]</div>
+                                    <div>TAILWIND_CSS.....[EXPERT]</div>
+                                    <div>JAVASCRIPT.......[EXPERT]</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backend Skills -->
+                        <div class="retro-terminal border border-phosphor-green">
+                            <div class="p-4 bg-phosphor-bg">
+                                <div class="text-phosphor-bright mb-3 text-center">
+                                    [BACKEND.EXE]
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <div>NODE.JS..........[EXPERT]</div>
+                                    <div>PYTHON...........[ADVANCED]</div>
+                                    <div>EXPRESS.JS.......[EXPERT]</div>
+                                    <div>POSTGRESQL.......[SKILLED]</div>
+                                    <div>API_DESIGN.......[EXPERT]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-phosphor-green">
+                        <span class="text-phosphor-green">C:\SKILLS></span>
+                        <span class="text-phosphor-amber">STATUS</span>
+                        <div class="text-phosphor-bright mt-2">
+                            ALL SYSTEMS OPERATIONAL. READY FOR DEPLOYMENT!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="retro-terminal">
+                <div class="p-6 bg-phosphor-bg">
+                    <div class="mb-4">
+                        <span class="text-phosphor-green">C:\PROJECTS></span>
+                        <span class="text-phosphor-amber">DIR *.* /S</span>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Project 1 -->
+                        <div class="retro-terminal border border-phosphor-green">
+                            <div class="p-4 bg-phosphor-bg">
+                                <div class="text-phosphor-amber mb-2">📱 IOS_PORTFOLIO.APP</div>
+                                <div class="text-xs mb-3">
+                                    SWIFTUI ILE NATIVE IOS UYGULAMASI.<br>
+                                    REAL-TIME DATA SYNC VE MODERN UI.
+                                </div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-xs px-2 py-1 bg-phosphor-dark text-phosphor-green border border-phosphor-green">SWIFTUI</span>
+                                    <span class="text-xs px-2 py-1 bg-phosphor-dark text-phosphor-green border border-phosphor-green">IOS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="retro-terminal border border-phosphor-green">
+                            <div class="p-4 bg-phosphor-bg">
+                                <div class="text-phosphor-amber mb-2">📦 EMANET_TAKIP.SYS</div>
+                                <div class="text-xs mb-3">
+                                    FULL-STACK EMANET TAKIP SISTEMI.<br>
+                                    REACT + NODE.JS PROFESSIONAL SOLUTION.
+                                </div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-xs px-2 py-1 bg-phosphor-dark text-phosphor-green border border-phosphor-green">REACT</span>
+                                    <span class="text-xs px-2 py-1 bg-phosphor-dark text-phosphor-green border border-phosphor-green">NODE.JS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="retro-terminal border border-phosphor-green">
+                            <div class="p-4 bg-phosphor-bg">
+                                <div class="text-phosphor-amber mb-2">🤖 AI_TOOLS.BAT</div>
+                                <div class="text-xs mb-3">
+                                    CHATGPT API AUTOMATION TOOLS.<br>
+                                    AI-POWERED APPLICATIONS & BOTS.
+                                </div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-xs px-2 py-1 bg-phosphor-dark text-phosphor-green border border-phosphor-green">AI</span>
+                                    <span class="text-xs px-2 py-1 bg-phosphor-dark text-phosphor-green border border-phosphor-green">PYTHON</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-phosphor-green">
+                        <span class="text-phosphor-green">C:\PROJECTS></span>
+                        <span class="text-phosphor-amber">GIT STATUS</span>
+                        <div class="text-phosphor-bright mt-2">
+                            ON BRANCH MAIN<br>
+                            YOUR BRANCH IS UP TO DATE WITH 'ORIGIN/MAIN'.<br>
+                            NOTHING TO COMMIT, WORKING TREE CLEAN ✨
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-phosphor-dark/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="retro-terminal">
+                <div class="p-6 bg-phosphor-bg">
+                    <div class="mb-4">
+                        <span class="text-phosphor-green">C:\CONTACT></span>
+                        <span class="text-phosphor-amber">TYPE CONNECT.BAT</span>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="text-2xl font-bold mb-4 phosphor-text">
+                            # LET'S BUILD SOMETHING AMAZING TOGETHER
+                        </div>
+                        <div class="text-phosphor-green mb-6">
+                            YENI BIR PROJENIZ MI VAR? BENIMLE ILETISIME GECIN!
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <!-- Email -->
+                            <div class="retro-terminal border border-phosphor-green">
+                                <div class="p-4 bg-phosphor-bg">
+                                    <a href="mailto:celal@celalbasaran.com" class="block">
+                                        <div class="text-phosphor-amber mb-2">📧 EMAIL.EXE</div>
+                                        <div class="text-sm">CELAL@CELALBASARAN.COM</div>
+                                        <div class="text-xs mt-2 text-phosphor-dim">CLICK TO EXECUTE</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div class="retro-terminal border border-phosphor-green">
+                                <div class="p-4 bg-phosphor-bg">
+                                    <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="block">
+                                        <div class="text-phosphor-amber mb-2">💼 LINKEDIN.COM</div>
+                                        <div class="text-sm">PROFESSIONAL NETWORK</div>
+                                        <div class="text-xs mt-2 text-phosphor-dim">CLICK TO CONNECT</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- GitHub -->
+                            <div class="retro-terminal border border-phosphor-green">
+                                <div class="p-4 bg-phosphor-bg">
+                                    <a href="https://github.com/clbasaran" target="_blank" class="block">
+                                        <div class="text-phosphor-amber mb-2">💻 GITHUB.SYS</div>
+                                        <div class="text-sm">CODE REPOSITORY</div>
+                                        <div class="text-xs mt-2 text-phosphor-dim">CLICK TO VIEW</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-phosphor-green text-center">
+                        <span class="text-phosphor-green">C:\CONTACT></span>
+                        <span class="text-phosphor-amber">ECHO "MESSAGE TRANSMISSION READY..."</span>
+                        <div class="text-phosphor-bright mt-2">
+                            📡 ALL COMMUNICATION CHANNELS ACTIVE AND READY!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-phosphor-green py-8 bg-phosphor-bg">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="retro-terminal">
+                <div class="p-4 bg-phosphor-bg">
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <span class="text-phosphor-green">C:\PORTFOLIO></span>
+                            <span class="text-phosphor-amber">ECHO "© 2025 CELAL BAŞARAN. MADE WITH ❤️ IN TÜRKIYE."</span>
+                        </div>
+                        <div class="flex items-center gap-6 text-sm">
+                            <a href="/emanettakip" class="retro-button px-2 py-1">EMANETTAKIP.EXE</a>
+                            <a href="/admin" class="retro-button px-2 py-1">ADMIN.SYS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Retro Effects -->
+    <script>
+        // Boot sequence animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Typewriter effect for navigation
+            const typewriterElements = document.querySelectorAll('.retro-typewriter');
+            typewriterElements.forEach((el, index) => {
+                setTimeout(() => {
+                    const text = el.textContent;
+                    el.textContent = '';
+                    typeWriter(el, text, 100);
+                }, index * 1000);
+            });
+
+            // Boot sequence animation
+            const bootLines = document.querySelectorAll('.boot-line');
+            bootLines.forEach((line, index) => {
+                line.style.animationDelay = (index * 0.5) + 's';
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Random phosphor flicker
+            setInterval(() => {
+                const phosphorElements = document.querySelectorAll('.phosphor-text');
+                phosphorElements.forEach(el => {
+                    if (Math.random() < 0.1) {
+                        el.style.opacity = Math.random() * 0.3 + 0.7;
+                        setTimeout(() => {
+                            el.style.opacity = 1;
+                        }, 100);
+                    }
+                });
+            }, 2000);
+        });
+
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.toString() === konamiSequence.toString()) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- Updated: Mon Jun  2 22:01:21 +03 2025 --> 

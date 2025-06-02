@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celal Başaran - Hacker Terminal</title>
+    <meta name="description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler ve akıllı uygulamalar.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'hacker': ['Source Code Pro', 'Anonymous Pro', 'monospace'],
+                    },
+                    colors: {
+                        'hack': {
+                            'bg': '#000000',
+                            'dark': '#0a0a0a',
+                            'green': '#00ff00',
+                            'lime': '#32cd32',
+                            'red': '#ff0000',
+                            'yellow': '#ffff00',
+                            'cyan': '#00ffff',
+                            'white': '#ffffff',
+                            'gray': '#333333'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            font-family: 'Source Code Pro', 'Anonymous Pro', monospace !important;
+        }
+
+        /* Hacker Background */
+        .hacker-bg {
+            background: #000000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Binary Rain */
+        .binary-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .binary-char {
+            position: absolute;
+            color: #00ff00;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0.7;
+            animation: binary-fall linear infinite;
+        }
+
+        @keyframes binary-fall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Hacker Terminal */
+        .hacker-terminal {
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 0, 0.3),
+                inset 0 0 30px rgba(0, 255, 0, 0.05);
+            position: relative;
+        }
+
+        .hacker-terminal::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff00, #32cd32);
+            z-index: -1;
+            animation: terminal-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes terminal-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Hack Text Effects */
+        .hack-green {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .hack-red {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .hack-yellow {
+            color: #ffff00;
+            text-shadow: 0 0 10px #ffff00;
+        }
+
+        .hack-cyan {
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        /* Command Line */
+        .cmd-line {
+            color: #00ff00;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cmd-output {
+            color: #ffffff;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        /* Hacker Button */
+        .hack-btn {
+            background: linear-gradient(45deg, #000000, #0a0a0a);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hack-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 0, 0.1);
+            transition: left 0.5s;
+        }
+
+        .hack-btn:hover {
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .hack-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Typing Animation */
+        .hack-typing {
+            overflow: hidden;
+            border-right: 2px solid #00ff00;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: 
+                hack-type 4s steps(40, end),
+                hack-blink 1s step-end infinite;
+        }
+
+        @keyframes hack-type {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes hack-blink {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00; }
+        }
+
+        /* Glitch Effect */
+        .hack-glitch {
+            position: relative;
+            animation: hack-glitch-main 2s infinite;
+        }
+
+        .hack-glitch::before,
+        .hack-glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hack-glitch::before {
+            animation: hack-glitch-1 0.3s infinite;
+            color: #ff0000;
+            z-index: -1;
+        }
+
+        .hack-glitch::after {
+            animation: hack-glitch-2 0.3s infinite;
+            color: #00ffff;
+            z-index: -2;
+        }
+
+        @keyframes hack-glitch-main {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+        }
+
+        @keyframes hack-glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(1px, -1px); }
+            40% { transform: translate(-1px, 1px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+        }
+
+        @keyframes hack-glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            60% { transform: translate(1px, 1px); }
+            80% { transform: translate(-1px, -1px); }
+        }
+
+        /* Progress Bar */
+        .hack-progress {
+            background: #333333;
+            border: 1px solid #00ff00;
+            height: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hack-progress-fill {
+            background: linear-gradient(90deg, #00ff00, #32cd32);
+            height: 100%;
+            position: relative;
+        }
+
+        .hack-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: progress-scan 2s linear infinite;
+        }
+
+        @keyframes progress-scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ASCII Art */
+        .ascii-art {
+            font-size: 8px;
+            line-height: 8px;
+            color: #00ff00;
+            white-space: pre;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        /* Scan Lines */
+        .scan-lines {
+            position: relative;
+        }
+
+        .scan-lines::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 0, 0.03) 50%);
+            background-size: 100% 2px;
+            pointer-events: none;
+            animation: scan 0.1s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(2px); }
+        }
+
+        /* Loading Animation */
+        .hack-loading {
+            display: inline-block;
+            color: #00ff00;
+        }
+
+        .hack-loading::after {
+            content: '';
+            display: inline-block;
+            width: 0;
+            animation: hack-loading-dots 2s infinite;
+        }
+
+        @keyframes hack-loading-dots {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+            100% { content: ''; }
+        }
+
+        /* Anonymous Mask */
+        .anon-mask {
+            filter: drop-shadow(0 0 10px #00ff00);
+        }
+    </style>
+</head>
+
+<body class="bg-hack-bg text-hack-white min-h-screen font-hacker antialiased hacker-bg scan-lines">
+    <!-- Binary Rain -->
+    <div class="binary-rain" id="binaryRain"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-hack-bg/90 backdrop-blur-sm border-b border-hack-green z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="hacker-terminal">
+                <div class="p-4 bg-hack-bg">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-hack-green text-xl font-bold">
+                                root@<span class="hack-typing">CELAL-HACKER-TERMINAL</span>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden md:flex items-center gap-4 text-sm">
+                            <a href="#about" class="hack-btn px-4 py-2">[INFILTRATE]</a>
+                            <a href="#skills" class="hack-btn px-4 py-2">[EXPLOIT]</a>
+                            <a href="#projects" class="hack-btn px-4 py-2">[PAYLOADS]</a>
+                            <a href="#contact" class="hack-btn px-4 py-2">[BACKDOOR]</a>
+                            <a href="mailto:celal@celalbasaran.com" class="bg-hack-green text-hack-bg px-4 py-2 font-bold hover:bg-hack-lime transition-colors">
+                                [EXECUTE]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-32">
+        <div class="max-w-4xl mx-auto">
+            <!-- ASCII Art -->
+            <div class="ascii-art text-center mb-8 hidden md:block">
+   ██████╗███████╗██╗      █████╗ ██╗         ██████╗  █████╗ ███████╗ █████╗ ██████╗  █████╗ ███╗   ██╗
+  ██╔════╝██╔════╝██║     ██╔══██╗██║         ██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗  ██║
+  ██║     █████╗  ██║     ███████║██║         ██████╔╝███████║███████╗███████║██████╔╝███████║██╔██╗ ██║
+  ██║     ██╔══╝  ██║     ██╔══██║██║         ██╔══██╗██╔══██║╚════██║██╔══██║██╔══██╗██╔══██║██║╚██╗██║
+  ╚██████╗███████╗███████╗██║  ██║███████╗    ██████╔╝██║  ██║███████║██║  ██║██║  ██║██║  ██║██║ ╚████║
+   ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+            </div>
+
+            <!-- Main Terminal -->
+            <div class="hacker-terminal mb-8">
+                <div class="p-8 bg-hack-bg">
+                    <div class="cmd-line">
+                        root@anonymous:~# whoami
+                    </div>
+                    <div class="cmd-output">
+                        <div class="text-4xl md:text-6xl font-bold mb-4">
+                            <span class="hack-glitch hack-green" data-text="CELAL BAŞARAN">CELAL BAŞARAN</span>
+                        </div>
+                    </div>
+
+                    <div class="cmd-line">
+                        root@anonymous:~# cat /etc/identity
+                    </div>
+                    <div class="cmd-output">
+                        <div class="text-xl md:text-2xl hack-cyan mb-4">
+                            > AI_HACKER &amp;&amp; CODE_BREAKER &amp;&amp; SYSTEM_ARCHITECT
+                        </div>
+                    </div>
+
+                    <div class="cmd-line">
+                        root@anonymous:~# nmap -sS localhost
+                    </div>
+                    <div class="cmd-output">
+                        <div class="hack-white mb-6 max-w-2xl">
+                            <div class="hack-loading">SCANNING OPEN PORTS</div>
+                            <br>PORT 80/tcp   OPEN  http     (Web Development)
+                            <br>PORT 443/tcp  OPEN  https    (AI Integration)  
+                            <br>PORT 22/tcp   OPEN  ssh      (Remote Access)
+                            <br>PORT 3000/tcp OPEN  node.js  (Backend Services)
+                            <br>
+                            <br><span class="hack-green">SCAN COMPLETE. TARGET ACQUIRED. 🎯</span>
+                        </div>
+                    </div>
+
+                    <div class="cmd-line">
+                        root@anonymous:~# ./initiate_contact.sh
+                    </div>
+                    <div class="cmd-output">
+                        <div class="flex flex-col sm:flex-row items-center gap-4 mt-4">
+                            <a href="mailto:celal@celalbasaran.com" class="hack-btn px-8 py-3 text-lg">
+                                SEND_ENCRYPTED_MESSAGE
+                            </a>
+                            <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="hack-btn px-8 py-3 text-lg">
+                                ACCESS_NETWORK_PROFILE
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Terminal -->
+            <div class="hacker-terminal">
+                <div class="p-4 bg-hack-bg">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="text-center">
+                            <div class="hack-green">● SYSTEM STATUS</div>
+                            <div class="hack-white">ONLINE & OPERATIONAL</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="hack-yellow">⚡ EXPLOIT STATUS</div>
+                            <div class="hack-white">READY FOR DEPLOYMENT</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="hack-red">🔥 MISSION COUNT</div>
+                            <div class="hack-white">50+ SUCCESSFUL HACKS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="hacker-terminal">
+                <div class="p-8 bg-hack-bg">
+                    <div class="cmd-line mb-6">
+                        root@target:~# cat /proc/hacker_profile
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Personal Data -->
+                        <div class="hacker-terminal bg-hack-dark">
+                            <div class="p-6">
+                                <div class="hack-green text-lg font-bold mb-4">
+                                    [CLASSIFIED_DATA.TXT]
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="hack-yellow">CODENAME:</span>
+                                        <span class="hack-green">CELAL_BASH</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="hack-yellow">SPECIALIZATION:</span>
+                                        <span class="hack-green">AI_EXPLOITATION</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="hack-yellow">LOCATION:</span>
+                                        <span class="hack-green">ENCRYPTED</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="hack-yellow">EXPERIENCE:</span>
+                                        <span class="hack-green">3+ YEARS_ACTIVE</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="hack-yellow">ACCESS_LEVEL:</span>
+                                        <span class="hack-red">ROOT</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="hack-yellow">STATUS:</span>
+                                        <span class="hack-green">FOR_HIRE</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Stats -->
+                        <div class="hacker-terminal bg-hack-dark">
+                            <div class="p-6">
+                                <div class="hack-red text-lg font-bold mb-4">
+                                    [PERFORMANCE_METRICS.LOG]
+                                </div>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span class="hack-yellow">SUCCESSFUL_EXPLOITS</span>
+                                            <span class="hack-green">50+</span>
+                                        </div>
+                                        <div class="hack-progress">
+                                            <div class="hack-progress-fill" style="width: 85%;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span class="hack-yellow">CLIENT_SATISFACTION</span>
+                                            <span class="hack-green">100%</span>
+                                        </div>
+                                        <div class="hack-progress">
+                                            <div class="hack-progress-fill" style="width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-2">
+                                            <span class="hack-yellow">THREAT_LEVEL</span>
+                                            <span class="hack-red">MAXIMUM</span>
+                                        </div>
+                                        <div class="hack-progress">
+                                            <div class="hack-progress-fill" style="width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-hack-dark/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="hacker-terminal">
+                <div class="p-8 bg-hack-bg">
+                    <div class="cmd-line mb-6">
+                        root@exploit:~# ls -la /usr/bin/weapons/
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- AI Exploits -->
+                        <div class="hacker-terminal bg-hack-dark border-hack-green">
+                            <div class="p-6">
+                                <div class="hack-green text-xl font-bold mb-4 text-center">
+                                    [AI_WEAPONRY]
+                                </div>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span>chatgpt_exploit.py</span>
+                                        <span class="hack-green">█████</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>openai_backdoor.sh</span>
+                                        <span class="hack-green">████░</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>ml_injector.c</span>
+                                        <span class="hack-green">███░░</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>data_harvester.py</span>
+                                        <span class="hack-green">█████</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>auto_pwn.rb</span>
+                                        <span class="hack-green">████░</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Frontend Exploits -->
+                        <div class="hacker-terminal bg-hack-dark border-hack-yellow">
+                            <div class="p-6">
+                                <div class="hack-yellow text-xl font-bold mb-4 text-center">
+                                    [WEB_EXPLOITS]
+                                </div>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span>react_xss.js</span>
+                                        <span class="hack-yellow">█████</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>nextjs_bypass.ts</span>
+                                        <span class="hack-yellow">████░</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>typescript_shell.ts</span>
+                                        <span class="hack-yellow">███░░</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>css_injector.css</span>
+                                        <span class="hack-yellow">█████</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>js_payload.min.js</span>
+                                        <span class="hack-yellow">█████</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backend Exploits -->
+                        <div class="hacker-terminal bg-hack-dark border-hack-red">
+                            <div class="p-6">
+                                <div class="hack-red text-xl font-bold mb-4 text-center">
+                                    [SERVER_EXPLOITS]
+                                </div>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span>nodejs_rce.js</span>
+                                        <span class="hack-red">█████</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>python_reverse.py</span>
+                                        <span class="hack-red">████░</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>express_backdoor.js</span>
+                                        <span class="hack-red">█████</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>sql_injection.sql</span>
+                                        <span class="hack-red">███░░</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>api_fuzzer.go</span>
+                                        <span class="hack-red">█████</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="hacker-terminal">
+                <div class="p-8 bg-hack-bg">
+                    <div class="cmd-line mb-6">
+                        root@archive:~# find /var/log/missions -name "*.completed"
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Project 1 -->
+                        <div class="hacker-terminal bg-hack-dark border-hack-green">
+                            <div class="p-6">
+                                <div class="hack-green text-lg font-bold mb-3">📱 MOBILE_INFILTRATION</div>
+                                <div class="hack-white text-sm mb-4">
+                                    SWIFTUI BASED PENETRATION TOOL FOR IOS SYSTEMS. 
+                                    REAL-TIME DATA EXFILTRATION AND STEALTH OPERATIONS.
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-3 py-1 bg-hack-green/20 text-hack-green border border-hack-green">SWIFTUI</span>
+                                    <span class="text-xs px-3 py-1 bg-hack-green/20 text-hack-green border border-hack-green">IOS</span>
+                                </div>
+                                <div class="mt-3 text-xs hack-green">
+                                    STATUS: [MISSION_ACCOMPLISHED]
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="hacker-terminal bg-hack-dark border-hack-yellow">
+                            <div class="p-6">
+                                <div class="hack-yellow text-lg font-bold mb-3">📦 TRACKING_EXPLOIT</div>
+                                <div class="hack-white text-sm mb-4">
+                                    FULL-STACK SURVEILLANCE SYSTEM WITH REACT FRONTEND 
+                                    AND NODE.JS COMMAND & CONTROL SERVER.
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-3 py-1 bg-hack-yellow/20 text-hack-yellow border border-hack-yellow">REACT</span>
+                                    <span class="text-xs px-3 py-1 bg-hack-yellow/20 text-hack-yellow border border-hack-yellow">NODE.JS</span>
+                                </div>
+                                <div class="mt-3 text-xs hack-yellow">
+                                    STATUS: [OPERATION_ACTIVE]
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="hacker-terminal bg-hack-dark border-hack-red">
+                            <div class="p-6">
+                                <div class="hack-red text-lg font-bold mb-3">🤖 AI_BOTNET</div>
+                                <div class="hack-white text-sm mb-4">
+                                    CHATGPT API WEAPONIZATION FRAMEWORK WITH AUTOMATED 
+                                    SOCIAL ENGINEERING AND PSYCHOLOGICAL MANIPULATION.
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-3 py-1 bg-hack-red/20 text-hack-red border border-hack-red">AI</span>
+                                    <span class="text-xs px-3 py-1 bg-hack-red/20 text-hack-red border border-hack-red">PYTHON</span>
+                                </div>
+                                <div class="mt-3 text-xs hack-red">
+                                    STATUS: [CLASSIFIED]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-hack-dark/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="hacker-terminal">
+                <div class="p-8 bg-hack-bg">
+                    <div class="cmd-line mb-6">
+                        root@communication:~# ./establish_secure_channel.sh
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="text-3xl font-bold mb-4 hack-glitch hack-green" data-text="INITIATE CONTACT PROTOCOL">
+                            INITIATE CONTACT PROTOCOL
+                        </div>
+                        <div class="hack-white mb-6">
+                            ENCRYPTED CHANNELS AVAILABLE. USE DISCRETION.
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <!-- Email -->
+                            <div class="hacker-terminal bg-hack-dark border-hack-green hover:bg-hack-green/10 transition-all cursor-pointer">
+                                <div class="p-6 text-center">
+                                    <a href="mailto:celal@celalbasaran.com" class="block">
+                                        <div class="hack-green text-xl mb-2">📧</div>
+                                        <div class="text-sm font-bold hack-green mb-1">SECURE_EMAIL</div>
+                                        <div class="text-xs hack-white">celal@celalbasaran.com</div>
+                                        <div class="text-xs hack-green mt-2">[ENCRYPTED]</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div class="hacker-terminal bg-hack-dark border-hack-yellow hover:bg-hack-yellow/10 transition-all cursor-pointer">
+                                <div class="p-6 text-center">
+                                    <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="block">
+                                        <div class="hack-yellow text-xl mb-2">💼</div>
+                                        <div class="text-sm font-bold hack-yellow mb-1">SOCIAL_INTEL</div>
+                                        <div class="text-xs hack-white">Professional Network</div>
+                                        <div class="text-xs hack-yellow mt-2">[PUBLIC_FACADE]</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- GitHub -->
+                            <div class="hacker-terminal bg-hack-dark border-hack-red hover:bg-hack-red/10 transition-all cursor-pointer">
+                                <div class="p-6 text-center">
+                                    <a href="https://github.com/clbasaran" target="_blank" class="block">
+                                        <div class="hack-red text-xl mb-2">💻</div>
+                                        <div class="text-sm font-bold hack-red mb-1">CODE_VAULT</div>
+                                        <div class="text-xs hack-white">Source Repository</div>
+                                        <div class="text-xs hack-red mt-2">[OPEN_SOURCE]</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cmd-line">
+                        root@communication:~# echo "Connection established. Awaiting instructions..."
+                    </div>
+                    <div class="cmd-output">
+                        <div class="hack-green">
+                            ✓ ALL SECURE CHANNELS OPERATIONAL
+                            <br>✓ ENCRYPTION PROTOCOLS ACTIVE
+                            <br>✓ READY FOR CLASSIFIED COMMUNICATIONS
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-hack-green py-8 bg-hack-bg">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="hacker-terminal">
+                <div class="p-4 bg-hack-bg">
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="cmd-line mb-4 md:mb-0">
+                            root@portfolio:~# echo "© 2025 CELAL_BASH • ANONYMOUS • MADE_IN_SHADOWS"
+                        </div>
+                        <div class="flex items-center gap-4 text-sm">
+                            <a href="/emanettakip" class="hack-btn px-3 py-1">EMANETTAKIP.EXPLOIT</a>
+                            <a href="/admin" class="hack-btn px-3 py-1">ADMIN.BACKDOOR</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Hacker Effects -->
+    <script>
+        // Binary Rain Effect
+        function createBinaryRain() {
+            const container = document.getElementById('binaryRain');
+            const chars = '01';
+            
+            function createChar() {
+                const char = document.createElement('div');
+                char.className = 'binary-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                char.style.opacity = Math.random() * 0.8 + 0.2;
+                container.appendChild(char);
+                
+                setTimeout(() => {
+                    if (char.parentNode) {
+                        char.parentNode.removeChild(char);
+                    }
+                }, 5000);
+            }
+            
+            setInterval(createChar, 100);
+        }
+
+        // Typewriter Effect
+        function typeWriter(element, text, speed = 80) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createBinaryRain();
+            
+            // Typewriter effect for navigation
+            const typewriterElements = document.querySelectorAll('.hack-typing');
+            typewriterElements.forEach((el, index) => {
+                setTimeout(() => {
+                    const text = el.textContent;
+                    typeWriter(el, text, 100);
+                }, index * 1000);
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Random glitch effect
+            setInterval(() => {
+                const glitchElements = document.querySelectorAll('.hack-glitch');
+                glitchElements.forEach(el => {
+                    if (Math.random() < 0.2) {
+                        el.style.animation = 'none';
+                        setTimeout(() => {
+                            el.style.animation = 'hack-glitch-main 2s infinite';
+                        }, 100);
+                    }
+                });
+            }, 3000);
+
+            // Loading animation trigger
+            setTimeout(() => {
+                const loadingElements = document.querySelectorAll('.hack-loading');
+                loadingElements.forEach(el => {
+                    el.textContent = 'SCANNING COMPLETE';
+                    el.classList.remove('hack-loading');
+                });
+            }, 4000);
+        });
+
+        // Konami code easter egg (Up Up Down Down Left Right Left Right B A)
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.toString() === konamiSequence.toString()) {
+                // Easter egg: Add Anonymous mask
+                const body = document.body;
+                body.style.filter = 'hue-rotate(180deg) contrast(1.2)';
+                
+                // Show hack message
+                const hackMsg = document.createElement('div');
+                hackMsg.innerHTML = `
+                    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                                background: rgba(0,0,0,0.9); color: #00ff00; padding: 20px; 
+                                border: 2px solid #00ff00; z-index: 9999; text-align: center;
+                                font-family: 'Source Code Pro', monospace;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">SYSTEM COMPROMISED</div>
+                        <div>WE ARE ANONYMOUS. WE ARE LEGION.</div>
+                        <div style="margin-top: 10px; font-size: 12px;">Press ESC to restore</div>
+                    </div>
+                `;
+                document.body.appendChild(hackMsg);
+                
+                // Remove on ESC
+                const escHandler = (e) => {
+                    if (e.keyCode === 27) {
+                        body.style.filter = 'none';
+                        document.body.removeChild(hackMsg);
+                        document.removeEventListener('keydown', escHandler);
+                        konamiCode = [];
+                    }
+                };
+                document.addEventListener('keydown', escHandler);
+            }
+        });
+    </script>
+</body>
+</html> 

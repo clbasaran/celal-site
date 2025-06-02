@@ -1,667 +1,634 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Celal Başaran Portfolio</title>
+    <title>Admin Panel - Celal Başaran</title>
     
-    <!-- Favicon -->
-    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- CSS Variables (Apple Design System) -->
-    <style>
-        :root {
-            /* Colors */
-            --primary: #007AFF;
-            --primary-rgb: 0, 122, 255;
-            --secondary: #5856D6;
-            --secondary-rgb: 88, 86, 214;
-            --accent: #FF3B30;
-            --accent-rgb: 255, 59, 48;
-            
-            /* Background Colors */
-            --background: #F2F2F7;
-            --surface: #FFFFFF;
-            --surface-elevated: #FFFFFF;
-            --surface-secondary: #F2F2F7;
-            
-            /* Text Colors */
-            --text-primary: #000000;
-            --text-secondary: #3C3C43;
-            --text-tertiary: #48484A;
-            
-            /* Border */
-            --border: #C6C6C8;
-            
-            /* Shadows */
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-        
-        [data-theme="dark"] {
-            /* Dark mode colors */
-            --background: #000000;
-            --surface: #1C1C1E;
-            --surface-elevated: #2C2C2E;
-            --surface-secondary: #38383A;
-            
-            --text-primary: #FFFFFF;
-            --text-secondary: #EBEBF5;
-            --text-tertiary: #EBEBF5;
-            
-            --border: #38383A;
-        }
-        
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: var(--background);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-        
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--background);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--surface-secondary);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            margin-top: 16px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        
-        /* Admin Layout */
-        .admin-layout {
-            display: flex;
-            min-height: 100vh;
-        }
-        
-        .admin-sidebar {
-            width: 280px;
-            background: var(--surface);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-        
-        .sidebar-header {
-            padding: 24px 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .sidebar-header h2 {
-            margin: 0 0 4px 0;
-            color: var(--text-primary);
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-        
-        .sidebar-header p {
-            margin: 0;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-        
-        .sidebar-nav {
-            flex: 1;
-            padding: 16px 0;
-            list-style: none;
-        }
-        
-        .nav-item {
-            margin: 0;
-        }
-        
-        .nav-link {
-            display: block;
-            padding: 12px 20px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-        }
-        
-        .nav-link:hover {
-            background: var(--surface-secondary);
-            color: var(--text-primary);
-        }
-        
-        .nav-link.active {
-            background: rgba(var(--primary-rgb), 0.1);
-            color: var(--primary);
-            border-left-color: var(--primary);
-        }
-        
-        .sidebar-footer {
-            padding: 20px;
-            border-top: 1px solid var(--border);
-        }
-        
-        .admin-info p {
-            margin: 2px 0;
-            font-size: 0.875rem;
-        }
-        
-        .admin-info p:first-child {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        
-        .admin-info p:last-child {
-            color: var(--text-secondary);
-        }
-        
-        .admin-content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 24px;
-            overflow-y: auto;
-        }
-        
-        .content-section {
-            display: none;
-        }
-        
-        .content-section.active {
-            display: block;
-        }
-        
-        .section-header {
-            margin-bottom: 32px;
-        }
-        
-        .section-header h1 {
-            margin: 0 0 8px 0;
-            color: var(--text-primary);
-            font-size: 2rem;
-            font-weight: 700;
-        }
-        
-        .section-header p {
-            margin: 0;
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-        
-        /* Button Styles */
-        .btn-primary, .btn-secondary, .action-btn, .setting-btn {
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: rgba(var(--primary-rgb), 0.8);
-            transform: translateY(-1px);
-        }
-        
-        .btn-secondary {
-            background: var(--surface-elevated);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--surface-secondary);
-            transform: translateY(-1px);
-        }
-        
-        .btn-danger {
-            background: rgba(255, 59, 48, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(255, 59, 48, 0.2);
-        }
-        
-        .btn-danger:hover {
-            background: var(--accent);
-            color: white;
-        }
-        
-        /* Dashboard Styles */
-        .dashboard-grid {
-            display: grid;
-            gap: 24px;
-        }
-        
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-        
-        .stat-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .stat-icon {
-            font-size: 2rem;
-            opacity: 0.8;
-        }
-        
-        .stat-content h3 {
-            margin: 0 0 4px 0;
-            color: var(--primary);
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-        
-        .stat-content p {
-            margin: 0;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-        
-        .quick-actions, .recent-activity {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-        }
-        
-        .quick-actions h3, .recent-activity h3 {
-            margin: 0 0 16px 0;
-            color: var(--text-primary);
-            font-size: 1.125rem;
-            font-weight: 600;
-        }
-        
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-        
-        .action-btn {
-            justify-content: center;
-            padding: 12px 16px;
-            background: var(--surface-elevated);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-        
-        .action-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .activity-item {
-            padding: 8px 0;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-        
-        /* Settings Styles */
-        .settings-sections {
-            display: grid;
-            gap: 24px;
-        }
-        
-        .setting-group {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-        }
-        
-        .setting-group h3 {
-            margin: 0 0 16px 0;
-            color: var(--text-primary);
-            font-size: 1.125rem;
-            font-weight: 600;
-        }
-        
-        .setting-item {
-            margin-bottom: 12px;
-        }
-        
-        .setting-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            padding: 8px 0;
-        }
-        
-        .setting-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .setting-btn {
-            background: var(--surface-elevated);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-        
-        .setting-btn:hover {
-            background: var(--surface-secondary);
-        }
-        
-        .system-info p {
-            margin: 4px 0;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-        
-        /* Toast Notifications */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px 20px;
-            box-shadow: var(--shadow-lg);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            max-width: 400px;
-            animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .toast-success {
-            border-left: 4px solid #34C759;
-        }
-        
-        .toast-error {
-            border-left: 4px solid var(--accent);
-        }
-        
-        .toast-warning {
-            border-left: 4px solid #FF9500;
-        }
-        
-        .toast-info {
-            border-left: 4px solid var(--primary);
-        }
-        
-        .toast-message {
-            flex: 1;
-            color: var(--text-primary);
-            font-size: 0.875rem;
-        }
-        
-        .toast-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.25rem;
-            padding: 4px;
-            border-radius: 4px;
-        }
-        
-        .toast-close:hover {
-            background: var(--surface-secondary);
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .admin-layout {
-                flex-direction: column;
-            }
-            
-            .admin-sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-            }
-            
-            .admin-content {
-                margin-left: 0;
-                padding: 16px;
-            }
-            
-            .stats-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
-                grid-template-columns: 1fr;
-            }
-            
-            .setting-actions {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Import CSS -->
-    <link rel="stylesheet" href="../assets/css/components/editor.css">
+    <!-- Quill Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/components.css">
 </head>
-<body>
+
+<body class="admin-body" data-theme="light">
     <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Admin Panel Yükleniyor...</div>
+    <div id="adminLoading" class="admin-loading">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Admin Panel Yükleniyor...</div>
+        </div>
     </div>
-    
-    <!-- Admin Container -->
-    <div id="admin-container">
-        <!-- Content will be injected by JavaScript -->
-    </div>
-    
-    <!-- Scripts -->
-    <script type="module">
-        // Loading screen management
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loading-screen').classList.add('hidden');
-            }, 1000);
-        });
-        
-        // Error handling
-        window.addEventListener('error', (e) => {
-            console.error('JavaScript Hatası:', e.error);
-            if (window.toast) {
-                window.toast.error('Bir hata oluştu: ' + e.error.message);
-            }
-        });
-        
-        // Unhandled promise rejections
-        window.addEventListener('unhandledrejection', (e) => {
-            console.error('Promise Hatası:', e.reason);
-            if (window.toast) {
-                window.toast.error('Async hata: ' + e.reason);
-            }
-        });
-        
-        // Module import with error handling
-        async function loadModules() {
-            try {
-                console.log('🔄 Modüller yükleniyor...');
-                
-                // Ana admin.js modülünü import et
-                const { default: AdminPanel } = await import('./admin.js');
-                
-                console.log('✅ Admin Panel modülü yüklendi');
-                
-            } catch (error) {
-                console.error('❌ Modül yükleme hatası:', error);
-                
-                // Fallback error display
-                document.getElementById('admin-container').innerHTML = `
-                    <div style="
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        min-height: 100vh;
-                        padding: 40px;
-                        text-align: center;
-                        color: var(--text-primary);
-                    ">
-                        <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
-                        <h1 style="margin-bottom: 12px; color: var(--accent);">Modül Yükleme Hatası</h1>
-                        <p style="margin-bottom: 20px; color: var(--text-secondary);">
-                            Admin panel modülleri yüklenirken bir hata oluştu.
-                        </p>
-                        <pre style="
-                            background: var(--surface-secondary);
-                            padding: 16px;
-                            border-radius: 8px;
-                            font-size: 0.875rem;
-                            color: var(--accent);
-                            max-width: 600px;
-                            overflow: auto;
-                        ">${error.message}</pre>
-                        <button onclick="location.reload()" style="
-                            margin-top: 20px;
-                            padding: 12px 24px;
-                            background: var(--primary);
-                            color: white;
-                            border: none;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                        ">🔄 Sayfayı Yenile</button>
+
+    <!-- Sidebar -->
+    <aside id="adminSidebar" class="admin-sidebar">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-code"></i>
+                <span>Celal Admin</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- User Info -->
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <div class="user-name">Celal Başaran</div>
+                <div class="user-role">Administrator</div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Ana Menu</div>
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="content">
+                    <i class="fas fa-edit"></i>
+                    <span>İçerik Yönetimi</span>
+                </a>
+                <a href="#" class="nav-item" data-section="design">
+                    <i class="fas fa-palette"></i>
+                    <span>Tasarım Ayarları</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Portföy</div>
+                <a href="#" class="nav-item" data-section="portfolio">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Projeler</span>
+                </a>
+                <a href="#" class="nav-item" data-section="skills">
+                    <i class="fas fa-code"></i>
+                    <span>Yetenekler</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">İçerik</div>
+                <a href="#" class="nav-item" data-section="blog">
+                    <i class="fas fa-blog"></i>
+                    <span>Blog</span>
+                </a>
+                <a href="#" class="nav-item" data-section="messages">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mesajlar</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Analitik</div>
+                <a href="#" class="nav-item" data-section="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>İstatistikler</span>
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Sistem</div>
+                <a href="#" class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Site Ayarları</span>
+                </a>
+                <a href="#" class="nav-item" data-section="users">
+                    <i class="fas fa-users"></i>
+                    <span>Kullanıcılar</span>
+                </a>
+                <a href="#" class="nav-item" data-section="backups">
+                    <i class="fas fa-database"></i>
+                    <span>Yedekler</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+            <button class="btn btn-outline" onclick="adminPanel.exportData()">
+                <i class="fas fa-download"></i>
+                <span>Dışa Aktar</span>
+            </button>
+            <a href="../index.html" class="btn btn-secondary">
+                <i class="fas fa-eye"></i>
+                <span>Siteyi Görüntüle</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle" class="page-title">Dashboard</h1>
+            </div>
+
+            <div class="header-right">
+                <!-- Search -->
+                <div class="header-search">
+                    <input type="text" id="headerSearch" placeholder="Ara...">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <div class="header-actions">
+                    <button class="btn btn-primary" data-modal="quickAddModal">
+                        <i class="fas fa-plus"></i>
+                        <span>Hızlı Ekle</span>
+                    </button>
+                    
+                    <div class="theme-toggle-header">
+                        <button class="theme-toggle-btn" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
                     </div>
-                `;
-                
-                // Loading screen'i gizle
-                document.getElementById('loading-screen').classList.add('hidden');
-            }
-        }
-        
-        // DOM hazır olduğunda modülleri yükle
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadModules);
-        } else {
-            loadModules();
-        }
-        
-        // Theme toggle functionality
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('admin-theme', newTheme);
-            
-            if (window.toast) {
-                window.toast.info(`${newTheme === 'dark' ? 'Karanlık' : 'Aydınlık'} tema aktif`);
-            }
-        }
-        
-        // Load saved theme
-        const savedTheme = localStorage.getItem('admin-theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        }
-        
-        // Make theme toggle available globally
-        window.toggleTheme = toggleTheme;
-    </script>
-    
-    <!-- Performance monitoring -->
-    <script>
-        // Performance monitoring
-        window.addEventListener('load', () => {
-            if (performance.getEntriesByType) {
-                const navigationEntry = performance.getEntriesByType('navigation')[0];
-                if (navigationEntry) {
-                    console.log('📊 Sayfa Yükleme Performansı:');
-                    console.log(`   DOM Hazır: ${Math.round(navigationEntry.domContentLoadedEventEnd)}ms`);
-                    console.log(`   Sayfa Yüklendi: ${Math.round(navigationEntry.loadEventEnd)}ms`);
-                    console.log(`   İlk Byte: ${Math.round(navigationEntry.responseStart)}ms`);
-                }
-            }
-        });
-        
-        // Memory usage monitoring (Chrome only)
-        if (performance.memory) {
-            setInterval(() => {
-                const memory = performance.memory;
-                if (memory.usedJSHeapSize > 50 * 1024 * 1024) { // 50MB threshold
-                    console.warn('⚠️  Yüksek bellek kullanımı:', Math.round(memory.usedJSHeapSize / 1024 / 1024) + 'MB');
-                }
-            }, 30000); // Check every 30 seconds
-        }
-    </script>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <section id="dashboardSection" class="content-section active">
+                <div class="section-header">
+                    <div>
+                        <h2>Dashboard</h2>
+                        <p>Sitenizin genel durumu ve istatistikleri</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="location.reload()">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Yenile</span>
+                    </button>
+                </div>
+
+                <!-- Stats Row -->
+                <div id="statsRow" class="stats-row">
+                    <!-- Stats will be dynamically generated -->
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h3>Hızlı İşlemler</h3>
+                        <div class="action-grid">
+                            <a href="#" class="action-btn" data-modal="projectModal">
+                                <i class="fas fa-plus"></i>
+                                <span>Yeni Proje</span>
+                            </a>
+                            <a href="#" class="action-btn" data-modal="skillModal">
+                                <i class="fas fa-code"></i>
+                                <span>Yetenek Ekle</span>
+                            </a>
+                            <a href="#" class="action-btn" data-modal="blogModal">
+                                <i class="fas fa-pen"></i>
+                                <span>Blog Yazısı</span>
+                            </a>
+                            <a href="#" class="action-btn" onclick="adminPanel.exportData()">
+                                <i class="fas fa-download"></i>
+                                <span>Yedek Al</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h3>Son Aktiviteler</h3>
+                        <div id="recentActivityList" class="activity-list">
+                            <!-- Recent activities will be dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design Settings Section -->
+            <section id="designSection" class="content-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Tasarım Ayarları</h2>
+                        <p>Sitenizin görünümünü ve hissini özelleştirin</p>
+                    </div>
+                    <button class="btn btn-success" onclick="adminPanel.saveCurrentSection()">
+                        <i class="fas fa-save"></i>
+                        <span>Kaydet</span>
+                    </button>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Color Settings -->
+                    <div class="settings-card">
+                        <h3>Renk Paleti</h3>
+                        <form class="admin-form" data-form-type="design">
+                            <div class="color-picker-group">
+                                <div class="form-group">
+                                    <label>Ana Renk</label>
+                                    <input type="color" class="color-picker" name="primaryColor" data-css-property="--primary" value="#007aff">
+                                </div>
+                                <div class="form-group">
+                                    <label>İkincil Renk</label>
+                                    <input type="color" class="color-picker" name="secondaryColor" data-css-property="--secondary" value="#5856d6">
+                                </div>
+                                <div class="form-group">
+                                    <label>Vurgu Rengi</label>
+                                    <input type="color" class="color-picker" name="accentColor" data-css-property="--accent" value="#34c759">
+                                </div>
+                                <div class="form-group">
+                                    <label>Arkaplan Rengi</label>
+                                    <input type="color" class="color-picker" name="backgroundColor" data-css-property="--bg-primary" value="#ffffff">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Typography Settings -->
+                    <div class="settings-card">
+                        <h3>Tipografi</h3>
+                        <form class="admin-form" data-form-type="design">
+                            <div class="form-group">
+                                <label>Ana Font</label>
+                                <select class="form-control" name="primaryFont">
+                                    <option value="Inter">Inter</option>
+                                    <option value="SF Pro Display">SF Pro Display</option>
+                                    <option value="Roboto">Roboto</option>
+                                    <option value="Open Sans">Open Sans</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Font Boyutu (Ana)</label>
+                                <input type="range" class="form-range" name="baseFontSize" min="14" max="20" value="16" data-unit="px">
+                                <span class="range-value">16px</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Satır Yüksekliği</label>
+                                <input type="range" class="form-range" name="lineHeight" min="1.2" max="2" step="0.1" value="1.5" data-unit="">
+                                <span class="range-value">1.5</span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Layout Settings -->
+                    <div class="settings-card">
+                        <h3>Düzen Ayarları</h3>
+                        <form class="admin-form" data-form-type="design">
+                            <div class="form-group">
+                                <label>Maksimum Genişlik</label>
+                                <input type="range" class="form-range" name="maxWidth" min="1000" max="1400" value="1200" data-unit="px">
+                                <span class="range-value">1200px</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Kenar Yuvarlaklığı</label>
+                                <input type="range" class="form-range" name="borderRadius" min="0" max="20" value="8" data-unit="px">
+                                <span class="range-value">8px</span>
+                            </div>
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" name="darkMode" id="darkModeToggle">
+                                <label for="darkModeToggle">Karanlık Mod Desteği</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Management Section -->
+            <section id="skillsSection" class="content-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Yetenekler</h2>
+                        <p>Teknik becerilerinizi ve yeterlilik seviyelerinizi yönetin</p>
+                    </div>
+                    <button class="btn btn-primary" data-modal="skillModal">
+                        <i class="fas fa-plus"></i>
+                        <span>Yeni Yetenek</span>
+                    </button>
+                </div>
+
+                <div class="skills-management">
+                    <div id="skillsList" class="skills-list">
+                        <!-- Skills will be dynamically loaded -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Management Section -->
+            <section id="portfolioSection" class="content-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Portfolio Yönetimi</h2>
+                        <p>Projelerinizi ve çalışmalarınızı yönetin</p>
+                    </div>
+                    <button class="btn btn-primary" data-modal="projectModal">
+                        <i class="fas fa-plus"></i>
+                        <span>Yeni Proje</span>
+                    </button>
+                </div>
+
+                <div class="portfolio-management">
+                    <div id="projectsList" class="projects-list">
+                        <!-- Projects will be dynamically loaded -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Management Section -->
+            <section id="contentSection" class="content-section">
+                <div class="section-header">
+                    <div>
+                        <h2>İçerik Yönetimi</h2>
+                        <p>Site içeriklerinizi düzenleyin ve güncelleyin</p>
+                    </div>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Hero Section -->
+                    <div class="settings-card">
+                        <h3>Ana Sayfa - Hero Bölümü</h3>
+                        <form class="admin-form" data-form-type="content">
+                            <div class="form-group">
+                                <label>Ana Başlık</label>
+                                <input type="text" class="form-control" name="heroTitle" placeholder="Ana başlık">
+                            </div>
+                            <div class="form-group">
+                                <label>Alt Başlık</label>
+                                <input type="text" class="form-control" name="heroSubtitle" placeholder="Alt başlık">
+                            </div>
+                            <div class="form-group">
+                                <label>Açıklama</label>
+                                <textarea class="form-control" name="heroDescription" rows="4" placeholder="Kısa açıklama"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>CTA Buton Metni</label>
+                                <input type="text" class="form-control" name="heroButtonText" placeholder="Buton metni">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- About Section -->
+                    <div class="settings-card">
+                        <h3>Hakkımda Bölümü</h3>
+                        <form class="admin-form" data-form-type="content">
+                            <div class="form-group">
+                                <label>Başlık</label>
+                                <input type="text" class="form-control" name="aboutTitle" placeholder="Bölüm başlığı">
+                            </div>
+                            <div class="form-group">
+                                <label>İçerik</label>
+                                <div id="aboutEditor" class="rich-editor" style="height: 200px;"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Site Settings Section -->
+            <section id="settingsSection" class="content-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Site Ayarları</h2>
+                        <p>Genel site ayarları ve yapılandırmaları</p>
+                    </div>
+                    <button class="btn btn-success" onclick="adminPanel.saveCurrentSection()">
+                        <i class="fas fa-save"></i>
+                        <span>Kaydet</span>
+                    </button>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- General Settings -->
+                    <div class="settings-card">
+                        <h3>Genel Ayarlar</h3>
+                        <form class="admin-form" data-form-type="site-settings">
+                            <div class="form-group">
+                                <label>Site Adı</label>
+                                <input type="text" class="form-control" name="siteName" placeholder="Site adı">
+                            </div>
+                            <div class="form-group">
+                                <label>Site Sloganı</label>
+                                <input type="text" class="form-control" name="tagline" placeholder="Site sloganı">
+                            </div>
+                            <div class="form-group">
+                                <label>Site Açıklaması</label>
+                                <textarea class="form-control" name="description" rows="3" placeholder="SEO için site açıklaması"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Anahtar Kelimeler</label>
+                                <input type="text" class="form-control" name="keywords" placeholder="Virgülle ayrılmış anahtar kelimeler">
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="settings-card">
+                        <h3>İletişim Bilgileri</h3>
+                        <form class="admin-form" data-form-type="site-settings">
+                            <div class="form-group">
+                                <label>E-posta</label>
+                                <input type="email" class="form-control" name="email" placeholder="E-posta adresi">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon</label>
+                                <input type="tel" class="form-control" name="phone" placeholder="Telefon numarası">
+                            </div>
+                            <div class="form-group">
+                                <label>Adres</label>
+                                <textarea class="form-control" name="address" rows="3" placeholder="Adres bilgileri"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="settings-card">
+                        <h3>Sosyal Medya</h3>
+                        <form class="admin-form" data-form-type="site-settings">
+                            <div class="form-group">
+                                <label>GitHub</label>
+                                <input type="url" class="form-control" name="github" placeholder="GitHub profil URL">
+                            </div>
+                            <div class="form-group">
+                                <label>LinkedIn</label>
+                                <input type="url" class="form-control" name="linkedin" placeholder="LinkedIn profil URL">
+                            </div>
+                            <div class="form-group">
+                                <label>Twitter</label>
+                                <input type="url" class="form-control" name="twitter" placeholder="Twitter profil URL">
+                            </div>
+                            <div class="form-group">
+                                <label>Instagram</label>
+                                <input type="url" class="form-control" name="instagram" placeholder="Instagram profil URL">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections would be similar... -->
+            <!-- Backup Section -->
+            <section id="backupsSection" class="content-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Yedek Yönetimi</h2>
+                        <p>Verilerinizi yedekleyin ve geri yükleyin</p>
+                    </div>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Yedekleme İşlemleri</h3>
+                        <div class="action-grid">
+                            <button class="action-btn" onclick="adminPanel.exportData()">
+                                <i class="fas fa-download"></i>
+                                <span>Tam Yedek Al</span>
+                            </button>
+                            <label class="action-btn" for="importFile">
+                                <i class="fas fa-upload"></i>
+                                <span>Yedek Yükle</span>
+                            </label>
+                            <button class="action-btn" onclick="adminPanel.resetData()">
+                                <i class="fas fa-trash-restore"></i>
+                                <span>Sıfırla</span>
+                            </button>
+                        </div>
+                        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="adminPanel.importData(event)">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Skill Modal -->
+    <div id="skillModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Yetenek Ekle/Düzenle</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="admin-form" data-form-type="skill">
+                    <input type="hidden" name="id">
+                    <div class="form-group">
+                        <label>Yetenek Adı</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        <select class="form-control" name="category" required>
+                            <option value="">Kategori seçin</option>
+                            <option value="Frontend">Frontend</option>
+                            <option value="Backend">Backend</option>
+                            <option value="AI/ML">AI/ML</option>
+                            <option value="Database">Database</option>
+                            <option value="DevOps">DevOps</option>
+                            <option value="Other">Diğer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Seviye (%)</label>
+                        <input type="range" class="form-range" name="level" min="0" max="100" value="50">
+                        <span class="range-value">50%</span>
+                    </div>
+                    <div class="form-group">
+                        <label>İkon (Font Awesome)</label>
+                        <input type="text" class="form-control" name="icon" placeholder="fab fa-js">
+                        <div class="form-hint">Font Awesome ikon sınıfı girin (örn: fab fa-js)</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modal-close">İptal</button>
+                <button type="submit" class="btn btn-primary" form="skillForm">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Proje Ekle/Düzenle</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="admin-form" data-form-type="project">
+                    <input type="hidden" name="id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Proje Adı</label>
+                            <input type="text" class="form-control" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori</label>
+                            <select class="form-control" name="category" required>
+                                <option value="">Kategori seçin</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Mobile App">Mobile App</option>
+                                <option value="AI/ML">AI/ML</option>
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="SaaS">SaaS</option>
+                                <option value="Other">Diğer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        <textarea class="form-control" name="description" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Teknolojiler (virgülle ayırın)</label>
+                        <input type="text" class="form-control" name="technologies" placeholder="React, Node.js, MongoDB">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Proje URL</label>
+                            <input type="url" class="form-control" name="projectUrl">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub URL</label>
+                            <input type="url" class="form-control" name="githubUrl">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Proje Görseli URL</label>
+                        <input type="url" class="form-control" name="image">
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" name="featured" id="projectFeatured">
+                        <label for="projectFeatured">Öne Çıkan Proje</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modal-close">İptal</button>
+                <button type="submit" class="btn btn-primary" form="projectForm">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html> 

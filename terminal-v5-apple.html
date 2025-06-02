@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celal Başaran - Apple Terminal</title>
+    <meta name="description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler ve akıllı uygulamalar.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+                        'mono': ['SF Mono', 'Monaco', 'Cascadia Code', 'monospace'],
+                    },
+                    colors: {
+                        'apple': {
+                            'light': '#f5f5f7',
+                            'gray': '#86868b',
+                            'dark': '#1d1d1f',
+                            'blue': '#007aff',
+                            'green': '#30d158',
+                            'orange': '#ff9500',
+                            'purple': '#af52de',
+                            'pink': '#ff2d92',
+                            'indigo': '#5856d6'
+                        }
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            font-family: 'SF Pro Display', 'Inter', system-ui, sans-serif !important;
+        }
+
+        /* Apple Glass Effect */
+        .apple-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .apple-glass-dark {
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Terminal Window */
+        .terminal-window {
+            background: rgba(40, 40, 40, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 12px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: linear-gradient(180deg, #f6f6f6 0%, #e8e8e8 100%);
+            padding: 12px 16px;
+            border-bottom: 1px solid #d1d1d1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        .terminal-content {
+            background: #282828;
+            color: #f8f8f2;
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace !important;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 200px;
+        }
+
+        /* Typing Animation */
+        .apple-typing {
+            overflow: hidden;
+            border-right: 2px solid #007aff;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: 
+                apple-type 3s steps(40, end),
+                apple-cursor-blink 1s step-end infinite;
+        }
+
+        @keyframes apple-type {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes apple-cursor-blink {
+            from, to { border-color: transparent }
+            50% { border-color: #007aff; }
+        }
+
+        /* Apple Button */
+        .apple-button {
+            background: linear-gradient(135deg, #007aff 0%, #0051d5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+        }
+
+        .apple-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 122, 255, 0.4);
+        }
+
+        .apple-button:active {
+            transform: translateY(0);
+        }
+
+        /* Apple Card */
+        .apple-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .apple-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 16px 48px rgba(0, 0, 0, 0.12),
+                0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Progress Bar Apple Style */
+        .apple-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .apple-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #007aff, #5856d6);
+            border-radius: 3px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Floating Animation */
+        .apple-float {
+            animation: apple-floating 6s ease-in-out infinite;
+        }
+
+        @keyframes apple-floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Apple Gradient Text */
+        .apple-gradient-text {
+            background: linear-gradient(135deg, #007aff 0%, #af52de 50%, #ff2d92 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: apple-gradient-shift 3s ease infinite;
+        }
+
+        @keyframes apple-gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Command Prompt */
+        .command-prompt {
+            color: #30d158;
+            font-weight: 600;
+        }
+
+        .command-output {
+            color: #f8f8f2;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Apple Navigation */
+        .apple-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Apple Spotlight Effect */
+        .apple-spotlight {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .apple-spotlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .apple-spotlight:hover::before {
+            left: 100%;
+        }
+
+        /* Particles */
+        .apple-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 122, 255, 0.3);
+            border-radius: 50%;
+            animation: particle-float 8s ease-in-out infinite;
+        }
+
+        @keyframes particle-float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Background */
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Terminal Text Colors */
+        .text-terminal-green { color: #30d158; }
+        .text-terminal-blue { color: #007aff; }
+        .text-terminal-orange { color: #ff9500; }
+        .text-terminal-purple { color: #af52de; }
+        .text-terminal-pink { color: #ff2d92; }
+    </style>
+</head>
+
+<body class="font-apple antialiased">
+    <!-- Floating Particles -->
+    <div class="apple-particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full apple-nav z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="font-semibold text-lg text-apple-dark">
+                    <span class="apple-typing">celal@macbook-pro</span>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#about" class="text-apple-gray hover:text-apple-blue transition-colors">Hakkında</a>
+                    <a href="#skills" class="text-apple-gray hover:text-apple-blue transition-colors">Yetenekler</a>
+                    <a href="#projects" class="text-apple-gray hover:text-apple-blue transition-colors">Projeler</a>
+                    <a href="#contact" class="text-apple-gray hover:text-apple-blue transition-colors">İletişim</a>
+                    <a href="mailto:celal@celalbasaran.com" class="apple-button">
+                        İşe Al
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-32">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Main Terminal -->
+            <div class="terminal-window mb-8 apple-float">
+                <div class="terminal-header">
+                    <span class="terminal-dot dot-red"></span>
+                    <span class="terminal-dot dot-yellow"></span>
+                    <span class="terminal-dot dot-green"></span>
+                    <span class="ml-4 text-sm text-gray-600 font-medium">Terminal — celal@portfolio</span>
+                </div>
+                
+                <div class="terminal-content">
+                    <div class="mb-4">
+                        <span class="command-prompt">➜ ~</span> whoami
+                    </div>
+                    <div class="command-output text-4xl md:text-6xl font-bold mb-6">
+                        <span class="apple-gradient-text">CELAL BAŞARAN</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="command-prompt">➜ ~</span> cat role.txt
+                    </div>
+                    <div class="command-output text-xl md:text-2xl text-terminal-blue mb-6">
+                        AI Expert & Full-Stack Developer
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="command-prompt">➜ ~</span> ls -la skills/
+                    </div>
+                    <div class="command-output mb-6">
+                        <div class="text-terminal-green">ChatGPT API • React • Node.js • Python 🚀</div>
+                        <div class="text-apple-gray text-sm mt-2">Premium AI solutions and modern web development</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="command-prompt">➜ ~</span> ./contact.sh
+                    </div>
+                    <div class="command-output">
+                        <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                            <a href="mailto:celal@celalbasaran.com" class="apple-button apple-spotlight">
+                                echo "İletişime Geç"
+                            </a>
+                            <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="apple-button bg-gradient-to-r from-apple-purple to-apple-pink apple-spotlight">
+                                open linkedin.com
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="apple-card apple-spotlight">
+                    <div class="w-3 h-3 bg-apple-green rounded-full mb-3 animate-pulse"></div>
+                    <div class="text-sm text-apple-gray mb-1">Durum</div>
+                    <div class="font-semibold text-apple-dark">Çalışmaya Hazır</div>
+                </div>
+                
+                <div class="apple-card apple-spotlight">
+                    <div class="w-3 h-3 bg-apple-blue rounded-full mb-3 animate-pulse"></div>
+                    <div class="text-sm text-apple-gray mb-1">Projeler</div>
+                    <div class="font-semibold text-apple-dark">50+ Tamamlandı</div>
+                </div>
+                
+                <div class="apple-card apple-spotlight">
+                    <div class="w-3 h-3 bg-apple-orange rounded-full mb-3 animate-pulse"></div>
+                    <div class="text-sm text-apple-gray mb-1">Memnuniyet</div>
+                    <div class="font-semibold text-apple-dark">%100</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="terminal-dot dot-red"></span>
+                    <span class="terminal-dot dot-yellow"></span>
+                    <span class="terminal-dot dot-green"></span>
+                    <span class="ml-4 text-sm text-gray-600 font-medium">Terminal — about.sh</span>
+                </div>
+                
+                <div class="terminal-content">
+                    <div class="mb-4">
+                        <span class="command-prompt">➜ ~</span> cat about.json | jq
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 mt-6">
+                        <div class="apple-card bg-apple-light/50">
+                            <h3 class="text-lg font-semibold text-apple-dark mb-4">Kişisel Bilgiler</h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-apple-gray">İsim:</span>
+                                    <span class="text-apple-dark font-medium">Celal Başaran</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-apple-gray">Meslek:</span>
+                                    <span class="text-apple-dark font-medium">AI Expert & Full-Stack Dev</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-apple-gray">Konum:</span>
+                                    <span class="text-apple-dark font-medium">Türkiye</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-apple-gray">Deneyim:</span>
+                                    <span class="text-apple-dark font-medium">3+ Yıl</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-apple-gray">Durum:</span>
+                                    <span class="text-apple-green font-medium">Müsait</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="apple-card bg-apple-light/50">
+                            <h3 class="text-lg font-semibold text-apple-dark mb-4">Performans Metrikleri</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-apple-gray">Tamamlanan Projeler</span>
+                                        <span class="text-apple-dark font-medium">50+</span>
+                                    </div>
+                                    <div class="apple-progress">
+                                        <div class="apple-progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-apple-gray">Müşteri Memnuniyeti</span>
+                                        <span class="text-apple-dark font-medium">100%</span>
+                                    </div>
+                                    <div class="apple-progress">
+                                        <div class="apple-progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="text-apple-gray">Uzmanlık Seviyesi</span>
+                                        <span class="text-apple-dark font-medium">Expert</span>
+                                    </div>
+                                    <div class="apple-progress">
+                                        <div class="apple-progress-fill" style="width: 95%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-apple-dark mb-4">Teknoloji Yığını</h2>
+                <p class="text-apple-gray">Modern web teknolojileri ve AI araçları</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- AI Skills -->
+                <div class="apple-card apple-spotlight">
+                    <div class="text-2xl mb-4">🤖</div>
+                    <h3 class="text-lg font-semibold text-apple-dark mb-4">AI & Machine Learning</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">ChatGPT API</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">OpenAI Tools</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Data Analysis</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend Skills -->
+                <div class="apple-card apple-spotlight">
+                    <div class="text-2xl mb-4">💻</div>
+                    <h3 class="text-lg font-semibold text-apple-dark mb-4">Frontend Development</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">React.js</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Next.js</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Tailwind CSS</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Skills -->
+                <div class="apple-card apple-spotlight">
+                    <div class="text-2xl mb-4">⚙️</div>
+                    <h3 class="text-lg font-semibold text-apple-dark mb-4">Backend Development</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Node.js</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-blue rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Python</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-green rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">PostgreSQL</span>
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-apple-purple rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-apple-dark mb-4">Öne Çıkan Projeler</h2>
+                <p class="text-apple-gray">Gerçekleştirdiğim premium dijital çözümler</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="apple-card apple-spotlight">
+                    <div class="text-3xl mb-4">📱</div>
+                    <h3 class="text-lg font-semibold text-apple-dark mb-3">iOS Portfolio App</h3>
+                    <p class="text-apple-gray text-sm mb-4">
+                        SwiftUI ile geliştirilen modern iOS uygulaması. 
+                        Real-time data sync ve elegant UI tasarımı.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-apple-blue/10 text-apple-blue text-xs rounded-full">SwiftUI</span>
+                        <span class="px-3 py-1 bg-apple-purple/10 text-apple-purple text-xs rounded-full">iOS</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="apple-card apple-spotlight">
+                    <div class="text-3xl mb-4">📦</div>
+                    <h3 class="text-lg font-semibold text-apple-dark mb-3">Emanet Takip Sistemi</h3>
+                    <p class="text-apple-gray text-sm mb-4">
+                        Full-stack emanet takip çözümü. React frontend 
+                        ve Node.js backend mimarisi.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-apple-green/10 text-apple-green text-xs rounded-full">React</span>
+                        <span class="px-3 py-1 bg-apple-orange/10 text-apple-orange text-xs rounded-full">Node.js</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="apple-card apple-spotlight">
+                    <div class="text-3xl mb-4">🤖</div>
+                    <h3 class="text-lg font-semibold text-apple-dark mb-3">AI Automation Tools</h3>
+                    <p class="text-apple-gray text-sm mb-4">
+                        ChatGPT API entegrasyonu ile akıllı otomasyon 
+                        araçları ve chatbot çözümleri.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-apple-pink/10 text-apple-pink text-xs rounded-full">AI</span>
+                        <span class="px-3 py-1 bg-apple-indigo/10 text-apple-indigo text-xs rounded-full">Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span class="terminal-dot dot-red"></span>
+                    <span class="terminal-dot dot-yellow"></span>
+                    <span class="terminal-dot dot-green"></span>
+                    <span class="ml-4 text-sm text-gray-600 font-medium">Terminal — contact.sh</span>
+                </div>
+                
+                <div class="terminal-content">
+                    <div class="text-center mb-8">
+                        <div class="mb-4">
+                            <span class="command-prompt">➜ ~</span> echo "Yeni bir proje mi var?"
+                        </div>
+                        <div class="text-2xl font-bold mb-4 apple-gradient-text">
+                            Harika Projeler Birlikte Yapalım!
+                        </div>
+                        <div class="text-apple-gray mb-6">
+                            AI çözümleri ve modern web teknolojileri ile hayallerinizi gerçeğe dönüştürüyorum.
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <!-- Email -->
+                            <div class="apple-card apple-spotlight">
+                                <a href="mailto:celal@celalbasaran.com" class="block text-center">
+                                    <div class="text-2xl mb-2">📧</div>
+                                    <div class="font-semibold text-apple-dark mb-1">E-posta</div>
+                                    <div class="text-sm text-apple-gray">celal@celalbasaran.com</div>
+                                </a>
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div class="apple-card apple-spotlight">
+                                <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="block text-center">
+                                    <div class="text-2xl mb-2">💼</div>
+                                    <div class="font-semibold text-apple-dark mb-1">LinkedIn</div>
+                                    <div class="text-sm text-apple-gray">Profesyonel Ağ</div>
+                                </a>
+                            </div>
+
+                            <!-- GitHub -->
+                            <div class="apple-card apple-spotlight">
+                                <a href="https://github.com/clbasaran" target="_blank" class="block text-center">
+                                    <div class="text-2xl mb-2">💻</div>
+                                    <div class="font-semibold text-apple-dark mb-1">GitHub</div>
+                                    <div class="text-sm text-apple-gray">Kod Deposu</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <span class="command-prompt">➜ ~</span> ./ready_for_contact.sh
+                        </div>
+                        <div class="command-output">
+                            <div class="text-terminal-green">
+                                ✓ Tüm iletişim kanalları aktif
+                                <br>✓ Yeni projeler için hazır
+                                <br>✓ Hemen başlayabiliriz! 🚀
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-apple-light/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="apple-glass rounded-xl p-6">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="text-apple-gray mb-4 md:mb-0">
+                        © 2025 Celal Başaran • Made with ❤️ in Turkey
+                    </div>
+                    <div class="flex items-center gap-6 text-sm">
+                        <a href="/emanettakip" class="text-apple-gray hover:text-apple-blue transition-colors">Emanet Takip</a>
+                        <a href="/admin" class="text-apple-gray hover:text-apple-blue transition-colors">Admin Panel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Apple Effects -->
+    <script>
+        // Particle System
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['rgba(0, 122, 255, 0.3)', 'rgba(175, 82, 222, 0.3)', 'rgba(255, 45, 146, 0.3)'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Typewriter Effect
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Typewriter effect for navigation
+            const typewriterElements = document.querySelectorAll('.apple-typing');
+            typewriterElements.forEach((el, index) => {
+                setTimeout(() => {
+                    const text = el.textContent;
+                    typeWriter(el, text, 120);
+                }, index * 1500);
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Progress bar animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const progressBars = entry.target.querySelectorAll('.apple-progress-fill');
+                        progressBars.forEach(bar => {
+                            bar.style.width = bar.style.width;
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.apple-progress').forEach(progress => {
+                observer.observe(progress.closest('section'));
+            });
+
+            // Apple spotlight effect
+            document.querySelectorAll('.apple-spotlight').forEach(el => {
+                el.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                
+                el.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.apple-float');
+            
+            parallax.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html> 

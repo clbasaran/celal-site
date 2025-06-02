@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celal Başaran - Terminal Portfolio</title>
+    <meta name="description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler ve akıllı uygulamalar.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        'matrix': '#00ff41',
+                        'terminal': {
+                            'bg': '#0d1117',
+                            'border': '#21262d',
+                            'text': '#e6edf3',
+                            'green': '#00ff41',
+                            'cyan': '#00ffff',
+                            'yellow': '#ffff00',
+                            'red': '#ff0000',
+                            'purple': '#ff00ff'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+        }
+
+        /* Matrix rain effect */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .matrix-char {
+            position: absolute;
+            color: #00ff41;
+            font-size: 14px;
+            line-height: 14px;
+            opacity: 0.8;
+            animation: matrix-fall linear infinite;
+        }
+
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #00ff41;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff41; }
+        }
+
+        /* Terminal cursor */
+        .cursor {
+            display: inline-block;
+            background-color: #00ff41;
+            width: 10px;
+            height: 20px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Terminal window */
+        .terminal-window {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: #161b22;
+            padding: 10px 15px;
+            border-bottom: 1px solid #21262d;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        /* Command line */
+        .command-line {
+            color: #00ff41;
+            margin-bottom: 10px;
+        }
+
+        .command-output {
+            color: #e6edf3;
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        /* Glitch effect */
+        .glitch {
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, 2px); }
+            20% { transform: translate(2px, -2px); }
+            30% { transform: translate(-2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+            50% { transform: translate(-2px, 2px); }
+            60% { transform: translate(2px, -2px); }
+            70% { transform: translate(-2px, -2px); }
+            80% { transform: translate(2px, 2px); }
+            90% { transform: translate(-2px, 2px); }
+        }
+
+        /* ASCII art */
+        .ascii-art {
+            font-size: 8px;
+            line-height: 8px;
+            color: #00ff41;
+            white-space: pre;
+        }
+
+        /* Scan lines */
+        .scanlines {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scanlines::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.1) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scanlines 0.1s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Terminal prompt animation */
+        .terminal-prompt::after {
+            content: '█';
+            color: #00ff41;
+            animation: blink 1s infinite;
+        }
+
+        /* Hover effects */
+        .terminal-link:hover {
+            background: rgba(0, 255, 65, 0.1);
+            color: #00ff41;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        /* Loading bars */
+        .loading-bar {
+            width: 100%;
+            height: 20px;
+            background: #21262d;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .loading-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff41, #00ffff);
+            border-radius: 10px;
+            animation: loading 3s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
+        }
+
+        /* Code syntax highlighting */
+        .syntax-keyword { color: #ff79c6; }
+        .syntax-string { color: #f1fa8c; }
+        .syntax-comment { color: #6272a4; }
+        .syntax-function { color: #50fa7b; }
+        .syntax-variable { color: #8be9fd; }
+    </style>
+</head>
+
+<body class="bg-terminal-bg text-terminal-text min-h-screen font-mono antialiased scanlines">
+    <!-- Matrix Rain Background -->
+    <div class="matrix-rain" id="matrixRain"></div>
+
+    <!-- Navigation Terminal -->
+    <nav class="fixed top-0 w-full bg-terminal-bg/90 backdrop-blur-sm border-b border-terminal-border z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="ml-4 text-terminal-text text-sm">celal@portfolio:~$</span>
+                </div>
+                <div class="p-4 bg-terminal-bg">
+                    <div class="flex items-center justify-between">
+                        <div class="command-line">
+                            <span class="text-terminal-green">root@celal-portfolio</span>
+                            <span class="text-terminal-text">:</span>
+                            <span class="text-terminal-cyan">~/home</span>
+                            <span class="text-terminal-text">$ </span>
+                            <span class="typewriter">navigation_menu --interactive</span>
+                        </div>
+                        
+                        <div class="hidden md:flex items-center gap-6 text-sm">
+                            <a href="#about" class="terminal-link px-2 py-1 rounded border border-terminal-border hover:border-terminal-green transition-colors">./about.sh</a>
+                            <a href="#skills" class="terminal-link px-2 py-1 rounded border border-terminal-border hover:border-terminal-cyan transition-colors">./skills.py</a>
+                            <a href="#projects" class="terminal-link px-2 py-1 rounded border border-terminal-border hover:border-terminal-yellow transition-colors">./projects.js</a>
+                            <a href="#contact" class="terminal-link px-2 py-1 rounded border border-terminal-border hover:border-terminal-purple transition-colors">./contact.md</a>
+                            <a href="mailto:celal@celalbasaran.com" class="bg-terminal-green text-terminal-bg px-3 py-1 rounded font-bold hover:bg-terminal-cyan transition-colors">
+                                > ./hire_me.exe
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-32">
+        <div class="max-w-4xl mx-auto">
+            <!-- ASCII Art Header -->
+            <div class="ascii-art text-terminal-green mb-8 text-center hidden md:block">
+   ██████╗███████╗██╗      █████╗ ██╗         ██████╗  █████╗ ███████╗ █████╗ ██████╗  █████╗ ███╗   ██╗
+  ██╔════╝██╔════╝██║     ██╔══██╗██║         ██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗████╗  ██║
+  ██║     █████╗  ██║     ███████║██║         ██████╔╝███████║███████╗███████║██████╔╝███████║██╔██╗ ██║
+  ██║     ██╔══╝  ██║     ██╔══██║██║         ██╔══██╗██╔══██║╚════██║██╔══██║██╔══██╗██╔══██║██║╚██╗██║
+  ╚██████╗███████╗███████╗██║  ██║███████╗    ██████╔╝██║  ██║███████║██║  ██║██║  ██║██║  ██║██║ ╚████║
+   ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+            </div>
+
+            <!-- Status Badge -->
+            <div class="mb-8 text-center">
+                <div class="terminal-window inline-block">
+                    <div class="p-3 bg-terminal-bg">
+                        <span class="text-terminal-green">●</span>
+                        <span class="text-terminal-text ml-2">SYSTEM STATUS:</span>
+                        <span class="text-terminal-green ml-2 animate-pulse">ONLINE - AVAILABLE FOR PROJECTS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Terminal -->
+            <div class="terminal-window mb-8">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="ml-4 text-terminal-text text-sm">developer@portfolio-v2.0</span>
+                </div>
+                <div class="p-6 bg-terminal-bg">
+                    <div class="command-line">
+                        <span class="text-terminal-green">celal@system</span>
+                        <span class="text-terminal-text">:</span>
+                        <span class="text-terminal-cyan">~/portfolio</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">whoami</span>
+                    </div>
+                    
+                    <div class="command-output">
+                        <div class="text-4xl md:text-6xl font-bold mb-4 glitch">
+                            <span class="text-terminal-green">&gt; </span>
+                            <span class="text-terminal-text">Celal </span>
+                            <span class="text-terminal-cyan">Başaran</span>
+                            <span class="cursor"></span>
+                        </div>
+                    </div>
+
+                    <div class="command-line">
+                        <span class="text-terminal-green">celal@system</span>
+                        <span class="text-terminal-text">:</span>
+                        <span class="text-terminal-cyan">~/portfolio</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">cat role.txt</span>
+                    </div>
+                    
+                    <div class="command-output">
+                        <div class="text-xl md:text-2xl text-terminal-cyan mb-4">
+                            AI Expert & Full-Stack Developer
+                        </div>
+                    </div>
+
+                    <div class="command-line">
+                        <span class="text-terminal-green">celal@system</span>
+                        <span class="text-terminal-text">:</span>
+                        <span class="text-terminal-cyan">~/portfolio</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">cat description.md</span>
+                    </div>
+                    
+                    <div class="command-output">
+                        <div class="text-terminal-text mb-6 max-w-2xl">
+                            Modern web teknolojileri ve yapay zeka ile premium dijital çözümler geliştiriyorum. 
+                            ChatGPT, React, Node.js ve Python uzmanıyım. 🚀
+                        </div>
+                    </div>
+
+                    <div class="command-line">
+                        <span class="text-terminal-green">celal@system</span>
+                        <span class="text-terminal-text">:</span>
+                        <span class="text-terminal-cyan">~/portfolio</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">ls -la actions/</span>
+                    </div>
+                    
+                    <div class="command-output">
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
+                            <a href="mailto:celal@celalbasaran.com" class="bg-terminal-green text-terminal-bg px-6 py-3 rounded font-bold hover:bg-terminal-cyan transition-all inline-flex items-center gap-2">
+                                <span>></span> execute send_email.sh
+                            </a>
+                            <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="border border-terminal-green text-terminal-green px-6 py-3 rounded font-bold hover:bg-terminal-green hover:text-terminal-bg transition-all inline-flex items-center gap-2">
+                                <span>></span> run linkedin.py
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <span class="text-terminal-green terminal-prompt"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="ml-4 text-terminal-text text-sm">about.sh - Personal Information System</span>
+                </div>
+                <div class="p-6 bg-terminal-bg">
+                    <div class="command-line">
+                        <span class="text-terminal-green">root@about-system</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">./system_info.sh --detailed</span>
+                    </div>
+                    
+                    <div class="command-output">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Left Terminal -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-border rounded">
+                                    <div class="mb-4">
+                                        <span class="text-terminal-cyan"># Personal Information</span>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <div><span class="text-terminal-green">name:</span> <span class="text-terminal-yellow">"Celal Başaran"</span></div>
+                                        <div><span class="text-terminal-green">role:</span> <span class="text-terminal-yellow">"AI Expert & Full-Stack Developer"</span></div>
+                                        <div><span class="text-terminal-green">location:</span> <span class="text-terminal-yellow">"Turkey"</span></div>
+                                        <div><span class="text-terminal-green">experience:</span> <span class="text-terminal-yellow">3</span> <span class="text-terminal-cyan"># years</span></div>
+                                        <div><span class="text-terminal-green">status:</span> <span class="text-terminal-yellow">"available"</span></div>
+                                        <div><span class="text-terminal-green">passion:</span> <span class="text-terminal-yellow">"AI & Modern Web Technologies"</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Terminal -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-border rounded">
+                                    <div class="mb-4">
+                                        <span class="text-terminal-cyan"># System Statistics</span>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-terminal-green">Projects Completed</span>
+                                                <span class="text-terminal-yellow">50+</span>
+                                            </div>
+                                            <div class="loading-bar">
+                                                <div class="loading-fill" style="width: 85%;"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-terminal-green">Client Satisfaction</span>
+                                                <span class="text-terminal-yellow">100%</span>
+                                            </div>
+                                            <div class="loading-bar">
+                                                <div class="loading-fill" style="width: 100%;"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <div class="flex justify-between text-sm mb-1">
+                                                <span class="text-terminal-green">Experience Level</span>
+                                                <span class="text-terminal-yellow">Expert</span>
+                                            </div>
+                                            <div class="loading-bar">
+                                                <div class="loading-fill" style="width: 90%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <div class="command-line">
+                            <span class="text-terminal-green">root@about-system</span>
+                            <span class="text-terminal-text">$ </span>
+                            <span class="text-terminal-purple">echo "Ready for new challenges and innovations!"</span>
+                        </div>
+                        <div class="command-output text-terminal-cyan">
+                            Ready for new challenges and innovations!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-terminal-bg/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="ml-4 text-terminal-text text-sm">skills.py - Technical Capabilities Scanner</span>
+                </div>
+                <div class="p-6 bg-terminal-bg">
+                    <div class="command-line">
+                        <span class="text-terminal-green">celal@skills-system</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">python3 scan_capabilities.py --verbose</span>
+                    </div>
+                    
+                    <div class="command-output">
+                        <div class="mb-4 text-terminal-cyan">
+                            Initializing skill scanner... [<span class="text-terminal-green">✓</span>]<br>
+                            Analyzing technical capabilities... [<span class="text-terminal-green">✓</span>]<br>
+                            Generating report... [<span class="text-terminal-green">✓</span>]
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <!-- AI & ML -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-green rounded">
+                                    <div class="text-terminal-green mb-3">
+                                        <span class="text-lg font-bold">class AI_ML:</span>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <div class="text-terminal-text">    <span class="syntax-keyword">def</span> <span class="syntax-function">__init__</span>(self):</div>
+                                        <div class="text-terminal-text">        self.chatgpt = <span class="syntax-string">"Expert"</span></div>
+                                        <div class="text-terminal-text">        self.openai_api = <span class="syntax-string">"Advanced"</span></div>
+                                        <div class="text-terminal-text">        self.machine_learning = <span class="syntax-string">"Proficient"</span></div>
+                                        <div class="text-terminal-text">        self.data_analysis = <span class="syntax-string">"Expert"</span></div>
+                                        <div class="text-terminal-text">        self.automation = <span class="syntax-string">"Advanced"</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Frontend -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-cyan rounded">
+                                    <div class="text-terminal-cyan mb-3">
+                                        <span class="text-lg font-bold">const frontend = {</span>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <div class="text-terminal-text">  <span class="syntax-variable">react</span>: <span class="syntax-string">"Expert"</span>,</div>
+                                        <div class="text-terminal-text">  <span class="syntax-variable">nextjs</span>: <span class="syntax-string">"Advanced"</span>,</div>
+                                        <div class="text-terminal-text">  <span class="syntax-variable">typescript</span>: <span class="syntax-string">"Proficient"</span>,</div>
+                                        <div class="text-terminal-text">  <span class="syntax-variable">tailwind</span>: <span class="syntax-string">"Expert"</span>,</div>
+                                        <div class="text-terminal-text">  <span class="syntax-variable">javascript</span>: <span class="syntax-string">"Expert"</span></div>
+                                        <div class="text-terminal-cyan">};</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Backend -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-yellow rounded">
+                                    <div class="text-terminal-yellow mb-3">
+                                        <span class="text-lg font-bold">backend_skills = [</span>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <div class="text-terminal-text">    <span class="syntax-string">"Node.js - Expert"</span>,</div>
+                                        <div class="text-terminal-text">    <span class="syntax-string">"Python - Advanced"</span>,</div>
+                                        <div class="text-terminal-text">    <span class="syntax-string">"Express.js - Expert"</span>,</div>
+                                        <div class="text-terminal-text">    <span class="syntax-string">"PostgreSQL - Proficient"</span>,</div>
+                                        <div class="text-terminal-text">    <span class="syntax-string">"API Design - Expert"</span></div>
+                                        <div class="text-terminal-yellow">]</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <div class="command-line">
+                            <span class="text-terminal-green">celal@skills-system</span>
+                            <span class="text-terminal-text">$ </span>
+                            <span class="text-terminal-purple">echo "Skill assessment completed successfully!"</span>
+                        </div>
+                        <div class="command-output text-terminal-green">
+                            ✅ All systems operational. Ready for deployment!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="ml-4 text-terminal-text text-sm">projects.js - Portfolio Repository Manager</span>
+                </div>
+                <div class="p-6 bg-terminal-bg">
+                    <div class="command-line">
+                        <span class="text-terminal-green">celal@projects</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">git log --oneline --graph</span>
+                    </div>
+                    
+                    <div class="command-output">
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Project 1 -->
+                            <div class="terminal-window border border-terminal-green">
+                                <div class="terminal-header bg-terminal-green/20">
+                                    <span class="text-terminal-green text-sm">📱 iOS Portfolio App</span>
+                                </div>
+                                <div class="p-4 bg-terminal-bg">
+                                    <div class="text-sm space-y-2">
+                                        <div class="command-line text-xs">
+                                            <span class="text-terminal-green">*</span> 
+                                            <span class="text-terminal-cyan">commit 4f3a2b1</span>
+                                        </div>
+                                        <div class="text-terminal-text text-xs mb-3">
+                                            SwiftUI ile geliştirilmiş native iOS uygulaması. 
+                                            Real-time data sync ve modern UI.
+                                        </div>
+                                        <div class="flex flex-wrap gap-1">
+                                            <span class="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded border border-blue-400">SwiftUI</span>
+                                            <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-400 rounded border border-purple-400">iOS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project 2 -->
+                            <div class="terminal-window border border-terminal-cyan">
+                                <div class="terminal-header bg-terminal-cyan/20">
+                                    <span class="text-terminal-cyan text-sm">📦 Emanet Takip System</span>
+                                </div>
+                                <div class="p-4 bg-terminal-bg">
+                                    <div class="text-sm space-y-2">
+                                        <div class="command-line text-xs">
+                                            <span class="text-terminal-green">*</span> 
+                                            <span class="text-terminal-cyan">commit 8e7d5c2</span>
+                                        </div>
+                                        <div class="text-terminal-text text-xs mb-3">
+                                            Full-stack emanet takip sistemi. React frontend, 
+                                            Node.js backend ile profesyonel çözüm.
+                                        </div>
+                                        <div class="flex flex-wrap gap-1">
+                                            <span class="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded border border-blue-400">React</span>
+                                            <span class="text-xs px-2 py-1 bg-green-500/20 text-green-400 rounded border border-green-400">Node.js</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project 3 -->
+                            <div class="terminal-window border border-terminal-yellow">
+                                <div class="terminal-header bg-terminal-yellow/20">
+                                    <span class="text-terminal-yellow text-sm">🤖 AI Integration Tools</span>
+                                </div>
+                                <div class="p-4 bg-terminal-bg">
+                                    <div class="text-sm space-y-2">
+                                        <div class="command-line text-xs">
+                                            <span class="text-terminal-green">*</span> 
+                                            <span class="text-terminal-cyan">commit 1a9b3f4</span>
+                                        </div>
+                                        <div class="text-terminal-text text-xs mb-3">
+                                            ChatGPT API entegrasyonlu çeşitli otomasyon 
+                                            araçları ve AI destekli uygulamalar.
+                                        </div>
+                                        <div class="flex flex-wrap gap-1">
+                                            <span class="text-xs px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded border border-cyan-400">AI</span>
+                                            <span class="text-xs px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded border border-yellow-400">Python</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <div class="command-line">
+                            <span class="text-terminal-green">celal@projects</span>
+                            <span class="text-terminal-text">$ </span>
+                            <span class="text-terminal-purple">git status</span>
+                        </div>
+                        <div class="command-output text-terminal-green">
+                            On branch main<br>
+                            Your branch is up to date with 'origin/main'.<br>
+                            Nothing to commit, working tree clean ✨
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-terminal-bg/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="ml-4 text-terminal-text text-sm">contact.md - Communication Protocol</span>
+                </div>
+                <div class="p-6 bg-terminal-bg">
+                    <div class="command-line">
+                        <span class="text-terminal-green">celal@contact-system</span>
+                        <span class="text-terminal-text">$ </span>
+                        <span class="text-terminal-yellow">cat README.md</span>
+                    </div>
+                    
+                    <div class="command-output text-center">
+                        <div class="text-3xl font-bold mb-6 text-terminal-cyan">
+                            # Let's Build Something Amazing Together
+                        </div>
+                        <div class="text-terminal-text mb-8">
+                            Yeni bir projeniz mi var? Benimle iletişime geçin ve fikirlerinizi hayata geçirelim!
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <!-- Email -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-green rounded">
+                                    <a href="mailto:celal@celalbasaran.com" class="block terminal-link">
+                                        <div class="text-terminal-green mb-2">📧 Email Protocol</div>
+                                        <div class="text-terminal-text text-sm">celal@celalbasaran.com</div>
+                                        <div class="text-terminal-cyan text-xs mt-2">$ send_message.sh</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-cyan rounded">
+                                    <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="block terminal-link">
+                                        <div class="text-terminal-cyan mb-2">💼 LinkedIn API</div>
+                                        <div class="text-terminal-text text-sm">Professional Network</div>
+                                        <div class="text-terminal-cyan text-xs mt-2">$ connect.py</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- GitHub -->
+                            <div class="terminal-window">
+                                <div class="p-4 bg-terminal-bg border border-terminal-yellow rounded">
+                                    <a href="https://github.com/clbasaran" target="_blank" class="block terminal-link">
+                                        <div class="text-terminal-yellow mb-2">💻 GitHub Repo</div>
+                                        <div class="text-terminal-text text-sm">Code Repository</div>
+                                        <div class="text-terminal-cyan text-xs mt-2">$ git clone</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <div class="command-line">
+                            <span class="text-terminal-green">celal@contact-system</span>
+                            <span class="text-terminal-text">$ </span>
+                            <span class="text-terminal-purple">echo "Message transmission ready. Awaiting your input..."</span>
+                        </div>
+                        <div class="command-output text-terminal-green">
+                            📡 All communication channels are active and ready!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-terminal-border py-8 bg-terminal-bg">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="terminal-window">
+                <div class="p-4 bg-terminal-bg">
+                    <div class="flex flex-col md:flex-row items-center justify-between">
+                        <div class="command-line mb-4 md:mb-0">
+                            <span class="text-terminal-green">celal@portfolio</span>
+                            <span class="text-terminal-text">$ </span>
+                            <span class="text-terminal-cyan">echo "© 2025 Celal Başaran. Made with ❤️ in Türkiye."</span>
+                        </div>
+                        <div class="flex items-center gap-6 text-sm">
+                            <a href="/emanettakip" class="terminal-link text-terminal-cyan hover:text-terminal-green transition-colors">./emanettakip</a>
+                            <a href="/admin" class="terminal-link text-terminal-cyan hover:text-terminal-green transition-colors">./admin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Enhanced Terminal Effects -->
+    <script>
+        // Matrix Rain Effect
+        function createMatrixRain() {
+            const container = document.getElementById('matrixRain');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            function createChar() {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                char.style.opacity = Math.random() * 0.8 + 0.2;
+                container.appendChild(char);
+                
+                setTimeout(() => {
+                    if (char.parentNode) {
+                        char.parentNode.removeChild(char);
+                    }
+                }, 5000);
+            }
+            
+            setInterval(createChar, 200);
+        }
+
+        // Typewriter Effect
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize effects when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createMatrixRain();
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Terminal typing simulation
+            const typewriterElements = document.querySelectorAll('.typewriter');
+            typewriterElements.forEach((el, index) => {
+                setTimeout(() => {
+                    const text = el.textContent;
+                    typeWriter(el, text, 100);
+                }, index * 1000);
+            });
+
+            // Random terminal activity
+            setInterval(() => {
+                const prompts = document.querySelectorAll('.terminal-prompt');
+                prompts.forEach(prompt => {
+                    prompt.style.opacity = prompt.style.opacity === '0' ? '1' : '0';
+                });
+            }, 1000);
+        });
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.toString() === konamiSequence.toString()) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- Updated: Mon Jun  2 22:01:21 +03 2025 --> 

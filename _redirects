@@ -1,0 +1,19 @@
+# Trailing slash redirect (SEO için)
+/* /index.html 200
+
+# Admin panel routing
+/admin /admin/index.html 200
+/admin/* /admin/:splat 200
+
+# Emanet takip routing
+/emanettakip /emanettakip/index.html 200
+/emanettakip/* /emanettakip/:splat 200
+
+# API routing
+/api/* /functions/api/:splat 200
+
+# 404 sayfası
+/* /404.html 404
+
+# WWW'siz versiyon için redirect (SEO optimizasyonu)
+https://www.celalbasaran.com/* https://celalbasaran.com/:splat 301! 
