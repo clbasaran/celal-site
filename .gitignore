@@ -60,7 +60,7 @@ tsconfig.json
 
 # Wrangler
 .wrangler/
-wrangler.toml
+# wrangler.toml - Production'da gerekli olduğu için ignore etmiyoruz
 wrangler.jsonc
 
 # ============================================================================
@@ -433,6 +433,7 @@ $RECYCLE.BIN/
 # Cloudflare specific
 .wrangler/
 wrangler.toml.bak
+# wrangler.toml - Artık production'da kullanılıyor, ignore etmeyelim
 
 # Build outputs
 *.map

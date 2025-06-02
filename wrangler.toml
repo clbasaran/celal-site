@@ -1,0 +1,23 @@
+name = "celal-site"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables
+[env.production.vars]
+SITE_URL = "https://celalbasaran.com"
+ENVIRONMENT = "production"
+
+[env.preview.vars]
+SITE_URL = "https://preview.celalbasaran.com"
+ENVIRONMENT = "preview"
+
+# KV Namespaces for data storage
+[[kv_namespaces]]
+binding = "SITE_DATA"
+id = "celalbasaran-site-data"
+preview_id = "celalbasaran-site-data-preview"
+
+[[kv_namespaces]]
+binding = "ADMIN_DATA"
+id = "celalbasaran-admin-data"
+preview_id = "celalbasaran-admin-data-preview" 
