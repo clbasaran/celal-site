@@ -1,0 +1,29 @@
+{
+  "name": "celal-site-backend",
+  "version": "2.0.0",
+  "description": "Celal Başaran - Professional Portfolio & Admin Backend",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev . --compatibility-date=2024-01-15",
+    "deploy": "wrangler pages deploy .",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20240821.1",
+    "drizzle-orm": "^0.33.0",
+    "drizzle-kit": "^0.24.0",
+    "hono": "^4.5.11",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.23.8",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6"
+  }
+} 
