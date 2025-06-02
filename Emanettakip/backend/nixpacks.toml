@@ -1,0 +1,9 @@
+[variables]
+NODE_VERSION = "18"
+NPM_VERSION = "9"
+
+[phases.install]
+cmds = ["npm install"]
+
+[phases.start]
+cmd = "node server.js" 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Modern CB Logo with Apple Design Language -->
+  
+  <!-- Optional rounded container (subtle) -->
+  <rect x="32" y="32" width="448" height="448" 
+        rx="112" ry="112" 
+        fill="none" 
+        stroke="#1d1d1f" 
+        stroke-width="2" 
+        opacity="0"/>
+  
+  <!-- CB Letters with perfect Apple typography -->
+  <g text-anchor="middle" dominant-baseline="central">
+    
+    <!-- Letter C - Custom path for perfect curves -->
+    <path d="M 188 180
+             C 140 180, 108 212, 108 256
+             C 108 300, 140 332, 188 332
+             C 220 332, 244 316, 244 316
+             L 244 296
+             C 244 296, 220 312, 188 312
+             C 152 312, 128 288, 128 256
+             C 128 224, 152 200, 188 200
+             C 220 200, 244 216, 244 216
+             L 244 196
+             C 244 196, 220 180, 188 180 Z"
+          fill="#1d1d1f"
+          stroke="none"/>
+    
+    <!-- Letter B - Custom path for perfect geometry -->
+    <path d="M 284 180
+             L 284 332
+             L 356 332
+             C 384 332, 404 312, 404 284
+             C 404 270, 398 258, 388 250
+             C 394 242, 398 230, 398 216
+             C 398 188, 378 180, 350 180
+             L 284 180 Z
+             
+             M 304 200
+             L 346 200
+             C 366 200, 378 208, 378 220
+             C 378 232, 366 240, 346 240
+             L 304 240
+             L 304 200 Z
+             
+             M 304 260
+             L 352 260
+             C 372 260, 384 268, 384 280
+             C 384 292, 372 300, 352 300
+             L 304 300
+             L 304 260 Z"
+          fill="#1d1d1f"
+          stroke="none"/>
+  </g>
+  
+  <!-- Subtle brand mark (optional dot) -->
+  <circle cx="256" cy="376" r="3" 
+          fill="#1d1d1f" 
+          opacity="0.3"/>
+          
+</svg> 

@@ -1,0 +1,1181 @@
+{
+  "metadata": {
+    "createdAt": "2025-05-29T07:22:36.463Z",
+    "version": "1.0.0",
+    "database": "emanet_takip",
+    "tables": 5,
+    "generator": "BackupService"
+  },
+  "tables": {
+    "customers": {
+      "schema": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "taxNumber",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "phone",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "address",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "email",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "total_debt",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": "0",
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "created_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "updated_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "data": [
+        {
+          "id": 1,
+          "name": "Ahmet Yılmaz",
+          "taxNumber": null,
+          "phone": "0532 123 4567",
+          "address": "Merkez Mahallesi, Ankara",
+          "email": "ahmet@example.com",
+          "notes": "Düzenli müşteri, ödemeler zamanında",
+          "total_debt": 875,
+          "created_at": "2025-05-28 07:57:17",
+          "updated_at": "2025-05-28 07:57:17"
+        },
+        {
+          "id": 2,
+          "name": "Fatma Kaya",
+          "taxNumber": null,
+          "phone": "0543 987 6543",
+          "address": "Çamlık Köyü, Ankara",
+          "email": "fatma@example.com",
+          "notes": "Sebze üreticisi",
+          "total_debt": 0,
+          "created_at": "2025-05-28 07:57:17",
+          "updated_at": "2025-05-28 07:57:17"
+        },
+        {
+          "id": 3,
+          "name": "Mehmet Öz",
+          "taxNumber": null,
+          "phone": "0555 111 2233",
+          "address": "Tarım Mahallesi, Ankara",
+          "email": "mehmet@example.com",
+          "notes": "Büyük çiftlik sahibi",
+          "total_debt": 0,
+          "created_at": "2025-05-28 07:57:17",
+          "updated_at": "2025-05-28 07:57:17"
+        },
+        {
+          "id": 4,
+          "name": "Celal Başaran",
+          "taxNumber": "23671537612",
+          "phone": "12347529479234",
+          "address": "yok",
+          "email": null,
+          "notes": null,
+          "total_debt": 0,
+          "created_at": "2025-05-28 08:57:47",
+          "updated_at": "2025-05-28 08:57:47"
+        },
+        {
+          "id": 5,
+          "name": "Test Müşterisi",
+          "taxNumber": null,
+          "phone": "0532 111 2233",
+          "address": "Test Mahallesi, İstanbul",
+          "email": null,
+          "notes": null,
+          "total_debt": 0,
+          "created_at": "2025-05-29 06:38:41",
+          "updated_at": "2025-05-29 06:38:41"
+        }
+      ],
+      "rowCount": 5
+    },
+    "deliveries": {
+      "schema": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "customer_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "week_number",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "year",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "delivery_date",
+          "type": "DATE",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "items",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "total_amount",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'delivered'",
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "created_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "updated_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "data": [
+        {
+          "id": 1,
+          "customer_id": 1,
+          "week_number": 45,
+          "year": 2024,
+          "delivery_date": "2024-11-10",
+          "items": "[{\"name\":\"Buğday Tohumu\",\"quantity\":50,\"unit\":\"kg\",\"price\":15,\"total\":750},{\"name\":\"NPK Gübre\",\"quantity\":25,\"unit\":\"kg\",\"price\":25,\"total\":625}]",
+          "total_amount": 1375,
+          "notes": "Kış ekimi için teslimat",
+          "status": "delivered",
+          "created_at": "2025-05-28 07:57:17",
+          "updated_at": "2025-05-28 07:57:17"
+        }
+      ],
+      "rowCount": 1
+    },
+    "payments": {
+      "schema": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "customer_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "amount",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "payment_date",
+          "type": "DATE",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "payment_method",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'cash'",
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "installment_number",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "total_installments",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": "1",
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "receipt_number",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "notes",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": "'completed'",
+          "pk": 0
+        },
+        {
+          "cid": 10,
+          "name": "created_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 11,
+          "name": "updated_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "data": [
+        {
+          "id": 1,
+          "customer_id": 1,
+          "amount": 500,
+          "payment_date": "2024-11-15",
+          "payment_method": "cash",
+          "installment_number": 1,
+          "total_installments": 3,
+          "receipt_number": "MKB000001",
+          "notes": "1. taksit ödemesi",
+          "status": "completed",
+          "created_at": "2025-05-28 07:57:17",
+          "updated_at": "2025-05-28 07:57:17"
+        },
+        {
+          "id": 2,
+          "customer_id": 1,
+          "amount": 0,
+          "payment_date": "2025-05-28",
+          "payment_method": "Sipariş",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": "Test siparişi",
+          "status": "completed",
+          "created_at": "2025-05-28 11:36:20",
+          "updated_at": "2025-05-28 11:36:20"
+        },
+        {
+          "id": 3,
+          "customer_id": 2,
+          "amount": 0,
+          "payment_date": "2025-05-28",
+          "payment_method": "Sipariş",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": null,
+          "status": "completed",
+          "created_at": "2025-05-28 11:39:42",
+          "updated_at": "2025-05-28 11:39:42"
+        },
+        {
+          "id": 4,
+          "customer_id": 2,
+          "amount": 0,
+          "payment_date": "2025-05-28",
+          "payment_method": "Sipariş",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": null,
+          "status": "completed",
+          "created_at": "2025-05-28 11:40:38",
+          "updated_at": "2025-05-28 11:40:38"
+        },
+        {
+          "id": 5,
+          "customer_id": 4,
+          "amount": 0,
+          "payment_date": "2025-05-28",
+          "payment_method": "Sipariş",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": null,
+          "status": "completed",
+          "created_at": "2025-05-28 11:51:14",
+          "updated_at": "2025-05-28 11:51:14"
+        },
+        {
+          "id": 6,
+          "customer_id": 4,
+          "amount": 0,
+          "payment_date": "2025-05-28",
+          "payment_method": "Sipariş",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": null,
+          "status": "completed",
+          "created_at": "2025-05-28 11:56:37",
+          "updated_at": "2025-05-28 11:56:37"
+        },
+        {
+          "id": 7,
+          "customer_id": 4,
+          "amount": 0,
+          "payment_date": "2025-05-29",
+          "payment_method": "Sipariş",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": null,
+          "status": "completed",
+          "created_at": "2025-05-29 05:58:39",
+          "updated_at": "2025-05-29 05:58:39"
+        },
+        {
+          "id": 8,
+          "customer_id": 5,
+          "amount": 0,
+          "payment_date": "2025-05-29",
+          "payment_method": "credit",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": "Test siparişi",
+          "status": "completed",
+          "created_at": "2025-05-29 06:38:57",
+          "updated_at": "2025-05-29 06:38:57"
+        },
+        {
+          "id": 9,
+          "customer_id": 5,
+          "amount": 0,
+          "payment_date": "2025-05-29",
+          "payment_method": "Sipariş",
+          "installment_number": 1,
+          "total_installments": 1,
+          "receipt_number": null,
+          "notes": null,
+          "status": "completed",
+          "created_at": "2025-05-29 07:21:34",
+          "updated_at": "2025-05-29 07:21:34"
+        }
+      ],
+      "rowCount": 9
+    },
+    "receipt_records": {
+      "schema": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "reference_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "customer_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "content_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "document_number",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "printed_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "created_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "data": [
+        {
+          "id": 1,
+          "type": "delivery",
+          "reference_id": 1,
+          "customer_id": 1,
+          "content_json": "{\"delivery\":{\"id\":1,\"productName\":\"Test Ürün\",\"quantity\":10,\"unit\":\"kg\",\"note\":\"Test teslimat\",\"date\":\"2024-11-29\"},\"customer\":{\"id\":1,\"name\":\"Test Müşteri\",\"phone\":\"0532 123 4567\",\"address\":\"Test Adres\"},\"printedAt\":\"2024-11-29T10:30:00.000Z\",\"printType\":\"single_delivery\"}",
+          "document_number": "T-0000001",
+          "printed_at": "2025-05-29 06:35:54",
+          "created_at": "2025-05-29 06:35:54"
+        },
+        {
+          "id": 2,
+          "type": "delivery",
+          "reference_id": 3,
+          "customer_id": 5,
+          "content_json": "{\"delivery\":{\"id\":3,\"productName\":\"Buğday Tohumu Premium\",\"quantity\":60,\"unit\":\"çuval\",\"note\":\"İlk teslimat\",\"date\":\"2025-05-29\"},\"customer\":{\"id\":5,\"name\":\"Test Müşterisi\",\"phone\":\"0532 111 2233\",\"address\":\"Test Mahallesi, İstanbul\"},\"printedAt\":\"2025-05-29T06:39:30.000Z\",\"printType\":\"single_delivery\"}",
+          "document_number": "T-0000002",
+          "printed_at": "2025-05-29 06:39:19",
+          "created_at": "2025-05-29 06:39:19"
+        },
+        {
+          "id": 3,
+          "type": "delivery",
+          "reference_id": 4,
+          "customer_id": 5,
+          "content_json": "{\"delivery\":{\"id\":4,\"productName\":\"Buğday Tohumu Premium\",\"quantity\":30,\"unit\":\"çuval\",\"note\":\"İkinci teslimat\",\"date\":\"2025-05-29\"},\"customer\":{\"id\":5,\"name\":\"Test Müşterisi\",\"phone\":\"0532 111 2233\",\"address\":\"Test Mahallesi, İstanbul\"},\"printedAt\":\"2025-05-29T06:40:00.000Z\",\"printType\":\"single_delivery\"}",
+          "document_number": "T-0000003",
+          "printed_at": "2025-05-29 06:39:44",
+          "created_at": "2025-05-29 06:39:44"
+        },
+        {
+          "id": 4,
+          "type": "batch_delivery",
+          "reference_id": null,
+          "customer_id": 5,
+          "content_json": "{\"deliveries\":[{\"id\":3,\"productName\":\"Buğday Tohumu Premium\",\"quantity\":60,\"unit\":\"çuval\",\"note\":\"İlk teslimat\",\"date\":\"2025-05-29\"},{\"id\":4,\"productName\":\"Buğday Tohumu Premium\",\"quantity\":30,\"unit\":\"çuval\",\"note\":\"İkinci teslimat\",\"date\":\"2025-05-29\"}],\"customer\":{\"id\":5,\"name\":\"Test Müşterisi\",\"phone\":\"0532 111 2233\",\"address\":\"Test Mahallesi, İstanbul\"},\"totalDeliveries\":2,\"totalQuantity\":90,\"printedAt\":\"2025-05-29T06:41:00.000Z\",\"printType\":\"batch_delivery\"}",
+          "document_number": "TT-0000001",
+          "printed_at": "2025-05-29 06:39:58",
+          "created_at": "2025-05-29 06:39:58"
+        },
+        {
+          "id": 5,
+          "type": "batch_delivery",
+          "reference_id": null,
+          "customer_id": 5,
+          "content_json": "{\"deliveries\":[{\"id\":3,\"productName\":\"Buğday Tohumu Premium\",\"quantity\":60,\"unit\":\"çuval\",\"note\":\"İlk teslimat\",\"date\":\"2025-05-29\"},{\"id\":4,\"productName\":\"Buğday Tohumu Premium\",\"quantity\":30,\"unit\":\"çuval\",\"note\":\"İkinci teslimat\",\"date\":\"2025-05-29\"}],\"customer\":{\"id\":5,\"name\":\"Test Müşterisi\",\"phone\":\"0532 111 2233\",\"address\":\"Test Mahallesi, İstanbul\"},\"totalDeliveries\":2,\"totalQuantity\":90,\"printedAt\":\"2025-05-29T06:41:22.430Z\",\"printType\":\"batch_delivery\"}",
+          "document_number": "TT-0000002",
+          "printed_at": "2025-05-29 06:41:22",
+          "created_at": "2025-05-29 06:41:22"
+        },
+        {
+          "id": 6,
+          "type": "delivery",
+          "reference_id": 3,
+          "customer_id": 4,
+          "content_json": "{\"delivery\":{\"id\":3,\"productName\":\"Arpa Tohumu\",\"quantity\":5,\"unit\":\"çuval\",\"note\":null},\"customer\":{\"id\":4,\"name\":\"Celal Başaran\",\"phone\":\"12347529479234\",\"address\":\"yok\"},\"printedAt\":\"2025-05-29T07:15:07.884Z\",\"printType\":\"single_delivery\"}",
+          "document_number": "T-0000004",
+          "printed_at": "2025-05-29 07:15:07",
+          "created_at": "2025-05-29 07:15:07"
+        }
+      ],
+      "rowCount": 6
+    },
+    "transaction_logs": {
+      "schema": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "user_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "action_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "entity",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "entity_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "detail",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "ip_address",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 7,
+          "name": "user_agent",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 8,
+          "name": "timestamp",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        },
+        {
+          "cid": 9,
+          "name": "created_at",
+          "type": "DATETIME",
+          "notnull": 0,
+          "dflt_value": "CURRENT_TIMESTAMP",
+          "pk": 0
+        }
+      ],
+      "data": [
+        {
+          "id": 1,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": null,
+          "detail": "view receipt - GET /api/receipts",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:35:33",
+          "created_at": "2025-05-29 06:35:33"
+        },
+        {
+          "id": 2,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": 1,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:35:54",
+          "created_at": "2025-05-29 06:35:54"
+        },
+        {
+          "id": 3,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 1,
+          "detail": "view receipt - GET /api/receipts/customer/1",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:36:03",
+          "created_at": "2025-05-29 06:36:03"
+        },
+        {
+          "id": 4,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": 2,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:39:19",
+          "created_at": "2025-05-29 06:39:19"
+        },
+        {
+          "id": 5,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:39:24",
+          "created_at": "2025-05-29 06:39:24"
+        },
+        {
+          "id": 6,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 4,
+          "detail": "view receipt - GET /api/receipts/customer/4",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:39:24",
+          "created_at": "2025-05-29 06:39:24"
+        },
+        {
+          "id": 7,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 4,
+          "detail": "view receipt - GET /api/receipts/customer/4",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:39:24",
+          "created_at": "2025-05-29 06:39:24"
+        },
+        {
+          "id": 8,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 3,
+          "detail": "view receipt - GET /api/receipts/customer/3",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:39:31",
+          "created_at": "2025-05-29 06:39:31"
+        },
+        {
+          "id": 9,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 3,
+          "detail": "view receipt - GET /api/receipts/customer/3",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:39:31",
+          "created_at": "2025-05-29 06:39:31"
+        },
+        {
+          "id": 10,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": 3,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:39:44",
+          "created_at": "2025-05-29 06:39:44"
+        },
+        {
+          "id": 11,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 4,
+          "detail": "view receipt - GET /api/receipts/customer/4",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:39:54",
+          "created_at": "2025-05-29 06:39:54"
+        },
+        {
+          "id": 12,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 4,
+          "detail": "view receipt - GET /api/receipts/customer/4",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:39:54",
+          "created_at": "2025-05-29 06:39:54"
+        },
+        {
+          "id": 13,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": 4,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:39:58",
+          "created_at": "2025-05-29 06:39:58"
+        },
+        {
+          "id": 14,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "curl/8.7.1",
+          "timestamp": "2025-05-29 06:40:03",
+          "created_at": "2025-05-29 06:40:03"
+        },
+        {
+          "id": 15,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:40:56",
+          "created_at": "2025-05-29 06:40:56"
+        },
+        {
+          "id": 16,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:40:56",
+          "created_at": "2025-05-29 06:40:56"
+        },
+        {
+          "id": 17,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:41:22",
+          "created_at": "2025-05-29 06:41:22"
+        },
+        {
+          "id": 18,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:43:53",
+          "created_at": "2025-05-29 06:43:53"
+        },
+        {
+          "id": 19,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:50:49",
+          "created_at": "2025-05-29 06:50:49"
+        },
+        {
+          "id": 20,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:50:49",
+          "created_at": "2025-05-29 06:50:49"
+        },
+        {
+          "id": 21,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:55:16",
+          "created_at": "2025-05-29 06:55:16"
+        },
+        {
+          "id": 22,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 06:55:16",
+          "created_at": "2025-05-29 06:55:16"
+        },
+        {
+          "id": 23,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:04:53",
+          "created_at": "2025-05-29 07:04:53"
+        },
+        {
+          "id": 24,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:04:53",
+          "created_at": "2025-05-29 07:04:53"
+        },
+        {
+          "id": 25,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:12:25",
+          "created_at": "2025-05-29 07:12:25"
+        },
+        {
+          "id": 26,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:12:25",
+          "created_at": "2025-05-29 07:12:25"
+        },
+        {
+          "id": 27,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:13:28",
+          "created_at": "2025-05-29 07:13:28"
+        },
+        {
+          "id": 28,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:13:28",
+          "created_at": "2025-05-29 07:13:28"
+        },
+        {
+          "id": 29,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 4,
+          "detail": "view receipt - GET /api/receipts/customer/4",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:14:44",
+          "created_at": "2025-05-29 07:14:44"
+        },
+        {
+          "id": 30,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 4,
+          "detail": "view receipt - GET /api/receipts/customer/4",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:14:44",
+          "created_at": "2025-05-29 07:14:44"
+        },
+        {
+          "id": 31,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": 6,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:15:07",
+          "created_at": "2025-05-29 07:15:07"
+        },
+        {
+          "id": 32,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": null,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:15:17",
+          "created_at": "2025-05-29 07:15:17"
+        },
+        {
+          "id": 33,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": null,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:15:23",
+          "created_at": "2025-05-29 07:15:23"
+        },
+        {
+          "id": 34,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:15:33",
+          "created_at": "2025-05-29 07:15:33"
+        },
+        {
+          "id": 35,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:15:33",
+          "created_at": "2025-05-29 07:15:33"
+        },
+        {
+          "id": 36,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15",
+          "timestamp": "2025-05-29 07:15:57",
+          "created_at": "2025-05-29 07:15:57"
+        },
+        {
+          "id": 37,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:20:07",
+          "created_at": "2025-05-29 07:20:07"
+        },
+        {
+          "id": 38,
+          "user_id": null,
+          "action_type": "view",
+          "entity": "receipt",
+          "entity_id": 5,
+          "detail": "view receipt - GET /api/receipts/customer/5",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:20:07",
+          "created_at": "2025-05-29 07:20:07"
+        },
+        {
+          "id": 39,
+          "user_id": null,
+          "action_type": "print",
+          "entity": "receipt",
+          "entity_id": null,
+          "detail": "print receipt - POST /api/receipts/record",
+          "ip_address": "::1",
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+          "timestamp": "2025-05-29 07:20:57",
+          "created_at": "2025-05-29 07:20:57"
+        }
+      ],
+      "rowCount": 39
+    }
+  }
+}

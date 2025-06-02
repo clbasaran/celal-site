@@ -1,0 +1,79 @@
+{
+  "name": "emanet-takip-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "// === DEVELOPMENT SCRIPTS === //": "",
+    "dev": "react-scripts start",
+    "// Development server'ını başlatır (port 3000, hot reload ile)": "",
+    
+    "start": "react-scripts start",
+    "// Alias for dev script (React convention)": "",
+    
+    "// === PRODUCTION SCRIPTS === //": "",
+    "build": "react-scripts build",
+    "// Production build oluşturur (optimized static files)": "",
+    
+    "// === TESTING SCRIPTS === //": "",
+    "test": "react-scripts test",
+    "// Jest test runner'ını çalıştırır": "",
+    
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "// Test coverage raporunu oluşturur": "",
+    
+    "// === UTILITY SCRIPTS === //": "",
+    "eject": "react-scripts eject",
+    "// React Scripts konfigürasyonunu eject eder (geri alınamaz!)": "",
+    
+    "analyze": "npm run build && npx serve -s build",
+    "// Build'i oluşturur ve local server ile test eder": "",
+    
+    "lint": "eslint src/**/*.{js,jsx} --quiet",
+    "// ESLint ile kod kalitesini kontrol eder": "",
+    
+    "format": "prettier --write src/**/*.{js,jsx,css}",
+    "// Prettier ile kodu formatlar": ""
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.18.0",
+    "react-scripts": "5.0.1",
+    "axios": "^1.6.2",
+    "react-hook-form": "^7.47.0",
+    "react-hot-toast": "^2.4.1",
+    "lucide-react": "^0.294.0",
+    "date-fns": "^2.30.0",
+    "jspdf": "^2.5.1",
+    "html2canvas": "^1.4.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.6",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "keywords": ["react", "frontend", "tailwindcss", "emanet", "takip"],
+  "author": "Celal Başaran",
+  "license": "ISC"
+} 

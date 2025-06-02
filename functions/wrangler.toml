@@ -1,0 +1,38 @@
+# Cloudflare Pages Configuration
+# This file configures KV storage and environment variables for the API
+
+[[kv_namespaces]]
+binding = "PORTFOLIO_KV"
+id = "your-portfolio-kv-namespace-id"
+preview_id = "your-portfolio-preview-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "USER_KV"
+id = "your-user-kv-namespace-id"
+preview_id = "your-user-preview-kv-namespace-id"
+
+[env.production]
+vars = { 
+  API_KEY = "your-production-api-key",  # Legacy - for backward compatibility
+  JWT_SECRET = "your-production-jwt-secret",  # Strong, random string for JWT access token signing
+  JWT_REFRESH_SECRET = "your-production-jwt-refresh-secret",  # Different secret for refresh tokens
+  RESEND_API_KEY = "your-production-resend-api-key"  # Resend email service API key
+}
+
+[env.preview]
+vars = { 
+  API_KEY = "your-preview-api-key",  # Legacy - for backward compatibility
+  JWT_SECRET = "your-preview-jwt-secret",  # Strong, random string for JWT access token signing
+  JWT_REFRESH_SECRET = "your-preview-jwt-refresh-secret",  # Different secret for refresh tokens
+  RESEND_API_KEY = "your-preview-resend-api-key"  # Resend email service API key
+}
+
+# Build configuration
+[build]
+command = ""
+cwd = ""
+watch_dir = "functions"
+
+# Compatibility settings
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"] 

@@ -1,0 +1,326 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global reset ve temel stiller */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    background-color: #f9fafb;
+    color: #374151;
+    line-height: 1.6;
+  }
+  
+  #root {
+    min-height: 100vh;
+  }
+}
+
+/* Component stilleri */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2.5 px-4 rounded-apple transition-all duration-200 shadow-apple hover:shadow-apple-lg active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-700 font-medium py-2.5 px-4 rounded-apple border border-gray-300 transition-all duration-200 shadow-apple hover:shadow-apple-lg active:scale-95;
+  }
+  
+  .btn-danger {
+    @apply bg-danger-600 hover:bg-danger-700 text-white font-medium py-2.5 px-4 rounded-apple transition-all duration-200 shadow-apple hover:shadow-apple-lg active:scale-95;
+  }
+  
+  .btn-success {
+    @apply bg-success-600 hover:bg-success-700 text-white font-medium py-2.5 px-4 rounded-apple transition-all duration-200 shadow-apple hover:shadow-apple-lg active:scale-95;
+  }
+  
+  .btn-secondary-sm {
+    @apply bg-white hover:bg-gray-50 text-gray-700 font-medium py-1.5 px-3 text-sm rounded-apple border border-gray-300 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+  }
+  
+  .btn-danger-outline {
+    @apply bg-white hover:bg-danger-50 text-danger-600 hover:text-danger-700 font-medium py-2.5 px-4 rounded-apple border border-danger-300 hover:border-danger-400 transition-all duration-200 shadow-apple hover:shadow-apple-lg active:scale-95;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2.5 border border-gray-300 rounded-apple focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white;
+  }
+  
+  /* Mobile-friendly select styling */
+  .input-field select {
+    @apply cursor-pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+  
+  /* Focus states for better accessibility */
+  .input-field:focus,
+  .input-field select:focus {
+    @apply ring-2 ring-primary-500 border-transparent;
+  }
+  
+  /* Mobile touch targets */
+  @media (max-width: 768px) {
+    .input-field {
+      @apply py-3 text-base; /* Larger touch targets on mobile */
+    }
+    
+    .input-field select {
+      @apply py-3 text-base;
+    }
+    
+    /* Responsive tab navigation */
+    .tab-navigation {
+      @apply flex-col space-y-1 space-x-0;
+    }
+    
+    .tab-navigation button {
+      @apply w-full;
+    }
+  }
+  
+  .card {
+    @apply bg-white rounded-apple-lg shadow-apple border border-gray-100 overflow-hidden;
+  }
+  
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-100 bg-gray-50;
+  }
+  
+  .card-body {
+    @apply p-6;
+  }
+  
+  .table-row {
+    @apply border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150;
+  }
+  
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .badge-success {
+    @apply bg-success-100 text-success-800;
+  }
+  
+  .badge-warning {
+    @apply bg-warning-100 text-warning-800;
+  }
+  
+  .badge-danger {
+    @apply bg-danger-100 text-danger-800;
+  }
+  
+  .badge-gray {
+    @apply bg-gray-100 text-gray-800;
+  }
+}
+
+/* Utility stilleri */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Animations */
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Print stilleri */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Logo için özel print stilleri */
+  img {
+    max-width: 120px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto 16pt auto !important;
+  }
+  
+  .print-container {
+    width: 100% !important;
+    padding: 20pt !important;
+    font-family: 'Arial', sans-serif !important;
+  }
+  
+  .print\:p-6 {
+    padding: 1.5rem !important;
+  }
+  
+  .print\:bg-gray-100 {
+    background-color: #f5f5f5 !important;
+  }
+  
+  .print\:max-w-\[120px\] {
+    max-width: 120px !important;
+  }
+  
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+  
+  th, td {
+    border: 1px solid #000 !important;
+    padding: 4pt 8pt !important;
+  }
+  
+  h1, h2, h3 {
+    color: black !important;
+    margin-bottom: 8pt !important;
+  }
+  
+  h1 {
+    font-size: 18pt !important;
+  }
+  
+  h2 {
+    font-size: 16pt !important;
+  }
+  
+  h3 {
+    font-size: 14pt !important;
+  }
+  
+  /* Hide unnecessary elements when printing */
+  .hover\:bg-gray-50:hover,
+  .hover\:text-gray-600:hover {
+    background: transparent !important;
+    color: inherit !important;
+  }
+  
+  /* Print-specific spacing */
+  .border-t-2 {
+    border-top: 2px solid #000 !important;
+  }
+  
+  .border-b-2 {
+    border-bottom: 2px solid #000 !important;
+  }
+}
+
+/* Termal yazıcı fişi stilleri */
+.receipt-print {
+  font-family: 'Courier New', monospace !important;
+  font-size: 11px !important;
+  width: 280px !important;
+  padding: 10px !important;
+  line-height: 1.4 !important;
+  background: white !important;
+  color: black !important;
+}
+
+.receipt-print img.logo {
+  width: 120px !important;
+  display: block !important;
+  margin: 0 auto 10px auto !important;
+  max-height: 80px !important;
+}
+
+.receipt-print .center {
+  text-align: center !important;
+}
+
+.receipt-print .bold {
+  font-weight: bold !important;
+}
+
+.receipt-print .line {
+  border-bottom: 1px dashed #000 !important;
+  margin: 8px 0 !important;
+}
+
+.receipt-print .signature-line {
+  border-bottom: 1px solid #000 !important;
+  display: inline-block !important;
+  width: 150px !important;
+  margin-left: 5px !important;
+}
+
+.receipt-print p {
+  margin: 3px 0 !important;
+}
+
+.receipt-print h3 {
+  margin: 8px 0 !important;
+  font-size: 13px !important;
+} 

@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/emanettakip/static/css/main.736685f2.css",
+    "main.js": "/emanettakip/static/js/main.35b96448.js",
+    "static/js/213.67edf449.chunk.js": "/emanettakip/static/js/213.67edf449.chunk.js",
+    "static/js/455.146182d2.chunk.js": "/emanettakip/static/js/455.146182d2.chunk.js",
+    "index.html": "/emanettakip/index.html",
+    "main.736685f2.css.map": "/emanettakip/static/css/main.736685f2.css.map",
+    "main.35b96448.js.map": "/emanettakip/static/js/main.35b96448.js.map",
+    "213.67edf449.chunk.js.map": "/emanettakip/static/js/213.67edf449.chunk.js.map",
+    "455.146182d2.chunk.js.map": "/emanettakip/static/js/455.146182d2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.736685f2.css",
+    "static/js/main.35b96448.js"
+  ]
+}

@@ -1,0 +1,21 @@
+:root[data-theme="light"] {
+    --primary: #007aff;
+    --primary-dark: #0056cc;
+    --secondary: #5856d6;
+    --accent: #ff3b30;
+    --success: #34c759;
+    --warning: #ff9500;
+    --background: #ffffff;
+    --surface: #f2f2f7;
+    --surface-elevated: #ffffff;
+    --surface-secondary: #f2f2f7;
+    --text-primary: #000000;
+    --text-secondary: #3c3c43;
+    --text-tertiary: #8e8e93;
+    --border: #c6c6c8;
+    --border-secondary: #d1d1d6;
+    --glass: rgba(0, 0, 0, 0.05);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-elevated: rgba(0, 0, 0, 0.15);
+} 
