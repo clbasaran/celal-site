@@ -4,11 +4,6 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "."
 
 # Environment variables
-[env.production]
-routes = [
-  { pattern = "celalbasaran.com/*", zone_name = "celalbasaran.com" }
-]
-
 [env.production.vars]
 SITE_URL = "https://celalbasaran.com"
 ENVIRONMENT = "production"
@@ -17,6 +12,7 @@ JWT_SECRET = "your-super-secret-jwt-key-production"
 [env.preview.vars]
 SITE_URL = "https://preview.celalbasaran.com"
 ENVIRONMENT = "preview"
+JWT_SECRET = "your-super-secret-jwt-key-preview"
 
 # KV Namespaces for data storage
 [[kv_namespaces]]
@@ -27,23 +23,4 @@ preview_id = "celalbasaran-site-data-preview"
 [[kv_namespaces]]
 binding = "ADMIN_DATA"
 id = "celalbasaran-admin-data"
-preview_id = "celalbasaran-admin-data-preview"
-
-[env.development.vars]
-ENVIRONMENT = "development"
-JWT_SECRET = "your-super-secret-jwt-key-development"
-
-[[env.production.d1_databases]]
-binding = "DB"
-database_name = "celal-site-production"
-database_id = "your-database-id"
-
-[[env.development.d1_databases]]
-binding = "DB"
-database_name = "celal-site-development"
-database_id = "your-dev-database-id"
-
-[build]
-command = "npm run build"
-cwd = "."
-watch_dir = "functions" 
+preview_id = "celalbasaran-admin-data-preview" 
