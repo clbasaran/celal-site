@@ -29,11 +29,9 @@ binding = "ADMIN_DATA"
 id = "celalbasaran-admin-data"
 preview_id = "celalbasaran-admin-data-preview"
 
-[env.development]
-vars = { 
-  ENVIRONMENT = "development",
-  JWT_SECRET = "your-super-secret-jwt-key-development"
-}
+[env.development.vars]
+ENVIRONMENT = "development"
+JWT_SECRET = "your-super-secret-jwt-key-development"
 
 [[env.production.d1_databases]]
 binding = "DB"
