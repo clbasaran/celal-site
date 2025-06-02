@@ -1,0 +1,499 @@
+/* ===============================================
+   PREMIUM CARD COMPONENTS
+   Celal Başaran Portfolio - Modern Cards
+   =============================================== */
+
+/* ===== BASE CARD STYLES ===== */
+.premium-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.premium-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.premium-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* ===== CARD VARIANTS ===== */
+.card-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.card-glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-solid {
+    background: var(--card-bg, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
+    color: var(--text-color, #1f2937);
+}
+
+.card-neon {
+    background: #0f0f0f;
+    border: 1px solid #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    color: #00ffff;
+}
+
+.card-neon:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+/* ===== SERVICE CARDS ===== */
+.service-card {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card .card-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .card-icon {
+    transform: scale(1.1) rotateY(10deg);
+}
+
+.service-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.service-card .card-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 1.5rem;
+}
+
+.service-card .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service-card .card-features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.service-card .card-features li::before {
+    content: '✓';
+    color: #10b981;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.service-card .card-features li:last-child {
+    border-bottom: none;
+}
+
+/* ===== PROJECT CARDS ===== */
+.project-card {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.project-card .card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .card-image {
+    transform: scale(1.1);
+}
+
+.project-card .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.project-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.project-card .card-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.project-card .card-action {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.project-card .card-action:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.project-card .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-card .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.project-card .card-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.project-card .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.project-card .card-tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(99, 102, 241, 0.1);
+    color: #6366f1;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* ===== SKILL CARDS ===== */
+.skill-card {
+    text-align: center;
+    padding: 1.5rem;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-card .skill-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.skill-card .skill-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.skill-card .skill-level {
+    width: 100%;
+    height: 6px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.skill-card .skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 3px;
+    transition: width 1s ease-in-out;
+}
+
+.skill-card .skill-percentage {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===== TESTIMONIAL CARDS ===== */
+.testimonial-card {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    font-size: 4rem;
+    color: rgba(99, 102, 241, 0.2);
+    font-family: serif;
+    line-height: 1;
+}
+
+.testimonial-card .testimonial-text {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-card .testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.testimonial-card .author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.testimonial-card .author-info {
+    text-align: left;
+}
+
+.testimonial-card .author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.testimonial-card .author-title {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ===== PRICING CARDS ===== */
+.pricing-card {
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+    height: auto;
+}
+
+.pricing-card.featured {
+    transform: scale(1.05);
+    border-color: var(--primary-color);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+}
+
+.pricing-card .pricing-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.pricing-card .pricing-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.pricing-card .pricing-price {
+    margin-bottom: 2rem;
+}
+
+.pricing-card .price-amount {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.pricing-card .price-currency {
+    font-size: 1.5rem;
+    vertical-align: top;
+}
+
+.pricing-card .price-period {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.pricing-card .pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.pricing-card .pricing-features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.pricing-card .pricing-features li::before {
+    content: '✓';
+    color: #10b981;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.pricing-card .pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-card .pricing-button {
+    width: 100%;
+    margin-top: auto;
+}
+
+/* ===== 3D CARD EFFECTS ===== */
+.card-3d {
+    perspective: 1000px;
+}
+
+.card-3d .premium-card {
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.card-3d:hover .premium-card {
+    transform: rotateY(10deg) rotateX(5deg);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .premium-card {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .premium-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .project-card {
+        height: 350px;
+    }
+    
+    .skill-card {
+        height: 150px;
+        padding: 1rem;
+    }
+    
+    .pricing-card.featured {
+        transform: none;
+        margin: 1rem 0;
+    }
+}
+
+/* ===== DARK MODE STYLES ===== */
+[data-theme="dark"] .premium-card {
+    background: rgba(31, 41, 55, 0.8);
+    border-color: rgba(75, 85, 99, 0.3);
+}
+
+[data-theme="dark"] .card-solid {
+    background: var(--card-bg-dark, #1f2937);
+    border-color: var(--border-color-dark, #374151);
+    color: var(--text-color-dark, #f9fafb);
+}
+
+[data-theme="dark"] .premium-card:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+[data-theme="dark"] .project-card .card-tag {
+    background: rgba(139, 92, 246, 0.1);
+    color: #a78bfa;
+}
+
+[data-theme="dark"] .skill-card .skill-level {
+    background: rgba(139, 92, 246, 0.1);
+} 

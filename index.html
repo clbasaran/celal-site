@@ -3,201 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Celal Başaran - Premium AI Expert</title>
-    <meta id="page-description" name="description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler ve akıllı uygulamalar.">
+    <title>Celal Başaran - Premium AI Developer</title>
+    <meta name="description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler, ChatGPT entegrasyonları ve akıllı uygulamalar geliştiriyorum.">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Celal Başaran - Premium AI Expert">
+    <meta property="og:title" content="Celal Başaran - Premium AI Developer">
     <meta property="og:description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler ve akıllı uygulamalar.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://celalbasaran.com">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- External CSS Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/components/navbar.css">
-    <link rel="stylesheet" href="/assets/css/components/hero.css">
-    <link rel="stylesheet" href="/assets/css/components/cards.css">
-    <link rel="stylesheet" href="/assets/css/components/animations.css">
-    <link rel="stylesheet" href="/assets/css/themes/professional.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Fira Code', 'Monaco', 'monospace'],
+                        'main': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'terminal': {
+                            'bg': '#0d1117',
+                            'card': '#161b22',
+                            'border': '#30363d',
+                            'text': '#f0f6fc',
+                            'muted': '#8b949e',
+                            'accent': '#58a6ff',
+                            'success': '#56d364',
+                            'warning': '#f85149',
+                            'info': '#79c0ff',
+                        }
+                    },
+                    animation: {
+                        'typing': 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-in': 'slide-in 1s ease-out',
+                        'fade-in': 'fade-in 1s ease-out',
+                        'matrix': 'matrix 20s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Terminal Animations */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #58a6ff; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes matrix {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* Terminal Background */
+        .terminal-bg {
+            background: 
+                linear-gradient(135deg, #0d1117 0%, #161b22 50%, #21262d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Matrix Rain Effect */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.1;
+        }
+
+        .matrix-column {
+            position: absolute;
+            top: -100%;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #58a6ff;
+            opacity: 0.3;
+            animation: matrix 25s linear infinite;
+        }
+
+        /* Terminal Window */
+        .terminal-window {
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Terminal Header */
+        .terminal-header {
+            background: linear-gradient(180deg, rgba(48, 54, 61, 0.5) 0%, rgba(48, 54, 61, 0.2) 100%);
+            padding: 12px 16px;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+
+        .terminal-title {
+            color: #8b949e;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        /* Clean text styles without neon */
+        .text-accent { color: #58a6ff; }
+        .text-success { color: #56d364; }
+        .text-warning { color: #f85149; }
+        .text-info { color: #79c0ff; }
+        .text-muted { color: #8b949e; }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(45deg, #58a6ff, #79c0ff, #56d364);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradient-shift 4s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Clean Button */
+        .terminal-btn {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid #58a6ff;
+            color: #58a6ff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .terminal-btn:hover {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: #79c0ff;
+            color: #79c0ff;
+            transform: translateY(-2px);
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            border-color: #58a6ff;
+        }
+
+        /* Typing Effect */
+        .typing-text {
+            overflow: hidden;
+            border-right: 2px solid #58a6ff;
+            white-space: nowrap;
+            margin: 0;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        /* Progress Bar */
+        .skill-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(48, 54, 61, 0.8);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #58a6ff, #79c0ff);
+            border-radius: 3px;
+            transition: width 2s ease-in-out;
+            width: var(--width, 0%);
+        }
+
+        /* Loading Animation */
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            background: #58a6ff;
+            border-radius: 50%;
+            animation: loading-bounce 1.4s ease-in-out infinite both;
+        }
+
+        .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes loading-bounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Clean scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #58a6ff;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .terminal-window {
+                margin: 1rem;
+                border-radius: 6px;
+            }
+            
+            .glass-card {
+                padding: 16px;
+            }
+        }
+
+        /* Navigation */
+        .nav-link {
+            color: #8b949e;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #58a6ff;
+        }
+
+        /* Stats counter */
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #58a6ff;
+        }
+    </style>
 </head>
 
-<body class="premium-body">
+<body class="terminal-bg font-main text-terminal-text min-h-screen">
+    <!-- Matrix Rain Effect -->
+    <div class="matrix-rain" id="matrix"></div>
+
     <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-logo">
-                <div class="logo-spinner"></div>
-                <div class="loading-text">Celal Başaran</div>
-            </div>
-            <div class="loading-progress">
-                <div class="progress-bar"></div>
+    <div id="loading-screen" class="fixed inset-0 bg-terminal-bg z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="terminal-window max-w-md mx-auto mb-8">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot dot-red"></span>
+                        <span class="terminal-dot dot-yellow"></span>
+                        <span class="terminal-dot dot-green"></span>
+                    </div>
+                    <div class="terminal-title">system_boot.sh</div>
+                </div>
+                <div class="p-6 font-mono text-sm">
+                    <div class="text-success mb-2">$ initializing_system...</div>
+                    <div class="text-accent mb-2">$ loading_ai_modules...</div>
+                    <div class="text-info mb-4">$ celal_basaran_ready</div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-muted">Loading</span>
+                        <div class="loading-dots">
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                            <div class="loading-dot"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav id="main-nav" class="premium-nav">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="/" class="brand-link">
-                    <div class="brand-icon">CB</div>
-                    <span class="brand-text">Celal Başaran</span>
-                </a>
-            </div>
-            
-            <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link active" data-section="home">Ana Sayfa</a>
-                <a href="#about" class="nav-link" data-section="about">Hakkımda</a>
-                <a href="#services" class="nav-link" data-section="services">Hizmetler</a>
-                <a href="#portfolio" class="nav-link" data-section="portfolio">Portföy</a>
-                <a href="#testimonials" class="nav-link" data-section="testimonials">Referanslar</a>
-                <a href="#contact" class="nav-link" data-section="contact">İletişim</a>
-            </div>
-            
-            <div class="nav-actions">
-                <button class="theme-toggle" id="theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-                <a href="mailto:celal@celalbasaran.com" class="premium-button primary">
-                    <span>İşe Al</span>
-                    <div class="button-particles"></div>
-                </a>
-                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+    <nav class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-terminal-card/50 border-b border-terminal-border">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="font-mono text-xl font-bold">
+                    <span class="text-accent">CELAL</span><span class="text-info">BAŞARAN</span>
                 </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link">HOME</a>
+                    <a href="#about" class="nav-link">ABOUT</a>
+                    <a href="#skills" class="nav-link">SKILLS</a>
+                    <a href="#projects" class="nav-link">PROJECTS</a>
+                    <a href="#contact" class="nav-link">CONTACT</a>
+                </div>
+
+                <button class="terminal-btn text-xs px-4 py-2">
+                    <i class="fas fa-terminal mr-2"></i>TERMINAL
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-background">
-            <div class="hero-particles" id="hero-particles"></div>
-            <div class="hero-gradient"></div>
-        </div>
-        
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge animate__animated animate__fadeInDown">
-                    <span class="badge-icon">🚀</span>
-                    <span id="hero-badge-text">Premium AI Solutions</span>
-                </div>
-                
-                <h1 class="hero-title animate__animated animate__fadeInUp">
-                    <span class="title-line">Merhaba, Ben</span>
-                    <span class="title-name gradient-text" id="hero-name">Celal Başaran</span>
-                    <span class="title-role" id="hero-role">AI Expert & Full-Stack Developer</span>
-                </h1>
-                
-                <p class="hero-description animate__animated animate__fadeInUp animate__delay-1s" id="hero-description">
-                    Yapay zeka teknolojileri ve modern web geliştirme alanında uzmanlaşmış, 
-                    premium dijital çözümler sunan deneyimli bir geliştirici. 
-                    Projelerinizi hayata geçirmek için buradayım.
-                </p>
-                
-                <div class="hero-stats animate__animated animate__fadeInUp animate__delay-2s">
-                    <div class="stat-item">
-                        <div class="stat-number" id="stat-experience">3+</div>
-                        <div class="stat-label">Yıl Deneyim</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="stat-projects">50+</div>
-                        <div class="stat-label">Tamamlanan Proje</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="stat-satisfaction">100%</div>
-                        <div class="stat-label">Müşteri Memnuniyeti</div>
-                    </div>
-                </div>
-                
-                <div class="hero-actions animate__animated animate__fadeInUp animate__delay-3s">
-                    <a href="#portfolio" class="premium-button primary large">
-                        <span>Projelerimi İncele</span>
-                        <div class="button-particles"></div>
-                    </a>
-                    <a href="#contact" class="premium-button secondary large">
-                        <span>İletişime Geç</span>
-                    </a>
-                </div>
-                
-                <div class="hero-scroll animate__animated animate__fadeInUp animate__delay-4s">
-                    <div class="scroll-indicator">
-                        <span>Aşağı Kaydır</span>
-                        <div class="scroll-arrow"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="hero-visual">
-                <div class="visual-container">
-                    <div class="code-preview">
-                        <div class="code-header">
-                            <div class="code-dots">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
-                            </div>
-                            <div class="code-title">AI_Expert.js</div>
+    <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-20">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Terminal Content -->
+                <div class="terminal-window animate-slide-in">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot dot-red"></span>
+                            <span class="terminal-dot dot-yellow"></span>
+                            <span class="terminal-dot dot-green"></span>
                         </div>
-                        <div class="code-content">
-                            <div class="code-line">
-                                <span class="code-keyword">const</span>
-                                <span class="code-variable">developer</span>
-                                <span class="code-operator">=</span>
-                                <span class="code-bracket">{</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-property">name</span>
-                                <span class="code-operator">:</span>
-                                <span class="code-string">"Celal Başaran"</span>
-                                <span class="code-comma">,</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-property">role</span>
-                                <span class="code-operator">:</span>
-                                <span class="code-string">"AI Expert"</span>
-                                <span class="code-comma">,</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-property">skills</span>
-                                <span class="code-operator">:</span>
-                                <span class="code-bracket">[</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-string">"ChatGPT API"</span>
-                                <span class="code-comma">,</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-string">"React.js"</span>
-                                <span class="code-comma">,</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-string">"Node.js"</span>
-                                <span class="code-comma">,</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-string">"Python"</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-bracket">]</span>
-                            </div>
-                            <div class="code-line">
-                                <span class="code-bracket">}</span>
-                            </div>
+                        <div class="terminal-title">celal_basaran.sh</div>
+                    </div>
+                    <div class="p-6 font-mono text-sm leading-relaxed">
+                        <div class="text-success">$ whoami</div>
+                        <div class="text-terminal-text mb-4">celal_basaran</div>
+                        
+                        <div class="text-accent">$ cat profile.txt</div>
+                        <div class="text-terminal-text mb-4">
+                            <div>Name: Celal Başaran</div>
+                            <div>Role: <span class="text-info">AI Expert & Full-Stack Developer</span></div>
+                            <div>Experience: <span class="text-warning">3+ years</span></div>
+                            <div>Specialty: <span class="text-success">ChatGPT API Integration</span></div>
+                        </div>
+
+                        <div class="text-success">$ ls skills/</div>
+                        <div class="text-terminal-text mb-4">
+                            <div class="text-accent">├── ai_integration/</div>
+                            <div class="text-accent">├── react_nextjs/</div>
+                            <div class="text-accent">├── nodejs_python/</div>
+                            <div class="text-accent">└── cloud_solutions/</div>
+                        </div>
+
+                        <div class="text-info typing-text">$ ready_to_innovate --with-ai</div>
+                    </div>
+                </div>
+
+                <!-- Hero Content -->
+                <div class="space-y-8 animate-fade-in">
+                    <div>
+                        <h1 class="text-5xl md:text-7xl font-bold font-mono mb-4">
+                            <span class="gradient-text">AI</span>
+                            <span class="text-accent block">DEVELOPER</span>
+                        </h1>
+                        <p class="text-xl text-terminal-muted mb-8">
+                            Yapay zeka teknolojileri ile geleceği şekillendiren 
+                            <span class="text-info">premium dijital çözümler</span> geliştiriyorum.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="terminal-btn">
+                            <i class="fas fa-rocket mr-2"></i>Projelerimi Gör
+                        </a>
+                        <a href="#contact" class="terminal-btn">
+                            <i class="fas fa-paper-plane mr-2"></i>İletişime Geç
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="glass-card text-center">
+                            <div class="stat-number text-2xl font-bold">50+</div>
+                            <div class="text-terminal-muted text-sm">Projeler</div>
+                        </div>
+                        <div class="glass-card text-center">
+                            <div class="stat-number text-2xl font-bold">3+</div>
+                            <div class="text-terminal-muted text-sm">Yıl Deneyim</div>
+                        </div>
+                        <div class="glass-card text-center">
+                            <div class="stat-number text-2xl font-bold">100%</div>
+                            <div class="text-terminal-muted text-sm">Memnuniyet</div>
                         </div>
                     </div>
                 </div>
@@ -206,66 +466,71 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about-section section-padding">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <span class="badge-icon">👨‍💻</span>
-                    <span>Hakkımda</span>
-                </div>
-                <h2 class="section-title" id="about-title">Deneyim ve Uzmanlık</h2>
-                <p class="section-description" id="about-description">
-                    3+ yıllık deneyimimle AI teknolojileri ve modern web geliştirme alanında 
-                    işletmelere premium çözümler sunuyorum.
+    <section id="about" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold font-mono mb-4">
+                    <span class="gradient-text">HAKKIMDA</span>
+                </h2>
+                <p class="text-terminal-muted max-w-2xl mx-auto">
+                    AI teknolojileri ve modern web geliştirme konusunda tutkulu bir uzman
                 </p>
             </div>
-            
-            <div class="about-content">
-                <div class="about-grid">
-                    <div class="about-card professional">
-                        <div class="card-icon">
-                            <div class="icon-container">
-                                <span>🎯</span>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="glass-card">
+                    <h3 class="text-2xl font-bold text-accent mb-6">Uzmanlık Alanlarım</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-info">ChatGPT API & AI Integration</span>
+                                <span class="text-accent">95%</span>
                             </div>
+                            <div class="skill-progress" style="--width: 95%"></div>
                         </div>
-                        <h3 id="about-card1-title">Misyon</h3>
-                        <p id="about-card1-description">
-                            İşletmelerin dijital dönüşüm süreçlerinde, AI teknolojilerini 
-                            kullanarak verimlilik ve kârlılık artışı sağlamak.
-                        </p>
-                    </div>
-                    
-                    <div class="about-card professional">
-                        <div class="card-icon">
-                            <div class="icon-container">
-                                <span>💡</span>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-info">React.js & Next.js</span>
+                                <span class="text-accent">90%</span>
                             </div>
+                            <div class="skill-progress" style="--width: 90%"></div>
                         </div>
-                        <h3 id="about-card2-title">Vizyon</h3>
-                        <p id="about-card2-description">
-                            Gelecekte AI teknolojilerinin lider geliştiricilerinden biri olmak 
-                            ve Türkiye'de bu alandaki standartları yükseltmek.
-                        </p>
-                    </div>
-                    
-                    <div class="about-card professional">
-                        <div class="card-icon">
-                            <div class="icon-container">
-                                <span>⭐</span>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-info">Node.js & Python</span>
+                                <span class="text-accent">88%</span>
                             </div>
+                            <div class="skill-progress" style="--width: 88%"></div>
                         </div>
-                        <h3 id="about-card3-title">Değerler</h3>
-                        <p id="about-card3-description">
-                            Kalite, güvenilirlik, yenilik ve müşteri memnuniyeti 
-                            odaklı çalışma prensipleri.
-                        </p>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-info">Cloud Solutions</span>
+                                <span class="text-accent">85%</span>
+                            </div>
+                            <div class="skill-progress" style="--width: 85%"></div>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="skills-showcase">
-                    <h3 class="skills-title">Teknik Yetkinlikler</h3>
-                    <div class="skills-grid" id="skills-grid">
-                        <!-- Skills will be loaded dynamically -->
+
+                <div class="glass-card">
+                    <h3 class="text-2xl font-bold text-accent mb-6">Deneyimim</h3>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-accent pl-6">
+                            <div class="text-info font-bold">AI Integration Specialist</div>
+                            <div class="text-terminal-muted text-sm mb-2">2022 - Günümüz</div>
+                            <p class="text-terminal-text">
+                                ChatGPT API entegrasyonları, akıllı chatbot'lar ve 
+                                otomatik iş süreçleri geliştirme.
+                            </p>
+                        </div>
+                        <div class="border-l-2 border-accent pl-6">
+                            <div class="text-info font-bold">Full-Stack Developer</div>
+                            <div class="text-terminal-muted text-sm mb-2">2021 - 2024</div>
+                            <p class="text-terminal-text">
+                                Modern web uygulamaları, RESTful API'ler ve 
+                                mikroservis mimarileri geliştirme.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -273,213 +538,397 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services-section section-padding">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <span class="badge-icon">🚀</span>
-                    <span>Hizmetler</span>
-                </div>
-                <h2 class="section-title" id="services-title">Premium Dijital Çözümler</h2>
-                <p class="section-description" id="services-description">
-                    Modern teknolojiler kullanarak işletmenizin ihtiyaçlarına özel 
-                    çözümler geliştiriyorum.
+    <section id="skills" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold font-mono mb-4">
+                    <span class="gradient-text">HİZMETLERİM</span>
+                </h2>
+                <p class="text-terminal-muted max-w-2xl mx-auto">
+                    Modern teknolojilerle işinizi geleceğe taşıyın
                 </p>
             </div>
-            
-            <div class="services-grid" id="services-grid">
-                <!-- Services will be loaded dynamically -->
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card group">
+                    <div class="text-4xl text-accent mb-6">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-info mb-4">AI Entegrasyonu</h3>
+                    <p class="text-terminal-text mb-6">
+                        ChatGPT API, OpenAI modelleri ve özel AI çözümleri ile 
+                        işletmenizi otomatikleştirin.
+                    </p>
+                    <ul class="text-sm text-terminal-muted space-y-2 font-mono">
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>ChatGPT API Integration
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>Smart Chatbot Development
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>Natural Language Processing
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-card group">
+                    <div class="text-4xl text-accent mb-6">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-info mb-4">Web Geliştirme</h3>
+                    <p class="text-terminal-text mb-6">
+                        Modern, hızlı ve ölçeklenebilir web uygulamaları 
+                        geliştiriyorum.
+                    </p>
+                    <ul class="text-sm text-terminal-muted space-y-2 font-mono">
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>React.js & Next.js
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>Node.js Backend
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>Responsive Design
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-card group">
+                    <div class="text-4xl text-accent mb-6">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-info mb-4">Cloud Solutions</h3>
+                    <p class="text-terminal-text mb-6">
+                        AWS, Google Cloud ve Azure üzerinde ölçeklenebilir 
+                        cloud çözümleri.
+                    </p>
+                    <ul class="text-sm text-terminal-muted space-y-2 font-mono">
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>AWS & Google Cloud
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>Serverless Architecture
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-success mr-2">▶</span>DevOps Pipeline
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio-section section-padding">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <span class="badge-icon">💼</span>
-                    <span>Portföy</span>
-                </div>
-                <h2 class="section-title" id="portfolio-title">Gerçekleştirdiğim Projeler</h2>
-                <p class="section-description" id="portfolio-description">
-                    Çeşitli sektörlerden müşteriler için geliştirdiğim premium 
-                    dijital çözümlerin örnekleri.
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold font-mono mb-4">
+                    <span class="gradient-text">PROJELER</span>
+                </h2>
+                <p class="text-terminal-muted max-w-2xl mx-auto">
+                    Son dönemde geliştirdiğim projeler
                 </p>
             </div>
-            
-            <div class="portfolio-filters">
-                <button class="filter-btn active" data-filter="all">Tümü</button>
-                <button class="filter-btn" data-filter="ai">AI Projeleri</button>
-                <button class="filter-btn" data-filter="web">Web Geliştirme</button>
-                <button class="filter-btn" data-filter="mobile">Mobil Uygulamalar</button>
-            </div>
-            
-            <div class="portfolio-grid" id="portfolio-grid">
-                <!-- Portfolio items will be loaded dynamically -->
-            </div>
-        </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials-section section-padding">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <span class="badge-icon">💬</span>
-                    <span>Referanslar</span>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card">
+                    <div class="terminal-window mb-4">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot dot-red"></span>
+                                <span class="terminal-dot dot-yellow"></span>
+                                <span class="terminal-dot dot-green"></span>
+                            </div>
+                            <div class="terminal-title">ai_chatbot.js</div>
+                        </div>
+                        <div class="p-4 font-mono text-xs">
+                            <div class="text-success">$ npm run build</div>
+                            <div class="text-accent">Building ChatGPT integration...</div>
+                            <div class="text-info">✓ API connected successfully</div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-accent mb-3">AI Chatbot Platform</h3>
+                    <p class="text-terminal-muted mb-4">
+                        ChatGPT API ile geliştirilmiş akıllı müşteri hizmetleri platformu.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-terminal-card border border-terminal-border rounded text-xs text-accent font-mono">React</span>
+                        <span class="px-2 py-1 bg-terminal-card border border-terminal-border rounded text-xs text-accent font-mono">OpenAI</span>
+                        <span class="px-2 py-1 bg-terminal-card border border-terminal-border rounded text-xs text-accent font-mono">Node.js</span>
+                    </div>
                 </div>
-                <h2 class="section-title" id="testimonials-title">Müşteri Görüşleri</h2>
-                <p class="section-description" id="testimonials-description">
-                    Çalıştığım müşterilerin projelerimiz hakkındaki değerlendirmeleri.
-                </p>
-            </div>
-            
-            <div class="testimonials-slider swiper" id="testimonials-slider">
-                <div class="swiper-wrapper" id="testimonials-wrapper">
-                    <!-- Testimonials will be loaded dynamically -->
+
+                <div class="glass-card">
+                    <div class="terminal-window mb-4">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="terminal-dot dot-red"></span>
+                                <span class="terminal-dot dot-yellow"></span>
+                                <span class="terminal-dot dot-green"></span>
+                            </div>
+                            <div class="terminal-title">ecommerce_app.tsx</div>
+                        </div>
+                        <div class="p-4 font-mono text-xs">
+                            <div class="text-success">$ next build</div>
+                            <div class="text-accent">Creating optimized build...</div>
+                            <div class="text-info">✓ Build completed successfully</div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-accent mb-3">E-commerce Platform</h3>
+                    <p class="text-terminal-muted mb-4">
+                        Modern ve hızlı e-ticaret platformu, tam özellikli admin paneli ile.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-terminal-card border border-terminal-border rounded text-xs text-accent font-mono">Next.js</span>
+                        <span class="px-2 py-1 bg-terminal-card border border-terminal-border rounded text-xs text-accent font-mono">TypeScript</span>
+                        <span class="px-2 py-1 bg-terminal-card border border-terminal-border rounded text-xs text-accent font-mono">Prisma</span>
+                    </div>
                 </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact-section section-padding">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-badge">
-                    <span class="badge-icon">📞</span>
-                    <span>İletişim</span>
-                </div>
-                <h2 class="section-title" id="contact-title">Projeleriniz İçin İletişime Geçin</h2>
-                <p class="section-description" id="contact-description">
-                    Yeni projelerinizde birlikte çalışmak ve premium çözümler 
-                    geliştirmek için size ulaşmayı bekliyorum.
+    <section id="contact" class="py-20 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold font-mono mb-4">
+                    <span class="gradient-text">İLETİŞİM</span>
+                </h2>
+                <p class="text-terminal-muted max-w-2xl mx-auto">
+                    Projenizi hayata geçirmek için benimle iletişime geçin
                 </p>
             </div>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <span>📧</span>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="glass-card">
+                    <h3 class="text-2xl font-bold text-accent mb-6">Bana Ulaşın</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-info text-xl">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="text-terminal-muted text-sm">Email</div>
+                                <a href="mailto:celal@celalbasaran.com" class="text-accent hover:text-info transition-colors">
+                                    celal@celalbasaran.com
+                                </a>
+                            </div>
                         </div>
-                        <h3>E-posta</h3>
-                        <p id="contact-email">celal@celalbasaran.com</p>
-                        <a href="mailto:celal@celalbasaran.com" class="contact-link">E-posta Gönder</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <span>💼</span>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-info text-xl">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div>
+                                <div class="text-terminal-muted text-sm">LinkedIn</div>
+                                <a href="https://linkedin.com/in/celalbasaran" class="text-accent hover:text-info transition-colors" target="_blank">
+                                    /in/celalbasaran
+                                </a>
+                            </div>
                         </div>
-                        <h3>LinkedIn</h3>
-                        <p>Profesyonel Ağ</p>
-                        <a href="https://linkedin.com/in/celalbasaran" target="_blank" class="contact-link">Profili Görüntüle</a>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <span>💻</span>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-info text-xl">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div>
+                                <div class="text-terminal-muted text-sm">GitHub</div>
+                                <a href="https://github.com/celalbasaran" class="text-accent hover:text-info transition-colors" target="_blank">
+                                    /celalbasaran
+                                </a>
+                            </div>
                         </div>
-                        <h3>GitHub</h3>
-                        <p>Açık Kaynak Projeler</p>
-                        <a href="https://github.com/clbasaran" target="_blank" class="contact-link">Repoları İncele</a>
                     </div>
                 </div>
-                
-                <div class="contact-form-container">
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Ad Soyad</label>
-                            <input type="text" id="name" name="name" required>
+
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot dot-red"></span>
+                            <span class="terminal-dot dot-yellow"></span>
+                            <span class="terminal-dot dot-green"></span>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="email">E-posta</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject">Konu</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Mesaj</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="premium-button primary large">
-                            <span>Mesaj Gönder</span>
-                            <div class="button-particles"></div>
-                        </button>
-                    </form>
+                        <div class="terminal-title">contact_form.sh</div>
+                    </div>
+                    <div class="p-6">
+                        <form class="space-y-4 font-mono text-sm">
+                            <div>
+                                <label class="text-accent block mb-2">$ enter_name:</label>
+                                <input type="text" class="w-full bg-transparent border border-terminal-border rounded px-3 py-2 text-terminal-text focus:border-accent focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="text-accent block mb-2">$ enter_email:</label>
+                                <input type="email" class="w-full bg-transparent border border-terminal-border rounded px-3 py-2 text-terminal-text focus:border-accent focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="text-accent block mb-2">$ enter_message:</label>
+                                <textarea rows="4" class="w-full bg-transparent border border-terminal-border rounded px-3 py-2 text-terminal-text focus:border-accent focus:outline-none resize-none transition-colors"></textarea>
+                            </div>
+                            <button type="submit" class="terminal-btn w-full">
+                                <i class="fas fa-paper-plane mr-2"></i>SEND_MESSAGE
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="premium-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="brand-icon">CB</div>
-                    <div class="brand-info">
-                        <h3>Celal Başaran</h3>
-                        <p>AI Expert & Full-Stack Developer</p>
-                    </div>
+    <footer class="py-8 px-6 border-t border-terminal-border">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center">
+                <div class="font-mono text-lg mb-4">
+                    <span class="text-accent">CELAL</span><span class="text-info">BAŞARAN</span>
                 </div>
-                
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h4>Navigasyon</h4>
-                        <a href="#home">Ana Sayfa</a>
-                        <a href="#about">Hakkımda</a>
-                        <a href="#services">Hizmetler</a>
-                        <a href="#portfolio">Portföy</a>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4>İletişim</h4>
-                        <a href="mailto:celal@celalbasaran.com">E-posta</a>
-                        <a href="https://linkedin.com/in/celalbasaran" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/clbasaran" target="_blank">GitHub</a>
-                    </div>
-                    
-                    <div class="link-group">
-                        <h4>Özel</h4>
-                        <a href="/emanettakip">Emanet Takip</a>
-                        <a href="/admin">Admin Panel</a>
-                        <a href="/sitemap.xml">Site Haritası</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Celal Başaran. Tüm hakları saklıdır.</p>
-                <p>Made with ❤️ in Turkey</p>
+                <p class="text-terminal-muted text-sm font-mono">
+                    © 2025 - Made with <span class="text-warning">❤</span> and <span class="text-accent">AI</span>
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
-    <script src="/assets/js/modules/theme.js"></script>
-    <script src="/assets/js/modules/navigation.js"></script>
-    <script src="/assets/js/modules/animations.js"></script>
-    <script src="/assets/js/modules/portfolio.js"></script>
-    <script src="/assets/js/modules/contact.js"></script>
-    <script src="/assets/js/modules/data-loader.js"></script>
-    <script src="/assets/js/main.js"></script>
-    
-    <!-- Toast Notification -->
-    <div id="toast-container" class="toast-container"></div>
+    <script>
+        // Matrix Rain Effect
+        function createMatrix() {
+            const matrix = document.getElementById('matrix');
+            const chars = '01ABCDEFabcdef{}[]()<>+=*/-_';
+            
+            for (let i = 0; i < 15; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                column.style.left = Math.random() * 100 + '%';
+                column.style.animationDelay = Math.random() * 25 + 's';
+                column.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                
+                let text = '';
+                for (let j = 0; j < 15; j++) {
+                    text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+                }
+                column.innerHTML = text;
+                matrix.appendChild(column);
+            }
+        }
+
+        // Skill Progress Animation
+        function animateSkills() {
+            const skills = document.querySelectorAll('.skill-progress');
+            skills.forEach(skill => {
+                const width = skill.style.getPropertyValue('--width') || '0%';
+                skill.style.setProperty('--width', '0%');
+                setTimeout(() => {
+                    skill.style.setProperty('--width', width);
+                }, 500);
+            });
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createMatrix();
+            setTimeout(animateSkills, 1000);
+        });
+
+        // Contact Form
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>SENDING...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-check mr-2"></i>MESSAGE_SENT';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    this.reset();
+                }, 2000);
+            }, 2000);
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.glass-card, .terminal-window').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const increment = target / 50;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                    }
+                }, 30);
+            });
+        }
+
+        // Start counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.grid-cols-3');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
 </body>
 </html>
 <!-- Updated: Mon Jun  2 22:01:21 +03 2025 --> 
