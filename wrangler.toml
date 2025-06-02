@@ -9,24 +9,35 @@ SITE_URL = "https://celalbasaran.com"
 ENVIRONMENT = "production"
 JWT_SECRET = "your-super-secret-jwt-key-production"
 
+# Production KV Namespaces
+[[env.production.kv_namespaces]]
+binding = "SITE_DATA"
+id = "celalbasaran-site-data"
+
+[[env.production.kv_namespaces]]
+binding = "ADMIN_DATA"
+id = "celalbasaran-admin-data"
+
+# Production R2 Buckets
+[[env.production.r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "celalbasaran-media"
+
 [env.preview.vars]
 SITE_URL = "https://preview.celalbasaran.com"
 ENVIRONMENT = "preview"
 JWT_SECRET = "your-super-secret-jwt-key-preview"
 
-# KV Namespaces for data storage
-[[kv_namespaces]]
+# Preview KV Namespaces
+[[env.preview.kv_namespaces]]
 binding = "SITE_DATA"
-id = "celalbasaran-site-data"
 preview_id = "celalbasaran-site-data-preview"
 
-[[kv_namespaces]]
+[[env.preview.kv_namespaces]]
 binding = "ADMIN_DATA"
-id = "celalbasaran-admin-data"
 preview_id = "celalbasaran-admin-data-preview"
 
-# R2 Object Storage for file uploads
-[[r2_buckets]]
+# Preview R2 Buckets
+[[env.preview.r2_buckets]]
 binding = "MEDIA_BUCKET"
-bucket_name = "celalbasaran-media"
 preview_bucket_name = "celalbasaran-media-preview" 
