@@ -635,6 +635,109 @@
             from { opacity: 0; transform: translateX(-20px); }
             to { opacity: 1; transform: translateX(0); }
         }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Button sizes */
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .btn-lg {
+            padding: 12px 24px;
+            font-size: 16px;
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid var(--gray-300);
+            border-top: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Media grid */
+        .media-item {
+            transition: var(--transition);
+        }
+
+        .media-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Code blocks */
+        pre {
+            background: var(--gray-100);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Upload area */
+        .upload-area {
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
     </style>
 </head>
 
@@ -682,6 +785,10 @@
                         <i class="fas fa-analytics"></i>
                         <span>Analytics</span>
                     </a>
+                    <a href="#" class="nav-item" data-section="performance">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Performans</span>
+                    </a>
                 </div>
 
                 <div class="nav-section">
@@ -705,7 +812,7 @@
                 </div>
 
                 <div class="nav-section">
-                    <div class="nav-section-title">Medya</div>
+                    <div class="nav-section-title">Medya & Dosyalar</div>
                     <a href="#" class="nav-item" data-section="media">
                         <i class="fas fa-images"></i>
                         <span>Medya Kütüphanesi</span>
@@ -717,10 +824,10 @@
                 </div>
 
                 <div class="nav-section">
-                    <div class="nav-section-title">SEO & Marketing</div>
+                    <div class="nav-section-title">SEO & Optimizasyon</div>
                     <a href="#" class="nav-item" data-section="seo">
                         <i class="fas fa-search"></i>
-                        <span>SEO Ayarları</span>
+                        <span>SEO Araçları</span>
                     </a>
                     <a href="#" class="nav-item" data-section="social">
                         <i class="fas fa-share-alt"></i>
@@ -729,7 +836,11 @@
                 </div>
 
                 <div class="nav-section">
-                    <div class="nav-section-title">Sistem</div>
+                    <div class="nav-section-title">Sistem Yönetimi</div>
+                    <a href="#" class="nav-item" data-section="database">
+                        <i class="fas fa-database"></i>
+                        <span>Veritabanı</span>
+                    </a>
                     <a href="#" class="nav-item" data-section="users">
                         <i class="fas fa-users"></i>
                         <span>Kullanıcılar</span>
@@ -743,7 +854,7 @@
                         <span>Güvenlik</span>
                     </a>
                     <a href="#" class="nav-item" data-section="backups">
-                        <i class="fas fa-database"></i>
+                        <i class="fas fa-save"></i>
                         <span>Yedekleme</span>
                     </a>
                     <a href="#" class="nav-item" data-section="logs">
@@ -950,6 +1061,334 @@
                     </div>
                 </section>
 
+                <!-- Media Library Section -->
+                <section id="mediaSection" class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Medya Kütüphanesi</h2>
+                            <p class="section-description">Dosyalarınızı yönetin</p>
+                        </div>
+                        <button class="btn btn-primary" id="uploadMediaBtn">
+                            <i class="fas fa-plus"></i>
+                            <span>Dosya Yükle</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-4" style="margin-bottom: 24px;">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Toplam Dosya</span>
+                                <div class="stat-icon" style="background: var(--primary);">
+                                    <i class="fas fa-file"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalFiles">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Resimler</span>
+                                <div class="stat-icon" style="background: var(--success);">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalImages">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Dökümanlar</span>
+                                <div class="stat-icon" style="background: var(--warning);">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalDocuments">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Toplam Boyut</span>
+                                <div class="stat-icon" style="background: var(--info);">
+                                    <i class="fas fa-hdd"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalSize">-</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Dosya Listesi</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="mediaGrid" class="grid grid-4"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Blog Management Section -->
+                <section id="blogSection" class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Blog Yönetimi</h2>
+                            <p class="section-description">Blog yazılarınızı yönetin</p>
+                        </div>
+                        <button class="btn btn-primary" id="newPostBtn">
+                            <i class="fas fa-plus"></i>
+                            <span>Yeni Yazı</span>
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Blog Yazıları</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Başlık</th>
+                                        <th>Durum</th>
+                                        <th>Tarih</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="postsTableBody">
+                                    <!-- Posts will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Portfolio Management Section -->
+                <section id="portfolioSection" class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Portföy Yönetimi</h2>
+                            <p class="section-description">Projelerinizi yönetin</p>
+                        </div>
+                        <button class="btn btn-primary" id="newProjectBtn">
+                            <i class="fas fa-plus"></i>
+                            <span>Yeni Proje</span>
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Projeler</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Başlık</th>
+                                        <th>Teknolojiler</th>
+                                        <th>Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="projectsTableBody">
+                                    <!-- Projects will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SEO Tools Section -->
+                <section id="seoSection" class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">SEO Araçları</h2>
+                            <p class="section-description">SEO ayarlarınızı optimize edin</p>
+                        </div>
+                        <button class="btn btn-primary" id="generateSitemapBtn">
+                            <i class="fas fa-sitemap"></i>
+                            <span>Sitemap Oluştur</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">SEO Analizi</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">URL</label>
+                                    <input type="url" class="form-input" id="seoAnalyzeUrl" placeholder="https://celalbasaran.com">
+                                </div>
+                                <button class="btn btn-primary" id="analyzeSeoBtn">
+                                    <i class="fas fa-search"></i>
+                                    <span>Analiz Et</span>
+                                </button>
+                                <div id="seoAnalysisResult"></div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Schema Markup</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Schema Tipi</label>
+                                    <select class="form-select" id="schemaType">
+                                        <option value="person">Person</option>
+                                        <option value="website">Website</option>
+                                        <option value="article">Article</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" id="generateSchemaBtn">
+                                    <i class="fas fa-code"></i>
+                                    <span>Schema Oluştur</span>
+                                </button>
+                                <div id="schemaOutput"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Database Management Section -->
+                <section id="databaseSection" class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Veritabanı Yönetimi</h2>
+                            <p class="section-description">Veritabanı işlemlerinizi yönetin</p>
+                        </div>
+                        <button class="btn btn-success" id="backupDbBtn">
+                            <i class="fas fa-download"></i>
+                            <span>Yedek Al</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-3" style="margin-bottom: 24px;">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">DB Durumu</span>
+                                <div class="stat-icon" style="background: var(--success);">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="dbStatus">Bağlı</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Toplam Tablo</span>
+                                <div class="stat-icon" style="background: var(--primary);">
+                                    <i class="fas fa-table"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="dbTables">5</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Son Yedek</span>
+                                <div class="stat-icon" style="background: var(--warning);">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="lastBackup">-</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">SQL Sorgu Çalıştır</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-label">SQL Sorgusu (Sadece SELECT)</label>
+                                <textarea class="form-textarea" id="sqlQuery" placeholder="SELECT * FROM posts LIMIT 10;"></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="executeSqlBtn">
+                                <i class="fas fa-play"></i>
+                                <span>Çalıştır</span>
+                            </button>
+                            <div id="sqlResult"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Dashboard Section -->
+                <section id="performanceSection" class="content-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Performans Dashboard</h2>
+                            <p class="section-description">Site performansınızı izleyin</p>
+                        </div>
+                        <button class="btn btn-primary" id="refreshPerformanceBtn">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Verileri Yenile</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-3" style="margin-bottom: 24px;">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Performance Score</span>
+                                <div class="stat-icon" style="background: var(--success);">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="performanceScore">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">Page Load Time</span>
+                                <div class="stat-icon" style="background: var(--primary);">
+                                    <i class="fas fa-stopwatch"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="pageLoadTime">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-title">First Paint</span>
+                                <div class="stat-icon" style="background: var(--info);">
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="firstPaint">-</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Core Web Vitals</h3>
+                            </div>
+                            <div class="card-body">
+                                <div style="display: flex; flex-direction: column; gap: 16px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span>Largest Contentful Paint</span>
+                                        <span id="lcp">-</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span>First Input Delay</span>
+                                        <span id="fid">-</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span>Cumulative Layout Shift</span>
+                                        <span id="cls">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Optimizasyon Önerileri</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul id="optimizationSuggestions" style="list-style: none; padding: 0;">
+                                    <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-200);"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 8px;"></i>Görsel optimizasyonu aktif</li>
+                                    <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-200);"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 8px;"></i>CDN kullanımı aktif</li>
+                                    <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-200);"><i class="fas fa-exclamation-triangle" style="color: var(--warning); margin-right: 8px;"></i>CSS minification önerilir</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- More sections will be dynamically added -->
             </div>
         </main>
@@ -997,6 +1436,38 @@
                 document.getElementById('quickSaveBtn').addEventListener('click', () => {
                     this.quickSave();
                 });
+
+                // Media upload
+                document.getElementById('uploadMediaBtn')?.addEventListener('click', () => {
+                    this.showMediaUploadDialog();
+                });
+
+                // SEO tools
+                document.getElementById('analyzeSeoBtn')?.addEventListener('click', () => {
+                    this.analyzeSEO();
+                });
+
+                document.getElementById('generateSchemaBtn')?.addEventListener('click', () => {
+                    this.generateSchema();
+                });
+
+                document.getElementById('generateSitemapBtn')?.addEventListener('click', () => {
+                    this.generateSitemap();
+                });
+
+                // Database operations
+                document.getElementById('backupDbBtn')?.addEventListener('click', () => {
+                    this.createBackup();
+                });
+
+                document.getElementById('executeSqlBtn')?.addEventListener('click', () => {
+                    this.executeSQL();
+                });
+
+                // Performance monitoring
+                document.getElementById('refreshPerformanceBtn')?.addEventListener('click', () => {
+                    this.loadPerformanceData();
+                });
             }
 
             switchSection(sectionName) {
@@ -1026,7 +1497,7 @@
                     portfolio: 'Portföy Yönetimi',
                     media: 'Medya Kütüphanesi',
                     analytics: 'Analytics',
-                    seo: 'SEO Ayarları',
+                    seo: 'SEO Araçları',
                     users: 'Kullanıcı Yönetimi',
                     settings: 'Site Ayarları'
                 };
@@ -1034,6 +1505,314 @@
                 document.getElementById('pageTitle').textContent = titles[sectionName] || 'Admin Panel';
 
                 this.currentSection = sectionName;
+
+                // Load section-specific data
+                this.loadSectionData(sectionName);
+            }
+
+            async loadSectionData(sectionName) {
+                switch (sectionName) {
+                    case 'media':
+                        await this.loadMediaData();
+                        break;
+                    case 'blog':
+                        await this.loadBlogData();
+                        break;
+                    case 'portfolio':
+                        await this.loadPortfolioData();
+                        break;
+                    case 'seo':
+                        await this.loadSEOData();
+                        break;
+                    case 'database':
+                        await this.loadDatabaseData();
+                        break;
+                    case 'performance':
+                        await this.loadPerformanceData();
+                        break;
+                }
+            }
+
+            async loadMediaData() {
+                try {
+                    const response = await API.getMediaFiles();
+                    if (response.success) {
+                        this.updateMediaStats(response.data);
+                        this.renderMediaGrid(response.data);
+                    }
+                } catch (error) {
+                    console.error('Media data load error:', error);
+                }
+            }
+
+            updateMediaStats(files) {
+                const images = files.filter(f => f.metadata?.category === 'images').length;
+                const documents = files.filter(f => f.metadata?.category === 'documents').length;
+                const totalSize = files.reduce((acc, f) => acc + (parseInt(f.size) || 0), 0);
+
+                document.getElementById('totalFiles').textContent = files.length;
+                document.getElementById('totalImages').textContent = images;
+                document.getElementById('totalDocuments').textContent = documents;
+                document.getElementById('totalSize').textContent = this.formatFileSize(totalSize);
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            renderMediaGrid(files) {
+                const grid = document.getElementById('mediaGrid');
+                grid.innerHTML = files.map(file => `
+                    <div class="media-item" style="border: 1px solid var(--gray-200); border-radius: var(--border-radius); padding: 16px; text-align: center;">
+                        <div style="height: 120px; background: var(--gray-100); border-radius: var(--border-radius); margin-bottom: 12px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-file" style="font-size: 24px; color: var(--gray-400);"></i>
+                        </div>
+                        <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">${file.metadata?.originalName || file.filename}</div>
+                        <div style="font-size: 12px; color: var(--gray-500);">${this.formatFileSize(file.size)}</div>
+                        <button class="btn btn-outline btn-sm" style="margin-top: 8px;" onclick="adminPanel.deleteMedia('${file.filename}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            async showMediaUploadDialog() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.multiple = true;
+                input.accept = 'image/*,application/pdf,.doc,.docx';
+                
+                input.onchange = async (e) => {
+                    const files = Array.from(e.target.files);
+                    for (const file of files) {
+                        try {
+                            await API.uploadMedia(file, { category: 'images' });
+                            this.showNotification(`${file.name} başarıyla yüklendi`, 'success');
+                        } catch (error) {
+                            this.showNotification(`${file.name} yüklenemedi: ${error.message}`, 'error');
+                        }
+                    }
+                    await this.loadMediaData();
+                };
+                
+                input.click();
+            }
+
+            async deleteMedia(filename) {
+                if (confirm('Bu dosyayı silmek istediğinizden emin misiniz?')) {
+                    try {
+                        await API.deleteMediaFile(filename);
+                        this.showNotification('Dosya başarıyla silindi', 'success');
+                        await this.loadMediaData();
+                    } catch (error) {
+                        this.showNotification('Dosya silinirken hata oluştu', 'error');
+                    }
+                }
+            }
+
+            async loadBlogData() {
+                try {
+                    const response = await API.getPosts();
+                    if (response.success) {
+                        this.renderPostsTable(response.data);
+                    }
+                } catch (error) {
+                    console.error('Blog data load error:', error);
+                }
+            }
+
+            renderPostsTable(posts) {
+                const tbody = document.getElementById('postsTableBody');
+                tbody.innerHTML = posts.map(post => `
+                    <tr>
+                        <td>${post.title}</td>
+                        <td><span class="badge ${post.status === 'published' ? 'badge-success' : 'badge-warning'}">${post.status}</span></td>
+                        <td>${new Date(post.created_at).toLocaleDateString('tr-TR')}</td>
+                        <td>
+                            <button class="btn btn-outline btn-sm" onclick="adminPanel.editPost(${post.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-outline btn-sm" onclick="adminPanel.deletePost(${post.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            async loadPortfolioData() {
+                try {
+                    const response = await API.getProjects();
+                    if (response.success) {
+                        this.renderProjectsTable(response.data);
+                    }
+                } catch (error) {
+                    console.error('Portfolio data load error:', error);
+                }
+            }
+
+            renderProjectsTable(projects) {
+                const tbody = document.getElementById('projectsTableBody');
+                tbody.innerHTML = projects.map(project => `
+                    <tr>
+                        <td>${project.title}</td>
+                        <td>${project.technologies?.join(', ') || '-'}</td>
+                        <td><span class="badge badge-info">${project.status}</span></td>
+                        <td>
+                            <button class="btn btn-outline btn-sm" onclick="adminPanel.editProject(${project.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-outline btn-sm" onclick="adminPanel.deleteProject(${project.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            async loadSEOData() {
+                // Load SEO data for current page
+                try {
+                    const response = await API.getPageSEO('home');
+                    document.getElementById('seoAnalyzeUrl').value = 'https://celalbasaran.com';
+                } catch (error) {
+                    console.error('SEO data load error:', error);
+                }
+            }
+
+            async analyzeSEO() {
+                const url = document.getElementById('seoAnalyzeUrl').value;
+                if (!url) return;
+
+                try {
+                    const response = await API.analyzeSEO(url, {
+                        title: 'Test Title',
+                        description: 'Test description for SEO analysis',
+                        keywords: ['test', 'seo', 'analysis'],
+                        html: '<h1>Test Header</h1><img src="test.jpg" alt="Test image">'
+                    });
+
+                    if (response.success) {
+                        const result = document.getElementById('seoAnalysisResult');
+                        result.innerHTML = `
+                            <div style="margin-top: 16px; padding: 16px; background: var(--gray-50); border-radius: var(--border-radius);">
+                                <h4>SEO Skor: ${response.data.score}/100</h4>
+                                <ul style="margin-top: 12px;">
+                                    ${response.data.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    this.showNotification('SEO analizi yapılamadı', 'error');
+                }
+            }
+
+            async generateSchema() {
+                const type = document.getElementById('schemaType').value;
+                
+                try {
+                    const response = await API.generateSchema(type, {
+                        name: 'Celal Başaran',
+                        jobTitle: 'Software Developer',
+                        url: 'https://celalbasaran.com'
+                    });
+
+                    if (response.success) {
+                        const output = document.getElementById('schemaOutput');
+                        output.innerHTML = `
+                            <div style="margin-top: 16px;">
+                                <h4>Generated Schema:</h4>
+                                <pre style="background: var(--gray-100); padding: 12px; border-radius: var(--border-radius); overflow-x: auto; font-size: 12px;">${JSON.stringify(response.data, null, 2)}</pre>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    this.showNotification('Schema oluşturulamadı', 'error');
+                }
+            }
+
+            async generateSitemap() {
+                try {
+                    const sitemap = await API.generateSitemap();
+                    this.showNotification('Sitemap başarıyla oluşturuldu', 'success');
+                    
+                    // Download sitemap
+                    const blob = new Blob([sitemap], { type: 'application/xml' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'sitemap.xml';
+                    a.click();
+                } catch (error) {
+                    this.showNotification('Sitemap oluşturulamadı', 'error');
+                }
+            }
+
+            async loadDatabaseData() {
+                try {
+                    const response = await API.getDatabaseStatus();
+                    if (response.success) {
+                        document.getElementById('dbStatus').textContent = response.status;
+                        document.getElementById('dbTables').textContent = response.tables?.length || 0;
+                    }
+                } catch (error) {
+                    console.error('Database data load error:', error);
+                }
+            }
+
+            async createBackup() {
+                try {
+                    const response = await API.createBackup();
+                    if (response.success) {
+                        this.showNotification('Yedekleme başlatıldı', 'success');
+                        document.getElementById('lastBackup').textContent = 'Az önce';
+                    }
+                } catch (error) {
+                    this.showNotification('Yedekleme başlatılamadı', 'error');
+                }
+            }
+
+            async executeSQL() {
+                const query = document.getElementById('sqlQuery').value.trim();
+                if (!query) return;
+
+                try {
+                    const response = await API.executeQuery(query);
+                    if (response.success) {
+                        const result = document.getElementById('sqlResult');
+                        result.innerHTML = `
+                            <div style="margin-top: 16px; padding: 16px; background: var(--gray-50); border-radius: var(--border-radius);">
+                                <h4>Sorgu Sonucu:</h4>
+                                <p>Sorgu başarıyla çalıştırıldı</p>
+                                <small>Çalıştırılan: ${response.data.executedAt}</small>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    this.showNotification('SQL sorgusu çalıştırılamadı', 'error');
+                }
+            }
+
+            async loadPerformanceData() {
+                try {
+                    const response = await API.getPerformanceMetrics();
+                    if (response.success) {
+                        const data = response.data;
+                        document.getElementById('performanceScore').textContent = data.score;
+                        document.getElementById('pageLoadTime').textContent = data.pageLoadTime.toFixed(2) + 's';
+                        document.getElementById('firstPaint').textContent = data.firstContentfulPaint.toFixed(2) + 's';
+                        document.getElementById('lcp').textContent = data.largestContentfulPaint.toFixed(2) + 's';
+                        document.getElementById('fid').textContent = data.firstInputDelay.toFixed(0) + 'ms';
+                        document.getElementById('cls').textContent = data.cumulativeLayoutShift.toFixed(3);
+                    }
+                } catch (error) {
+                    console.error('Performance data load error:', error);
+                }
             }
 
             toggleTheme() {

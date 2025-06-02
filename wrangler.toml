@@ -23,4 +23,10 @@ preview_id = "celalbasaran-site-data-preview"
 [[kv_namespaces]]
 binding = "ADMIN_DATA"
 id = "celalbasaran-admin-data"
-preview_id = "celalbasaran-admin-data-preview" 
+preview_id = "celalbasaran-admin-data-preview"
+
+# R2 Object Storage for file uploads
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "celalbasaran-media"
+preview_bucket_name = "celalbasaran-media-preview" 
