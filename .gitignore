@@ -3,6 +3,70 @@
 # Git ignore configuration for portfolio project
 # ============================================================================
 
+# ============================================================================
+# NEXT.JS & REACT DEVELOPMENT
+# ============================================================================
+
+# Next.js build output
+.next/
+out/
+
+# Node.js dependencies
+node_modules/
+bower_components/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Development cache
+.cache/
+.parcel-cache/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Prisma
+prisma/migrations/
+.prisma/
+
+# Build tools config (development only)
+next.config.js
+next.config.mjs
+postcss.config.js
+tailwind.config.js
+tailwind.config.ts
+tsconfig.json
+.eslintrc.json
+.eslintrc.js
+
+# ============================================================================
+# CLOUDFLARE & DEPLOYMENT
+# ============================================================================
+
+# Wrangler
+.wrangler/
+wrangler.toml
+wrangler.jsonc
+
+# ============================================================================
+# BACKUP FILES & ARCHIVES
+# ============================================================================
+
 # Backup files
 *.tar.gz
 *.zip
@@ -10,8 +74,40 @@
 *-backup-*
 *-v1.zip
 *-v2.zip
+*.zip
+.zipignore
 
-# System files
+# Kurulum dosyaları
+KURULUM*.sh
+KURULUM*.json
+KURULUM*.md
+EMANET_TAKIP_*.md
+AI_RULES_*.md
+UGUR_TICARET_*.md
+YAPAY_ZEKA_*.md
+
+# ============================================================================
+# DEVELOPMENT FOLDERS
+# ============================================================================
+
+# Development-only project folders
+celal-premium*/
+celal-ultra*/
+celalbasaran-com/
+celal-site-*/
+
+# React component development
+src/app/
+src/components/ui/
+src/lib/
+app/
+components/ui/
+lib/
+
+# ============================================================================
+# SYSTEM FILES
+# ============================================================================
+
 .DS_Store
 .DS_Store?
 ._*
@@ -26,6 +122,10 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# ============================================================================
+# LOGS & TEMPORARY FILES
+# ============================================================================
 
 # Logs
 logs
@@ -46,10 +146,6 @@ coverage/
 # nyc test coverage
 .nyc_output
 
-# Dependency directories
-node_modules/
-bower_components/
-
 # Optional npm cache directory
 .npm
 
@@ -62,13 +158,6 @@ bower_components/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
 # Temporary files
 tmp/
 temp/
@@ -76,11 +165,10 @@ temp/
 
 # Build directories (if using build tools)
 dist/
-# build/  # Build klasörünü public/emanettakip için dahil ediyoruz
 
-# Cache directories
-.cache/
-.parcel-cache/
+# ============================================================================
+# PLATFORM SPECIFIC
+# ============================================================================
 
 # MacOS
 .AppleDouble
@@ -113,6 +201,7 @@ assets/sketch/
 # Development only files
 *.development.*
 *.dev.*
+index.js
 
 # Analytics and logs
 analytics/
@@ -133,11 +222,15 @@ config.private.js
 secrets.json
 private.env
 
+# Schema files (development)
+schema.sql
+schema.prisma
+
 # ============================================================================
 # iOS XCODE PROJECT EXCLUSIONS
 # ============================================================================
 
-# iOS Xcode Project (celal-site/ios/)
+# iOS Xcode Project (ios/)
 ios/build/
 ios/DerivedData/
 ios/*.xcworkspace
