@@ -1,299 +1,456 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celal Başaran | Senior Swift Developer</title>
-    <meta name="description" content="iOS ve macOS Swift geliştirici. Modern Apple ekosisteminde yenilikçi çözümler üretiyorum.">
-    <link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-    <!-- Skip Links for Accessibility -->
-    <a href="#main-content" class="skip-link">Ana içeriğe geç</a>
+    <title>Celal Başaran - AI & Full-Stack Developer</title>
+    <meta name="description" content="AI uzmanı ve modern web geliştirici. Premium dijital çözümler ve akıllı uygulamalar.">
     
-    <nav class="navbar" role="navigation" aria-label="Ana navigasyon">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo" aria-label="Ana sayfa">CB</a>
-            
-            <button class="nav-mobile-toggle" aria-expanded="false" aria-label="Menüyü aç">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            
-            <ul class="nav-menu" role="menubar">
-                <li role="none"><a href="#home" role="menuitem">Ana Sayfa</a></li>
-                <li role="none"><a href="#about" role="menuitem">Hakkımda</a></li>
-                <li role="none"><a href="#skills" role="menuitem">Yetenekler</a></li>
-                <li role="none"><a href="#projects" role="menuitem">Projeler</a></li>
-                <li role="none"><a href="/emanettakip/" role="menuitem" class="nav-special">📦 Emanet Takip</a></li>
-                <li role="none"><a href="#contact" role="menuitem">İletişim</a></li>
-            </ul>
-            
-            <button class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
-                <span class="theme-icon">🌙</span>
-            </button>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'zinc': {
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #18181b;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b;
+        }
+        
+        /* Selection */
+        ::selection {
+            background: #22d3ee;
+            color: #0f172a;
+        }
+        
+        /* Custom animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-in {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        /* Grid pattern */
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Terminal effect */
+        .terminal {
+            border: 1px solid #3f3f46;
+            border-radius: 8px;
+            background: #09090b;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .terminal-header {
+            background: #18181b;
+            padding: 12px 16px;
+            border-bottom: 1px solid #3f3f46;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .terminal-content {
+            padding: 20px;
+            color: #22d3ee;
+            line-height: 1.6;
+        }
+        
+        /* Hover effects */
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+        }
+        
+        /* Badge styles */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid;
+        }
+        
+        .badge-ai {
+            background: rgba(34, 211, 238, 0.1);
+            border-color: rgba(34, 211, 238, 0.3);
+            color: #22d3ee;
+        }
+        
+        .badge-web {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+        
+        .badge-design {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.3);
+            color: #a855f7;
+        }
+        
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text { 
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+
+<body class="bg-zinc-950 text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="font-mono text-cyan-400 font-semibold">~/celal-basaran</div>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-zinc-400 hover:text-white transition-colors">About</a>
+                    <a href="#work" class="text-zinc-400 hover:text-white transition-colors">Work</a>
+                    <a href="#contact" class="text-zinc-400 hover:text-white transition-colors">Contact</a>
+                    <a href="#contact" class="bg-cyan-400 text-zinc-950 px-4 py-2 rounded-lg font-medium hover:bg-cyan-300 transition-colors">
+                        Hire Me
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden text-zinc-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <main id="main-content">
-        <section id="home" class="hero" aria-label="Ana bölüm">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Ben Celal Başaran</h1>
-                <p class="hero-subtitle">Bilgisayar Mühendisliği Öğrencisi & Swift Enthusiast</p>
-                <p class="hero-description">Apple teknolojileri ile yenilikçi mobil uygulamalar geliştiren tutkulu bir öğrenci</p>
-                <a href="#projects" class="cta-button">Projelerime Göz At</a>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Animated background -->
+        <div class="absolute inset-0 grid-pattern opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <!-- Status badge -->
+            <div class="animate-fade-in-up mb-8">
+                <span class="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 text-green-400 rounded-full text-sm border border-green-500/20">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-slow"></span>
+                    Available for projects
+                </span>
             </div>
-            <div class="hero-decoration">
-                <div class="floating-element"></div>
-                <div class="floating-element"></div>
-                <div class="floating-element"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">Hakkımda</h2>
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <div class="avatar-icon">CB</div>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <h3>Öğrenci & Gelecekteki Swift Geliştirici</h3>
-                    <p>Bilgisayar Mühendisliği öğrencisi olarak iOS ve macOS geliştirme alanında kendimi sürekli geliştiriyorum. Swift ve SwiftUI teknolojileri ile modern Apple ekosisteminde kullanıcı dostu uygulamalar geliştirebilme becerisine sahibim.</p>
-                    <p>Akademik eğitimimin yanı sıra kişisel projeler geliştirerek pratik deneyim kazanıyorum. SwiftUI, UIKit, Core Data gibi temel framework'lerde yetkinliğe sahipim ve MVVM pattern ile temiz kod yazma konusunda bilgi sahibiyim. Açık kaynak projelere katkıda bulunarak bilgimi paylaşmayı seviyorum.</p>
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <span class="highlight-number">12+</span>
-                            <span class="highlight-text">Kişisel Proje</span>
-                        </div>
-                        <div class="highlight-item">
-                            <span class="highlight-number">2+</span>
-                            <span class="highlight-text">Yıl Swift</span>
-                        </div>
-                        <div class="highlight-item">
-                            <span class="highlight-number">3</span>
-                            <span class="highlight-text">Open Source Katkı</span>
-                        </div>
-                    </div>
-                </div>
+            
+            <!-- Main heading -->
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 animate-fade-in-up">
+                <span class="text-white">Celal</span>
+                <br>
+                <span class="gradient-text">Başaran</span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="text-2xl md:text-3xl text-zinc-300 mb-4 animate-fade-in-up">
+                AI Expert & Full-Stack Developer
+            </p>
+            
+            <!-- Description -->
+            <p class="text-lg text-zinc-400 max-w-2xl mx-auto mb-12 animate-fade-in-up">
+                Modern web teknolojileri ve yapay zeka ile premium dijital çözümler geliştiriyorum. 
+                ChatGPT, React, Node.js ve Python uzmanıyım.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up">
+                <a href="#contact" class="bg-cyan-400 text-zinc-950 px-8 py-3 rounded-lg font-semibold hover:bg-cyan-300 transition-all hover-glow">
+                    Start Project
+                </a>
+                <a href="#work" class="border border-zinc-600 text-white px-8 py-3 rounded-lg font-semibold hover:border-zinc-500 hover:bg-zinc-800 transition-all">
+                    View Work
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Teknik Yetenekler</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Programlama Dilleri</h3>
-                    <div class="skill-badges">
-                        <span class="skill-badge expert">Swift</span>
-                        <span class="skill-badge advanced">Objective-C</span>
-                        <span class="skill-badge intermediate">Python</span>
-                        <span class="skill-badge intermediate">JavaScript</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>iOS Framework'ler</h3>
-                    <div class="skill-badges">
-                        <span class="skill-badge expert">SwiftUI</span>
-                        <span class="skill-badge expert">UIKit</span>
-                        <span class="skill-badge expert">Core Data</span>
-                        <span class="skill-badge advanced">CloudKit</span>
-                        <span class="skill-badge advanced">Core Animation</span>
-                        <span class="skill-badge expert">Foundation</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Mimari & Pattern</h3>
-                    <div class="skill-badges">
-                        <span class="skill-badge expert">MVVM</span>
-                        <span class="skill-badge advanced">Clean Architecture</span>
-                        <span class="skill-badge expert">Combine</span>
-                        <span class="skill-badge advanced">Coordinator Pattern</span>
-                        <span class="skill-badge intermediate">VIPER</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Backend & Cloud</h3>
-                    <div class="skill-badges">
-                        <span class="skill-badge expert">Firebase</span>
-                        <span class="skill-badge advanced">RESTful API</span>
-                        <span class="skill-badge intermediate">GraphQL</span>
-                        <span class="skill-badge advanced">AWS</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Öne Çıkan Projeler</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">📱</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>FinanceTracker Pro</h3>
-                        <p>Kişisel finans yönetimi için geliştirilmiş kapsamlı iOS uygulaması. Machine Learning algoritmaları ile harcama analizi ve yatırım önerileri sunar.</p>
-                        <div class="project-tech">
-                            <span>SwiftUI</span>
-                            <span>Core Data</span>
-                            <span>Core ML</span>
-                            <span>Charts</span>
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left side - Terminal -->
+                <div class="animate-slide-in">
+                    <div class="terminal hover-glow">
+                        <div class="terminal-header">
+                            <div class="terminal-dot bg-red-500"></div>
+                            <div class="terminal-dot bg-yellow-500"></div>
+                            <div class="terminal-dot bg-green-500"></div>
+                            <span class="ml-4 text-zinc-400 text-sm">~/portfolio</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Detaylar</a>
-                            <a href="#" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">🎵</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>MusicStudio AR</h3>
-                        <p>Artırılmış gerçeklik teknolojisi ile müzik üretimi yapabilen yaratıcı uygulama. 3D ses manipülasyonu ve gerçek zamanlı işbirliği özellikli.</p>
-                        <div class="project-tech">
-                            <span>ARKit</span>
-                            <span>AVFoundation</span>
-                            <span>Metal</span>
-                            <span>CloudKit</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Detaylar</a>
-                            <a href="#" class="project-link">App Store</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">🏥</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>HealthConnect</h3>
-                        <p>Sağlık profesyonelleri ve hastalar arasında güvenli iletişim sağlayan telemedicine platformu. HIPAA uyumlu ve end-to-end şifreleme ile.</p>
-                        <div class="project-tech">
-                            <span>UIKit</span>
-                            <span>HealthKit</span>
-                            <span>CryptoKit</span>
-                            <span>Firebase</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Detaylar</a>
-                            <a href="#" class="project-link">Case Study</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">🚀</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>DevTools Suite</h3>
-                        <p>iOS geliştiricileri için macOS üzerinde çalışan profesyonel araç seti. API testing, kod analizi ve performans monitoring özellikleri.</p>
-                        <div class="project-tech">
-                            <span>macOS</span>
-                            <span>AppKit</span>
-                            <span>Network</span>
-                            <span>Swift Package</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link">Detaylar</a>
-                            <a href="#" class="project-link">Download</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">🌾</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Emanet Takip Sistemi</h3>
-                        <p>Tarım malzemeleri için geliştirilmiş modern emanet takip sistemi. Müşteri borç yönetimi, ürün takibi ve raporlama özellikleri içerir.</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>TailwindCSS</span>
-                            <span>Node.js</span>
-                            <span>SQLite</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="/emanettakip" class="project-link">Uygulamayı Aç</a>
-                            <a href="https://github.com/celalbasaran/emanettakip" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact" aria-label="İletişim bilgileri">
-        <div class="container">
-            <h2 class="section-title">İletişime Geçin</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Projelerinizde işbirliği yapmak ister misiniz?</h3>
-                    <p>iOS geliştirme konusunda tutkulu bir öğrenci olarak, projelerinize katkıda bulunabilirim. Swift ve SwiftUI teknolojileriyle yeni projeler geliştirmek ve öğrenmeye devam etmek için iletişime geçin.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">📧</div>
-                            <div class="contact-text">
-                                <span>Email</span>
-                                <a href="mailto:celal@celalbasaran.com">celal@celalbasaran.com</a>
+                        <div class="terminal-content">
+                            <div class="mb-2">
+                                <span class="text-green-400">$</span> whoami
                             </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">💼</div>
-                            <div class="contact-text">
-                                <span>LinkedIn</span>
-                                <a href="https://linkedin.com/in/celalbasaran" target="_blank">linkedin.com/in/celalbasaran</a>
+                            <div class="mb-4 text-zinc-300">celal-basaran</div>
+                            
+                            <div class="mb-2">
+                                <span class="text-green-400">$</span> cat skills.txt
                             </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">🐙</div>
-                            <div class="contact-text">
-                                <span>GitHub</span>
-                                <a href="https://github.com/celalbasaran" target="_blank">github.com/celalbasaran</a>
+                            <div class="mb-4 text-zinc-300">
+                                • AI & Machine Learning<br>
+                                • Full-Stack Development<br>
+                                • React & Next.js<br>
+                                • Node.js & Python<br>
+                                • UI/UX Design
+                            </div>
+                            
+                            <div class="mb-2">
+                                <span class="text-green-400">$</span> ls projects/
+                            </div>
+                            <div class="text-zinc-300">
+                                emanet-takip/ ios-app/ ai-tools/
                             </div>
                         </div>
                     </div>
                 </div>
-                                <form class="contact-form" aria-label="İletişim formu">
-                    <div class="form-group">
-                        <label for="name">Ad Soyad</label>
-                        <input type="text" id="name" name="name" required aria-describedby="name-error">
+                
+                <!-- Right side - Content -->
+                <div class="animate-slide-in">
+                    <h2 class="text-4xl font-bold mb-6">
+                        About <span class="gradient-text">Me</span>
+                    </h2>
+                    <p class="text-zinc-300 mb-6 leading-relaxed">
+                        Merhaba! Ben Celal, AI ve web teknolojileri konularında uzmanlaşmış bir geliştiriciyim. 
+                        Modern teknolojiler kullanarak kullanıcı odaklı, performans ve güvenlik öncelikli uygulamalar geliştiriyorum.
+                    </p>
+                    
+                    <!-- Skills badges -->
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="badge badge-ai">AI & ML</span>
+                        <span class="badge badge-web">Full-Stack</span>
+                        <span class="badge badge-design">UI/UX</span>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email Adresiniz</label>
-                        <input type="email" id="email" name="email" required aria-describedby="email-error">
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 text-center">
+                        <div>
+                            <div class="text-2xl font-bold text-cyan-400">50+</div>
+                            <div class="text-zinc-400 text-sm">Projects</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-green-400">3+</div>
+                            <div class="text-zinc-400 text-sm">Years Exp</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-purple-400">100%</div>
+                            <div class="text-zinc-400 text-sm">Satisfaction</div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="subject">Konu</label>
-                        <input type="text" id="subject" name="subject" required aria-describedby="subject-error">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Mesajınız</label>
-                        <textarea id="message" name="message" rows="5" required aria-describedby="message-error"></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">Mesaj Gönder</button>
-                </form>
+                </div>
             </div>
         </div>
     </section>
-    </main>
 
-    <!-- JavaScript Modules -->
-    <script type="module" src="assets/js/modules/theme.js"></script>
-    <script type="module" src="assets/js/modules/navigation.js"></script>
-    <script type="module" src="assets/js/modules/footer-loader.js"></script>
-    <script type="module" src="admin/toast.js"></script>
+    <!-- Work Section -->
+    <section id="work" class="py-20 bg-zinc-900/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">
+                Featured <span class="gradient-text">Work</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all hover-glow">
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-cyan-400 text-xl">📱</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">iOS Portfolio App</h3>
+                    <p class="text-zinc-400 mb-4">SwiftUI ile geliştirilmiş, real-time data sync özellikli native iOS uygulaması.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded">SwiftUI</span>
+                        <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-400 rounded">iOS</span>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 hover:border-green-500/50 transition-all hover-glow">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-green-400 text-xl">📦</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Emanet Takip</h3>
+                    <p class="text-zinc-400 mb-4">Full-stack emanet takip sistemi. React frontend, Node.js backend ile.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded">React</span>
+                        <span class="text-xs px-2 py-1 bg-green-500/20 text-green-400 rounded">Node.js</span>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 hover:border-purple-500/50 transition-all hover-glow">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-purple-400 text-xl">🤖</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">AI Tools</h3>
+                    <p class="text-zinc-400 mb-4">ChatGPT entegrasyonlu çeşitli AI araçları ve otomasyonları.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded">AI</span>
+                        <span class="text-xs px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded">Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">
+                Let's <span class="gradient-text">Work</span> Together
+            </h2>
+            <p class="text-xl text-zinc-300 mb-12">
+                Yeni bir proje mi planlıyorsunuz? Benimle iletişime geçin!
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
+                <a href="mailto:celal@celalbasaran.com" 
+                   class="flex items-center gap-3 bg-zinc-800/50 border border-zinc-700 px-6 py-3 rounded-lg hover:border-cyan-500/50 transition-all hover-glow">
+                    <span class="text-cyan-400">📧</span>
+                    <span>celal@celalbasaran.com</span>
+                </a>
+                
+                <a href="https://linkedin.com/in/celalbasaran" target="_blank"
+                   class="flex items-center gap-3 bg-zinc-800/50 border border-zinc-700 px-6 py-3 rounded-lg hover:border-blue-500/50 transition-all hover-glow">
+                    <span class="text-blue-400">💼</span>
+                    <span>LinkedIn</span>
+                </a>
+                
+                <a href="https://github.com/clbasaran" target="_blank"
+                   class="flex items-center gap-3 bg-zinc-800/50 border border-zinc-700 px-6 py-3 rounded-lg hover:border-gray-500/50 transition-all hover-glow">
+                    <span class="text-gray-400">💻</span>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800 py-8">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="text-zinc-400 mb-4 md:mb-0">
+                    © 2025 Celal Başaran. Made with ❤️ in Türkiye.
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="/emanettakip" class="text-zinc-400 hover:text-white transition-colors">Emanet Takip</a>
+                    <a href="/admin" class="text-zinc-400 hover:text-white transition-colors">Admin</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for smooth scrolling -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('backdrop-blur-lg');
+            } else {
+                nav.classList.remove('backdrop-blur-lg');
+            }
+        });
+    </script>
 </body>
 </html> 
