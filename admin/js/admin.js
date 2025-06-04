@@ -50,7 +50,7 @@ class AdminPanel {
 
     initElements() {
         this.elements = {
-            sidebar: document.getElementById('adminSidebar'),
+            sidebar: document.getElementById('sidebar'),
             sidebarToggle: document.getElementById('sidebarToggle'),
             mobileSidebarToggle: document.getElementById('mobileSidebarToggle'),
             themeToggle: document.getElementById('themeToggle'),
@@ -111,6 +111,8 @@ class AdminPanel {
     }
 
     toggleSidebar() {
+        if (!this.elements.sidebar) return;
+        
         this.config.sidebarOpen = !this.config.sidebarOpen;
         
         if (this.config.sidebarOpen) {
@@ -455,7 +457,7 @@ class AdminPanel {
             this.config.sidebarOpen = savedSidebarState === 'true';
         }
         
-        if (this.config.sidebarOpen && window.innerWidth > 768) {
+        if (this.config.sidebarOpen && window.innerWidth > 768 && this.elements.sidebar) {
             this.elements.sidebar.classList.add('open');
         }
     }

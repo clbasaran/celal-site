@@ -615,4 +615,537 @@ document.addEventListener('DOMContentLoaded', () => {
 // ===== EXPORT FOR MODULE USAGE =====
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = MainApp;
-} 
+}
+
+// Main JavaScript for Component Loading and Site Functionality
+class SiteManager {
+    constructor() {
+        this.components = {
+            about: 'components/about.html',
+            skills: 'components/skills.html', 
+            projects: 'components/projects.html',
+            contact: 'components/contact.html'
+        };
+        this.currentSection = 'home';
+        this.init();
+    }
+
+    async init() {
+        await this.loadAllComponents();
+        this.setupNavigation();
+        this.setupMatrix();
+        this.setupAnimations();
+        this.hideLoadingScreen();
+    }
+
+    async loadComponent(path) {
+        try {
+            const response = await fetch(path);
+            if (response.ok) {
+                return await response.text();
+            }
+            throw new Error(`Failed to load component: ${path}`);
+        } catch (error) {
+            console.error('Error loading component:', error);
+            return '<div class="text-center text-terminal-muted">Failed to load content</div>';
+        }
+    }
+
+    async loadAllComponents() {
+        try {
+            const componentPromises = Object.entries(this.components).map(async ([name, path]) => {
+                const html = await this.loadComponent(path);
+                return { name, html };
+            });
+
+            const loadedComponents = await Promise.all(componentPromises);
+            
+            // Insert components into the main container
+            const mainContainer = document.querySelector('main') || document.body;
+            
+            loadedComponents.forEach(({ name, html }) => {
+                const container = document.createElement('div');
+                container.id = `${name}-section`;
+                container.innerHTML = html;
+                
+                // Insert after hero section but before footer
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    footer.parentNode.insertBefore(container, footer);
+                } else {
+                    mainContainer.appendChild(container);
+                }
+            });
+
+            console.log('✅ All components loaded successfully');
+        } catch (error) {
+            console.error('❌ Error loading components:', error);
+        }
+    }
+
+    setupNavigation() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // Smooth scrolling
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').slice(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active nav highlighting
+        this.updateActiveNavigation();
+        window.addEventListener('scroll', () => this.updateActiveNavigation());
+    }
+
+    updateActiveNavigation() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let current = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.clientHeight;
+            
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('text-accent');
+            link.classList.add('text-muted');
+            
+            if (link.getAttribute('href').slice(1) === current) {
+                link.classList.remove('text-muted');
+                link.classList.add('text-accent');
+            }
+        });
+    }
+
+    setupMatrix() {
+        const matrix = document.getElementById('matrix');
+        if (!matrix) return;
+
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const columns = Math.floor(window.innerWidth / 20);
+
+        // Clear existing columns
+        matrix.innerHTML = '';
+
+        for (let i = 0; i < columns; i++) {
+            const column = document.createElement('div');
+            column.className = 'matrix-column';
+            column.style.left = i * 20 + 'px';
+            column.style.animationDelay = Math.random() * 5 + 's';
+            column.style.fontSize = Math.random() * 10 + 10 + 'px';
+            
+            let text = '';
+            for (let j = 0; j < 20; j++) {
+                text += chars[Math.floor(Math.random() * chars.length)] + '<br>';
+            }
+            column.innerHTML = text;
+            
+            matrix.appendChild(column);
+        }
+    }
+
+    setupAnimations() {
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    
+                    // Animate skill progress bars
+                    const progressBars = entry.target.querySelectorAll('.skill-progress');
+                    progressBars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        if (width) {
+                            setTimeout(() => {
+                                bar.style.setProperty('--width', width + '%');
+                            }, 300);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe all terminal windows and glass cards
+        setTimeout(() => {
+            const elementsToObserve = document.querySelectorAll('.terminal-window, .glass-card');
+            elementsToObserve.forEach(el => observer.observe(el));
+        }, 1000);
+
+        // Typing effect for specific elements
+        this.initializeTypingEffects();
+    }
+
+    initializeTypingEffects() {
+        const typingElements = document.querySelectorAll('.typing-text');
+        typingElements.forEach((element, index) => {
+            setTimeout(() => {
+                this.typeWriter(element, element.textContent, 50);
+            }, index * 1000);
+        });
+    }
+
+    typeWriter(element, text, speed = 100) {
+        element.textContent = '';
+        let i = 0;
+        
+        function type() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        type();
+    }
+
+    hideLoadingScreen() {
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }
+        }, 2000);
+    }
+
+    // Utility method for form handling
+    handleContactForm() {
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(contactForm);
+                const data = Object.fromEntries(formData);
+                
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                // Loading state
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    // Success
+                    if (window.Toast) {
+                        window.Toast.show('Message sent successfully!', 'success');
+                    }
+                    
+                    contactForm.reset();
+                    
+                } catch (error) {
+                    if (window.Toast) {
+                        window.Toast.show('Failed to send message', 'error');
+                    }
+                } finally {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const siteManager = new SiteManager();
+    
+    // Handle resize for matrix effect
+    window.addEventListener('resize', () => {
+        siteManager.setupMatrix();
+    });
+    
+    // Terminal command simulation
+    document.addEventListener('keypress', (e) => {
+        if (e.key === '`' && e.ctrlKey) {
+            console.log('🚀 Terminal access granted');
+            console.log('Available commands: help, about, skills, projects, contact');
+        }
+    });
+});
+
+// Export for global access
+window.SiteManager = SiteManager;
+
+// Main Site JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize theme
+    initTheme();
+    
+    // Load dynamic content
+    loadProjects();
+    
+    // Initialize contact form
+    initContactForm();
+    
+    // Initialize scroll animations
+    initScrollAnimations();
+    
+    // Load admin-managed content if available
+    loadAdminContent();
+});
+
+// Theme Management
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) {
+        themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) {
+        themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
+
+// Load projects from admin panel or default data
+function loadProjects() {
+    // Try to load from admin panel data first
+    let projects = JSON.parse(localStorage.getItem('projects') || '[]');
+    
+    // If no admin data, use default projects
+    if (projects.length === 0) {
+        projects = getDefaultProjects();
+    }
+    
+    displayProjects(projects);
+}
+
+function getDefaultProjects() {
+    return [
+        {
+            id: 'default-1',
+            title: 'E-ticaret Platformu',
+            description: 'Modern ve kullanıcı dostu e-ticaret çözümü. React ve Node.js teknolojileri ile geliştirildi.',
+            image: 'assets/images/ecommerce-project.jpg',
+            technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
+            liveDemo: '#',
+            sourceCode: '#',
+            featured: true
+        },
+        {
+            id: 'default-2',
+            title: 'Task Management App',
+            description: 'Ekip çalışması için geliştirilmiş modern görev yönetim uygulaması.',
+            image: 'assets/images/task-app.jpg',
+            technologies: ['Vue.js', 'Firebase', 'Vuetify'],
+            liveDemo: '#',
+            sourceCode: '#',
+            featured: true
+        },
+        {
+            id: 'default-3',
+            title: 'Portfolio Website',
+            description: 'Responsive ve modern tasarım ile hazırlanmış kişisel portfolio sitesi.',
+            image: 'assets/images/portfolio.jpg',
+            technologies: ['HTML5', 'CSS3', 'JavaScript', 'SASS'],
+            liveDemo: '#',
+            sourceCode: '#',
+            featured: false
+        }
+    ];
+}
+
+function displayProjects(projects) {
+    const projectsContainer = document.getElementById('projects-container');
+    if (!projectsContainer) return;
+    
+    projectsContainer.innerHTML = '';
+    
+    projects.forEach(project => {
+        const projectCard = createProjectCard(project);
+        projectsContainer.appendChild(projectCard);
+    });
+}
+
+function createProjectCard(project) {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.innerHTML = `
+        <div class="project-image">
+            <img src="${project.image}" alt="${project.title}" onerror="this.src='assets/images/project-placeholder.jpg'">
+            <div class="project-overlay">
+                <div class="project-links">
+                    <a href="${project.liveDemo}" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i> Demo
+                    </a>
+                    <a href="${project.sourceCode}" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-github"></i> Kod
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="project-content">
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <div class="project-technologies">
+                ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+            </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Contact Form
+function initContactForm() {
+    const contactForm = document.getElementById('contact-form');
+    if (!contactForm) return;
+    
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(contactForm);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message')
+        };
+        
+        // Simulate form submission
+        showNotification('Mesajınız gönderildi! En kısa sürede size dönüş yapacağım.', 'success');
+        contactForm.reset();
+    });
+}
+
+// Scroll Animations
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements with animation classes
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Load admin-managed content
+function loadAdminContent() {
+    // Load admin settings if available
+    const adminSettings = JSON.parse(localStorage.getItem('admin-settings') || '{}');
+    
+    if (adminSettings.siteTitle) {
+        document.title = adminSettings.siteTitle;
+        const titleElements = document.querySelectorAll('.site-title');
+        titleElements.forEach(el => el.textContent = adminSettings.siteTitle);
+    }
+    
+    if (adminSettings.siteDescription) {
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.setAttribute('content', adminSettings.siteDescription);
+        }
+    }
+}
+
+// Utility Functions
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()" class="notification-close">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
+// Mobile Navigation
+function toggleMobileMenu() {
+    const mobileMenu = document.querySelector('.navbar-menu');
+    const hamburger = document.querySelector('.hamburger');
+    
+    if (mobileMenu && hamburger) {
+        mobileMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    }
+}
+
+// Smooth scroll for navigation links
+document.addEventListener('click', function(e) {
+    if (e.target.matches('a[href^="#"]')) {
+        e.preventDefault();
+        const target = document.querySelector(e.target.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+});
+
+// Admin Panel Access
+function checkAdminAccess() {
+    // Simple admin access check
+    const password = prompt('Admin paneline erişim için şifre girin:');
+    if (password === 'admin123') {
+        window.location.href = 'admin/index.html';
+    } else if (password !== null) {
+        alert('Yanlış şifre!');
+    }
+}
+
+// Export functions to global scope
+window.toggleTheme = toggleTheme;
+window.toggleMobileMenu = toggleMobileMenu;
+window.checkAdminAccess = checkAdminAccess; 

@@ -3,35 +3,35 @@ compatibility_date = "2024-01-15"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "."
 
-# Default KV Namespaces for development
-[[kv_namespaces]]
-binding = "SITE_DATA"
-id = "aa74f8e3bbab466e94f14bcc0bf0b5e2"
+# Development Environment Variables
+[vars]
+SITE_URL = "http://localhost:8080"
+ENVIRONMENT = "development"
+JWT_SECRET = "dev-jwt-secret-key-change-in-production"
 
+# Development KV Namespaces
 [[kv_namespaces]]
-binding = "ADMIN_DATA"
-id = "c445a17e3d3846609c2516e35aaf8573"
+binding = "PORTFOLIO_KV"
+id = "portfolio_kv_dev"
+preview_id = "portfolio_kv_preview"
 
-# Environment variables
+# Production Environment
 [env.production.vars]
 SITE_URL = "https://celalbasaran.com"
 ENVIRONMENT = "production"
-JWT_SECRET = "your-super-secret-jwt-key-production"
+JWT_SECRET = "your-super-secret-jwt-key-production-very-long-and-secure"
 
 # Production KV Namespaces
 [[env.production.kv_namespaces]]
-binding = "SITE_DATA"
+binding = "PORTFOLIO_KV"
 id = "aa74f8e3bbab466e94f14bcc0bf0b5e2"
 
-[[env.production.kv_namespaces]]
-binding = "ADMIN_DATA"
-id = "c445a17e3d3846609c2516e35aaf8573"
+# Production R2 Buckets for media storage
+[[env.production.r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "celalbasaran-media"
 
-# Production R2 Buckets
-# [[env.production.r2_buckets]]
-# binding = "MEDIA_BUCKET"
-# bucket_name = "celalbasaran-media"
-
+# Preview Environment
 [env.preview.vars]
 SITE_URL = "https://preview.celalbasaran.com"
 ENVIRONMENT = "preview"
@@ -39,14 +39,22 @@ JWT_SECRET = "your-super-secret-jwt-key-preview"
 
 # Preview KV Namespaces
 [[env.preview.kv_namespaces]]
-binding = "SITE_DATA"
-id = "aa74f8e3bbab466e94f14bcc0bf0b5e2"
-
-[[env.preview.kv_namespaces]]
-binding = "ADMIN_DATA"
+binding = "PORTFOLIO_KV"
 id = "c445a17e3d3846609c2516e35aaf8573"
 
 # Preview R2 Buckets
-# [[env.preview.r2_buckets]]
-# binding = "MEDIA_BUCKET"
-# preview_bucket_name = "celalbasaran-media-preview" 
+[[env.preview.r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "celalbasaran-media-preview"
+
+# Durable Objects (if needed for real-time features)
+# [[durable_objects.bindings]]
+# name = "ADMIN_SESSIONS"
+# class_name = "AdminSessionDO"
+
+# Custom domains for production
+# [env.production]
+# routes = [
+#   { pattern = "celalbasaran.com/*", zone_name = "celalbasaran.com" },
+#   { pattern = "www.celalbasaran.com/*", zone_name = "celalbasaran.com" }
+# ] 

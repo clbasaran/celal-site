@@ -654,6 +654,10 @@ a:hover {
     color: var(--danger);
 }
 
+.stat-change.neutral {
+    color: var(--gray-600);
+}
+
 .stat-change i {
     font-size: 12px;
 }
